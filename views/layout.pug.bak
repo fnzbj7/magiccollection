@@ -1,0 +1,52 @@
+doctype html
+html
+	head
+		block head
+		title= title
+		link(rel='stylesheet', href='/stylesheets/style.css')
+	body
+		div(id='containerMenu')
+			ul(class='navbar')
+				li: a(href='#') Card list
+				li: a(href='#') Card Management
+				li: a(href='#') Deck Management
+		div#container
+			div#IconCard
+				div#expansionContainer
+					img.setIcon.notActiveSet(src="images/expansionicons/HOU_SET_SYMBOL.png" data-set="HOU")
+					img.setIcon.notActiveSet(src="images/expansionicons/AKH_SET_SYMBOL.png" data-set="AKH")
+					img.setIcon.activeSet(src="images/expansionicons/AER_SET_SYMBOL.png" data-set="AER")
+					img.setIcon.notActiveSet(src="images/expansionicons/KLD_SET_SYMBOL.png" data-set="KLD")
+					img.setIcon.notActiveSet(src="images/expansionicons/EMN_SET_SYMBOL_12.png" data-set="EMN")
+					img.setIcon.notActiveSet(src="images/expansionicons/SOI_SYMBOL.png" data-set="SOI")
+					img.setIcon.notActiveSet(src="images/expansionicons/OGW_SYMBOL.png" data-set="OGW")
+					img.setIcon.notActiveSet(src="images/expansionicons/BFZ_ExpansionSymbol.png" data-set="BFZ")
+				div#fullThings
+					div.pagination
+						ul.pageList#upList
+							li.up(data-pagenum="1"): span.page.active.up 1
+							li.up(data-pagenum="2"): a.page.gradient.up 2
+							li.up(data-pagenum="3"): a.page.gradient.up 3
+							li.up(data-pagenum="4"): a.page.gradient.up 4
+							li.up(data-pagenum="5"): a.page.gradient.up 5
+							li.up(data-pagenum="6"): a.page.gradient.up 6
+							li.up(data-pagenum="7"): a.page.gradient.up 7
+							li.up(data-pagenum="8"): a.page.gradient.up 8
+							li.up(data-pagenum="9"): a.page.gradient.up 9
+					br.clear
+					div#things
+						div.nowrap
+						block content
+					br.clear
+					div.pagination
+						ul.pageList#downList
+							li.down(data-pagenum="1"): span.page.active.down 1
+							li.down(data-pagenum="2"): a.page.gradient.down 2
+							li.down(data-pagenum="3"): a.page.gradient.down 3
+							li.down(data-pagenum="4"): a.page.gradient.down 4
+							li.down(data-pagenum="5"): a.page.gradient.down 5
+							li.down(data-pagenum="6"): a.page.gradient.down 6
+							li.down(data-pagenum="7"): a.page.gradient.down 7
+							li.down(data-pagenum="8"): a.page.gradient.down 8
+							li.down(data-pagenum="9"): a.page.gradient.down 9
+	block foot
