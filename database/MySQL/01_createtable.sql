@@ -19,12 +19,11 @@ PlayerName VARCHAR(30) NOT NULL
 ); 
 
 CREATE TABLE CardAmount (
-Card_1 INT(6) UNSIGNED NOT NULL,
+Card_1 INT(3) UNSIGNED NOT NULL,
 CardExpansion_1 INT(6) UNSIGNED NOT NULL,
 Player_1 INT(6) UNSIGNED NOT NULL,
 Amount INT(2),
 PRIMARY KEY(Card_1,CardExpansion_1,Player_1),
-FOREIGN KEY (Card_1) REFERENCES Card(CardID),
 FOREIGN KEY (Player_1) REFERENCES Player(PlayerID),
 FOREIGN KEY (CardExpansion_1) REFERENCES CardExpansion(CardExpansionID)
 );
