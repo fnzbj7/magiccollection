@@ -1,22 +1,15 @@
 var express = require('express');
 var router = express.Router();
 
-var mysql = require('mysql')
-var connection = mysql.createConnection({
-  host     : 'localhost',
-  user     : 'root',
-  password : 'admin',
-  database : 'magic'
-});
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-
+	var connection = require('./db');
 	console.log(req.query.search);
 	console.log(req.query.paging);
 	var row;
 	var sqlQuery
-	var isCUC=false;
+	var isCUC=true;
 	if(isCUC){
 	sqlQuery = 'select ca.card_1, ce.CardExpansionShortName, ca.Amount, c.Rarity, c.Doubleside '+
 			'from cardamount ca '+
@@ -24,7 +17,7 @@ router.get('/', function(req, res, next) {
 			'join card c on c.CardID = ca.Card_1 and c.CardExpansion_1 = ca.CardExpansion_1 '+
 			'where ca.CardExpansion_1 = (select CardExpansionID from cardexpansion where CardExpansionShortName = ?) '+
 			'and player_1 = 1 '+
-			"and (c.Rarity != 'R' and c.Rarity != 'M')"+
+			"and (c.Rarity != 'R' and c.Rarity != 'M') "+
 			'order by ca.card_1, ce.CardExpansionShortName LIMIT 35 OFFSET ?;';
 	}else{
 		sqlQuery = 'select ca.card_1, ce.CardExpansionShortName, ca.Amount, c.Rarity, c.Doubleside '+
