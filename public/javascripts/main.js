@@ -7,7 +7,7 @@
 		var szoveg;
 		var row = 1;
 		var column = 1;
-		var pagerCount = 12;
+		var pagerCount = Math.ceil(lim/35);
 		var pagerNeedToGenerate = true;
 
 		//Prepare the images with divs and add this to #things.div
@@ -65,9 +65,14 @@
 				parentLi.html('<span class="page active down">1</span>');
 				
 				$.getJSON( '/cards',parameters, function(data) {
-					workflowData = data;
-					console.log("Data megkapva");
-					console.log(workflowData.length);
+					
+					workflowData = data[0];
+					pagerCount = Math.ceil(data[1][0].lim/35);
+					pagerNeedToGenerate = true;
+					console.log('pagerCount: ' + pagerCount);
+					console.log( data[1][0].lim);
+					//console.log("Data megkapva");
+					//console.log(workflowData.length);
 					loadPage();
 				});
 			}
@@ -78,23 +83,23 @@
 			var parameters = { search: $( "." + activeSet ).data( "set" ),
 								paging: $(clickedElement).text()};
 			
-			var wasActiveParent = $('.page.active.up').parent();
+			var wasActiveParent = $('.active.up').parent();
 			var wasActivePageNum = wasActiveParent.data("pagenum");
 			wasActiveParent.html('<a class="page gradient up">'+ wasActivePageNum +'</a>');
 			
-			wasActiveParent = $('.page.active.down').parent();
+			wasActiveParent = $('.active.down').parent();
 			wasActiveParent.html('<a class="page gradient down">'+ wasActivePageNum +'</a>');
 			
 			var parentLi = $(clickedElement).parent();
 			var pageNum = parentLi.data("pagenum");
 			
-			parentLi.html('<span class="page active '+source+'">'+ pageNum +'</span>');
+			parentLi.html('<span class="active '+source+'">'+ pageNum +'</span>');
 			
 			parentLi = $('li[data-pagenum="' + pageNum +'"].' + target)
-			parentLi.html('<span class="page active '+target+'">'+ pageNum +'</span>');
+			parentLi.html('<span class="active '+target+'">'+ pageNum +'</span>');
 								
 			$.getJSON( '/cards',parameters, function(data) {
-				workflowData = data;
+				workflowData = data[0];
 				console.log("Data megkapva");
 				console.log(workflowData.length);
 				loadPage();

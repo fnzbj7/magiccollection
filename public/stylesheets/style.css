@@ -11,7 +11,7 @@ article, aside, canvas, details, embed,
 figure, figcaption, footer, header, hgroup,
 menu, nav, output, ruby, section, summary,
 time, mark, audio, video {
-	margin: 0;
+	margin: auto;
 	padding: 0;
 	border: 0;
 	font-size: 100%;
@@ -104,8 +104,9 @@ body{
 }
 
 #IconCard{
- width: 1740px;
+ width: 97%;
  margin: auto;
+ min-width: 700px;
 }
 
 #expansionContainer{
@@ -133,13 +134,15 @@ body{
 }
 
 #fullThings{
-	width: 1610px;
+	width: 88%;
 	padding-left: 10px;
 	padding-right: 10px;
 	padding-top: 10px;
 	background-color: #FFF;
-	float: right;
+	float: left;
 	margin-bottom: 20px;
+	min-width: 600px;
+	margin-left: 10px;
 }
 
 .magiccard{
@@ -215,7 +218,7 @@ body{
 	margin-bottom: 30px;
 }
 
-.page {
+.page, .active {
     display: inline-block;
     padding: 0px 9px;
     margin-right: 4px;
@@ -238,7 +241,7 @@ body{
 	cursor:pointer;
 }
 
-.page.active {
+.active {
     border: none;
     background: #616161;
     box-shadow: inset 0px 0px 8px rgba(0,0,0, .5), 0px 1px 0px rgba(255,255,255, .8);
