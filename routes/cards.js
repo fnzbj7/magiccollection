@@ -9,7 +9,7 @@ router.get('/', function(req, res, next) {
 	console.log(req.query.paging);
 	var row;
 	var sqlQuery
-	var isCUC=true;
+	var isCUC=false;
 	if(isCUC){
 	sqlQuery = 'select ca.card_1, ce.CardExpansionShortName, ca.Amount, c.Rarity, c.Doubleside '+
 			'from cardamount ca '+
@@ -27,14 +27,14 @@ router.get('/', function(req, res, next) {
 			'where ca.CardExpansion_1 = (select CardExpansionID from cardexpansion where CardExpansionShortName = ?) '+
 			'and player_1 = 1 '+
 			'order by ca.card_1, ce.CardExpansionShortName LIMIT 35 OFFSET ?;';
-		
 	}
-	connection.query(sqlQuery, [ req.query.search, (req.query.paging - 1 )* 35], function (err, rows, fields) {
+	
+	sqlQuery += 'Select count(*) as lim from card ca where CardExpansion_1 = (select CardExpansionID from cardexpansion where CardExpansionShortName = ?);';
+	connection.query(sqlQuery, [ req.query.search, (req.query.paging - 1 )* 35, req.query.search], function (err, rows, fields) {
 		
 		if (err) throw err
-		row = rows
-		console.log(row.length);
-		res.send(JSON.stringify(row));
+		row = rows[0]
+		res.send( JSON.stringify([row, rows[1]]));
 		
 	});
 
