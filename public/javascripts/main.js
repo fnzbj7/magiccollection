@@ -24,6 +24,8 @@
 			szoveg += '<li class="nowrap" style="width: 217px;"></li>';
 			szoveg += '<li class="nowrap" style="width: 217px;"></li>';
 			szoveg += '<li class="nowrap" style="width: 217px;"></li>';
+			szoveg += '<li class="nowrap" style="width: 217px;"></li>';
+			szoveg += '<li class="nowrap" style="width: 217px;"></li>';
 			
 			if(pagerNeedToGenerate){
 				createPaging('up');
