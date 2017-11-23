@@ -143,6 +143,14 @@ body{
 	margin-bottom: 20px;
 	min-width: 600px;
 	margin-left: 10px;
+	display: flex;
+	flex-direction: column;
+}
+
+#things{
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
 }
 
 .magiccard{
@@ -212,7 +220,6 @@ body{
 .pagination {
     padding: 20px;
 	font: 14px/24px sans-serif;
-	width: 550px;
 	margin: auto;
 	margin-bottom: 20px;
 	margin-bottom: 30px;

@@ -18,12 +18,12 @@
 				console.log(val.Doubleside);
 				szoveg += createImg(val.card_1, val.CardExpansionShortName, cardWidthB +'px', val.Amount, row, column, val.Doubleside);
 				column++;
-				if(column > maxcolumn){
-					row++;
-					column = 1;
-					szoveg += "<br>\n";
-				}
 			});
+			
+			szoveg += '<li class="nowrap" style="width: 217px;"></li>';
+			szoveg += '<li class="nowrap" style="width: 217px;"></li>';
+			szoveg += '<li class="nowrap" style="width: 217px;"></li>';
+			szoveg += '<li class="nowrap" style="width: 217px;"></li>';
 			
 			if(pagerNeedToGenerate){
 				createPaging('up');
@@ -153,7 +153,7 @@
 		function createImg(cardNr,cardtype,cardWidthA,amount,row,column,doubleSide){
 			var cardBox; //TODO átnevezni
 			
-			cardBox = '<div id="test'+ row + column +'" class="nowrap" style=" width: '+cardWidthA+';height: 306px;">';
+			cardBox = '<li id="test'+ row + column +'" class="nowrap" style="width: '+cardWidthA+';height: 306px;">';
 			//cardBox += '<img class="zoomIcon" src="images/misc/zoomGlass.png">';
 			if(doubleSide != 1){
 				cardBox += getAmountIcon(amount);
@@ -180,7 +180,7 @@
 				cardBox +='</div>';
 				cardBox +='</div>';				
 			}
-			cardBox += '</div>';
+			cardBox += '</li>';
 			return cardBox;
 		}
 
