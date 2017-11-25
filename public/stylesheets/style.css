@@ -106,13 +106,16 @@ body{
 #IconCard{
  width: 97%;
  margin: auto;
- min-width: 700px;
+
+ display: flex;
 }
 
 #expansionContainer{
 	width: 80px;
 	background-color: #EEE;
 	float: left;
+	margin: 0px;
+	display: inline-table;
 }
 
 #expansionContainer img:hover:not(.activeSet){
@@ -141,7 +144,7 @@ body{
 	background-color: #FFF;
 	float: left;
 	margin-bottom: 20px;
-	min-width: 600px;
+
 	margin-left: 10px;
 	display: flex;
 	flex-direction: column;
