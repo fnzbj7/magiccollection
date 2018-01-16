@@ -201,4 +201,5 @@ INSERT INTO card (CardID,CardExpansion_1, CardName, Rarity, Doubleside) VALUES(2
 INSERT INTO card (CardID,CardExpansion_1, CardName, Rarity, Doubleside) VALUES(201,(select cardexpansionid from cardexpansion where CardExpansionShortName ='EMN'),'Terrarion','C','0');
 INSERT INTO card (CardID,CardExpansion_1, CardName, Rarity, Doubleside) VALUES(202,(select cardexpansionid from cardexpansion where CardExpansionShortName ='EMN'),'Thirsting Axe','U','0');
 INSERT INTO card (CardID,CardExpansion_1, CardName, Rarity, Doubleside) VALUES(203,(select cardexpansionid from cardexpansion where CardExpansionShortName ='EMN'),'Geier Reach Sanitarium','R','0');
+INSERT INTO card (CardID,CardExpansion_1, CardName, Rarity, Doubleside) VALUES(205,(select cardexpansionid from cardexpansion where CardExpansionShortName ='EMN'),'Hanweir Battlements','R','1');
 INSERT INTO card (CardID,CardExpansion_1, CardName, Rarity, Doubleside) VALUES(205,(select cardexpansionid from cardexpansion where CardExpansionShortName ='EMN'),'Nephalia Academy','U','0');
