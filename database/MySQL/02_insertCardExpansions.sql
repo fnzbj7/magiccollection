@@ -1,3 +1,4 @@
+INSERT INTO CardExpansion (CardExpansionName,CardExpansionShortName) values('Rivals of Ixalan','DOM');
 INSERT INTO CardExpansion (CardExpansionName,CardExpansionShortName) values('Rivals of Ixalan','RIX');
 INSERT INTO CardExpansion (CardExpansionName,CardExpansionShortName) values('Ixalan','XLN');
 INSERT INTO CardExpansion (CardExpansionName,CardExpansionShortName) values('Hour of Devastation','HOU');
