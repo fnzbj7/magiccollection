@@ -1,3 +1,5 @@
+INSERT INTO CardExpansion (CardExpansionName,CardExpansionShortName) values('Hour of Devastation','HOU');
+
 INSERT INTO card (CardID,CardExpansion_1, CardName, Rarity, Doubleside) VALUES(1,(select cardexpansionid from cardexpansion where CardExpansionShortName ='HOU'),'Act of Heroism','C','0');
 INSERT INTO card (CardID,CardExpansion_1, CardName, Rarity, Doubleside) VALUES(2,(select cardexpansionid from cardexpansion where CardExpansionShortName ='HOU'),'Adorned Pouncer','R','0');
 INSERT INTO card (CardID,CardExpansion_1, CardName, Rarity, Doubleside) VALUES(3,(select cardexpansionid from cardexpansion where CardExpansionShortName ='HOU'),'Angel of Condemnation','R','0');
