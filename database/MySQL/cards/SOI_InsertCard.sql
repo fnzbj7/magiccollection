@@ -1,3 +1,5 @@
+INSERT INTO CardExpansion (CardExpansionName,CardExpansionShortName) values('Shadows over Innistrad','SOI');
+
 INSERT INTO card (CardID,CardExpansion_1, CardName, Rarity, Doubleside) VALUES(1,(select cardexpansionid from cardexpansion where CardExpansionShortName ='SOI'),'Always Watching','R','0');
 INSERT INTO card (CardID,CardExpansion_1, CardName, Rarity, Doubleside) VALUES(2,(select cardexpansionid from cardexpansion where CardExpansionShortName ='SOI'),'Angel of Deliverance','R','0');
 INSERT INTO card (CardID,CardExpansion_1, CardName, Rarity, Doubleside) VALUES(3,(select cardexpansionid from cardexpansion where CardExpansionShortName ='SOI'),'Angelic Purge','C','0');

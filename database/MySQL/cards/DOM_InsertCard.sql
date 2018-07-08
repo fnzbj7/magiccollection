@@ -1,3 +1,5 @@
+INSERT INTO CardExpansion (CardExpansionName,CardExpansionShortName) values('Dominaria','DOM');
+
 INSERT INTO card (CardID,CardExpansion_1, CardName, Rarity, Doubleside) VALUES(1,(select cardexpansionid from cardexpansion where CardExpansionShortName ='DOM'),'Karn, Scion of Urza','M','0');
 INSERT INTO card (CardID,CardExpansion_1, CardName, Rarity, Doubleside) VALUES(2,(select cardexpansionid from cardexpansion where CardExpansionShortName ='DOM'),'Adamant Will','C','0');
 INSERT INTO card (CardID,CardExpansion_1, CardName, Rarity, Doubleside) VALUES(3,(select cardexpansionid from cardexpansion where CardExpansionShortName ='DOM'),'Aven Sentry','C','0');

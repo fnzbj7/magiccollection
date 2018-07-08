@@ -1,3 +1,5 @@
+INSERT INTO CardExpansion (CardExpansionName,CardExpansionShortName) values('Eldritch Moon','EMN');
+
 INSERT INTO card (CardID,CardExpansion_1, CardName, Rarity, Doubleside) VALUES(1,(select cardexpansionid from cardexpansion where CardExpansionShortName ='EMN'),'Abundant Maw','U','0');
 INSERT INTO card (CardID,CardExpansion_1, CardName, Rarity, Doubleside) VALUES(2,(select cardexpansionid from cardexpansion where CardExpansionShortName ='EMN'),'Decimator of the Provinces','M','0');
 INSERT INTO card (CardID,CardExpansion_1, CardName, Rarity, Doubleside) VALUES(3,(select cardexpansionid from cardexpansion where CardExpansionShortName ='EMN'),'Distended Mindbender','R','0');

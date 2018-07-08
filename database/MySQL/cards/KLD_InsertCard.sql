@@ -1,3 +1,5 @@
+INSERT INTO CardExpansion (CardExpansionName,CardExpansionShortName) values('Kaladesh','KLD');
+
 INSERT INTO card (CardID,CardExpansion_1, CardName, Rarity, Doubleside) VALUES(1,(select cardexpansionid from cardexpansion where CardExpansionShortName ='KLD'),'Acrobatic Maneuver','C','0');
 INSERT INTO card (CardID,CardExpansion_1, CardName, Rarity, Doubleside) VALUES(2,(select cardexpansionid from cardexpansion where CardExpansionShortName ='KLD'),'Aerial Responder','U','0');
 INSERT INTO card (CardID,CardExpansion_1, CardName, Rarity, Doubleside) VALUES(3,(select cardexpansionid from cardexpansion where CardExpansionShortName ='KLD'),'Aetherstorm Roc','R','0');
