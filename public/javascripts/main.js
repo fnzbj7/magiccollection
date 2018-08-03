@@ -167,7 +167,7 @@
 				cardNr = '0' + cardNr;
 			}
 			if(doubleSide != 1){
-				cardBox += '<img class="' + getClasses(amount) + '" src="images/cards/' + cardtype + '/' + cardtype + '_' + cardNr + '.png">';
+				cardBox += '<img class="' + getClasses(amount) + '" src="images/cards/' + cardtype + '/' + cardtype + '_' + cardNr + '.png" title="'+ cardNr +'">';
 			}else{
 				cardBox +='<div id="flip-toggle' + cardNr + '" class="flip-container">';
 				cardBox +='<div class="flipper">';
