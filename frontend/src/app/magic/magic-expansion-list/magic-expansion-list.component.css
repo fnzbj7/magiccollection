@@ -1,0 +1,9 @@
+#expansionContainer {
+
+    width: 80px;
+    background-color: #EEE;
+    float: left;
+    margin: 0px;
+    display: inline-table;
+
+}

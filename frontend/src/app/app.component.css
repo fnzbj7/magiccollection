@@ -1,0 +1,14 @@
+#IconCard {
+    width: 97%;
+    margin: auto;
+    display: flex;
+}
+
+#container {
+
+    width: 100%;
+    padding-top: 120px;
+    padding-right: 0;
+    padding-left: 0;
+    min-width: 850px;
+}
