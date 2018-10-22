@@ -1,17 +1,24 @@
 var mysql = require('mysql');
-var dbconfig = {
-  multipleStatements: true,
-  host     : 'localhost',
-  user     : 'root',
-  password : 'admin',
-  database : 'magic'
-};
+var dbconfig = require("./dbconfig");
+/* Create a dbconfig.json file next to this file, and contain something like this:
+
+{
+	"db": {
+	  "multipleStatements": "true",
+	  "host"     : "localhost",
+	  "user"     : "root",
+	  "password" : "admin",
+	  "database" : "magic"
+	}
+}
+
+*/
 
 var connection;
 
 function handleDisconnect() {
 
-connection = mysql.createConnection(dbconfig);
+connection = mysql.createConnection(dbconfig.db);
 
   connection.connect(function(err) {              
     if(err) {
