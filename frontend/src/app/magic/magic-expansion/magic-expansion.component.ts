@@ -12,7 +12,6 @@ export class MagicExpansionComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    //this.expansionName = 'AER_SET_SYMBOL.png';
   }
 
 }
