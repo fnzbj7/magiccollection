@@ -1,8 +1,35 @@
-<li class="nowrap" style="width: 217px;height: 306px;">
-    <img 
-        class="magiccard" 
-        src="assets/img/cards/{{magicCard.cardExpansion}}/{{magicCard.cardExpansion}}_{{magicCard.cardNumber}}.png" 
-        alt="" 
-        title="{{magicCard.cardNumber}}"
-        appMagicCardAmount="{{magicCard.cardAmount}}">
+<li class="nowrap" style="width: 217px;height: 306px;" [ngSwitch]="magicCard.doubleside">
+
+    <!-- Normal cards -->
+    <img
+      *ngSwitchCase="'0'"
+      class="magiccard"
+      src="assets/img/cards/{{magicCard.cardExpansion}}/{{magicCard.cardExpansion}}_{{magicCard.cardNumber}}.png"
+      alt=""
+      title="{{magicCard.cardNumber}}"
+      appMagicCardAmount="{{magicCard.cardAmount}}">
+
+    <!-- Double Side cards -->
+    <div class="flip-container" [ngClass]="flipClass ? 'hover' : ''" *ngSwitchCase="'1'" #flipperContainer>
+      <div class="flipper">
+        <div class="front">
+          <img
+          class="magiccard"
+          title="{{magicCard.cardNumber}}"
+          src="assets/img/cards/{{magicCard.cardExpansion}}/{{magicCard.cardExpansion}}_{{magicCard.cardNumber}}.png"
+          appMagicCardAmount="{{magicCard.cardAmount}}"
+          (click)="flipClass = true;">
+        </div>
+        <div class="back">
+            <img
+            class="magiccard"
+            title="{{magicCard.cardNumber}}"
+            src="assets/img/cards/{{magicCard.cardExpansion}}/{{magicCard.cardExpansion}}_{{magicCard.cardNumber}}_F.png"
+            appMagicCardAmount="{{magicCard.cardAmount}}"
+            (click)="flipClass = false;">
+        </div>
+      </div>
+    </div>
+
+    <p *ngSwitchDefault>No cards</p>
 </li>

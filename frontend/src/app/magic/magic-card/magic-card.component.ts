@@ -10,11 +10,12 @@ import { Card } from '../../model/card.model';
 export class MagicCardComponent implements OnInit {
 
   @Input() magicCard: Card;
+  flipClass = false;
 
   constructor() { }
 
   ngOnInit() {
-    
+
   }
 
 }
