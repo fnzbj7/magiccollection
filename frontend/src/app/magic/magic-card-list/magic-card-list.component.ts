@@ -27,9 +27,8 @@ export class MagicCardListComponent implements OnInit {
             this.amountInputRef.pageChange.emit(1);
           }
         );
-        
       }
-    );    
+    );
   }
 
 }
