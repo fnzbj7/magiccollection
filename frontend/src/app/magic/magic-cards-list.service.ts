@@ -1,8 +1,8 @@
-import { Card } from "../model/card.model";
-import { Injectable } from "@angular/core";
-import { HttpClient } from "@angular/common/http";
-import { Observable } from "rxjs/Observable";
-import { MainUrlService } from "../shared/main-url.services";
+import { Card } from '../model/card.model';
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { MainUrlService } from '../shared/main-url.services';
+import { Observable } from 'rxjs';
 
 @Injectable()
 export class MagicCardsListService {

@@ -10,7 +10,7 @@ import { MagicExpansionListComponent } from './magic/magic-expansion-list/magic-
 import { MagicCardsListService } from './magic/magic-cards-list.service';
 import { MagicCardComponent } from './magic/magic-card/magic-card.component';
 import { AppRoutingModule } from './app-routing.module';
-import {NgxPaginationModule} from 'ngx-pagination';
+import { NgxPaginationModule } from 'ngx-pagination';
 import { HeaderComponent } from './header/header.component';
 import { MagicCardAmountDirective } from './magic/magic-card/magic-card-amount.directive';
 import { MainUrlService } from './shared/main-url.services';

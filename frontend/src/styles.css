@@ -1,18 +1,1 @@
-html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {
-
-    margin: auto;
-        margin-left: auto;
-    padding: 0;
-    border: 0;
-    font-size: 100%;
-    font: inherit;
-    vertical-align: baseline;
-
-}
-
-body {
-    background-image: url("/assets/background/pexels-photo-268959.jpeg");
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-    background-position: top;
-}
+/* You can add global styles to this file, and also import other style files */
