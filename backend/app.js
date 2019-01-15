@@ -31,6 +31,9 @@ app.use('/', index);
 app.use('/users', users);
 app.use('/cards', cards);
 app.use('/allcardsfromset', allcardsfromset);
+app.use((req, res, next) => {
+	res.sendFile(path.join("dist", "magiccollection","index.html"));
+});
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
