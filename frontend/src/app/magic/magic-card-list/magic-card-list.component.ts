@@ -11,6 +11,7 @@ import { PaginationControlsComponent } from 'ngx-pagination';
 })
 export class MagicCardListComponent implements OnInit {
 
+  p = 1;
   cardsArray: Card[];
   expansion: string;
   @ViewChild('page') amountInputRef: PaginationControlsComponent;
