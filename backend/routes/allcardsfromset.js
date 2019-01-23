@@ -5,7 +5,6 @@ var router = express.Router();
 /* GET home page. */
 router.get('/', function(req, res, next) {
 	var connection = require('./db');
-	console.log(req.query.search);
 	var row;
 	var sqlQuery = 'select ce.CardExpansionShortName cardExpansion, LPAD(ca.card_1,3,0) cardNumber, ca.Amount cardAmount, c.Doubleside doubleside '+
 			'from cardamount ca '+
@@ -16,13 +15,13 @@ router.get('/', function(req, res, next) {
 			'order by ca.card_1, ce.CardExpansionShortName;';
 
 	
-	connection.query(sqlQuery, [ req.query.search],(err, rows, fields) => {
-		
-		if (err) throw err
-		res.send( JSON.stringify(rows));
-		
-	});
-
+	connection.query(sqlQuery, [ req.query.search], function(err, results){
+		//console.log(results);
+		res.json(results);
+	})
+	
+		  
+		  
 });
 
 module.exports = router;
