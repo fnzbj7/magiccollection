@@ -105,8 +105,12 @@ pagination-controls.my-pagination /deep/ pagination-template ul.ngx-pagination l
 }
 
 pagination-controls.my-pagination /deep/ pagination-template ul.ngx-pagination li.current {
-  padding-bottom: 1px;
   padding-right: 2px;
+}
+
+pagination-controls.my-pagination /deep/ pagination-template ul.ngx-pagination li:not(.current) {
+  margin-bottom: 1em;
+  height: 25px;
 }
 
 pagination-controls.my-pagination {
