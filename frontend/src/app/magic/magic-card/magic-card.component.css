@@ -1,3 +1,8 @@
+.magiccard_li{
+  width: 108px;
+  height: 153px;
+}
+
 .magiccard {
 
     width: 100%;
@@ -34,12 +39,12 @@
 }
 
 .nowrap:hover > .nothave, .flipper:hover > .front .nothave, .flipper:hover > .back .nothave {
-
-    -webkit-transition: opacity 0.07s ease-in-out;
-    -moz-transition: opacity 0.07s ease-in-out;
-    -ms-transition: opacity 0.07s ease-in-out;
-    -o-transition: opacity 0.07s ease-in-out;
-    opacity: 1;
+  transition: opacity 0.07s ease-in-out;
+  -webkit-transition: opacity 0.07s ease-in-out;
+  -moz-transition: opacity 0.07s ease-in-out;
+  -ms-transition: opacity 0.07s ease-in-out;
+  -o-transition: opacity 0.07s ease-in-out;
+  opacity: 1;
 
 }
 
@@ -79,3 +84,20 @@
   left: 0;
 
 }
+
+/* Small devices (landscape phones, 576px and up)*/
+@media (min-width: 576px) {
+  .magiccard_li{
+    width: 217px;
+    height: 306px;
+  }
+ }
+
+/* Medium devices (tablets, 768px and up)*/
+@media (min-width: 768px) {  }
+
+/* Large devices (desktops, 992px and up)*/
+@media (min-width: 992px) {  }
+
+/* Extra large devices (large desktops, 1200px and up)*/
+@media (min-width: 1200px) {  }

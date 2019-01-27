@@ -80,9 +80,6 @@ ol,ul{
     padding-right: 10px;
     padding-top: 10px;
     background-color: #FFF;
-    float: left;
-    margin-bottom: 20px;
-    margin-left: 10px;
     display: flex;
     flex-direction: column;
 }
@@ -94,4 +91,25 @@ ol,ul{
     float: left;
     margin: 5px 3px;
 
+}
+
+@media screen and (max-width: 575px){
+  pagination-controls.my-pagination /deep/ pagination-template ul.ngx-pagination li {
+    margin-right: 2px;
+  }
+
+}
+
+pagination-controls.my-pagination /deep/ pagination-template ul.ngx-pagination li {
+  margin-bottom: 1em;
+}
+
+pagination-controls.my-pagination /deep/ pagination-template ul.ngx-pagination li.current {
+  padding-bottom: 1px;
+  padding-right: 2px;
+}
+
+pagination-controls.my-pagination {
+  padding-bottom: 0;
+  margin-bottom: 0;
 }

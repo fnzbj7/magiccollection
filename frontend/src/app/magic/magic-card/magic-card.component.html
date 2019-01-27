@@ -1,4 +1,4 @@
-<li class="nowrap" style="width: 217px;height: 306px;" [ngSwitch]="magicCard.doubleside">
+<li class="nowrap magiccard_li" [ngSwitch]="magicCard.doubleside">
 
     <!-- Normal cards -->
     <img
@@ -6,8 +6,8 @@
       class="magiccard"
       src="assets/img/cards/{{magicCard.cardExpansion}}/{{magicCard.cardExpansion}}_{{magicCard.cardNumber}}.png"
       alt=""
-      title="{{magicCard.cardNumber}}"
-      appMagicCardAmount="{{magicCard.cardAmount}}">
+      [title]="magicCard.cardNumber"
+      [appMagicCardAmount]="magicCard.cardAmount">
 
     <!-- Double Side cards -->
     <div class="flip-container" [ngClass]="flipClass ? 'hover' : ''" *ngSwitchCase="'1'" #flipperContainer>
@@ -17,6 +17,7 @@
           class="magiccard"
           title="{{magicCard.cardNumber}}"
           src="assets/img/cards/{{magicCard.cardExpansion}}/{{magicCard.cardExpansion}}_{{magicCard.cardNumber}}.png"
+          srcset="medium.jpg 600w, large.jpg 2000w"
           appMagicCardAmount="{{magicCard.cardAmount}}"
           (click)="flipClass = true;">
         </div>
