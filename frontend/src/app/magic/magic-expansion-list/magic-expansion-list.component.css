@@ -1,9 +1,41 @@
 #expansionContainer {
-
+    position: relative;
     width: 80px;
     background-color: #EEE;
     float: left;
     margin: 0px;
     display: inline-table;
-
+  z-index: 50;
 }
+
+#open-arrow {
+  display: none;
+}
+
+
+@media (max-width: 575px){
+  #expansionContainer {
+    position: absolute;
+    left: -80px;
+    transition: 0.5s;
+  }
+
+  #expansionContainer.open {
+    transition: 0.5s;
+    left: 0;
+  }
+
+  #open-arrow {
+    display: block;
+    position: absolute;
+    left: 80px;
+    background-color: white;
+    /* writing-mode: vertical-rl;
+    text-orientation: mixed; */
+    writing-mode: vertical-rl;
+    text-orientation: upright;
+  }
+}
+
+
+
