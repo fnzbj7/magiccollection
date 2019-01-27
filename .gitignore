@@ -4,3 +4,4 @@ dbconfig.json
 main-url.services.ts
 *.vscode
 backend/dist/
+*yarn.lock
