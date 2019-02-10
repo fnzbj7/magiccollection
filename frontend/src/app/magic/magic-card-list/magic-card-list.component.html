@@ -1,7 +1,7 @@
 <div id="fullThings" class="mx-auto">
-  <pagination-controls class="my-pagination" maxSize="20" directionLinks="false" (pageChange)="p = $event" #page></pagination-controls>
+  <pagination-controls class="my-pagination" maxSize="20" directionLinks="false" (pageChange)="onPageChange($event)" #page></pagination-controls>
   <ul id="things" class="px-0">
-    <app-magic-card [magicCard]="card" *ngFor="let card of cardsArray | paginate: { itemsPerPage: 35, currentPage: p }"></app-magic-card>
+    <app-magic-card [magicCard]="card" *ngFor="let card of cardsArray | paginate: { itemsPerPage: itemsPerPage, currentPage: currentPage }"></app-magic-card>
     <!-- Fake Cards -->
     <li class="nowrap" style="width: 217px;"></li>
     <li class="nowrap" style="width: 217px;"></li>
@@ -12,5 +12,5 @@
     <li class="nowrap" style="width: 217px;"></li>
     <li class="nowrap" style="width: 217px;"></li>
   </ul>
-  <pagination-controls class="my-pagination" maxSize="20" directionLinks="false" (pageChange)="p = $event"></pagination-controls>
+  <pagination-controls class="my-pagination" maxSize="20" directionLinks="false" (pageChange)="onPageChange($event)"></pagination-controls>
 </div>
