@@ -1,0 +1,24 @@
+<div class="container bg-dark">
+  <div class="row">
+    <div class="col px-0" *ngFor="let day of daysArray">
+      <div class="card">
+        <div class="card-body px-1 text-center font-weight-bold bg-dark text-white">
+          {{day}}
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <ng-container *ngFor="let element of exampleNumber; let i = index">
+      <div class="col px-0" style="margin: 2px;">
+        <div class="card h-100">
+          <div class="card-body px-1 py-1">
+            <app-calendar-element></app-calendar-element>
+            <app-calendar-element *ngIf="i % 7 == 6 || i % 7 == 3"></app-calendar-element>
+            <app-calendar-element *ngIf="i*i % 7 == 1 || i*i % 7 == 3"></app-calendar-element>
+          </div>
+        </div>
+      </div>
+      <div *ngIf="i % 7 == 6" class="w-100"></div>
+    </ng-container>
+</div>
