@@ -30,7 +30,7 @@ import { MainUrlService } from './shared/main-url.services';
   imports: [
     BrowserModule,
     HttpClientModule,
-    NgbModule.forRoot(),
+    NgbModule,
     AppRoutingModule,
     NgxPaginationModule
   ],

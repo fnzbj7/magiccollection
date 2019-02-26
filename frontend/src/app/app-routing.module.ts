@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { MagicCardListComponent } from './magic/magic-card-list/magic-card-list.component';
 
 const appRoute: Routes = [
+    { path: 'calendar', loadChildren: './calendar/calendar.module#CalendarModule'},
     { path: ':expansion', component: MagicCardListComponent},
 ];
 
