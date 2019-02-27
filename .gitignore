@@ -5,3 +5,4 @@ main-url.services.ts
 *.vscode
 backend/dist/
 *yarn.lock
+backend/supervisor
