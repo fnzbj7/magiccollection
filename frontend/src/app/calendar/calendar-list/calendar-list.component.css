@@ -9,9 +9,10 @@
 
 }
 
+/*
 .navigate-arrow-calendar.ng-fa-icon:active {
-  margin-top: 1px;
-}
+  padding-top: 1px; Baszódjon meg a hover....
+}*/
 
 .noselect {
   -webkit-touch-callout: none; /* iOS Safari */

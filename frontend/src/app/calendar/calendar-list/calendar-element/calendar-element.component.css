@@ -1,0 +1,42 @@
+.pointer {
+  cursor: pointer;
+}
+
+.elipsis {
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.calendar-event {
+  width: 100%;
+}
+
+@media (min-width: 576px) {
+  .calendar-event {
+    width: 63px;
+  }
+  .elipsis {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+ }
+
+ @media (min-width: 768px) {
+  .calendar-event {
+    width: 88px;
+  }
+
+ }
+
+ @media (min-width: 992px) {
+    .calendar-event {
+      width: 123px;
+    }
+  }
+
+ @media (min-width: 1200px) {
+  .calendar-event {
+    width: 148px;
+  }
+}

@@ -1,1 +1,5 @@
-<div class="badge badge-info w-100">Üzenet</div>
+<div
+  class="badge pointer elipsis calendar-event"
+  (click)="onSelectCalendarEvent()"
+  [ngClass]="{ 'badge-info' : !isSelected, 'badge-danger' : isSelected } ">
+  <span>{{calendarEvent.hour}}:{{calendarEvent.minute}}</span> <span class="d-none d-sm-inline"> {{calendarEvent.title}}</span></div>
