@@ -10,7 +10,14 @@ import { CalendarDay } from './model/calendar-day.model';
 export class CalendarListComponent implements OnInit {
 
   calendarDayList: CalendarDay[] = [];
-  daysArray = ['Monday', 'Thursday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+  daysArray = [{long: 'Hétfő', short: 'H'},
+              {long: 'Kedd', short: 'K'},
+              {long: 'Szerda', short: 'SZ'},
+              {long: 'Csütörtök', short: 'CS'},
+              {long: 'Péntek', short: 'P'},
+              {long: 'Szombat', short: 'SZ'},
+              {long: 'Vasárnap', short: 'V'}];
+  //daysArray = ['Monday', 'Thursday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
   monthNameArray = ['Január', 'Február', 'Március', 'Április', 'Május',
                 'Június', 'Július', 'Augusztus', 'Szeptember', 'Október', 'November', 'December'];
   currentDate = new Date();
@@ -24,18 +31,16 @@ export class CalendarListComponent implements OnInit {
   }
 
   initCalendar(relativeDate: Date) {
-    console.log('---------------------------');
     const tmpCalendarDayList: CalendarDay[] = [];
 
     const copyDate = new Date(relativeDate);
     copyDate.setUTCDate(1);
 
     let num = copyDate.getUTCDay();
-    if(num === 0) {
+    if (num === 0) {
       num = 7;
     }
-    console.log(copyDate);
-    console.log('Type of day: ' + num);
+
     const previousMonth = new Date(copyDate.getTime());
 
     previousMonth.setUTCDate(0);
@@ -46,7 +51,7 @@ export class CalendarListComponent implements OnInit {
       testCalendar.calendarEventList =
             this.calendarService.getCalendarValue(
               previousMonth.getFullYear(),
-              previousMonth.getMonth() + 1,
+              previousMonth.getMonth(),
               i + previousMonth.getUTCDate() - (num - 1)
             );
       testCalendar.day = i + previousMonth.getUTCDate() - (num - 1);
@@ -65,12 +70,21 @@ export class CalendarListComponent implements OnInit {
     }
 
     // After
-    const actualMonthLastDayType = new Date( copyDate.getFullYear(), copyDate.getMonth() + 1, 0).getUTCDay();
-
+    const actualMonth = new Date( copyDate.getFullYear(), copyDate.getMonth() + 1, 0);
+    const actualMonthLastDayType = actualMonth.getUTCDay();
+    let year = actualMonth.getFullYear();
+    let month = actualMonth.getMonth();
+    if (month  === 11) {
+      month = 1;
+      year++;
+    } else {
+      month += 2;
+    }
     for (let i = 1; i <= (6 - actualMonthLastDayType); i++) {
 
       const testCalendar = new CalendarDay();
-      testCalendar.calendarEventList = this.calendarService.getCalendarValue(2019, 2, i);
+
+      testCalendar.calendarEventList = this.calendarService.getCalendarValue(year, month, i);
       testCalendar.day = i;
       testCalendar.isOffMonth = true;
       tmpCalendarDayList.push(testCalendar);

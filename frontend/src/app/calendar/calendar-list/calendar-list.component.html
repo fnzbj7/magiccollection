@@ -19,8 +19,11 @@
   <div class="row">
     <div class="col px-0" *ngFor="let day of daysArray">
       <div class="card">
-        <div class="card-body p-1 text-center font-weight-bold bg-dark text-white">
-          {{day}}
+        <div class="card-body p-1 text-center font-weight-bold bg-dark text-white d-none d-sm-block">
+          {{day.long}}
+        </div>
+        <div class="card-body p-1 text-center font-weight-bold bg-dark text-white d-block d-sm-none">
+          {{day.short}}
         </div>
       </div>
     </div>
@@ -29,9 +32,9 @@
     <ng-container *ngFor="let element of calendarDayList; let i = index">
       <div class="col px-0" style="margin: 2px;">
         <div class="card h-100" [ngClass]="{'bg-secondary' : element.isOffMonth}">
-          <div class="card-body px-1 py-1"  style="min-height: 77px">
+          <div class="card-body px-0 px-sm-1 py-1"  style="min-height: 77px">
             <div><p class="text-right mb-0" style="font-size: 14px;">{{element.day}}</p></div>
-            <app-calendar-element *ngFor="let e of element.calendarEventList"></app-calendar-element>
+            <app-calendar-element [calendarEvent]="e" *ngFor="let e of element.calendarEventList"></app-calendar-element>
           </div>
         </div>
       </div>
