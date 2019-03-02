@@ -29,7 +29,10 @@ router.get('/', function(req, res, next) {
 	sqlQuery += "Select count(*) as lim from card ca where CardExpansion_1 = (select CardExpansionID from cardexpansion where CardExpansionShortName = 'AER')";
 	connection.query( sqlQuery , function (err, rows, fields) {
 		
-		if (err) throw err;
+		if (err){
+			console.error(err);
+			//throw err
+		}
 		row = rows[0]
 		var cartypes = rows[1];
 		//cartypes['lim'] = 'Apple';

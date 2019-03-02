@@ -37,9 +37,7 @@ export class CalendarListComponent implements OnInit {
     copyDate.setUTCDate(1);
 
     let num = copyDate.getUTCDay();
-    if (num === 0) {
-      num = 7;
-    }
+
 
     const previousMonth = new Date(copyDate.getTime());
 

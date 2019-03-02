@@ -32,7 +32,10 @@ router.get('/', function(req, res, next) {
 	sqlQuery += 'Select count(*) as lim from card ca where CardExpansion_1 = (select CardExpansionID from cardexpansion where CardExpansionShortName = ?);';
 	connection.query(sqlQuery, [ req.query.search, (req.query.paging - 1 )* 35, req.query.search],(err, rows) => {
 		
-		if (err) throw err
+		if (err){
+			console.error(err);
+			//throw err
+		} 
 		row = rows[0]
 		res.send( JSON.stringify([row, rows[1]]));
 		
