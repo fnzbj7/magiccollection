@@ -15,11 +15,13 @@ export class CalendarService {
             const calendarItem2 = new CalendarEvent(2, 18, 30, 'St' );
             const calendarItem3 = new CalendarEvent(3, 18, 30, 'Standard 2/7' );
             const calendarItem4 = new CalendarEvent(4, 18, 30, 'RNA Prerelease Very long text' );
+            const calendarItem5 = new CalendarEvent(0, 16, 30, 'RESET' );
 
-            this.calendarMap.set('20190220', [calendarItem, calendarItem2]);
+            this.calendarMap.set('20190220', [calendarItem, calendarItem2, calendarItem3, calendarItem3]);
             this.calendarMap.set('20190223', [calendarItem3]);
             this.calendarMap.set('20190226', [calendarItem2]);
             this.calendarMap.set('20190301', [calendarItem4]);
+            this.calendarMap.set('20190308', [calendarItem5]);
         }
 
         const dateS = this.convertNumbersToDateString(year, month, day);
@@ -34,7 +36,7 @@ export class CalendarService {
     }
 
     getSelectedEventId() {
-      if(this.selectedCalendarEvent) {
+      if (this.selectedCalendarEvent) {
         return this.selectedCalendarEvent.id;
       }
       return 0;
@@ -47,5 +49,9 @@ export class CalendarService {
     selectCalendarEvent( calendarEvent: CalendarEvent) {
       this.selectedCalendarEvent = calendarEvent;
       this.selectCalendarEventSub.next(this.selectedCalendarEvent.id);
+    }
+
+    getSelectedCalendarEvent() {
+      return this.selectedCalendarEvent;
     }
 }

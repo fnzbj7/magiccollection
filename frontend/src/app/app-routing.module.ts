@@ -6,7 +6,7 @@ import { MagicExpansionListComponent } from './magic/magic-expansion-list/magic-
 const appRoute: Routes = [
     { path: 'calendar', loadChildren: './calendar/calendar.module#CalendarModule'},
     { path: ':expansion', component: MagicCardListComponent},
-    //{ path: '', redirectTo: '/RNA', pathMatch: 'full'}
+    // { path: '', redirectTo: '/RNA', pathMatch: 'full'}
     { path: '', component: MagicExpansionListComponent, pathMatch: 'full'}
 ];
 

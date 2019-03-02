@@ -1,13 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CalendarService } from '../calendar.service';
 import { CalendarDay } from './model/calendar-day.model';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-calendar-list',
   templateUrl: './calendar-list.component.html',
   styleUrls: ['./calendar-list.component.css']
 })
-export class CalendarListComponent implements OnInit {
+export class CalendarListComponent implements OnInit, OnDestroy {
 
   calendarDayList: CalendarDay[] = [];
   daysArray = [{long: 'Hétfő', short: 'H'},
@@ -17,10 +18,12 @@ export class CalendarListComponent implements OnInit {
               {long: 'Péntek', short: 'P'},
               {long: 'Szombat', short: 'SZ'},
               {long: 'Vasárnap', short: 'V'}];
-  //daysArray = ['Monday', 'Thursday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+  // daysArray = ['Monday', 'Thursday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
   monthNameArray = ['Január', 'Február', 'Március', 'Április', 'Május',
                 'Június', 'Július', 'Augusztus', 'Szeptember', 'Október', 'November', 'December'];
   currentDate = new Date();
+  isDetailsOpen = false;
+  selectCalendarEventSub: Subscription;
 
   constructor(private calendarService: CalendarService) { }
 
@@ -28,6 +31,9 @@ export class CalendarListComponent implements OnInit {
     const tmpDate = new Date();
     this.currentDate = new Date(tmpDate.getFullYear(), tmpDate.getMonth(), 15);
     this.initCalendar(this.currentDate);
+    this.selectCalendarEventSub = this.calendarService.getselectCalendarEventSub().subscribe( selectedEventId => {
+      this.isDetailsOpen = selectedEventId !== 0;
+    });
   }
 
   initCalendar(relativeDate: Date) {
@@ -37,7 +43,9 @@ export class CalendarListComponent implements OnInit {
     copyDate.setUTCDate(1);
 
     let num = copyDate.getUTCDay();
-
+    if (num === 0) {
+      num = 7;
+    }
 
     const previousMonth = new Date(copyDate.getTime());
 
@@ -91,10 +99,6 @@ export class CalendarListComponent implements OnInit {
     this.calendarDayList = tmpCalendarDayList;
   }
 
-  testLog() {
-    console.log('Test log');
-  }
-
   onNextMonth() {
     let yearModify = 0;
     let monthNumber = this.currentDate.getMonth() + 1;
@@ -109,6 +113,12 @@ export class CalendarListComponent implements OnInit {
   onPreviousMonth() {
     this.currentDate = new Date(this.currentDate.getFullYear(), this.currentDate.getMonth() - 1, 15);
     this.initCalendar(this.currentDate);
+  }
+
+  ngOnDestroy() {
+    if (this.selectCalendarEventSub) {
+      this.selectCalendarEventSub.unsubscribe();
+    }
   }
 
 }
