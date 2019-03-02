@@ -8,9 +8,10 @@ import { CalendarService } from './calendar.service';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { faCoffee, faAngleLeft, faAngleRight } from '@fortawesome/free-solid-svg-icons';
+import { EventDetailsComponent } from './calendar-list/event-details/event-details.component';
 
 @NgModule({
-  declarations: [CalendarListComponent, CalendarElementComponent],
+  declarations: [CalendarListComponent, CalendarElementComponent, EventDetailsComponent],
   imports: [
     CommonModule,
     CalendarRoutingModule,
