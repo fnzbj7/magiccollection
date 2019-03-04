@@ -6,26 +6,56 @@ export class CalendarService {
     private calendarMap: Map<string, CalendarEvent[]>;
     private selectCalendarEventSub: Subject<number> = new Subject();
     private selectedCalendarEvent: CalendarEvent;
+    minnum = 20;
 
     getCalendarValue(year: number, month: number, day: number) {
         if (!this.calendarMap) {
             // Init
             this.calendarMap = new Map();
-            const calendarItem = new CalendarEvent(1, 18, 30, 'RNA Draft' );
-            const calendarItem2 = new CalendarEvent(2, 18, 30, 'St' );
-            const calendarItem3 = new CalendarEvent(3, 18, 30, 'Standard 2/7' );
-            const calendarItem4 = new CalendarEvent(4, 18, 30, 'RNA Prerelease Very long text' );
-            const calendarItem5 = new CalendarEvent(0, 16, 30, 'RESET' );
+            const calendarItem = new CalendarEvent(1, 19, 20, 'RNA Draft' );
+            const calendarItem2 = new CalendarEvent(2, 19, 30, 'St' );
 
-            this.calendarMap.set('20190220', [calendarItem, calendarItem2, calendarItem3, calendarItem3]);
+            const calendarItem3 = new CalendarEvent(3, 16, 30, 'Standard 2/7' );
+            const calendarItem4 = new CalendarEvent(4, 15, 30, 'RNA Prerelease Very long text' );
+            // const calendarItem5 = new CalendarEvent(0, 14, 30, 'RESET' );
+            const calendarItem5 = new CalendarEvent(5, 14, 30, 'Event Cust' );
+            const calendarItem6 = new CalendarEvent(6, 14, 30, 'Event Cust' );
+            const calendarItem7 = new CalendarEvent(7, 15, 30, 'RNA Prerelease Very long text' );
+            const calendarItem8 = new CalendarEvent(8, 19, 30, 'St' );
+
+            this.addValueToCalendar(2019, 2, 20, calendarItem);
+            this.addValueToCalendar(2019, 2, 20, calendarItem2);
+            this.addValueToCalendar(2019, 2, 20, calendarItem4);
+            this.addValueToCalendar(2019, 2, 20, calendarItem5);
+
             this.calendarMap.set('20190223', [calendarItem3]);
-            this.calendarMap.set('20190226', [calendarItem2]);
-            this.calendarMap.set('20190301', [calendarItem4]);
-            this.calendarMap.set('20190308', [calendarItem5]);
+            this.calendarMap.set('20190226', [calendarItem8]);
+            this.calendarMap.set('20190301', [calendarItem7]);
+            this.calendarMap.set('20190308', [calendarItem6]);
         }
 
         const dateS = this.convertNumbersToDateString(year, month, day);
         return this.calendarMap.get(dateS);
+    }
+
+    addValueToCalendar(year: number, month: number, day: number, calendarEvent: CalendarEvent) {
+      // Save to database
+      const dateS = this.convertNumbersToDateString(year, month, day);
+      const calendarEventArray = this.calendarMap.get(dateS);
+      if (calendarEventArray) {
+        calendarEventArray.push(calendarEvent);
+        calendarEventArray.sort( (a, b) => {
+          if (a.hour !== b.hour) {
+            return a.hour - b.hour;
+          } else {
+            return a.minute - b.minute;
+          }
+        });
+
+        // ID-t késöbb megváltoztatni és a default 0 legyen
+      } else {
+        this.calendarMap.set(dateS, [calendarEvent]);
+      }
     }
 
     private convertNumbersToDateString(year: number, month: number, day: number): string {
@@ -47,14 +77,14 @@ export class CalendarService {
     }
 
     selectCalendarEvent( calendarEvent?: CalendarEvent) {
-      if(calendarEvent) {
+      if (calendarEvent) {
         this.selectedCalendarEvent = calendarEvent;
         this.selectCalendarEventSub.next(this.selectedCalendarEvent.id);
       } else {
         this.selectedCalendarEvent = null;
         this.selectCalendarEventSub.next(0);
       }
-      
+
     }
 
     getSelectedCalendarEvent() {
