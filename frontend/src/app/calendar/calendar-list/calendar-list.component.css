@@ -23,3 +23,5 @@
             user-select: none; /* Non-prefixed version, currently
                                   supported by Chrome and Opera */
 }
+
+.calendar-day-body:hover .add-event-icon { display: block !important; }

@@ -46,9 +46,15 @@ export class CalendarService {
       return this.selectCalendarEventSub.asObservable();
     }
 
-    selectCalendarEvent( calendarEvent: CalendarEvent) {
-      this.selectedCalendarEvent = calendarEvent;
-      this.selectCalendarEventSub.next(this.selectedCalendarEvent.id);
+    selectCalendarEvent( calendarEvent?: CalendarEvent) {
+      if(calendarEvent) {
+        this.selectedCalendarEvent = calendarEvent;
+        this.selectCalendarEventSub.next(this.selectedCalendarEvent.id);
+      } else {
+        this.selectedCalendarEvent = null;
+        this.selectCalendarEventSub.next(0);
+      }
+      
     }
 
     getSelectedCalendarEvent() {

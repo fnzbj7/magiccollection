@@ -1,7 +1,3 @@
-.pointer {
-  cursor: pointer;
-}
-
 .elipsis {
   white-space: nowrap;
   overflow: hidden;
