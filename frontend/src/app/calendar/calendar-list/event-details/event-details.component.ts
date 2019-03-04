@@ -32,6 +32,10 @@ export class EventDetailsComponent implements OnInit, OnDestroy {
 
   }
 
+  onClose() {
+    this.calendarService.selectCalendarEvent();
+  }
+
   ngOnDestroy() {
     if (this.selectCalendarEventSub) {
       this.selectCalendarEventSub.unsubscribe();

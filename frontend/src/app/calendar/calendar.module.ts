@@ -7,7 +7,13 @@ import { CalendarElementComponent } from './calendar-list/calendar-element/calen
 import { CalendarService } from './calendar.service';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { library } from '@fortawesome/fontawesome-svg-core';
-import { faCoffee, faAngleLeft, faAngleRight } from '@fortawesome/free-solid-svg-icons';
+import { 
+        faCoffee,
+        faAngleLeft,
+        faAngleRight,
+        faTimes,
+        faCalendarPlus
+      } from '@fortawesome/free-solid-svg-icons';
 import { EventDetailsComponent } from './calendar-list/event-details/event-details.component';
 
 @NgModule({
@@ -24,5 +30,7 @@ export class CalendarModule {
     library.add(faCoffee);
     library.add(faAngleLeft);
     library.add(faAngleRight);
+    library.add(faTimes);
+    library.add(faCalendarPlus);
   }
  }
