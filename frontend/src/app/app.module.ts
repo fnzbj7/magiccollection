@@ -14,7 +14,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import { HeaderComponent } from './header/header.component';
 import { MagicCardAmountDirective } from './magic/magic-card/magic-card-amount.directive';
 import { MainUrlService } from './shared/main-url.services';
-
+import { ModalModule } from 'ngx-bootstrap/modal';
 
 
 @NgModule({
@@ -32,7 +32,8 @@ import { MainUrlService } from './shared/main-url.services';
     HttpClientModule,
     NgbModule,
     AppRoutingModule,
-    NgxPaginationModule
+    NgxPaginationModule,
+    ModalModule.forRoot()
   ],
   providers: [MagicCardsListService, MainUrlService],
   bootstrap: [AppComponent]

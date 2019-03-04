@@ -33,9 +33,7 @@
       <div class="col px-0" style="margin: 2px;">
         <div class="card h-100" [ngClass]="{'bg-secondary' : element.isOffMonth}">
           <div class="card-body px-0 px-sm-1 py-1 calendar-day-body"  style="min-height: 77px">
-            <div class="position-absolute h-100 w-100" style="z-index: 1;">
-              <fa-icon class="position-absolute p-sm-1 d-none add-event-icon" icon="calendar-plus" style="bottom: 0;right: 0;"></fa-icon>
-            </div>
+            <fa-icon class="position-absolute p-sm-1 d-none add-event-icon" icon="calendar-plus" style="bottom: 0;right: 0;z-index: 1;"></fa-icon>
             <div><p class="text-right mb-0" style="font-size: 14px;">{{element.day}}</p></div>
             <app-calendar-element [calendarEvent]="e" *ngFor="let e of element.calendarEventList"></app-calendar-element>
           </div>

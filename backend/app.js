@@ -10,6 +10,8 @@ var cors = require('cors');
 var index = require('./routes/index');
 var users = require('./routes/users');
 var cards = require('./routes/cards');
+var calendar = require('./routes/calendar');
+
 var allcardsfromset = require('./routes/allcardsfromset');
 
 var app = express();
@@ -24,6 +26,8 @@ app.use(express.static(path.join(__dirname, 'dist', 'magiccollection')));
 
 app.use('/users', users);
 app.use('/cards', cards);
+app.use("/api/calendar", calendar);
+
 app.use('/allcardsfromset', allcardsfromset);
 app.use((req, res, next) => {
 	console.log(path.join("dist", "magiccollection","index.html"));
