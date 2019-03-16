@@ -33,12 +33,8 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'dist', 'magiccollection')));
 
-app.use('/users', users);
-app.use('/cards', cards);
-
 app.use('/api', router);
 
-app.use('/allcardsfromset', allcardsfromset);
 app.use((req, res, next) => {
 	console.log(path.join("dist", "magiccollection","index.html"));
 	res.sendFile(path.join(__dirname,"dist", "magiccollection","index.html"));
