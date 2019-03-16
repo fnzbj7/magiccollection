@@ -4,7 +4,7 @@ var path = require('path');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-
+var cors = require('cors');
 
 
 var index = require('./routes/index');
@@ -16,7 +16,7 @@ const router = require("./routes/router");
 var allcardsfromset = require('./routes/allcardsfromset');
 
 var app = express();
-
+app.use(cors());
 
 if ('development' == app.get('env')) {
 	const swaggerUi = require('swagger-ui-express');
