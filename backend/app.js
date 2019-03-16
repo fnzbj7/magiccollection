@@ -10,7 +10,8 @@ var bodyParser = require('body-parser');
 var index = require('./routes/index');
 var users = require('./routes/users');
 var cards = require('./routes/cards');
-var calendar = require('./routes/calendar');
+
+const router = require("./routes/router");
 
 var allcardsfromset = require('./routes/allcardsfromset');
 
@@ -34,7 +35,8 @@ app.use(express.static(path.join(__dirname, 'dist', 'magiccollection')));
 
 app.use('/users', users);
 app.use('/cards', cards);
-app.use("/api/calendar", calendar);
+
+app.use('/api', router);
 
 app.use('/allcardsfromset', allcardsfromset);
 app.use((req, res, next) => {
