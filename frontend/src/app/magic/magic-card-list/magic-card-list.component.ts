@@ -29,10 +29,8 @@ export class MagicCardListComponent implements OnInit {
             this.cardsArray = cards;
             if (this.route.snapshot.queryParams['page']) {
               this.currentPage = +this.route.snapshot.queryParams['page'];
-              // this.amountInputRef.pageChange.emit(1);
             } else {
               this.currentPage = 1;
-              // this.amountInputRef.pageChange.emit(1);
             }
 
           }
@@ -41,8 +39,6 @@ export class MagicCardListComponent implements OnInit {
     );
 
     this.route.queryParams.subscribe(data => {
-      console.log(data);
-      console.log(data.page);
       if (data.page === undefined) {
         // this.currentPage = 1;
       } else if (this.currentPage !== +data.page) {

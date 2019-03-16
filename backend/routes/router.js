@@ -9,6 +9,8 @@ const cardController = require('../controllers/card');
 router.get('/calendar', calendarController.getEvents);
 
 // cardController
-router.get('/card/setall', cardController.getAllCardsFromSet);
+router.get('/card/allsetcard', cardController.getAllCardsFromSet);
+router.get('/card/pagecard', cardController.getCardsWithPaging);
+
 
 module.exports = router;

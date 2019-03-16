@@ -10,7 +10,7 @@ export class MagicCardsListService {
     constructor(private http: HttpClient, private urlService: MainUrlService) { }
 
     getCardsForExpansion (expansion: string): Observable<Card[]> {
-        return this.http.get<Card[]>( this.urlService.mainUrl + '/allcardsfromset', {params: {'search': expansion}});
+        return this.http.get<Card[]>( this.urlService.mainUrl + '/api/card/allsetcard', {params: {'search': expansion}});
     }
 
 }
