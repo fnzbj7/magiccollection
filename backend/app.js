@@ -6,14 +6,7 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var cors = require('cors');
 
-
-var index = require('./routes/index');
-var users = require('./routes/users');
-var cards = require('./routes/cards');
-
 const router = require("./routes/router");
-
-var allcardsfromset = require('./routes/allcardsfromset');
 
 var app = express();
 app.use(cors());
