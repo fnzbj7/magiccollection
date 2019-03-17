@@ -4,6 +4,7 @@ const router = express.Router();
 // Controllers
 const calendarController = require('../controllers/calendar');
 const cardController = require('../controllers/card');
+const userController = require('../controllers/user');
 
 // calendarController
 router.get('/calendar', calendarController.getEvents);
@@ -12,5 +13,8 @@ router.get('/calendar', calendarController.getEvents);
 router.get('/card/allsetcard', cardController.getAllCardsFromSet);
 router.get('/card/pagecard', cardController.getCardsWithPaging);
 
+// userController
+router.get('/user/authenticate', userController.authenticate);
+router.post('/user/registration', userController.registration);
 
 module.exports = router;

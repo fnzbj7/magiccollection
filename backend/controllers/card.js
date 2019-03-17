@@ -1,5 +1,5 @@
 exports.getAllCardsFromSet = function(req, res, next) {
-    var connection = require('../routes/db');
+    var connection = require('../db/db');
     
     if(!req.query.search) {
         return res.status(500).json({message: 'No expansion selected'})      

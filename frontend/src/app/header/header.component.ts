@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
+import { AuthComponent } from '../auth/auth.component';
 
 @Component({
   selector: 'app-header',
@@ -8,9 +9,15 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 })
 export class HeaderComponent implements OnInit {
 
-  constructor() { }
+  bsModalRef: BsModalRef;
+
+  constructor(private modalService: BsModalService) { }
 
   ngOnInit() {
+  }
+
+  openModalWithComponent() {
+    this.bsModalRef = this.modalService.show(AuthComponent);
   }
 
 }
