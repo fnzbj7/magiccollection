@@ -16,7 +16,7 @@ exports.registration = (req, res, next) => {
           console.log('This is the password: ' + hash);
           //TODO check if email is already used
 
-          connection.query('Select Email From Player Where Email = ?', [req.body.email], (err, rows) => {
+          connection.query('Select Email From player Where Email = ?', [req.body.email], (err, rows) => {
             if(err) {
               return res.status(500).json({message: 'Some error happend in the Database!'});
             }
@@ -25,7 +25,7 @@ exports.registration = (req, res, next) => {
             }
 
             connection.query(
-              'Insert into Player (Email, Password, PlayerName) values (?,?,?)',
+              'Insert into player (Email, Password, PlayerName) values (?,?,?)',
               [req.body.email, hash, req.body.username],
               (err, rows) => {
                 if(err) {
@@ -79,7 +79,7 @@ exports.registration = (req, res, next) => {
 exports.userLogin = (req, res, next) => {
   let fetchedUser;
   var connection = require('../db/db');
-  connection.query('Select PlayerID, PlayerName, FirstName, LastName, DciNumber, Password From Player Where email = ?', [req.body.email], (err, rows) => {
+  connection.query('Select PlayerID, PlayerName, FirstName, LastName, DciNumber, Password From player Where email = ?', [req.body.email], (err, rows) => {
     console.log(rows);
     if(rows.length !== 1){
       return res.status(401).json({
