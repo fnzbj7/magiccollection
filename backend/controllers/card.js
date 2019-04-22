@@ -15,7 +15,7 @@ exports.getAllCardsFromSet = function(req, res, next) {
 
 	connection.query(sqlQuery, [ req.query.search], function(err, results){
 		res.json(results);
-	})	  
+	})
 };
 
 exports.getCardsWithPaging = function(req, res, next) {
