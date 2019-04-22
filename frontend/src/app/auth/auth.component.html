@@ -7,7 +7,20 @@
   </button>
 </div>
 <div class="modal-body">
-  <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+  <!-- ---------LOGIN------ -->
+  <form *ngIf="selectedPage === 'Login'" [formGroup]="loginForm" (ngSubmit)="onLoginSubmit()">
+      <div class="form-group">
+        <label for="exampleInputEmail1">Email address</label>
+        <input type="email" class="form-control" formControlName="email" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+      </div>
+      <div class="form-group">
+        <label for="exampleInputPassword1">Password</label>
+        <input type="password" class="form-control" formControlName="password" id="exampleInputPassword1" placeholder="Password">
+      </div>
+      <button [disabled]="loading" class="btn btn-primary">Login</button>
+    </form>
+  <!-- ---------REGISTRATION------ -->
+  <form *ngIf="selectedPage === 'Registration'" [formGroup]="registrationForm" (ngSubmit)="onRegistrationSubmit()">
     <div class="form-group">
       <label for="exampleInputUsername">Username</label>
       <input type="text" class="form-control" formControlName="username" id="exampleInputUsername" aria-describedby="usernameHelp" placeholder="Enter Username">

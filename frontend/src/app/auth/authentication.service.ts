@@ -19,13 +19,14 @@ export class AuthenticationService {
         return this.currentUserSubject.value;
     }
 
-    registration(username: string, password: string) {
-      return this.http.post<any>(this.mainUrlService.mainUrl + '/api/user/registration', { username, password });
+    registration(email: string, username: string, password: string) {
+      return this.http.post<any>(this.mainUrlService.mainUrl + '/api/user/registration', { email, username, password });
     }
 
-    login(username: string, password: string) {
-      return this.http.post<any>(this.mainUrlService.mainUrl + '/user/authenticate', { username, password })
+    login(email: string, password: string) {
+      return this.http.post<User>(this.mainUrlService.mainUrl + '/api/user/userLogin', { email, password })
         .pipe(map(user => {
+          console.log(user);
           // login successful if there's a jwt token in the response
           if (user && user.token) {
             // store user details and jwt token in local storage to keep user logged in between page refreshes

@@ -16,6 +16,11 @@ FOREIGN KEY (CardExpansion_1) REFERENCES CardExpansion(CardExpansionID)
 
 CREATE TABLE Player (
 PlayerID INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+Email VARCHAR(40) NOT NULL,
+Password VARCHAR(60) NOT NULL,
+FirstName VARCHAR(30),
+LastName VARCHAR(30),
+DciNumber VARCHAR(10),
 PlayerName VARCHAR(30) NOT NULL
 ); 
 

@@ -11,6 +11,7 @@ import { first } from 'rxjs/operators';
 })
 export class AuthComponent implements OnInit {
   loginForm: FormGroup;
+  registrationForm: FormGroup;
   selectedPage = 'Login';
   loading = false;
   submitted = false;
@@ -18,11 +19,16 @@ export class AuthComponent implements OnInit {
   constructor(public bsModalRef: BsModalRef, private authService: AuthenticationService, private formBuilder: FormBuilder) {}
 
   ngOnInit() {
-    this.loginForm = this.formBuilder.group({
+    this.registrationForm = this.formBuilder.group({
       username: ['', Validators.required],
       password: ['', Validators.required],
-      email: ['', Validators.required]
-  });
+      email: ['', [Validators.required, Validators.email]]
+    });
+
+    this.loginForm = this.formBuilder.group({
+      password: ['', Validators.required],
+      email: ['', [Validators.required, Validators.email]]
+    });
   }
 
   onPageChange(selectedPage: string) {
@@ -30,28 +36,56 @@ export class AuthComponent implements OnInit {
   }
 
   // convenience getter for easy access to form fields
-  get f() { return this.loginForm.controls; }
+  get regForm() { return this.registrationForm.controls; }
 
-  onSubmit() {
+  onRegistrationSubmit() {
     this.submitted = true;
 
+    // stop here if form is invalid
+    if (this.registrationForm.invalid) {
+        return;
+    }
+
+    this.loading = true;
+    this.authService.registration(this.regForm.email.value, this.regForm.username.value, this.regForm.password.value)
+      .pipe(first())
+      .subscribe(
+        data => {
+          // this.router.navigate([this.returnUrl]);
+          this.loading = false;
+        },
+        error => {
+          console.error(error);
+          console.error(error.status);
+          this.loading = false;
+        });
+  }
+
+  // convenience getter for easy access to form fields
+  get logForm() { return this.loginForm.controls; }
+
+  onLoginSubmit() {
+    this.submitted = true;
     // stop here if form is invalid
     if (this.loginForm.invalid) {
         return;
     }
 
-    this.loading = true;
-    this.authService.registration(this.f.username.value, this.f.password.value)
-        .pipe(first())
-        .subscribe(
-            data => {
-                // this.router.navigate([this.returnUrl]);
-                this.loading = false;
-            },
-            error => {
-                // this.error = error;
-                this.loading = false;
-            });
+    console.log('onLoginSubmit() start');
 
+    this.loading = true;
+    this.authService.login(this.logForm.email.value, this.logForm.password.value)
+      .pipe(first())
+      .subscribe(
+        data => {
+          // this.router.navigate([this.returnUrl]);
+          this.loading = false;
+          this.bsModalRef.hide();
+        },
+        error => {
+          console.error(error);
+          console.error(error.status);
+          this.loading = false;
+        });
   }
 }
