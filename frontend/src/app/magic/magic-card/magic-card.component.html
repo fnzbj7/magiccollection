@@ -1,35 +1,84 @@
 <li class="nowrap magiccard_li" [ngSwitch]="magicCard.doubleside">
-
-    <!-- Normal cards -->
+  <!-- Normal cards -->
+  <picture
+    *ngSwitchCase="'0'"
+    class="magiccard"
+    [appMagicCardAmount]="magicCard.cardAmount"
+  >
+    <source
+      srcset="assets/img/cards/{{magicCard.cardExpansion}}/webp/{{magicCard.cardExpansion}}_{{magicCard.cardNumber}}.webp"
+      type="image/webp"
+    />
+    <source
+      srcset="assets/img/cards/{{magicCard.cardExpansion}}/png/{{magicCard.cardExpansion}}_{{magicCard.cardNumber}}.png"
+      type="image/png"
+    />
     <img
-      *ngSwitchCase="'0'"
       class="magiccard"
-      src="assets/img/cards/{{magicCard.cardExpansion}}/{{magicCard.cardExpansion}}_{{magicCard.cardNumber}}.png"
+      src="assets/img/cards/{{ magicCard.cardExpansion }}/{{
+        magicCard.cardExpansion
+      }}_{{ magicCard.cardNumber }}.png"
       alt=""
       [title]="magicCard.cardNumber"
-      [appMagicCardAmount]="magicCard.cardAmount">
+    />
+  </picture>
 
-    <!-- Double Side cards -->
-    <div class="flip-container" [ngClass]="flipClass ? 'hover' : ''" *ngSwitchCase="'1'" #flipperContainer>
-      <div class="flipper">
-        <div class="front">
-          <img
+  <!-- Double Side cards -->
+  <div
+    class="flip-container"
+    [ngClass]="flipClass ? 'hover' : ''"
+    *ngSwitchCase="'1'"
+    #flipperContainer
+  >
+    <div class="flipper">
+      <div class="front">
+        <picture
           class="magiccard"
-          title="{{magicCard.cardNumber}}"
-          src="assets/img/cards/{{magicCard.cardExpansion}}/{{magicCard.cardExpansion}}_{{magicCard.cardNumber}}.png"
-          appMagicCardAmount="{{magicCard.cardAmount}}"
-          (click)="flipClass = true;">
-        </div>
-        <div class="back">
-            <img
+          appMagicCardAmount="{{ magicCard.cardAmount }}"
+        >
+          <source
+            srcset="assets/img/cards/{{magicCard.cardExpansion}}/webp/{{magicCard.cardExpansion}}_{{magicCard.cardNumber}}.webp"
+            type="image/webp"
+          />
+          <source
+            srcset="assets/img/cards/{{magicCard.cardExpansion}}/png/{{magicCard.cardExpansion}}_{{magicCard.cardNumber}}.png"
+            type="image/png"
+          />
+          <img
             class="magiccard"
-            title="{{magicCard.cardNumber}}"
-            src="assets/img/cards/{{magicCard.cardExpansion}}/{{magicCard.cardExpansion}}_{{magicCard.cardNumber}}_F.png"
-            appMagicCardAmount="{{magicCard.cardAmount}}"
-            (click)="flipClass = false;">
-        </div>
+            title="{{ magicCard.cardNumber }}"
+            src="assets/img/cards/{{ magicCard.cardExpansion }}/{{
+              magicCard.cardExpansion
+            }}_{{ magicCard.cardNumber }}.webp"
+            (click)="flipClass = true"
+          />
+        </picture>
+      </div>
+      <div class="back">
+        <picture
+          class="magiccard"
+          appMagicCardAmount="{{ magicCard.cardAmount }}"
+        >
+          <source
+            srcset="assets/img/cards/{{magicCard.cardExpansion}}/webp/{{magicCard.cardExpansion}}_{{magicCard.cardNumber}}_F.webp"
+            type="image/webp"
+          />
+          <source
+            srcset="assets/img/cards/{{magicCard.cardExpansion}}/png/{{magicCard.cardExpansion}}_{{magicCard.cardNumber}}_F.png"
+            type="image/png"
+          />
+          <img
+            class="magiccard"
+            title="{{ magicCard.cardNumber }}"
+            src="assets/img/cards/{{ magicCard.cardExpansion }}/{{
+              magicCard.cardExpansion
+            }}_{{ magicCard.cardNumber }}_F.png"
+            (click)="flipClass = false"
+          />
+        </picture>
       </div>
     </div>
+  </div>
 
-    <p *ngSwitchDefault>No cards</p>
+  <p *ngSwitchDefault>No cards</p>
 </li>

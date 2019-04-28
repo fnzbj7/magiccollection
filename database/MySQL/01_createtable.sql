@@ -21,8 +21,15 @@ Password VARCHAR(60) NOT NULL,
 FirstName VARCHAR(30),
 LastName VARCHAR(30),
 DciNumber VARCHAR(10),
+Activated INT(1),
 PlayerName VARCHAR(30) NOT NULL
 ); 
+
+CREATE TABLE EmailVerification (
+Player_1 INT(6) UNSIGNED PRIMARY KEY,
+VerificationHash VARCHAR(60),
+FOREIGN KEY (Player_1) REFERENCES Player(PlayerID)
+);
 
 CREATE TABLE CardAmount (
 Card_1 INT(3) UNSIGNED NOT NULL,
