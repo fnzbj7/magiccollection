@@ -1,3 +1,4 @@
+var compression = require('compression');
 var express = require('express');
 const expressOasGenerator = require('express-oas-generator');
 var path = require('path');
@@ -9,6 +10,7 @@ var cors = require('cors');
 const router = require("./routes/router");
 
 var app = express();
+app.use(compression());
 app.use(cors());
 
 if ('development' == app.get('env')) {
