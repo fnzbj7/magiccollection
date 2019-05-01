@@ -16,5 +16,6 @@ router.get('/card/pagecard', cardController.getCardsWithPaging);
 // userController
 router.post('/user/userlogin', userController.userLogin);
 router.post('/user/registration', userController.registration);
+router.post('/user/verification', userController.verification);
 
 module.exports = router;
