@@ -5,15 +5,14 @@ const saltRounds = 10;
 
 /* ----------- REGISTRATION ------------ */
 exports.registration = (req, res, next) => {
-  console.log('Bejött a regbe');
-  console.log(req.body);
+  console.log('Registration start!');
   if(req.body.username && req.body.password) {
     // TODO save to database
     var connection = require('../db/db');
 
     bcrypt.genSalt(saltRounds, function(err, salt) {
       bcrypt.hash(req.body.password, salt, function(err, hash) {
-          console.log('This is the password: ' + hash);
+          console.log('This is the password hash: ' + hash);
           //TODO check if email is already used
 
           connection.query('Select Email From player Where Email = ?', [req.body.email], (err, rows) => {
@@ -44,7 +43,11 @@ exports.registration = (req, res, next) => {
                 text: 'Testing some Mailgun awesomeness!'
               };
               
+              console.log('Mail sending start!')
               mailgun.messages().send(data, function (error, body) {
+                if(error) {
+                  console.log(error);
+                }
                 console.log(body);
               });
 
@@ -75,11 +78,13 @@ exports.registration = (req, res, next) => {
   
 }
 
+const playerQuery = 'Select PlayerID, PlayerName, FirstName, LastName, DciNumber, Password From player Where email = ?';
+
 /* ----------- LOGIN ----------- */
 exports.userLogin = (req, res, next) => {
   let fetchedUser;
   var connection = require('../db/db');
-  connection.query('Select PlayerID, PlayerName, FirstName, LastName, DciNumber, Password From player Where email = ?', [req.body.email], (err, rows) => {
+  connection.query(playerQuery, [req.body.email], (err, rows) => {
     console.log(rows);
     if(rows.length !== 1){
       return res.status(401).json({
@@ -151,4 +156,25 @@ exports.userLogin = (req, res, next) => {
   //       message: 'Invalid authentication credential!'
   //     });
   //   });
+}
+
+exports.verification = (req, res, next) => {
+  // console.log(req);
+  // console.log(req.query.api);
+  if(!req.query.api) {
+    return  res.status(401).json({message: 'Api key missing!'});
+  }
+
+  var connection = require('../db/db');
+  connection.query('Select Player_1 From emailverification Where VerificationHash = ?', [req.query.api], (err, rows) => {
+
+    if(err) {
+      res.status(500).json({message: 'Hiba az adatbázisnál', error: err});
+    }
+
+    console.log('Ez volt az adatbázisban');
+    console.log(rows);
+  });
+
+  
 }
