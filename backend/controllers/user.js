@@ -3,6 +3,10 @@ const jwt = require('jsonwebtoken');
 
 const saltRounds = 10;
 
+
+const checkEmailQuery = 'Select Email From player Where Email = ?';
+const insertPlayerQuery = 'Insert into player (Email, Password, PlayerName, Activated) values (?,?,?,0)';
+
 /* ----------- REGISTRATION ------------ */
 exports.registration = (req, res, next) => {
   console.log('Registration start!');
@@ -15,7 +19,7 @@ exports.registration = (req, res, next) => {
           console.log('This is the password hash: ' + hash);
           //TODO check if email is already used
 
-          connection.query('Select Email From player Where Email = ?', [req.body.email], (err, rows) => {
+          connection.query(checkEmailQuery, [req.body.email], (err, rows) => {
             if(err) {
               return res.status(500).json({message: 'Some error happend in the Database!'});
             }
@@ -24,7 +28,7 @@ exports.registration = (req, res, next) => {
             }
 
             connection.query(
-              'Insert into player (Email, Password, PlayerName) values (?,?,?)',
+              insertPlayerQuery,
               [req.body.email, hash, req.body.username],
               (err, rows) => {
                 if(err) {
@@ -40,7 +44,8 @@ exports.registration = (req, res, next) => {
                 from: 'Excited User <magic@mg.almateszekfoglaltvolt.hu>',
                 to: req.body.email,
                 subject: 'Hello, test mail',
-                text: 'Testing some Mailgun awesomeness!'
+                text: 'Testing some Mailgun awesomeness!',
+                html: `Itt egy link <a href="www.almateszekfoglaltvolt.hu?${hash}">Klikkelj ide a hitelesítéshez</a>`
               };
               
               console.log('Mail sending start!')
@@ -171,9 +176,26 @@ exports.verification = (req, res, next) => {
     if(err) {
       res.status(500).json({message: 'Hiba az adatbázisnál', error: err});
     }
+    if(rows.length === 0) {
+      console.log('Üres a tömb!');
+      return res.status(401).json({message: 'Üres tömb!'});
+    }
 
-    console.log('Ez volt az adatbázisban');
-    console.log(rows);
+    connection.query('Update player set activeted = 0 where Player_1 = ?', [rows[0].Player_1], (err, rows) => {
+      if(err) {
+        res.status(500).json({message: 'Hiba az adatbázisnál', error: err});
+      }
+
+      connection.query('Delete from emailverification where VerificationHash = ?', [req.query.api], (err, rows) => {
+        if(err) {
+          res.status(500).json({message: 'Hiba az adatbázisnál', error: err});
+        }
+
+        res.json({message: 'Account aktiválva!'});
+      });
+      
+    });
+    
   });
 
   
