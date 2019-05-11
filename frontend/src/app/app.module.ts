@@ -18,6 +18,8 @@ import { ModalModule } from 'ngx-bootstrap/modal';
 import { JwtInterceptor } from './auth/jwt.interceptor';
 import { AuthComponent } from './auth/auth.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { ServiceWorkerModule} from '@angular/service-worker';
+import { environment } from 'src/environments/environment';
 
 
 @NgModule({
@@ -41,7 +43,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     AppRoutingModule,
     NgxPaginationModule,
     ModalModule.forRoot(),
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    ServiceWorkerModule.register('/ngsw-worker.js', {enabled: environment.production})
   ],
   providers: [
     MagicCardsListService,
