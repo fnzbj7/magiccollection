@@ -10,7 +10,7 @@
         "/*.bundle.css",
         "/*.bundle.js",
         "/*.chunk.js"
-      ],
+      ]
     }
   }, {
     "name": "assets",
