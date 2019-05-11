@@ -1,23 +1,5 @@
 @import "https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css";
 
-.no-webp body {
-  background-image: url("assets/background/pexels-photo-268959.jpeg");
-}
-
-.webp body {
-  background-image: url("assets/background/pexels-photo-268959.webp");
-}
-
-@media (max-width: 575px) {
-  .no-webp body {
-    background-image: url("assets/background/background_mobile.png");
-  }
-
-  .webp body {
-    background-image: url("assets/background/background_mobile.webp");
-  }
-}
-
 body {
   background-repeat: no-repeat;
   background-attachment: fixed;
