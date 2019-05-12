@@ -11,7 +11,8 @@
         "/*.js"
       ]
     }
-  }, {
+  },
+  {
     "name": "assets",
     "installMode": "lazy",
     "updateMode": "prefetch",
@@ -19,6 +20,18 @@
       "files": [
         "/assets/**"
       ]
+    }
+  }],
+  "dataGroups": [{
+    "name": "cards",
+    "urls": [
+      "/api/card/allsetcard",
+      "/api/card/pagecard"
+    ],
+    "cacheConfig": {
+      "strategy": "performance",
+      "maxAge": "1d",
+      "maxSize": 100
     }
   }]
 }
