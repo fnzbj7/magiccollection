@@ -96,12 +96,15 @@ ol,ul{
   pagination-controls.my-pagination /deep/ pagination-template ul.ngx-pagination li {
     margin-right: 2px;
   }
+
+  #fullThings {
+    padding-left: 0;
+    padding-right: 0;
+  }
 }
 
 @media screen and (min-width: 576px){
-  #fullThings {
-    min-width: 470px;
-  }
+
 }
 
 pagination-controls.my-pagination /deep/ pagination-template ul.ngx-pagination li {
