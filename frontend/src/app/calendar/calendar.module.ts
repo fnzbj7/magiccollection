@@ -7,7 +7,7 @@ import { CalendarElementComponent } from './calendar-list/calendar-element/calen
 import { CalendarService } from './calendar.service';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { library } from '@fortawesome/fontawesome-svg-core';
-import { 
+import {
         faCoffee,
         faAngleLeft,
         faAngleRight,

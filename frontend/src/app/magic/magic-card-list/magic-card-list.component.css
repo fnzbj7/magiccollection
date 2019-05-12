@@ -84,12 +84,14 @@ ol,ul{
 }
 
 .nowrap {
-
     position: relative;
     z-index: 20;
     float: left;
     margin: 5px 3px;
+}
 
+.fake-card {
+  width: 217px;
 }
 
 @media screen and (max-width: 575px){
@@ -100,6 +102,10 @@ ol,ul{
   #fullThings {
     padding-left: 0;
     padding-right: 0;
+  }
+
+  .fake-card {
+    width: 114px;
   }
 }
 
