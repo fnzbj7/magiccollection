@@ -17,7 +17,9 @@
     "updateMode": "prefetch",
     "resources": {
       "files": [
-        "/assets/**"
+        "/assets/**",
+        "background_mobile.*",
+        "pexels-photo-268959.*"
       ]
     }
   }]
