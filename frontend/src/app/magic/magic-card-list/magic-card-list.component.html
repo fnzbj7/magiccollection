@@ -4,14 +4,14 @@
   <ul id="things" class="px-0">
     <app-magic-card [magicCard]="card" *ngFor="let card of cardsArray | paginate: { itemsPerPage: itemsPerPage, currentPage: currentPage }"></app-magic-card>
     <!-- Fake Cards -->
-    <li class="nowrap" style="width: 217px;"></li>
-    <li class="nowrap" style="width: 217px;"></li>
-    <li class="nowrap" style="width: 217px;"></li>
-    <li class="nowrap" style="width: 217px;"></li>
-    <li class="nowrap" style="width: 217px;"></li>
-    <li class="nowrap" style="width: 217px;"></li>
-    <li class="nowrap" style="width: 217px;"></li>
-    <li class="nowrap" style="width: 217px;"></li>
+    <li class="fake-card"></li>
+    <li class="fake-card"></li>
+    <li class="fake-card"></li>
+    <li class="fake-card"></li>
+    <li class="fake-card"></li>
+    <li class="fake-card"></li>
+    <li class="fake-card"></li>
+    <li class="fake-card"></li>
   </ul>
   <pagination-controls class="my-pagination" maxSize="20" directionLinks="false" (pageChange)="onPageChange($event)"></pagination-controls>
 </div>
