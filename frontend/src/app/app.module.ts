@@ -20,6 +20,7 @@ import { AuthComponent } from './auth/auth.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ServiceWorkerModule} from '@angular/service-worker';
 import { environment } from 'src/environments/environment';
+import { LandingComponent } from './landing/landing.component';
 
 
 @NgModule({
@@ -31,7 +32,8 @@ import { environment } from 'src/environments/environment';
     MagicCardComponent,
     HeaderComponent,
     MagicCardAmountDirective,
-    AuthComponent
+    AuthComponent,
+    LandingComponent
   ],
   entryComponents: [
     AuthComponent
