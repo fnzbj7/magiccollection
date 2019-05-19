@@ -13,9 +13,16 @@ exports.getAllCardsFromSet = function(req, res, next) {
 			'and player_1 = 1 '+
 			'order by ca.card_1, ce.CardExpansionShortName;';
 
-	connection.query(sqlQuery, [ req.query.search], function(err, results){
-		res.json(results);
-	})
+		connection.query(sqlQuery, [ req.query.search]).then(results => {
+			res.json(results);
+		}).catch(error =>
+            error === "DbError"
+              ? res
+                  .status(500)
+                  .json({ message: "Some error happend in the Database!" })
+              : "Ignored"
+          );
+	
 };
 
 exports.getCardsWithPaging = function(req, res, next) {
@@ -45,15 +52,13 @@ exports.getCardsWithPaging = function(req, res, next) {
 	}
 	
 	sqlQuery += 'Select count(*) as lim from card ca where CardExpansion_1 = (select CardExpansionID from cardexpansion where CardExpansionShortName = ?);';
-	connection.query(sqlQuery, [ req.query.search, (req.query.paging - 1 )* 35, req.query.search],(err, rows) => {
-		
+	connection.query(sqlQuery, [ req.query.search, (req.query.paging - 1 )* 35, req.query.search]).then( (rows) => {
 		if (err){
 			console.error(err);
 			//throw err
 		} 
 		row = rows[0]
 		res.send( JSON.stringify([row, rows[1]]));
-		
 	});
 
 }

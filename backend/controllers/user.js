@@ -1,76 +1,76 @@
-const bcrypt = require('bcrypt');
-const jwt = require('jsonwebtoken');
+const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
 
 const saltRounds = 10;
 
-
-const checkEmailQuery = 'Select Email From player Where Email = ?';
-const insertPlayerQuery = 'Insert into player (Email, Password, PlayerName, Activated) values (?,?,?,0)';
+const checkEmailQuery = "Select Email From player Where Email = ?";
+const insertPlayerQuery =
+  "Insert into player (Email, Password, PlayerName, Activated) values (?,?,?,0)";
 
 /* ----------- REGISTRATION ------------ */
 exports.registration = (req, res, next) => {
-  console.log('Registration start!');
-  if(req.body.username && req.body.password) {
+  console.log("Registration start!");
+  if (req.body.username && req.body.password) {
     // TODO save to database
-    var connection = require('../db/db');
+    var connection = require("../db/db");
 
     bcrypt.genSalt(saltRounds, function(err, salt) {
       bcrypt.hash(req.body.password, salt, function(err, hash) {
-          console.log('This is the password hash: ' + hash);
-          //TODO check if email is already used
+        console.log("This is the password hash: " + hash);
+        //TODO check if email is already used
 
-          connection.query(checkEmailQuery, [req.body.email], (err, rows) => {
-            if(err) {
-              return res.status(500).json({message: 'Some error happend in the Database!'});
+        connection
+          .query(checkEmailQuery, [req.body.email])
+          .then(rows => {
+            if (rows.length > 0) {
+              console.log("Email already in use!");
+              res.status(400).json({ message: "Email already in use!" });
+              throw new Error("handled");
             }
-            if(rows.length > 0){
-              return res.status(400).json({message: 'Email already in use!'});
-            }
 
-            connection.query(
-              insertPlayerQuery,
-              [req.body.email, hash, req.body.username],
-              (err, rows) => {
-                if(err) {
-                  return res.status(500).json({message: 'Some error happend in the Database!'});
-                }
-              console.log(rows);
-
-              var api_key = process.env.MAILGUN_API_KEY;
-              var domain = 'mg.almateszekfoglaltvolt.hu';
-              var mailgun = require('mailgun-js')({apiKey: api_key, domain: domain, host: 'api.eu.mailgun.net'});
-              
-              var data = {
-                from: 'Excited User <magic@mg.almateszekfoglaltvolt.hu>',
-                to: req.body.email,
-                subject: 'Hello, test mail',
-                text: 'Testing some Mailgun awesomeness!',
-                html: `Itt egy link <a href="www.almateszekfoglaltvolt.hu?${hash}">Klikkelj ide a hitelesítéshez</a>`
-              };
-              
-              console.log('Mail sending start!')
-              mailgun.messages().send(data, function (error, body) {
-                if(error) {
-                  console.log(error);
-                }
-                console.log(body);
-              });
-
-              /* Első Mail küldési próbálkozás */
-              // const sgMail = require('@sendgrid/mail');
-              // sgMail.setApiKey(process.env.SENDGRID_API_KEY);
-              // const msg = {
-              //   to: 'jukijun91@gmail.com',
-              //   from: 'magic@almateszekfoglaltvolt.hu',
-              //   subject: 'Sending with SendGrid is Fun',
-              //   text: 'and easy to do anywhere, even with Node.js',
-              //   html: '<strong>and easy to do anywhere, even with Node.js</strong>',
-              // };
-              // sgMail.send(msg);
-
-              return res.status(200).json({message: 'Registration successfull!'});
+            return connection.query(insertPlayerQuery, [
+              req.body.email,
+              hash,
+              req.body.username
+            ]);
+          })
+          .then(rows => {
+            console.log(rows);
+            var api_key = process.env.MAILGUN_API_KEY;
+            var domain = "mg.almateszekfoglaltvolt.hu";
+            var mailgun = require("mailgun-js")({
+              apiKey: api_key,
+              domain: domain,
+              host: "api.eu.mailgun.net"
             });
-          });
+
+            var data = {
+              from: "Excited User <magic@mg.almateszekfoglaltvolt.hu>",
+              to: req.body.email,
+              subject: "Hello, test mail",
+              text: "Testing some Mailgun awesomeness!",
+              html: `Itt egy link <a href="www.almateszekfoglaltvolt.hu?${hash}">Klikkelj ide a hitelesítéshez</a>`
+            };
+
+            console.log("Mail sending start!");
+            return mailgun.messages().send(data, function(error, body) {
+              if (error) {
+                console.log(error);
+                res
+                  .status(500)
+                  .json({ message: "Error happend with the Mail sending" });
+              } else {
+                res.status(200).json({ message: "Registration successfull!" });
+              }
+            });
+          })
+          .catch(error =>
+            error === "DbError"
+              ? res
+                  .status(500)
+                  .json({ message: "Some error happend in the Database!" })
+              : "Ignored"
+          );
       });
     });
 
@@ -80,30 +80,30 @@ exports.registration = (req, res, next) => {
       message: "Invalid authentication credentials!"
     });
   }
-  
-}
+};
 
-const playerQuery = 'Select PlayerID, PlayerName, FirstName, LastName, DciNumber, Password From player Where email = ?';
+const playerQuery =
+  "Select PlayerID, PlayerName, FirstName, LastName, DciNumber, Password From player Where email = ?";
 
 /* ----------- LOGIN ----------- */
 exports.userLogin = (req, res, next) => {
   let fetchedUser;
-  var connection = require('../db/db');
+  var connection = require("../db/db");
   connection.query(playerQuery, [req.body.email], (err, rows) => {
     console.log(rows);
-    if(rows.length !== 1){
+    if (rows.length !== 1) {
       return res.status(401).json({
-        message: 'There is no User with this email (or maybe more than 1)'
+        message: "There is no User with this email (or maybe more than 1)"
       });
     }
 
     bcrypt.compare(req.body.password, rows[0].Password, function(err, result) {
-      if(result) {
-        console.log('Az env: ' + process.env.JWT_KEY_MAGIC);
+      if (result) {
+        console.log("Az env: " + process.env.JWT_KEY_MAGIC);
         const token = jwt.sign(
-          {Id: rows[0].PlayerID},
+          { Id: rows[0].PlayerID },
           process.env.JWT_KEY_MAGIC,
-          {expiresIn: '1h'}
+          { expiresIn: "1h" }
         );
         res.status(200).json({
           id: rows[0].PlayerID,
@@ -111,92 +111,52 @@ exports.userLogin = (req, res, next) => {
           email: req.body.email,
           firstName: rows[0].FirstName,
           lastName: rows[0].LastName,
-          token: token,
+          token: token
           // expiresIn: 3600,
           // userId: fetchedUser._id
         });
-        console.log('Csak megegyezik a jelszó');
+        console.log("Csak megegyezik a jelszó");
       } else {
-        if(err) {
+        if (err) {
           console.error(err);
         }
         return res.status(401).json({
-          message: 'Error with the password!'
+          message: "Error with the password!"
         });
       }
     });
-      
   });
-
-  // User.findOne({email: req.body.email})
-  //   .then(user => {
-  //     if (!user) {
-  //       return res.status(401).json({
-  //         message: 'Auth failed1'
-  //       });
-  //     }
-  //     fetchedUser = user;
-  //     return bcrypt.compare(req.body.password, user.password);
-  //   })
-  //   .then( result => {
-  //     if (!result) {
-  //       return res.status(401).json({
-  //         message: 'Auth failed2'
-  //       });
-  //     }
-  //     const token = jwt.sign(
-  //       {email: fetchedUser.email, userId: fetchedUser._id},
-  //       process.env.JWT_KEY,
-  //       {expiresIn: '1h'}
-  //     );
-  //     res.status(200).json({
-  //       token: token,
-  //       expiresIn: 3600,
-  //       userId: fetchedUser._id
-  //     });
-
-  //   })
-  //   .catch(err => {
-  //     return res.status(401).json({
-  //       message: 'Invalid authentication credential!'
-  //     });
-  //   });
-}
+};
 
 exports.verification = (req, res, next) => {
-  // console.log(req);
-  // console.log(req.query.api);
-  if(!req.query.api) {
-    return  res.status(401).json({message: 'Api key missing!'});
+  if (!req.query.api) {
+    return res.status(401).json({ message: "Api key missing!" });
   }
 
-  var connection = require('../db/db');
-  connection.query('Select Player_1 From emailverification Where VerificationHash = ?', [req.query.api], (err, rows) => {
-
-    if(err) {
-      res.status(500).json({message: 'Hiba az adatbázisnál', error: err});
-    }
-    if(rows.length === 0) {
-      console.log('Üres a tömb!');
-      return res.status(401).json({message: 'Üres tömb!'});
-    }
-
-    connection.query('Update player set activeted = 0 where Player_1 = ?', [rows[0].Player_1], (err, rows) => {
-      if(err) {
-        res.status(500).json({message: 'Hiba az adatbázisnál', error: err});
+  var connection = require("../db/db");
+  connection
+    .query(
+      "Select Player_1 From emailverification Where VerificationHash = ?",
+      [req.query.api]
+    )
+    .then(rows => {
+      if (rows.length === 0) {
+        console.log("Üres a tömb!");
+        return res.status(401).json({ message: "Üres tömb!" });
       }
 
-      connection.query('Delete from emailverification where VerificationHash = ?', [req.query.api], (err, rows) => {
-        if(err) {
-          res.status(500).json({message: 'Hiba az adatbázisnál', error: err});
-        }
-
-        res.json({message: 'Account aktiválva!'});
-      });
-      
-    });
-    
-  });
-
-  
-}
+      return connection.query(
+        "Update player set activeted = 0 where Player_1 = ?",
+        [rows[0].Player_1]
+      );
+    })
+    .then(rows => {
+      return connection.query(
+        "Delete from emailverification where VerificationHash = ?",
+        [req.query.api]
+      );
+    })
+    .then(rows => {
+      res.json({ message: "Account aktiválva!" });
+    }).catch(err => res.status(500).json({ message: "Hiba az adatbázisnál", error: err }));
+};
