@@ -11,20 +11,15 @@ const insertPlayerQuery =
 exports.registration = (req, res, next) => {
   console.log("Registration start!");
   if (req.body.username && req.body.password) {
-    // TODO save to database
     var connection = require("../db/db");
 
     bcrypt.genSalt(saltRounds, function(err, salt) {
       bcrypt.hash(req.body.password, salt, function(err, hash) {
-        console.log("This is the password hash: " + hash);
-        //TODO check if email is already used
-
         connection
           .query(checkEmailQuery, [req.body.email])
           .then(rows => {
             if (rows.length > 0) {
-              console.log("Email already in use!");
-              res.status(400).json({ message: "Email already in use!" });
+              res.status(420).json({ message: "Email already in use!" });
               throw new Error("handled");
             }
 
@@ -35,7 +30,6 @@ exports.registration = (req, res, next) => {
             ]);
           })
           .then(rows => {
-            console.log(rows);
             var api_key = process.env.MAILGUN_API_KEY;
             var domain = "mg.almateszekfoglaltvolt.hu";
             var mailgun = require("mailgun-js")({
@@ -92,7 +86,7 @@ exports.userLogin = (req, res, next) => {
   connection.query(playerQuery, [req.body.email]).then(rows => {
     console.log(rows);
     if (rows.length !== 1) {
-      return res.status(401).json({
+      return res.status(421).json({
         message: "There is no User with this email (or maybe more than 1)"
       });
     }
@@ -120,7 +114,7 @@ exports.userLogin = (req, res, next) => {
         if (err) {
           console.error(err);
         }
-        return res.status(401).json({
+        return res.status(421).json({
           message: "Error with the password!"
         });
       }
