@@ -53,10 +53,15 @@ export class AuthComponent implements OnInit {
         data => {
           // this.router.navigate([this.returnUrl]);
           this.loading = false;
+          this.onPageChange('Login');
         },
         error => {
           console.error(error);
           console.error(error.status);
+          if (error.status === 420) {
+            // Email already in use
+            this.registrationForm.get('email').setErrors({emailUsed: true});
+          }
           this.loading = false;
         });
   }
@@ -85,7 +90,22 @@ export class AuthComponent implements OnInit {
         error => {
           console.error(error);
           console.error(error.status);
+          if (error.status === 421) {
+            this.loginForm.get('password').setErrors({wrongPass: true});
+          }
           this.loading = false;
         });
+  }
+
+  get regemail() {
+    return this.registrationForm.get('email');
+  }
+
+  get logemail() {
+    return this.loginForm.get('email');
+  }
+
+  get logpass() {
+    return this.loginForm.get('password');
   }
 }
