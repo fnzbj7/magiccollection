@@ -89,7 +89,7 @@ const playerQuery =
 exports.userLogin = (req, res, next) => {
   let fetchedUser;
   var connection = require("../db/db");
-  connection.query(playerQuery, [req.body.email], (err, rows) => {
+  connection.query(playerQuery, [req.body.email]).then(rows => {
     console.log(rows);
     if (rows.length !== 1) {
       return res.status(401).json({
@@ -158,5 +158,8 @@ exports.verification = (req, res, next) => {
     })
     .then(rows => {
       res.json({ message: "Account aktiválva!" });
-    }).catch(err => res.status(500).json({ message: "Hiba az adatbázisnál", error: err }));
+    })
+    .catch(err =>
+      res.status(500).json({ message: "Hiba az adatbázisnál", error: err })
+    );
 };
