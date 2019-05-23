@@ -20,6 +20,7 @@
     "morgan": "~1.9.1",
     "mysql": "^2.13.0",
     "pug": "~2.0.0-beta11",
+    "rendertron-middleware": "^0.1.5",
     "supervisor": "^0.12.0",
     "yarn": "^1.15.2"
   }
