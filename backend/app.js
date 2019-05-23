@@ -6,12 +6,46 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var cors = require('cors');
+const rendertron = require('rendertron-middleware');
+
+const bots = [
+  'Screaming',
+  'baiduspider',
+  'bingbot',
+  'embedly',
+  'facebookexternalhit',
+  'linkedinbot',
+  'outbrain',
+  'pinterest',
+  'quora link preview',
+  'rogerbot',
+  'showyoubot',
+  'slackbot',
+  'twitterbot',
+  'vkShare',
+  'W3C_Validator',
+  'whatsapp',
+];
+
+const staticFileExtensions = [
+  'ai', 'avi', 'css', 'dat', 'dmg', 'doc', 'doc', 'exe', 'flv',
+  'gif', 'ico', 'iso', 'jpeg', 'jpg', 'js', 'less', 'm4a', 'm4v',
+  'mov', 'mp3', 'mp4', 'mpeg', 'mpg', 'pdf', 'png', 'ppt', 'psd',
+  'rar', 'rss', 'svg', 'swf', 'tif', 'torrent', 'ttf', 'txt', 'wav',
+  'webp', 'wmv', 'woff', 'xls', 'xml', 'zip',
+];
 
 const router = require("./routes/router");
 
 var app = express();
 app.use(compression());
 app.use(cors());
+
+app.use(rendertron.makeMiddleware({
+    proxyUrl: 'https://weshop-rendertron.azurewebsites.net/render',
+	userAgentPattern: new RegExp(bots.join('|'), 'i'),
+	excludeUrlPattern: new RegExp(staticFileExtensions.join('|'), 'i')
+}));
 
 if ('development' == app.get('env')) {
 	const swaggerUi = require('swagger-ui-express');
