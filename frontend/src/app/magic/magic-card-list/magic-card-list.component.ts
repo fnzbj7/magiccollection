@@ -13,6 +13,7 @@ export class MagicCardListComponent implements OnInit {
 
   p = 1;
   cardsArray: Card[];
+  filteredCardsArray: Card[];
   expansion: string;
   currentPage = 1;
   itemsPerPage = 35;
@@ -26,7 +27,9 @@ export class MagicCardListComponent implements OnInit {
         this.expansion = params['expansion'];
         this.magicCardsListService.getCardsForExpansion(this.expansion).subscribe(
           (cards: Card[]) => {
+            console.log(cards);
             this.cardsArray = cards;
+            this.filterCards();
             if (this.route.snapshot.queryParams['page']) {
               this.currentPage = +this.route.snapshot.queryParams['page'];
             } else {
@@ -37,6 +40,10 @@ export class MagicCardListComponent implements OnInit {
         );
       }
     );
+
+    this.magicCardsListService.getFilterChangeSub().subscribe( rarityFilter => {
+      this.filterCards();
+    });
 
     this.route.queryParams.subscribe(data => {
       if (data.page === undefined) {
@@ -56,6 +63,12 @@ export class MagicCardListComponent implements OnInit {
         queryParams: { page: this.currentPage },
         queryParamsHandling: 'merge', // remove to replace all query params by provided
       });
+  }
+
+  private filterCards() {
+    this.filteredCardsArray = this.cardsArray.filter(card => {
+      return this.magicCardsListService.getfilterArray().includes(card.rarity);
+    });
   }
 
 }
