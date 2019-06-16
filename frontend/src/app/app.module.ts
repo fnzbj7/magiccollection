@@ -21,6 +21,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { ServiceWorkerModule} from '@angular/service-worker';
 import { environment } from 'src/environments/environment';
 import { LandingComponent } from './landing/landing.component';
+import { MagicCardRarityFilterComponent } from './magic/magic-card-rarity-filter/magic-card-rarity-filter.component';
 
 
 @NgModule({
@@ -33,7 +34,8 @@ import { LandingComponent } from './landing/landing.component';
     HeaderComponent,
     MagicCardAmountDirective,
     AuthComponent,
-    LandingComponent
+    LandingComponent,
+    MagicCardRarityFilterComponent
   ],
   entryComponents: [
     AuthComponent

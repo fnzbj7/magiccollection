@@ -1,8 +1,9 @@
 <app-magic-expansion-list></app-magic-expansion-list>
 <div id="fullThings" class="mx-auto">
+  <app-magic-card-rarity-filter></app-magic-card-rarity-filter>
   <pagination-controls class="my-pagination" maxSize="20" directionLinks="false" (pageChange)="onPageChange($event)" #page></pagination-controls>
   <ul id="things" class="px-0">
-    <app-magic-card [magicCard]="card" *ngFor="let card of cardsArray | paginate: { itemsPerPage: itemsPerPage, currentPage: currentPage }"></app-magic-card>
+    <app-magic-card [magicCard]="card" *ngFor="let card of filteredCardsArray | paginate: { itemsPerPage: itemsPerPage, currentPage: currentPage }"></app-magic-card>
     <!-- Fake Cards -->
     <li class="fake-card"></li>
     <li class="fake-card"></li>
