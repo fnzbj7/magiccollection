@@ -92,6 +92,7 @@ ol,ul{
 
 .fake-card {
   width: 217px;
+  margin: 5px 3px;
 }
 
 @media screen and (max-width: 575px){
