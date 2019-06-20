@@ -1,4 +1,4 @@
-INSERT INTO CardExpansion (CardExpansionName,CardExpansionShortName) values('War of The Spark','WAR');
+INSERT INTO cardexpansion (CardExpansionName,CardExpansionShortName) values('War of The Spark','WAR');
 
 INSERT INTO card (CardID,CardExpansion_1, CardName, Rarity, Doubleside) VALUES(113,(select cardexpansionid from cardexpansion where CardExpansionShortName ='WAR'),'Ahn-Crop Invader','C','0');
 INSERT INTO card (CardID,CardExpansion_1, CardName, Rarity, Doubleside) VALUES(76,(select cardexpansionid from cardexpansion where CardExpansionShortName ='WAR'),'Aid the Fallen','C','0');
@@ -78,11 +78,11 @@ INSERT INTO card (CardID,CardExpansion_1, CardName, Rarity, Doubleside) VALUES(9
 INSERT INTO card (CardID,CardExpansion_1, CardName, Rarity, Doubleside) VALUES(159,(select cardexpansionid from cardexpansion where CardExpansionShortName ='WAR'),'Evolution Sage','U','0');
 INSERT INTO card (CardID,CardExpansion_1, CardName, Rarity, Doubleside) VALUES(50,(select cardexpansionid from cardexpansion where CardExpansionShortName ='WAR'),'Fblthp, the Lost','R','0');
 INSERT INTO card (CardID,CardExpansion_1, CardName, Rarity, Doubleside) VALUES(197,(select cardexpansionid from cardexpansion where CardExpansionShortName ='WAR'),'Feather, the Redeemed','R','0');
-INSERT INTO card (CardID,CardExpansion_1, CardName, Rarity, Doubleside) VALUES(160,(select cardexpansionid from cardexpansion where CardExpansionShortName ='WAR'),'Finale of Devastation','','0');
-INSERT INTO card (CardID,CardExpansion_1, CardName, Rarity, Doubleside) VALUES(91,(select cardexpansionid from cardexpansion where CardExpansionShortName ='WAR'),'Finale of Eternity','','0');
-INSERT INTO card (CardID,CardExpansion_1, CardName, Rarity, Doubleside) VALUES(12,(select cardexpansionid from cardexpansion where CardExpansionShortName ='WAR'),'Finale of Glory','','0');
-INSERT INTO card (CardID,CardExpansion_1, CardName, Rarity, Doubleside) VALUES(127,(select cardexpansionid from cardexpansion where CardExpansionShortName ='WAR'),'Finale of Promise','','0');
-INSERT INTO card (CardID,CardExpansion_1, CardName, Rarity, Doubleside) VALUES(51,(select cardexpansionid from cardexpansion where CardExpansionShortName ='WAR'),'Finale of Revelation','','0');
+INSERT INTO card (CardID,CardExpansion_1, CardName, Rarity, Doubleside) VALUES(160,(select cardexpansionid from cardexpansion where CardExpansionShortName ='WAR'),'Finale of Devastation','M','0');
+INSERT INTO card (CardID,CardExpansion_1, CardName, Rarity, Doubleside) VALUES(91,(select cardexpansionid from cardexpansion where CardExpansionShortName ='WAR'),'Finale of Eternity','M','0');
+INSERT INTO card (CardID,CardExpansion_1, CardName, Rarity, Doubleside) VALUES(12,(select cardexpansionid from cardexpansion where CardExpansionShortName ='WAR'),'Finale of Glory','M','0');
+INSERT INTO card (CardID,CardExpansion_1, CardName, Rarity, Doubleside) VALUES(127,(select cardexpansionid from cardexpansion where CardExpansionShortName ='WAR'),'Finale of Promise','M','0');
+INSERT INTO card (CardID,CardExpansion_1, CardName, Rarity, Doubleside) VALUES(51,(select cardexpansionid from cardexpansion where CardExpansionShortName ='WAR'),'Finale of Revelation','M','0');
 INSERT INTO card (CardID,CardExpansion_1, CardName, Rarity, Doubleside) VALUES(237,(select cardexpansionid from cardexpansion where CardExpansionShortName ='WAR'),'Firemind Vessel','U','0');
 INSERT INTO card (CardID,CardExpansion_1, CardName, Rarity, Doubleside) VALUES(52,(select cardexpansionid from cardexpansion where CardExpansionShortName ='WAR'),'Flux Channeler','U','0');
 INSERT INTO card (CardID,CardExpansion_1, CardName, Rarity, Doubleside) VALUES(161,(select cardexpansionid from cardexpansion where CardExpansionShortName ='WAR'),'Forced Landing','C','0');
@@ -91,19 +91,19 @@ INSERT INTO card (CardID,CardExpansion_1, CardName, Rarity, Doubleside) VALUES(2
 INSERT INTO card (CardID,CardExpansion_1, CardName, Rarity, Doubleside) VALUES(264,(select cardexpansionid from cardexpansion where CardExpansionShortName ='WAR'),'Forest','C','0');
 INSERT INTO card (CardID,CardExpansion_1, CardName, Rarity, Doubleside) VALUES(246,(select cardexpansionid from cardexpansion where CardExpansionShortName ='WAR'),'Gateway Plaza','C','0');
 INSERT INTO card (CardID,CardExpansion_1, CardName, Rarity, Doubleside) VALUES(162,(select cardexpansionid from cardexpansion where CardExpansionShortName ='WAR'),'Giant Growth','C','0');
-INSERT INTO card (CardID,CardExpansion_1, CardName, Rarity, Doubleside) VALUES(13,(select cardexpansionid from cardexpansion where CardExpansionShortName ='WAR'),'Gideon Blackblade','','0');
+INSERT INTO card (CardID,CardExpansion_1, CardName, Rarity, Doubleside) VALUES(13,(select cardexpansionid from cardexpansion where CardExpansionShortName ='WAR'),'Gideon Blackblade','M','0');
 INSERT INTO card (CardID,CardExpansion_1, CardName, Rarity, Doubleside) VALUES(267,(select cardexpansionid from cardexpansion where CardExpansionShortName ='WAR'),'Gideon''s Battle Cry','R','0');
 INSERT INTO card (CardID,CardExpansion_1, CardName, Rarity, Doubleside) VALUES(268,(select cardexpansionid from cardexpansion where CardExpansionShortName ='WAR'),'Gideon''s Company','U','0');
 INSERT INTO card (CardID,CardExpansion_1, CardName, Rarity, Doubleside) VALUES(14,(select cardexpansionid from cardexpansion where CardExpansionShortName ='WAR'),'Gideon''s Sacrifice','C','0');
 INSERT INTO card (CardID,CardExpansion_1, CardName, Rarity, Doubleside) VALUES(15,(select cardexpansionid from cardexpansion where CardExpansionShortName ='WAR'),'Gideon''s Triumph','U','0');
-INSERT INTO card (CardID,CardExpansion_1, CardName, Rarity, Doubleside) VALUES(265,(select cardexpansionid from cardexpansion where CardExpansionShortName ='WAR'),'Gideon, the Oathsworn','','0');
+INSERT INTO card (CardID,CardExpansion_1, CardName, Rarity, Doubleside) VALUES(265,(select cardexpansionid from cardexpansion where CardExpansionShortName ='WAR'),'Gideon, the Oathsworn','M','0');
 INSERT INTO card (CardID,CardExpansion_1, CardName, Rarity, Doubleside) VALUES(198,(select cardexpansionid from cardexpansion where CardExpansionShortName ='WAR'),'Gleaming Overseer','U','0');
 INSERT INTO card (CardID,CardExpansion_1, CardName, Rarity, Doubleside) VALUES(128,(select cardexpansionid from cardexpansion where CardExpansionShortName ='WAR'),'Goblin Assailant','C','0');
 INSERT INTO card (CardID,CardExpansion_1, CardName, Rarity, Doubleside) VALUES(129,(select cardexpansionid from cardexpansion where CardExpansionShortName ='WAR'),'Goblin Assault Team','C','0');
-INSERT INTO card (CardID,CardExpansion_1, CardName, Rarity, Doubleside) VALUES(92,(select cardexpansionid from cardexpansion where CardExpansionShortName ='WAR'),'God-Eternal Bontu','','0');
-INSERT INTO card (CardID,CardExpansion_1, CardName, Rarity, Doubleside) VALUES(53,(select cardexpansionid from cardexpansion where CardExpansionShortName ='WAR'),'God-Eternal Kefnet','','0');
-INSERT INTO card (CardID,CardExpansion_1, CardName, Rarity, Doubleside) VALUES(16,(select cardexpansionid from cardexpansion where CardExpansionShortName ='WAR'),'God-Eternal Oketra','','0');
-INSERT INTO card (CardID,CardExpansion_1, CardName, Rarity, Doubleside) VALUES(163,(select cardexpansionid from cardexpansion where CardExpansionShortName ='WAR'),'God-Eternal Rhonas','','0');
+INSERT INTO card (CardID,CardExpansion_1, CardName, Rarity, Doubleside) VALUES(92,(select cardexpansionid from cardexpansion where CardExpansionShortName ='WAR'),'God-Eternal Bontu','M','0');
+INSERT INTO card (CardID,CardExpansion_1, CardName, Rarity, Doubleside) VALUES(53,(select cardexpansionid from cardexpansion where CardExpansionShortName ='WAR'),'God-Eternal Kefnet','M','0');
+INSERT INTO card (CardID,CardExpansion_1, CardName, Rarity, Doubleside) VALUES(16,(select cardexpansionid from cardexpansion where CardExpansionShortName ='WAR'),'God-Eternal Oketra','M','0');
+INSERT INTO card (CardID,CardExpansion_1, CardName, Rarity, Doubleside) VALUES(163,(select cardexpansionid from cardexpansion where CardExpansionShortName ='WAR'),'God-Eternal Rhonas','M','0');
 INSERT INTO card (CardID,CardExpansion_1, CardName, Rarity, Doubleside) VALUES(238,(select cardexpansionid from cardexpansion where CardExpansionShortName ='WAR'),'God-Pharaoh''s Statue','U','0');
 INSERT INTO card (CardID,CardExpansion_1, CardName, Rarity, Doubleside) VALUES(17,(select cardexpansionid from cardexpansion where CardExpansionShortName ='WAR'),'Grateful Apparition','U','0');
 INSERT INTO card (CardID,CardExpansion_1, CardName, Rarity, Doubleside) VALUES(130,(select cardexpansionid from cardexpansion where CardExpansionShortName ='WAR'),'Grim Initiate','C','0');
@@ -116,7 +116,7 @@ INSERT INTO card (CardID,CardExpansion_1, CardName, Rarity, Doubleside) VALUES(1
 INSERT INTO card (CardID,CardExpansion_1, CardName, Rarity, Doubleside) VALUES(200,(select cardexpansionid from cardexpansion where CardExpansionShortName ='WAR'),'Huatli''s Raptor','U','0');
 INSERT INTO card (CardID,CardExpansion_1, CardName, Rarity, Doubleside) VALUES(230,(select cardexpansionid from cardexpansion where CardExpansionShortName ='WAR'),'Huatli, the Sun''s Heart','U','0');
 INSERT INTO card (CardID,CardExpansion_1, CardName, Rarity, Doubleside) VALUES(18,(select cardexpansionid from cardexpansion where CardExpansionShortName ='WAR'),'Ignite the Beacon','R','0');
-INSERT INTO card (CardID,CardExpansion_1, CardName, Rarity, Doubleside) VALUES(133,(select cardexpansionid from cardexpansion where CardExpansionShortName ='WAR'),'Ilharg, the Raze-Boar','','0');
+INSERT INTO card (CardID,CardExpansion_1, CardName, Rarity, Doubleside) VALUES(133,(select cardexpansionid from cardexpansion where CardExpansionShortName ='WAR'),'Ilharg, the Raze-Boar','M','0');
 INSERT INTO card (CardID,CardExpansion_1, CardName, Rarity, Doubleside) VALUES(247,(select cardexpansionid from cardexpansion where CardExpansionShortName ='WAR'),'Interplanar Beacon','U','0');
 INSERT INTO card (CardID,CardExpansion_1, CardName, Rarity, Doubleside) VALUES(201,(select cardexpansionid from cardexpansion where CardExpansionShortName ='WAR'),'Invade the City','U','0');
 INSERT INTO card (CardID,CardExpansion_1, CardName, Rarity, Doubleside) VALUES(134,(select cardexpansionid from cardexpansion where CardExpansionShortName ='WAR'),'Invading Manticore','C','0');
@@ -128,7 +128,7 @@ INSERT INTO card (CardID,CardExpansion_1, CardName, Rarity, Doubleside) VALUES(2
 INSERT INTO card (CardID,CardExpansion_1, CardName, Rarity, Doubleside) VALUES(272,(select cardexpansionid from cardexpansion where CardExpansionShortName ='WAR'),'Jace''s Projection','U','0');
 INSERT INTO card (CardID,CardExpansion_1, CardName, Rarity, Doubleside) VALUES(273,(select cardexpansionid from cardexpansion where CardExpansionShortName ='WAR'),'Jace''s Ruse','R','0');
 INSERT INTO card (CardID,CardExpansion_1, CardName, Rarity, Doubleside) VALUES(55,(select cardexpansionid from cardexpansion where CardExpansionShortName ='WAR'),'Jace''s Triumph','U','0');
-INSERT INTO card (CardID,CardExpansion_1, CardName, Rarity, Doubleside) VALUES(270,(select cardexpansionid from cardexpansion where CardExpansionShortName ='WAR'),'Jace, Arcane Strategist','','0');
+INSERT INTO card (CardID,CardExpansion_1, CardName, Rarity, Doubleside) VALUES(270,(select cardexpansionid from cardexpansion where CardExpansionShortName ='WAR'),'Jace, Arcane Strategist','M','0');
 INSERT INTO card (CardID,CardExpansion_1, CardName, Rarity, Doubleside) VALUES(54,(select cardexpansionid from cardexpansion where CardExpansionShortName ='WAR'),'Jace, Wielder of Mysteries','R','0');
 INSERT INTO card (CardID,CardExpansion_1, CardName, Rarity, Doubleside) VALUES(136,(select cardexpansionid from cardexpansion where CardExpansionShortName ='WAR'),'Jaya''s Greeting','C','0');
 INSERT INTO card (CardID,CardExpansion_1, CardName, Rarity, Doubleside) VALUES(135,(select cardexpansionid from cardexpansion where CardExpansionShortName ='WAR'),'Jaya, Venerated Firemage','U','0');
@@ -150,7 +150,7 @@ INSERT INTO card (CardID,CardExpansion_1, CardName, Rarity, Doubleside) VALUES(5
 INSERT INTO card (CardID,CardExpansion_1, CardName, Rarity, Doubleside) VALUES(96,(select cardexpansionid from cardexpansion where CardExpansionShortName ='WAR'),'Lazotep Reaver','C','0');
 INSERT INTO card (CardID,CardExpansion_1, CardName, Rarity, Doubleside) VALUES(202,(select cardexpansionid from cardexpansion where CardExpansionShortName ='WAR'),'Leyline Prowler','U','0');
 INSERT INTO card (CardID,CardExpansion_1, CardName, Rarity, Doubleside) VALUES(98,(select cardexpansionid from cardexpansion where CardExpansionShortName ='WAR'),'Liliana''s Triumph','U','0');
-INSERT INTO card (CardID,CardExpansion_1, CardName, Rarity, Doubleside) VALUES(97,(select cardexpansionid from cardexpansion where CardExpansionShortName ='WAR'),'Liliana, Dreadhorde General','','0');
+INSERT INTO card (CardID,CardExpansion_1, CardName, Rarity, Doubleside) VALUES(97,(select cardexpansionid from cardexpansion where CardExpansionShortName ='WAR'),'Liliana, Dreadhorde General','M','0');
 INSERT INTO card (CardID,CardExpansion_1, CardName, Rarity, Doubleside) VALUES(203,(select cardexpansionid from cardexpansion where CardExpansionShortName ='WAR'),'Living Twister','R','0');
 INSERT INTO card (CardID,CardExpansion_1, CardName, Rarity, Doubleside) VALUES(21,(select cardexpansionid from cardexpansion where CardExpansionShortName ='WAR'),'Loxodon Sergeant','C','0');
 INSERT INTO card (CardID,CardExpansion_1, CardName, Rarity, Doubleside) VALUES(22,(select cardexpansionid from cardexpansion where CardExpansionShortName ='WAR'),'Makeshift Battalion','C','0');
@@ -173,10 +173,10 @@ INSERT INTO card (CardID,CardExpansion_1, CardName, Rarity, Doubleside) VALUES(6
 INSERT INTO card (CardID,CardExpansion_1, CardName, Rarity, Doubleside) VALUES(140,(select cardexpansionid from cardexpansion where CardExpansionShortName ='WAR'),'Neheb, Dreadhorde Champion','R','0');
 INSERT INTO card (CardID,CardExpansion_1, CardName, Rarity, Doubleside) VALUES(206,(select cardexpansionid from cardexpansion where CardExpansionShortName ='WAR'),'Neoform','U','0');
 INSERT INTO card (CardID,CardExpansion_1, CardName, Rarity, Doubleside) VALUES(168,(select cardexpansionid from cardexpansion where CardExpansionShortName ='WAR'),'New Horizons','C','0');
-INSERT INTO card (CardID,CardExpansion_1, CardName, Rarity, Doubleside) VALUES(207,(select cardexpansionid from cardexpansion where CardExpansionShortName ='WAR'),'Nicol Bolas, Dragon-God','','0');
+INSERT INTO card (CardID,CardExpansion_1, CardName, Rarity, Doubleside) VALUES(207,(select cardexpansionid from cardexpansion where CardExpansionShortName ='WAR'),'Nicol Bolas, Dragon-God','M','0');
 INSERT INTO card (CardID,CardExpansion_1, CardName, Rarity, Doubleside) VALUES(170,(select cardexpansionid from cardexpansion where CardExpansionShortName ='WAR'),'Nissa''s Triumph','U','0');
 INSERT INTO card (CardID,CardExpansion_1, CardName, Rarity, Doubleside) VALUES(169,(select cardexpansionid from cardexpansion where CardExpansionShortName ='WAR'),'Nissa, Who Shakes the World','R','0');
-INSERT INTO card (CardID,CardExpansion_1, CardName, Rarity, Doubleside) VALUES(208,(select cardexpansionid from cardexpansion where CardExpansionShortName ='WAR'),'Niv-Mizzet Reborn','','0');
+INSERT INTO card (CardID,CardExpansion_1, CardName, Rarity, Doubleside) VALUES(208,(select cardexpansionid from cardexpansion where CardExpansionShortName ='WAR'),'Niv-Mizzet Reborn','M','0');
 INSERT INTO card (CardID,CardExpansion_1, CardName, Rarity, Doubleside) VALUES(63,(select cardexpansionid from cardexpansion where CardExpansionShortName ='WAR'),'No Escape','C','0');
 INSERT INTO card (CardID,CardExpansion_1, CardName, Rarity, Doubleside) VALUES(209,(select cardexpansionid from cardexpansion where CardExpansionShortName ='WAR'),'Oath of Kaya','R','0');
 INSERT INTO card (CardID,CardExpansion_1, CardName, Rarity, Doubleside) VALUES(101,(select cardexpansionid from cardexpansion where CardExpansionShortName ='WAR'),'Ob Nixilis''s Cruelty','C','0');
@@ -204,7 +204,7 @@ INSERT INTO card (CardID,CardExpansion_1, CardName, Rarity, Doubleside) VALUES(6
 INSERT INTO card (CardID,CardExpansion_1, CardName, Rarity, Doubleside) VALUES(65,(select cardexpansionid from cardexpansion where CardExpansionShortName ='WAR'),'Rescuer Sphinx','U','0');
 INSERT INTO card (CardID,CardExpansion_1, CardName, Rarity, Doubleside) VALUES(175,(select cardexpansionid from cardexpansion where CardExpansionShortName ='WAR'),'Return to Nature','C','0');
 INSERT INTO card (CardID,CardExpansion_1, CardName, Rarity, Doubleside) VALUES(29,(select cardexpansionid from cardexpansion where CardExpansionShortName ='WAR'),'Rising Populace','C','0');
-INSERT INTO card (CardID,CardExpansion_1, CardName, Rarity, Doubleside) VALUES(213,(select cardexpansionid from cardexpansion where CardExpansionShortName ='WAR'),'Roalesk, Apex Hybrid','','0');
+INSERT INTO card (CardID,CardExpansion_1, CardName, Rarity, Doubleside) VALUES(213,(select cardexpansionid from cardexpansion where CardExpansionShortName ='WAR'),'Roalesk, Apex Hybrid','M','0');
 INSERT INTO card (CardID,CardExpansion_1, CardName, Rarity, Doubleside) VALUES(214,(select cardexpansionid from cardexpansion where CardExpansionShortName ='WAR'),'Role Reversal','R','0');
 INSERT INTO card (CardID,CardExpansion_1, CardName, Rarity, Doubleside) VALUES(215,(select cardexpansionid from cardexpansion where CardExpansionShortName ='WAR'),'Rubblebelt Rioters','U','0');
 INSERT INTO card (CardID,CardExpansion_1, CardName, Rarity, Doubleside) VALUES(243,(select cardexpansionid from cardexpansion where CardExpansionShortName ='WAR'),'Saheeli''s Silverwing','C','0');
@@ -243,7 +243,7 @@ INSERT INTO card (CardID,CardExpansion_1, CardName, Rarity, Doubleside) VALUES(2
 INSERT INTO card (CardID,CardExpansion_1, CardName, Rarity, Doubleside) VALUES(222,(select cardexpansionid from cardexpansion where CardExpansionShortName ='WAR'),'Tenth District Legionnaire','U','0');
 INSERT INTO card (CardID,CardExpansion_1, CardName, Rarity, Doubleside) VALUES(33,(select cardexpansionid from cardexpansion where CardExpansionShortName ='WAR'),'Teyo''s Lightshield','C','0');
 INSERT INTO card (CardID,CardExpansion_1, CardName, Rarity, Doubleside) VALUES(32,(select cardexpansionid from cardexpansion where CardExpansionShortName ='WAR'),'Teyo, the Shieldmage','U','0');
-INSERT INTO card (CardID,CardExpansion_1, CardName, Rarity, Doubleside) VALUES(275,(select cardexpansionid from cardexpansion where CardExpansionShortName ='WAR'),'Tezzeret, Master of the Bridge','','0');
+INSERT INTO card (CardID,CardExpansion_1, CardName, Rarity, Doubleside) VALUES(275,(select cardexpansionid from cardexpansion where CardExpansionShortName ='WAR'),'Tezzeret, Master of the Bridge','M','0');
 INSERT INTO card (CardID,CardExpansion_1, CardName, Rarity, Doubleside) VALUES(89,(select cardexpansionid from cardexpansion where CardExpansionShortName ='WAR'),'The Elderspell','R','0');
 INSERT INTO card (CardID,CardExpansion_1, CardName, Rarity, Doubleside) VALUES(37,(select cardexpansionid from cardexpansion where CardExpansionShortName ='WAR'),'The Wanderer','U','0');
 INSERT INTO card (CardID,CardExpansion_1, CardName, Rarity, Doubleside) VALUES(73,(select cardexpansionid from cardexpansion where CardExpansionShortName ='WAR'),'Thunder Drake','C','0');
