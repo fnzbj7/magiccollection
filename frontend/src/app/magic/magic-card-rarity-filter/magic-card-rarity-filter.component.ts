@@ -36,7 +36,7 @@ export class MagicCardRarityFilterComponent implements OnInit {
           break;
 
       }
-    })
+    });
   }
 
   changeFilterValue(filterChangeName: string, filterChangeTo: boolean) {
