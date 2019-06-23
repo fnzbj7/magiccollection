@@ -3,11 +3,18 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { MainUrlService } from '../shared/main-url.services';
 import { Observable, Subject } from 'rxjs';
+import { FilterChange } from '../model/filter-change.model';
+import { CardRarity } from '../model/card-rarity.enum';
 
 @Injectable()
 export class MagicCardsListService {
-  private filterArray = ['C', 'U', 'R', 'M'];
-  private filterChange = new Subject<{ changedTo: boolean; changeName: string }>();
+  private filterArray: string[] = [
+    CardRarity.Common,
+    CardRarity.Uncommon,
+    CardRarity.Rare,
+    CardRarity.Mythic
+  ];
+  private filterChange = new Subject<FilterChange>();
   private filterChangeSub = this.filterChange.asObservable();
 
   constructor(private http: HttpClient, private urlService: MainUrlService) {}
@@ -19,7 +26,7 @@ export class MagicCardsListService {
     );
   }
 
-  getFilterChangeSub(): Observable<{ changedTo: boolean; changeName: string }> {
+  getFilterChangeSub(): Observable<FilterChange> {
     return this.filterChangeSub;
   }
 
@@ -34,6 +41,9 @@ export class MagicCardsListService {
         ? this.filterArray.splice(this.filterArray.indexOf(filterChangeName), 1)
         : this.filterArray.push(filterChangeName);
     }
-    this.filterChange.next({changedTo: filterChangeTo, changeName: filterChangeName});
+    this.filterChange.next({
+      changedTo: filterChangeTo,
+      changeName: filterChangeName
+    });
   }
 }
