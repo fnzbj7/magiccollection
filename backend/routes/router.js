@@ -1,5 +1,6 @@
 const express = require("express");
 const router = express.Router();
+const checkAuth = require('../middleware/check-auth');
 
 // Controllers
 const calendarController = require('../controllers/calendar');
@@ -10,7 +11,7 @@ const userController = require('../controllers/user');
 router.get('/calendar', calendarController.getEvents);
 
 // cardController
-router.get('/card/allsetcard', cardController.getAllCardsFromSet);
+router.get('/card/allsetcard', checkAuth, cardController.getAllCardsFromSet);
 router.get('/card/pagecard', cardController.getCardsWithPaging);
 
 // userController
