@@ -1,19 +1,18 @@
 exports.getAllCardsFromSet = function(req, res, next) {
+	console.log({ userId: req.userData.userId});
     var connection = require('../db/db');
     
     if(!req.query.search) {
         return res.status(500).json({message: 'No expansion selected'})      
     }
 
-	var sqlQuery = 'select ce.CardExpansionShortName cardExpansion, LPAD(ca.card_1,3,0) cardNumber, ca.Amount cardAmount, c.Doubleside doubleside, c.Rarity rarity '+
-			'from cardamount ca '+
-			'join cardexpansion ce on ca.CardExpansion_1 = ce.CardExpansionID '+
-			'join card c on c.CardID = ca.Card_1 and c.CardExpansion_1 = ca.CardExpansion_1 '+
-			'where ca.CardExpansion_1 = (select CardExpansionID from cardexpansion where CardExpansionShortName = ?) '+
-			'and player_1 = 1 '+
-			'order by ca.card_1, ce.CardExpansionShortName;';
+	var sqlQuery =  'select ce.CardExpansionShortName cardExpansion, LPAD(c.cardID,3,0) cardNumber, IFNULL(ca.Amount, 0) cardAmount, c.Doubleside doubleside, c.Rarity rarity ' +
+			'from card c ' +
+			'join cardexpansion ce on c.CardExpansion_1 = ce.CardExpansionID and ce.CardExpansionShortName = ? ' +
+			'left join cardamount ca on c.CardID = ca.Card_1 and c.CardExpansion_1 = ca.CardExpansion_1 and ca.Player_1 = ? ' +
+			'order by c.cardID, ce.CardExpansionShortName';
 
-		connection.query(sqlQuery, [ req.query.search]).then(results => {
+		connection.query(sqlQuery, [ req.query.search, req.userData.userId]).then(results => {
 			res.json(results);
 		}).catch(error =>
             error === "DbError"
