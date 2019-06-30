@@ -1,4 +1,5 @@
 import { Directive, OnInit, Renderer2, ElementRef, Input } from '@angular/core';
+import { AuthenticationService } from 'src/app/auth/authentication.service';
 
 @Directive({
     selector: '[appMagicCardAmount]'
@@ -7,7 +8,7 @@ export class MagicCardAmountDirective implements OnInit {
 
     @Input() appMagicCardAmount = 0;
 
-    constructor(private elRef: ElementRef, private renderer: Renderer2) {}
+    constructor(private elRef: ElementRef, private renderer: Renderer2, private authenticationService: AuthenticationService) {}
 
     ngOnInit() {
       const cardImg = this.elRef.nativeElement;
@@ -20,6 +21,10 @@ export class MagicCardAmountDirective implements OnInit {
      * @param cardImg nativeElement ref for the card <img> tag.
      */
     createAmountForImage( magicCardAmount, cardImg) {
+      // If there is no logged in user, just show the cards.
+      if ( !this.authenticationService.isLoggedIn() ) {
+        return;
+      }
 
       if (magicCardAmount > 0) {
         const amountImg = this.renderer.createElement('img');

@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { MagicCardsListService } from '../magic-cards-list.service';
-import { BrowserStack } from 'protractor/built/driverProviders';
 import { FilterChange } from 'src/app/model/filter-change.model';
 import { CardRarity } from 'src/app/model/card-rarity.enum';
 

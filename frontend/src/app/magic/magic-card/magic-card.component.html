@@ -4,6 +4,7 @@
     *ngSwitchCase="'0'"
     class="magiccard"
     [appMagicCardAmount]="magicCard.cardAmount"
+    (click)="openCardModal()"
   >
     <source
       srcset="assets/img/cards/{{magicCard.cardExpansion}}/webp/{{magicCard.cardExpansion}}_{{magicCard.cardNumber}}.webp"

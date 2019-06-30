@@ -22,6 +22,7 @@ import { ServiceWorkerModule} from '@angular/service-worker';
 import { environment } from 'src/environments/environment';
 import { LandingComponent } from './landing/landing.component';
 import { MagicCardRarityFilterComponent } from './magic/magic-card-rarity-filter/magic-card-rarity-filter.component';
+import { MagicCardModalComponent } from './magic/magic-card-modal/magic-card-modal.component';
 
 
 @NgModule({
@@ -35,10 +36,12 @@ import { MagicCardRarityFilterComponent } from './magic/magic-card-rarity-filter
     MagicCardAmountDirective,
     AuthComponent,
     LandingComponent,
-    MagicCardRarityFilterComponent
+    MagicCardRarityFilterComponent,
+    MagicCardModalComponent
   ],
   entryComponents: [
-    AuthComponent
+    AuthComponent,
+    MagicCardModalComponent
   ],
   imports: [
     BrowserModule,
