@@ -1,4 +1,5 @@
 import { Component, ViewEncapsulation } from '@angular/core';
+import { ModalService } from './shared/modal.service';
 
 @Component({
   selector: 'app-root',
@@ -8,4 +9,11 @@ import { Component, ViewEncapsulation } from '@angular/core';
 })
 export class AppComponent {
   title = 'Magicapp';
+
+  constructor(private modalService: ModalService) {}
+
+  removeModal() {
+    this.modalService.destroy();
+  }
+
 }

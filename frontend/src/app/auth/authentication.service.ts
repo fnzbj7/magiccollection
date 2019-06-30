@@ -9,9 +9,12 @@ import { MainUrlService } from '../shared/main-url.services';
 export class AuthenticationService {
     private currentUserSubject: BehaviorSubject<User>;
     public currentUser: Observable<User>;
+    private loggedIn = false;
 
     constructor(private http: HttpClient, private mainUrlService: MainUrlService) {
-        this.currentUserSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('currentUser')));
+        const currentUserJson = JSON.parse(localStorage.getItem('currentUser'));
+        this.loggedIn = currentUserJson ? true : false;
+        this.currentUserSubject = new BehaviorSubject<User>(currentUserJson);
         this.currentUser = this.currentUserSubject.asObservable();
     }
 
@@ -26,12 +29,12 @@ export class AuthenticationService {
     login(email: string, password: string) {
       return this.http.post<User>(this.mainUrlService.mainUrl + '/api/user/userLogin', { email, password })
         .pipe(map(user => {
-          console.log(user);
           // login successful if there's a jwt token in the response
           if (user && user.token) {
             // store user details and jwt token in local storage to keep user logged in between page refreshes
             localStorage.setItem('currentUser', JSON.stringify(user));
             this.currentUserSubject.next(user);
+            this.loggedIn = true;
           }
 
           return user;
@@ -42,5 +45,10 @@ export class AuthenticationService {
         // remove user from local storage to log user out
         localStorage.removeItem('currentUser');
         this.currentUserSubject.next(null);
+        this.loggedIn = false;
+    }
+
+    isLoggedIn() {
+      return this.loggedIn;
     }
 }
