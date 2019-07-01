@@ -35,16 +35,16 @@
 
 #modal-container {
   position:  fixed;
-  top: 30%;
+  bottom: 50%;
   left: 50%;
   width: 375px;
   background: white;
-  margin-left: -187.5px;
   text-align: center;
   box-shadow: 0px 0px 2px 1px black;
   z-index: 100;
   border: 1px solid rgba(0,0,0,.2);
   border-radius: .3rem;
+  transform: translate(-50%, 50%);
 }
 
 #overlay {
