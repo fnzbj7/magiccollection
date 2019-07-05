@@ -1,7 +1,6 @@
 *node_modules
 package-lock.json
 dbconfig.json
-main-url.services.ts
 *.vscode
 backend/dist/
 *yarn.lock
