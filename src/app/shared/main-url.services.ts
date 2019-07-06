@@ -1,3 +1,3 @@
 export class MainUrlService {
-    mainUrl = 'http://localhost:80';
+    mainUrl = 'https://fnzbj7.herokuapp.com';
 }
