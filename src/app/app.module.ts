@@ -13,7 +13,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { HeaderComponent } from './header/header.component';
 import { MagicCardAmountDirective } from './magic/magic-card/magic-card-amount.directive';
-import { MainUrlService } from './shared/main-url.services';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { JwtInterceptor } from './auth/jwt.interceptor';
 import { AuthComponent } from './auth/auth.component';
@@ -55,7 +54,6 @@ import { MagicCardModalComponent } from './magic/magic-card-modal/magic-card-mod
   ],
   providers: [
     MagicCardsListService,
-    MainUrlService,
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
   ],
   bootstrap: [AppComponent]

@@ -1,10 +1,10 @@
 import { Card } from '../model/card.model';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { MainUrlService } from '../shared/main-url.services';
 import { Observable, Subject } from 'rxjs';
 import { FilterChange } from '../model/filter-change.model';
 import { CardRarity } from '../model/card-rarity.enum';
+import { environment } from 'src/environments/environment.prod';
 
 @Injectable()
 export class MagicCardsListService {
@@ -17,11 +17,11 @@ export class MagicCardsListService {
   private filterChange = new Subject<FilterChange>();
   private filterChangeSub = this.filterChange.asObservable();
 
-  constructor(private http: HttpClient, private urlService: MainUrlService) {}
+  constructor(private http: HttpClient) {}
 
   getCardsForExpansion(expansion: string): Observable<Card[]> {
     return this.http.get<Card[]>(
-      this.urlService.mainUrl + '/api/card/allsetcard',
+      environment.mainUrl + '/api/card/allsetcard',
       { params: { search: expansion } }
     );
   }
