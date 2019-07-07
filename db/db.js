@@ -1,19 +1,6 @@
 var mysql = require("mysql");
-var dbconfig = require("./dbconfig");
-/* Create a dbconfig.json file next to this file, and contain something like this:
 
-{
-	"db": {
-	  "multipleStatements": "true",
-	  "host"     : "localhost",
-	  "user"     : "root",
-	  "password" : "admin",
-	  "database" : "magic"
-	}
-}
-
-*/
-var pool = mysql.createPool(dbconfig.db);
+var pool = mysql.createPool(process.env.DATABASE_URL);
 
 module.exports = {
   query: function() {
