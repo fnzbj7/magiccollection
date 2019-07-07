@@ -22,6 +22,7 @@ import { environment } from 'src/environments/environment';
 import { LandingComponent } from './landing/landing.component';
 import { MagicCardRarityFilterComponent } from './magic/magic-card-rarity-filter/magic-card-rarity-filter.component';
 import { MagicCardModalComponent } from './magic/magic-card-modal/magic-card-modal.component';
+import { SharedModule } from './shared/shared.module';
 
 
 @NgModule({
@@ -50,7 +51,8 @@ import { MagicCardModalComponent } from './magic/magic-card-modal/magic-card-mod
     NgxPaginationModule,
     ModalModule.forRoot(),
     ReactiveFormsModule,
-    ServiceWorkerModule.register('/ngsw-worker.js', {enabled: environment.production})
+    ServiceWorkerModule.register('/ngsw-worker.js', {enabled: environment.production}),
+    SharedModule
   ],
   providers: [
     MagicCardsListService,

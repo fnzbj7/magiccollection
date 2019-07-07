@@ -1,10 +1,12 @@
-<div id="expansionContainer" [ngClass]="{ open: isOpenMenu }">
+<div id="expansionContainer" class="border border-left-0 border-dark" [ngClass]="{ open: isOpenMenu }">
   <div
     id="open-arrow"
-    class="border border-left-0 border-dark rounded-right"
     (click)="onToggleMenu()"
   >
-    SET ICONS <i class="fas fa-angle-right"></i>
+  <div class=" border-container border border-left-0 border-dark rounded-right">
+    SET ICONS <fa-icon icon="angle-right"></fa-icon>
+  </div>
+
   </div>
   <app-magic-expansion
     [expansionName]="cardSet"
