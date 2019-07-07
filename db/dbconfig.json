@@ -1,9 +1,0 @@
-{
-	"db": {
-	  "multipleStatements": "true",
-	  "host"     : "eu-cdbr-west-02.cleardb.net",
-	  "user"     : "b8060510719d3c",
-	  "password" : "66370086",
-	  "database" : "heroku_24d26c5720ad796"
-	}
-}
