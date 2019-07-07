@@ -91,14 +91,15 @@
 
 /* Small devices (landscape phones, 576px and up)*/
 @media (min-width: 576px) {
+ }
+
+/* Medium devices (tablets, 768px and up)*/
+@media (min-width: 768px) {
   .magiccard_li{
     width: 217px;
     height: 306px;
   }
  }
-
-/* Medium devices (tablets, 768px and up)*/
-@media (min-width: 768px) {  }
 
 /* Large devices (desktops, 992px and up)*/
 @media (min-width: 992px) {  }
