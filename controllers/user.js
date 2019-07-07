@@ -91,22 +91,25 @@ exports.userLogin = (req, res, next) => {
       });
     }
 
+    const EXPIRATION_SEC = 604800; // 7 days
     bcrypt.compare(req.body.password, rows[0].Password, function(err, result) {
       if (result) {
         console.log("Az env: " + process.env.JWT_KEY_MAGIC);
         const token = jwt.sign(
           { Id: rows[0].PlayerID },
           process.env.JWT_KEY_MAGIC,
-          { expiresIn: "1h" }
+          { expiresIn: EXPIRATION_SEC }
         );
         res.status(200).json({
-          id: rows[0].PlayerID,
-          username: rows[0].PlayerName,
-          email: req.body.email,
-          firstName: rows[0].FirstName,
-          lastName: rows[0].LastName,
-          token: token
-          // expiresIn: 3600,
+          user: {
+            id: rows[0].PlayerID,
+            username: rows[0].PlayerName,
+            email: req.body.email,
+            firstName: rows[0].FirstName,
+            lastName: rows[0].LastName,
+            token: token,
+          },
+          expiresIn: EXPIRATION_SEC,
           // userId: fetchedUser._id
         });
         console.log("Csak megegyezik a jelszó");

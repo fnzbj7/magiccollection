@@ -12,10 +12,23 @@ export class AuthenticationService {
     private loggedIn = false;
 
     constructor(private http: HttpClient) {
-        const currentUserJson = JSON.parse(localStorage.getItem('currentUser'));
-        this.loggedIn = currentUserJson ? true : false;
+        let currentUserJson: User = JSON.parse(localStorage.getItem('currentUser'));
+
+        this.loggedIn = currentUserJson && this.expirationDateValid(<string>currentUserJson.expiresIn);
+        currentUserJson = this.loggedIn ? currentUserJson : null;
         this.currentUserSubject = new BehaviorSubject<User>(currentUserJson);
         this.currentUser = this.currentUserSubject.asObservable();
+    }
+
+    expirationDateValid(expiresIn: string) {
+      const now = new Date();
+      const expiresInDate = new Date(expiresIn);
+      const remainTime =  expiresInDate.getTime() - now.getTime();
+
+      if (remainTime < 0) {
+        localStorage.removeItem('currentUser');
+      }
+      return remainTime > 0;
     }
 
     public get currentUserValue(): User {
@@ -27,17 +40,20 @@ export class AuthenticationService {
     }
 
     login(email: string, password: string) {
-      return this.http.post<User>(environment.mainUrl + '/api/user/userLogin', { email, password })
-        .pipe(map(user => {
+      return this.http.post<{user: User, expiresIn: number}>(environment.mainUrl + '/api/user/userLogin', { email, password })
+        .pipe(map(resp => {
           // login successful if there's a jwt token in the response
-          if (user && user.token) {
+          if (resp.user && resp.user.token) {
+            const now = new Date();
+            const expirationDate = new Date(now.getTime() + resp.expiresIn * 1000);
+            resp.user.expiresIn = expirationDate;
             // store user details and jwt token in local storage to keep user logged in between page refreshes
-            localStorage.setItem('currentUser', JSON.stringify(user));
-            this.currentUserSubject.next(user);
+            localStorage.setItem('currentUser', JSON.stringify(resp.user));
+            this.currentUserSubject.next(resp.user);
             this.loggedIn = true;
           }
 
-          return user;
+          return resp.user;
         }));
     }
 
