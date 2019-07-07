@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { User } from '../model/user.model';
-import { MainUrlService } from '../shared/main-url.services';
+import { environment } from 'src/environments/environment';
 
 @Injectable({ providedIn: 'root' })
 export class AuthenticationService {
@@ -11,7 +11,7 @@ export class AuthenticationService {
     public currentUser: Observable<User>;
     private loggedIn = false;
 
-    constructor(private http: HttpClient, private mainUrlService: MainUrlService) {
+    constructor(private http: HttpClient) {
         const currentUserJson = JSON.parse(localStorage.getItem('currentUser'));
         this.loggedIn = currentUserJson ? true : false;
         this.currentUserSubject = new BehaviorSubject<User>(currentUserJson);
@@ -23,11 +23,11 @@ export class AuthenticationService {
     }
 
     registration(email: string, username: string, password: string) {
-      return this.http.post<any>(this.mainUrlService.mainUrl + '/api/user/registration', { email, username, password });
+      return this.http.post<any>(environment.mainUrl + '/api/user/registration', { email, username, password });
     }
 
     login(email: string, password: string) {
-      return this.http.post<User>(this.mainUrlService.mainUrl + '/api/user/userLogin', { email, password })
+      return this.http.post<User>(environment.mainUrl + '/api/user/userLogin', { email, password })
         .pipe(map(user => {
           // login successful if there's a jwt token in the response
           if (user && user.token) {
