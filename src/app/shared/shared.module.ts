@@ -6,7 +6,8 @@ import {
   faAngleLeft,
   faAngleRight,
   faTimes,
-  faCalendarPlus
+  faCalendarPlus,
+  faInfoCircle
 } from '@fortawesome/free-solid-svg-icons';
 
 @NgModule({
@@ -24,5 +25,6 @@ export class SharedModule {
     library.add(faAngleRight);
     library.add(faTimes);
     library.add(faCalendarPlus);
+    library.add(faInfoCircle);
   }
 }
