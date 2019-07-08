@@ -3,7 +3,7 @@ import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { AuthComponent } from '../auth/auth.component';
 import { AuthenticationService } from '../auth/authentication.service';
 import { User } from '../model/user.model';
-import { VERSION } from '../../environments/VERSION';
+import { VersionService } from 'src/environments/version.service';
 
 @Component({
   selector: 'app-header',
@@ -11,18 +11,21 @@ import { VERSION } from '../../environments/VERSION';
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit {
-
   bsModalRef: BsModalRef;
   loggedUser: User;
   version: string;
 
-  constructor(private modalService: BsModalService, private authenticationService: AuthenticationService) { }
+  constructor(
+    private modalService: BsModalService,
+    private authenticationService: AuthenticationService,
+    private versionService: VersionService
+  ) {}
 
   ngOnInit() {
-    this.authenticationService.currentUser.subscribe( user => {
+    this.authenticationService.currentUser.subscribe(user => {
       this.loggedUser = user;
     });
-    this.version = VERSION;
+    this.version = this.versionService.VERSION;
   }
 
   openModalWithComponent() {
@@ -32,5 +35,4 @@ export class HeaderComponent implements OnInit {
   onLogout() {
     this.authenticationService.logout();
   }
-
 }
