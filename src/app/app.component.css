@@ -35,7 +35,7 @@
 
 #modal-container {
   position:  fixed;
-  bottom: 50%;
+  bottom: 53%;
   left: 50%;
   width: 375px;
   background: white;
@@ -45,6 +45,13 @@
   border: 1px solid rgba(0,0,0,.2);
   border-radius: .3rem;
   transform: translate(-50%, 50%);
+  transition: all 0.3s;
+  opacity: 0;
+}
+
+#modal-container.show {
+  bottom: 50%;
+  opacity: 1;
 }
 
 #overlay {
