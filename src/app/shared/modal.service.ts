@@ -21,7 +21,11 @@ export class ModalService {
 
   destroy() {
     this.domService.removeComponent();
-    document.getElementById(this.modalElementId).className = 'hidden';
-    document.getElementById(this.overlayElementId).className = 'hidden';
+    const modalElement = document.getElementById(this.modalElementId);
+    modalElement.classList.add('hidden');
+    modalElement.classList.remove('show');
+    const overlayElement = document.getElementById(this.overlayElementId);
+    overlayElement.classList.add('hidden');
+    overlayElement.classList.remove('show');
   }
 }

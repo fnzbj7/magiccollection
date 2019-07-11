@@ -13,7 +13,14 @@ export class AppComponent {
   constructor(private modalService: ModalService) {}
 
   removeModal() {
-    this.modalService.destroy();
+    document.getElementById('modal-container').classList.remove('show-after');
+    setTimeout(() => {
+      document.getElementById('overlay').classList.remove('show-after');
+    }, 150);
+    setTimeout(() => {
+      this.modalService.destroy();
+    }, 300);
+
   }
 
 }
