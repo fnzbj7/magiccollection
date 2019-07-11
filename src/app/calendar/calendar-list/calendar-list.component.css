@@ -25,3 +25,7 @@
 }
 
 /* .calendar-day-body:hover .add-event-icon { display: block !important; } */
+
+.calendar-container {
+	will-change: transform;
+}
