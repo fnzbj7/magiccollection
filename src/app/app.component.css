@@ -49,8 +49,12 @@
   opacity: 0;
 }
 
-#modal-container.show {
+#modal-container.show-after {
   bottom: 50%;
+  opacity: 1;
+}
+
+#overlay.show-after {
   opacity: 1;
 }
 
@@ -62,5 +66,7 @@
   background:  rgba(0,0,0,0.8);
   width:  100%;
   height: 100%;
+  opacity: 0;
+  transition: opacity 0.15s;
 }
 /* -------------- Modal Settings END--------------*/
