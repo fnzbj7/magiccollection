@@ -13,3 +13,10 @@ pagination-controls ul {
 .pointer {
   cursor: pointer;
 }
+
+@media (min-width: 576px) {
+  .border-sm-0 {
+    border: 0 !important;
+  }
+ }
+
