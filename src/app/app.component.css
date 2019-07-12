@@ -7,12 +7,26 @@
 }
 
 
-.no-webp body {
+.no-webp body #custom-bg {
   background-image: url("/assets/background/pexels-photo-268959.jpeg");
 }
 
-.webp body {
+.webp body #custom-bg {
   background-image: url("/assets/background/pexels-photo-268959.webp");
+}
+
+#custom-bg {
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 100%;
+  left: 0;
+  margin: 0;
+  padding: 0;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: -10;
 }
 
 @media (max-width: 575px) {
