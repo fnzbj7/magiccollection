@@ -31,6 +31,20 @@
   border-color: transparent transparent #555 transparent;
 }
 
+@media (max-width: 991.98px) {
+  .tooltip-w3 .tooltiptext-w3 {
+    top: -150%;
+    left: 50px;
+    margin-left: -60px;
+  }
+
+  .tooltip-w3 .tooltiptext-w3::after {
+    top: 100%;
+    right: 96px;
+    border-color: #555 transparent transparent transparent;
+  }
+}
+
 .tooltip-w3:hover .tooltiptext-w3 {
   visibility: visible;
   opacity: 1;
