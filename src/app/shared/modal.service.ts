@@ -15,6 +15,7 @@ export class ModalService {
       outputs: outputs
     };
     this.domService.appendComponentTo(this.modalElementId, component, componentConfig);
+    document.getElementsByTagName('BODY')[0].classList.add('modal-open');
     document.getElementById(this.modalElementId).className = 'show';
     document.getElementById(this.overlayElementId).className = 'show';
   }
@@ -27,5 +28,6 @@ export class ModalService {
     const overlayElement = document.getElementById(this.overlayElementId);
     overlayElement.classList.add('hidden');
     overlayElement.classList.remove('show');
+    document.getElementsByTagName('BODY')[0].classList.remove('modal-open');
   }
 }
