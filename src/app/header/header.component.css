@@ -33,7 +33,8 @@
 
 @media (max-width: 991.98px) {
   .tooltip-w3 .tooltiptext-w3 {
-    top: -150%;
+    top: initial;
+    bottom: 100%;
     left: 50px;
     margin-left: -60px;
   }
