@@ -1,12 +1,12 @@
 const { resolve, relative } = require('path');
 const { writeFileSync } = require('fs-extra');
-var moment = require('moment');
+var moment = require('moment-timezone');
 
-moment.locale('hu')
-let a = moment();
-
-let gitInfo = a.format('LLL')
-
+// moment.locale('hu')
+let a = moment().tz('Europe/Budapest');
+console.log(a);
+let gitInfo = a.format('YYYY-MM-DD HH:mm:ss')
+console.log(gitInfo);
 
 
 const file = resolve(__dirname, 'src', 'environments', 'version.service.ts');
