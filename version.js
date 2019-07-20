@@ -1,10 +1,13 @@
-const { version } = require('./package.json');
 const { resolve, relative } = require('path');
 const { writeFileSync } = require('fs-extra');
+var moment = require('moment');
+
+moment.locale('hu')
+let a = moment();
+
+let gitInfo = a.format('LLL')
 
 
-var options = { year: 'numeric', month: 'numeric', day: 'numeric', hour: 'numeric', minute: 'numeric' };
-let gitInfo = new Date().toLocaleDateString('default', options);
 
 const file = resolve(__dirname, 'src', 'environments', 'version.service.ts');
 writeFileSync(file,
@@ -19,5 +22,5 @@ export class VersionService {
 /* tslint:enable */
 `, { encoding: 'utf-8' });
 
-console.log(`Wrote version info ${gitInfo.raw} to ${relative(resolve(__dirname, '..'), file)}`);
+console.log(`Wrote version info to ${relative(resolve(__dirname, '..'), file)}`);
 
