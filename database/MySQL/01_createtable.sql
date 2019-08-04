@@ -10,6 +10,7 @@ CardExpansion_1 INT(6) UNSIGNED NOT NULL,
 CardName VARCHAR(40) NOT NULL,
 Rarity VARCHAR(3),
 Doubleside INT(1),
+Layout VARCHAR(15),
 PRIMARY KEY(CardID,CardExpansion_1),
 FOREIGN KEY (CardExpansion_1) REFERENCES CardExpansion(CardExpansionID)
 );
