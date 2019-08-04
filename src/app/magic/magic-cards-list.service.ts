@@ -4,7 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable, Subject } from 'rxjs';
 import { FilterChange } from '../model/filter-change.model';
 import { CardRarity } from '../model/card-rarity.enum';
-import { environment } from 'src/environments/environment.prod';
+import { environment } from 'src/environments/environment';
 
 @Injectable()
 export class MagicCardsListService {

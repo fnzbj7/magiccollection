@@ -1,7 +1,7 @@
-<li class="nowrap magiccard_li" [ngSwitch]="magicCard.doubleside">
+<li class="nowrap magiccard_li" [ngSwitch]="magicCard.layout">
   <!-- Normal cards -->
   <picture
-    *ngSwitchCase="'0'"
+    *ngSwitchCase="'normal'"
     class="magiccard"
     [appMagicCardAmount]="magicCard.cardAmount"
     (click)="openCardModal()"

@@ -12,7 +12,6 @@ router.get('/calendar', calendarController.getEvents);
 
 // cardController
 router.get('/card/allsetcard', checkAuth, cardController.getAllCardsFromSet);
-router.get('/card/pagecard', cardController.getCardsWithPaging);
 
 // userController
 router.post('/user/userlogin', userController.userLogin);
