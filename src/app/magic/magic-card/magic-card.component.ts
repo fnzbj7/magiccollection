@@ -10,7 +10,6 @@ import { ModalService } from 'src/app/shared/modal.service';
 })
 export class MagicCardComponent implements OnInit {
   @Input() magicCard: Card;
-  flipClass = false;
 
   constructor(private modalService: ModalService) {}
 
@@ -22,13 +21,7 @@ export class MagicCardComponent implements OnInit {
     this.modalService.init(
       MagicCardModalComponent,
       {
-        title: 'Prameter',
-        cardImgPng: `assets/img/cards/${this.magicCard.cardExpansion}/png/${
-          this.magicCard.cardExpansion
-        }_${this.magicCard.cardNumber}.png`,
-        cardImgWebp: `assets/img/cards/${this.magicCard.cardExpansion}/webp/${
-          this.magicCard.cardExpansion
-        }_${this.magicCard.cardNumber}.webp`,
+        magicCard: this.magicCard
       },
       {}
     );
