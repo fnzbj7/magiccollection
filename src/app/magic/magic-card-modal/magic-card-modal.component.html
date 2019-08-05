@@ -3,7 +3,6 @@
 <picture
     *ngSwitchDefault
     class="magiccard"
-    [appMagicCardAmount]="magicCard.cardAmount"
   >
     <source
       srcset="assets/img/cards/{{magicCard.cardExpansion}}/webp/{{magicCard.cardExpansion}}_{{magicCard.cardNumber}}.webp"
@@ -34,7 +33,6 @@
         <div class="front">
           <picture
             class="magiccard"
-            appMagicCardAmount="{{ magicCard.cardAmount }}"
           >
             <source
               srcset="assets/img/cards/{{magicCard.cardExpansion}}/webp/{{magicCard.cardExpansion}}_{{magicCard.cardNumber}}.webp"
@@ -57,7 +55,6 @@
         <div class="back">
           <picture
             class="magiccard"
-            appMagicCardAmount="{{ magicCard.cardAmount }}"
           >
             <source
               srcset="assets/img/cards/{{magicCard.cardExpansion}}/webp/{{magicCard.cardExpansion}}_{{magicCard.cardNumber}}_F.webp"
