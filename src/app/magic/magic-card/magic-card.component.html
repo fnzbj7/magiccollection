@@ -1,7 +1,6 @@
-<li class="nowrap magiccard_li" [ngSwitch]="magicCard.layout">
+<li class="nowrap magiccard_li">
   <!-- Normal cards -->
   <picture
-    *ngSwitchCase="'normal'"
     class="magiccard"
     [appMagicCardAmount]="magicCard.cardAmount"
     (click)="openCardModal()"
@@ -23,63 +22,4 @@
       [title]="magicCard.cardNumber"
     />
   </picture>
-
-  <!-- Double Side cards -->
-  <div
-    class="flip-container"
-    [ngClass]="flipClass ? 'hover' : ''"
-    *ngSwitchCase="'1'"
-    #flipperContainer
-  >
-    <div class="flipper">
-      <div class="front">
-        <picture
-          class="magiccard"
-          appMagicCardAmount="{{ magicCard.cardAmount }}"
-        >
-          <source
-            srcset="assets/img/cards/{{magicCard.cardExpansion}}/webp/{{magicCard.cardExpansion}}_{{magicCard.cardNumber}}.webp"
-            type="image/webp"
-          />
-          <source
-            srcset="assets/img/cards/{{magicCard.cardExpansion}}/png/{{magicCard.cardExpansion}}_{{magicCard.cardNumber}}.png"
-            type="image/png"
-          />
-          <img
-            class="magiccard"
-            title="{{ magicCard.cardNumber }}"
-            src="assets/img/cards/{{ magicCard.cardExpansion }}/{{
-              magicCard.cardExpansion
-            }}_{{ magicCard.cardNumber }}.webp"
-            (click)="flipClass = true"
-          />
-        </picture>
-      </div>
-      <div class="back">
-        <picture
-          class="magiccard"
-          appMagicCardAmount="{{ magicCard.cardAmount }}"
-        >
-          <source
-            srcset="assets/img/cards/{{magicCard.cardExpansion}}/webp/{{magicCard.cardExpansion}}_{{magicCard.cardNumber}}_F.webp"
-            type="image/webp"
-          />
-          <source
-            srcset="assets/img/cards/{{magicCard.cardExpansion}}/png/{{magicCard.cardExpansion}}_{{magicCard.cardNumber}}_F.png"
-            type="image/png"
-          />
-          <img
-            class="magiccard"
-            title="{{ magicCard.cardNumber }}"
-            src="assets/img/cards/{{ magicCard.cardExpansion }}/{{
-              magicCard.cardExpansion
-            }}_{{ magicCard.cardNumber }}_F.png"
-            (click)="flipClass = false"
-          />
-        </picture>
-      </div>
-    </div>
-  </div>
-
-  <p *ngSwitchDefault>No cards</p>
 </li>
