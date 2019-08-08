@@ -2,17 +2,17 @@
 
 ## Description
 
-One day, i decided that, i want to train my webpage developing skills, and i need a system to organize my Magic® The Gathering collections.
-So, that's when this git repo was made.
+One day, i decided that, i want to train my webpage developing skills, and i need a system to organize my Magic® The Gathering collections. <br/>So, that's when this git repo was made.
 
 ## Live
 
-This webpage is running on www.almateszekfoglaltvolt.hu (The url means **'I eat apples' was already taken**, don't ask why)
+This webpage is running on www.almateszekfoglaltvolt.hu <br/>
+\#Funfact: The url means **'I eat apples' was already taken**, don't ask how do i come up with this idea :)
 
 ## Stack
 
-**Frontend:** Angular 7
-**Backend:** Node.js + Express
+**Frontend:** Angular 7<br/>
+**Backend:** Node.js + Express<br/>
 **Database:** Mysql
 
 
