@@ -1,5 +1,21 @@
 # magiccollection
 
+## Description
+
+One day, i decided that, i want to train my webpage developing skills, and i need a system to organize my Magic® The Gathering collections.
+So, that's when this git repo was made.
+
+## Live
+
+This webpage is running on www.almateszekfoglaltvolt.hu (The url means **'I eat apples' was already taken**, don't ask why)
+
+## Stack
+
+**Frontend:** Angular 7
+**Backend:** Node.js + Express
+**Database:** Mysql
+
+
 ## Needed enviroment variable
 
 * **JWT_KEY_MAGIC**: It's the key for the JWT token
