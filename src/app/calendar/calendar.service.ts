@@ -28,6 +28,16 @@ export class CalendarService {
             this.addValueToCalendar(2019, 2, 20, calendarItem4);
             this.addValueToCalendar(2019, 2, 20, calendarItem5);
 
+            this.addValueToCalendar(2019, 8, 20, calendarItem);
+            this.addValueToCalendar(2019, 8, 20, calendarItem2);
+            this.addValueToCalendar(2019, 8, 20, calendarItem4);
+            this.addValueToCalendar(2019, 8, 18, calendarItem5);
+
+            this.addValueToCalendar(2019, 8, 16, calendarItem);
+            this.addValueToCalendar(2019, 7, 23, calendarItem2);
+            this.addValueToCalendar(2019, 8, 5, calendarItem4);
+            this.addValueToCalendar(2019, 8, 5, calendarItem5);
+
             this.calendarMap.set('20190223', [calendarItem3]);
             this.calendarMap.set('20190226', [calendarItem8]);
             this.calendarMap.set('20190301', [calendarItem7]);
