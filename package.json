@@ -1,80 +1,26 @@
 {
-		"name": "magiccollection",
-		"version": "0.0.0",
-		"scripts": {
-				"ng": "ng",
-				"start": "node bin/www",
-				"build": "ng build --prod",
-				"test": "ng test",
-				"lint": "ng lint",
-				"e2e": "ng e2e",
-				"heroku-postbuild": "ng build --prod && rimraf src",
-				"postinstall": "node version.js"
-		},
-		"private": true,
-		"dependencies": {
-				"bcrypt": "^3.0.6",
-				"body-parser": "~1.18.3",
-				"compression": "^1.7.4",
-				"cookie-parser": "~1.4.3",
-				"cors": "^2.8.4",
-				"ejs": "^2.5.7",
-				"express": "~4.16.4",
-				"express-oas-generator": "^1.0.6",
-				"jsonwebtoken": "^8.5.1",
-				"mailgun-js": "^0.22.0",
-				"morgan": "~1.9.1",
-				"mysql": "^2.13.0",
-				"rimraf": "^2.6.3"
-		},
-		"devDependencies": {
-				"@angular-devkit/build-angular": "^0.13.8",
-				"@angular/animations": "~7.2.0",
-				"@angular/cli": "^7.3.8",
-				"@angular/common": "~7.2.0",
-				"@angular/compiler": "~7.2.0",
-				"@angular/compiler-cli": "~7.2.0",
-				"@angular/core": "~7.2.0",
-				"@angular/forms": "~7.2.0",
-				"@angular/language-service": "~7.2.0",
-				"@angular/platform-browser": "~7.2.0",
-				"@angular/platform-browser-dynamic": "~7.2.0",
-				"@angular/router": "~7.2.0",
-				"@angular/service-worker": "^7.2.15",
-				"@fortawesome/angular-fontawesome": "^0.3.0",
-				"@fortawesome/fontawesome-svg-core": "^1.2.19",
-				"@fortawesome/free-solid-svg-icons": "^5.9.0",
-				"@ng-bootstrap/ng-bootstrap": "^4.2.1",
-				"@types/jasmine": "~2.8.8",
-				"@types/jasminewd2": "~2.0.3",
-				"@types/node": "~8.9.4",
-				"bootstrap": "^4.3.1",
-				"codelyzer": "~4.5.0",
-				"core-js": "^2.6.9",
-				"debug": "~2.6.3",
-				"fs-extra": "^8.1.0",
-				"jasmine-core": "~2.99.1",
-				"jasmine-spec-reporter": "~4.2.1",
-				"karma": "~4.1.0",
-				"karma-chrome-launcher": "~2.2.0",
-				"karma-coverage-istanbul-reporter": "~2.0.1",
-				"karma-jasmine": "~1.1.2",
-				"karma-jasmine-html-reporter": "^0.2.2",
-				"moment-timezone": "^0.5.26",
-				"ngx-bootstrap": "^3.2.0",
-				"ngx-pagination": "^3.3.1",
-				"protractor": "~5.4.0",
-				"rxjs": "~6.3.3",
-				"supervisor": "^0.12.0",
-				"ts-node": "~7.0.0",
-				"tslib": "^1.10.0",
-				"tslint": "~5.11.0",
-				"typescript": "~3.2.2",
-				"yarn": "^1.16.0",
-				"zone.js": "~0.8.26"
-		},
-		"engines": {
-				"node": "9.3.0",
-				"npm": "6.10.0"
-		}
+  "name": "magiccollection",
+  "version": "1.0.0",
+  "description": "One day, i decided that, i want to train my webpage developing skills, and i need a system to organize my Magic® The Gathering collections. <br/>So, that's when this git repo was made.",
+  "main": "version.js",
+  "devDependencies": {
+    "rimraf": "^3.0.0"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "postinstall": "cd frontend && npm install --dev && cd ../backend && npm install --dev",
+    "build": "cd backend && npm run build && cd ../frontend && npm run build && cd .. && rimraf frontend && cd backend npm prune",
+	"start": "cd backend && npm start"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fnzbj7/magiccollection.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/fnzbj7/magiccollection/issues"
+  },
+  "homepage": "https://github.com/fnzbj7/magiccollection#readme"
 }

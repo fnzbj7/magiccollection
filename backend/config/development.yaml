@@ -1,0 +1,9 @@
+db:
+  host: 'localhost'
+  database: 'testmagic'
+  username: 'root'
+  password: 'admin'
+  synchronize: true
+
+jwt:
+  secret: 'topSecret51'
