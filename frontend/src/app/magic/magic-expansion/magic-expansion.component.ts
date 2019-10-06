@@ -14,4 +14,8 @@ export class MagicExpansionComponent implements OnInit {
   ngOnInit() {
   }
 
+  lowerStr(str: string) {
+    return str.toLowerCase();
+  }
+
 }
