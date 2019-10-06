@@ -3,6 +3,11 @@
 }
 
 .setIcon{
+    height: 45px;
+    margin: auto;
+    display: block;
+    margin-bottom: 10px;
+    margin-top: 10px;
     opacity: 0.4;
 }
 
