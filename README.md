@@ -18,7 +18,7 @@ Now there are 2 functions on the live page<br/>
 ## Stack
 
 **Frontend:** Angular 7<br/>
-**Backend:** Node.js + Express<br/>
+**Backend:** Nest.js + Express<br/>
 **Database:** Mysql
 
 
