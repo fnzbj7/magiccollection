@@ -19,10 +19,4 @@ export class AuthController {
     signIn(@Body(new ValidationPipe({groups: ['signin']})) authCredentialsDto: AuthCredentialsDto): Promise<{ accessToken: string }> {
         return this.authService.singIn(authCredentialsDto);
     }
-
-    @Post('/test')
-    @UseGuards(AuthGuard())
-    test(@GetUser() user: User) {
-        console.log(user);
-    }
 }

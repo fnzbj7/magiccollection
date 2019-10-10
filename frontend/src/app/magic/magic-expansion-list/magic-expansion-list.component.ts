@@ -7,7 +7,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MagicExpansionListComponent implements OnInit {
 
-  cardSetsArray: string[] = ['ELD','M20', 'WAR', 'RNA', 'GRN', 'M19', 'DOM', 'RIX', 'XLN', 'HOU', 'AKH', 'AER', 'KLD', 'EMN', 'SOI', 'OGW', 'BFZ'];
+  cardSetsArray: string[] = [
+    'ELD', 'M20', 'WAR', 'RNA', 'GRN', 'M19',
+    'DOM', 'RIX', 'XLN', 'HOU', 'AKH', 'AER',
+    'KLD', 'EMN', 'SOI', 'OGW', 'BFZ'
+  ];
   expansion: string;
   isOpenMenu = false;
 

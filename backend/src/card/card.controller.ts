@@ -16,7 +16,6 @@ export class CardController {
   @Get('/cardsetuser/:set')
   @UseGuards(AuthGuard())
   async getCardSetUser(@Param('set') cardSet: string, @GetUser() user: User) {
-    console.log(user);
     return await this.cardService.getCardSetUser(cardSet, user);
   }
 
