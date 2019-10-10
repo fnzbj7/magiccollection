@@ -2,6 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CalendarService } from '../calendar.service';
 import { CalendarDay } from './model/calendar-day.model';
 import { Subscription } from 'rxjs';
+import { LogService } from 'src/app/shared/log.service';
 
 @Component({
   selector: 'app-calendar-list',
@@ -25,7 +26,7 @@ export class CalendarListComponent implements OnInit, OnDestroy {
   isDetailsOpen = false;
   selectCalendarEventSub: Subscription;
 
-  constructor(private calendarService: CalendarService) { }
+  constructor(private calendarService: CalendarService, private logService: LogService) { }
 
   ngOnInit() {
     const tmpDate = new Date();
@@ -34,6 +35,11 @@ export class CalendarListComponent implements OnInit, OnDestroy {
     this.selectCalendarEventSub = this.calendarService.getselectCalendarEventSub().subscribe( selectedEventId => {
       this.isDetailsOpen = selectedEventId !== 0;
     });
+
+    this.logService.log('Calendar log', ['Things', 'more things']);
+    this.logService.info('Calendar log');
+    this.logService.warn('Calendar log');
+    this.logService.error('Calendar log');
   }
 
   initCalendar(relativeDate: Date) {
