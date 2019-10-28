@@ -9,6 +9,24 @@
   <link rel="icon" type="image/x-icon" href="favicon.ico">
 </head>
 <body class="pb-3">
+<script>
+  window.fbAsyncInit = function() {
+	FB.init({
+	  appId      : '2495571677216519',
+	  xfbml      : true,
+	  version    : 'v4.0'
+	});
+	FB.AppEvents.logPageView();
+  };
+
+  (function(d, s, id){
+	 var js, fjs = d.getElementsByTagName(s)[0];
+	 if (d.getElementById(id)) {return;}
+	 js = d.createElement(s); js.id = id;
+	 js.src = "https://connect.facebook.net/en_US/sdk.js";
+	 fjs.parentNode.insertBefore(js, fjs);
+   }(document, 'script', 'facebook-jssdk'));
+</script>
   <div id="custom-bg"></div>
   <app-root></app-root>
 
