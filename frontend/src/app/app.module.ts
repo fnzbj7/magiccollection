@@ -17,13 +17,28 @@ import { ModalModule } from 'ngx-bootstrap/modal';
 import { JwtInterceptor } from './auth/jwt.interceptor';
 import { AuthComponent } from './auth/auth.component';
 import { ReactiveFormsModule } from '@angular/forms';
-import { ServiceWorkerModule} from '@angular/service-worker';
+import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from 'src/environments/environment';
 import { LandingComponent } from './landing/landing.component';
 import { MagicCardRarityFilterComponent } from './magic/magic-card-rarity-filter/magic-card-rarity-filter.component';
 import { MagicCardModalComponent } from './magic/magic-card-modal/magic-card-modal.component';
 import { SharedModule } from './shared/shared.module';
+import {
+  SocialLoginModule,
+  AuthServiceConfig,
+  FacebookLoginProvider
+} from 'angularx-social-login';
 
+const config = new AuthServiceConfig([
+  {
+    id: FacebookLoginProvider.PROVIDER_ID,
+    provider: new FacebookLoginProvider('2495571677216519')
+  }
+]);
+
+export function provideConfig() {
+  return config;
+}
 
 @NgModule({
   declarations: [
@@ -39,10 +54,7 @@ import { SharedModule } from './shared/shared.module';
     MagicCardRarityFilterComponent,
     MagicCardModalComponent
   ],
-  entryComponents: [
-    AuthComponent,
-    MagicCardModalComponent
-  ],
+  entryComponents: [AuthComponent, MagicCardModalComponent],
   imports: [
     BrowserModule,
     HttpClientModule,
@@ -51,13 +63,17 @@ import { SharedModule } from './shared/shared.module';
     NgxPaginationModule,
     ModalModule.forRoot(),
     ReactiveFormsModule,
-    ServiceWorkerModule.register('/ngsw-worker.js', {enabled: environment.production}),
+    ServiceWorkerModule.register('/ngsw-worker.js', {
+      enabled: environment.production
+    }),
+    SocialLoginModule,
     SharedModule
   ],
   providers: [
     MagicCardsListService,
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
+    { provide: AuthServiceConfig, useFactory: provideConfig },
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {}

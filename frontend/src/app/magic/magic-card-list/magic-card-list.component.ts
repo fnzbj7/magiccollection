@@ -18,7 +18,7 @@ export class MagicCardListComponent implements OnInit, OnDestroy {
   expansion: string;
   currentPage = 1;
   itemsPerPage = 35;
-  @ViewChild('page') amountInputRef: PaginationControlsComponent;
+  @ViewChild('page', { static: true }) amountInputRef: PaginationControlsComponent;
   currentUserSub: Subscription;
   routerChangeSub: Subscription;
 
