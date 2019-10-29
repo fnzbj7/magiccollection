@@ -3,6 +3,7 @@ import { BsModalRef } from 'ngx-bootstrap/modal';
 import { AuthenticationService } from './authentication.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { first } from 'rxjs/operators';
+import { SocialUser, AuthService, FacebookLoginProvider } from 'angularx-social-login';
 
 @Component({
   selector: 'app-auth-component',
@@ -16,7 +17,11 @@ export class AuthComponent implements OnInit {
   loading = false;
   submitted = false;
 
-  constructor(public bsModalRef: BsModalRef, private authService: AuthenticationService, private formBuilder: FormBuilder) {}
+  user: SocialUser;
+  loggedIn: boolean;
+
+  constructor(public bsModalRef: BsModalRef, private authService: AuthenticationService, private formBuilder: FormBuilder,
+    private authServiceSocial: AuthService) {}
 
   ngOnInit() {
     this.registrationForm = this.formBuilder.group({
@@ -29,6 +34,11 @@ export class AuthComponent implements OnInit {
       password: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]]
     });
+  }
+
+  async onFacebookLogin() {
+    const user: SocialUser = await this.authServiceSocial.signIn(FacebookLoginProvider.PROVIDER_ID);
+    console.log({user});
   }
 
   onPageChange(selectedPage: string) {

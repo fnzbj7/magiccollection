@@ -23,7 +23,8 @@
           Wrong password
         </span>
       </div>
-      <button [disabled]="loading" class="btn btn-primary">Login</button>
+      <button [disabled]="loading" class="btn btn-primary">Login</button><br>
+      <button (click)="onFacebookLogin()" class="btn btn-primary">Facebook Login</button>
     </form>
   <!-- ---------REGISTRATION------ -->
   <form *ngIf="selectedPage === 'Registration'" [formGroup]="registrationForm" (ngSubmit)="onRegistrationSubmit()">
