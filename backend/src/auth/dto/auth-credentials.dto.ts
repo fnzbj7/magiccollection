@@ -8,7 +8,7 @@ export class AuthCredentialsDto {
     username: string;
 
     @IsEmail({}, {always: true})
-    @Length(4, 20, {always: true})
+    @Length(4, 50, {always: true})
     email: string;
 
     @IsString({always: true})
