@@ -69,4 +69,8 @@ export class AuthenticationService {
     isLoggedIn() {
       return this.loggedIn;
     }
+
+    testfacebook(access_token: string): Observable<any> {
+      return this.http.get(environment.mainUrl + '/auth/facebook', {params: {access_token}});
+    }
 }
