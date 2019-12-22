@@ -12,6 +12,7 @@ const allowedExt = [
   '.ttf',
   '.svg',
   '.webp',
+  '.html'
 ];
 
 const resolvePath = (file: string) => path.resolve(`./dist/magiccollection/${file}`);
