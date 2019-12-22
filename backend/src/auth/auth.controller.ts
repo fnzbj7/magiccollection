@@ -47,7 +47,6 @@ export class AuthController {
   @UseGuards(AuthGuard('facebook-token'))
   @Get('facebook')
   async getTokenAfterFacebookSignIn(@GetUser() user: User) {
-    console.log(user);
-    console.log('Voltam itt az authban');
+    return this.authService.singInFb(user);
   }
 }
