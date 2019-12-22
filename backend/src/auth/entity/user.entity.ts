@@ -9,6 +9,11 @@ import {
 import * as bcrypt from 'bcrypt';
 import { CardAmount } from '../../card/entity/card-amount.entity';
 
+export enum UserSource {
+  SITE = 'site',
+  FB = 'fb',
+}
+
 @Entity()
 @Unique(['email'])
 export class User extends BaseEntity {
@@ -32,6 +37,9 @@ export class User extends BaseEntity {
 
   @Column({ nullable: true, default: false })
   activated: boolean;
+
+  @Column({ type: 'enum', enum: UserSource, default: UserSource.SITE })
+  source: UserSource;
 
   @OneToMany(type => CardAmount, cardAmount => cardAmount.user, {
     nullable: true,

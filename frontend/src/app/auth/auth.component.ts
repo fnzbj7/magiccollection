@@ -38,7 +38,7 @@ export class AuthComponent implements OnInit {
 
   async onFacebookLogin() {
     const user: SocialUser = await this.authServiceSocial.signIn(FacebookLoginProvider.PROVIDER_ID);
-    this.authService.testfacebook(user.authToken).subscribe();
+    this.authService.facebookSignIn(user.authToken).subscribe();
     console.log({user});
   }
 

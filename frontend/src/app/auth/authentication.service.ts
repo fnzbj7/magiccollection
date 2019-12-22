@@ -43,20 +43,23 @@ export class AuthenticationService {
       return this.http.post<{accessToken}>(environment.mainUrl + '/auth/signin', { email, password })
         .pipe(map(resp => {
           // login successful if there's a jwt token in the response
-          const user = new User();
-          if (resp.accessToken ) {
-            user.token = resp.accessToken;
-            const now = new Date();
-            const expirationDate = new Date(now.getTime() + 1000 * 1000);
-            user.expiresIn = expirationDate;
-            // store user details and jwt token in local storage to keep user logged in between page refreshes
-            localStorage.setItem('currentUser', JSON.stringify(user));
-            this.currentUserSubject.next(user);
-            this.loggedIn = true;
-          }
-
-          return user;
+          return this.createAndLoginUser(resp.accessToken);
         }));
+    }
+
+    private createAndLoginUser(accessToken: string): User {
+      const user = new User();
+      if (accessToken) {
+        user.token = accessToken;
+        const now = new Date();
+        const expirationDate = new Date(now.getTime() + 1000 * 1000);
+        user.expiresIn = expirationDate;
+        // store user details and jwt token in local storage to keep user logged in between page refreshes
+        localStorage.setItem('currentUser', JSON.stringify(user));
+        this.currentUserSubject.next(user);
+        this.loggedIn = true;
+      }
+      return user;
     }
 
     logout() {
@@ -70,7 +73,10 @@ export class AuthenticationService {
       return this.loggedIn;
     }
 
-    testfacebook(access_token: string): Observable<any> {
-      return this.http.get(environment.mainUrl + '/auth/facebook', {params: {access_token}});
+    facebookSignIn(access_token: string): Observable<any> {
+      return this.http.get<{accessToken}>(environment.mainUrl + '/auth/facebook', {params: {access_token}}).pipe(map(resp => {
+        // login successful if there's a jwt token in the response
+        return this.createAndLoginUser(resp.accessToken);
+      }));
     }
 }

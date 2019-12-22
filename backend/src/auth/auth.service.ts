@@ -5,6 +5,7 @@ import { AuthCredentialsDto } from './dto/auth-credentials.dto';
 import { JwtService } from '@nestjs/jwt';
 import { JwtPayload } from './interface/jwt-payload.interface';
 import { MailService } from '../shared/mail.service';
+import { User } from './entity/user.entity';
 
 @Injectable()
 export class AuthService {
@@ -23,6 +24,19 @@ export class AuthService {
 
     async singIn(authCredentialsDto: AuthCredentialsDto): Promise<{ accessToken: string }> {
         const email = await this.userRepository.validateUserPassword(authCredentialsDto);
+
+        if (!email) {
+            throw new UnauthorizedException();
+        }
+
+        const payload: JwtPayload = { email };
+        const accessToken = await this.jwtService.signAsync(payload);
+
+        return { accessToken };
+    }
+
+    async singInFb(user: User): Promise<{ accessToken: string }> {
+        const {email} = user;
 
         if (!email) {
             throw new UnauthorizedException();
