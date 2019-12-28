@@ -10,25 +10,18 @@ import { GetUser } from './get-user.decorator';
 import { FacebookStrategy } from './facebook.strategy';
 
 @Module({
-  controllers: [AuthController],
-  imports: [
-    PassportModule.register({ defaultStrategy: 'jwt'}),
-    TypeOrmModule.forFeature([UserRepository]),
-    JwtModule.register( {
-      secret: 'topSecret51',
-      signOptions: {
-        expiresIn: 3600,
-      },
-    }),
-  ],
-  providers: [
-    AuthService,
-    JwtStrategy,
-    FacebookStrategy,
-  ],
-  exports: [
-    JwtStrategy,
-    PassportModule,
-  ],
+    controllers: [AuthController],
+    imports: [
+        PassportModule.register({ defaultStrategy: 'jwt' }),
+        TypeOrmModule.forFeature([UserRepository]),
+        JwtModule.register({
+            secret: 'topSecret51',
+            signOptions: {
+                expiresIn: 3600,
+            },
+        }),
+    ],
+    providers: [AuthService, JwtStrategy, FacebookStrategy],
+    exports: [JwtStrategy, PassportModule],
 })
 export class AuthModule {}
