@@ -1,11 +1,11 @@
 import {
-  Controller,
-  Post,
-  Body,
-  ValidationPipe,
-  Get,
-  Req,
-  UseGuards,
+    Controller,
+    Post,
+    Body,
+    ValidationPipe,
+    Get,
+    Req,
+    UseGuards,
 } from '@nestjs/common';
 import { AuthCredentialsDto } from './dto/auth-credentials.dto';
 import { AuthService } from './auth.service';
@@ -15,38 +15,38 @@ import { User } from './entity/user.entity';
 
 @Controller('auth')
 export class AuthController {
-  constructor(private authService: AuthService) {}
+    constructor(private authService: AuthService) {}
 
-  @Post('/signup')
-  signUp(
-    @Body(new ValidationPipe({ groups: ['signup'] }))
-    authCredentialsDto: AuthCredentialsDto,
-  ): Promise<void> {
-    return this.authService.signUp(authCredentialsDto);
-  }
+    @Post('/signup')
+    signUp(
+        @Body(new ValidationPipe({ groups: ['signup'] }))
+        authCredentialsDto: AuthCredentialsDto,
+    ): Promise<void> {
+        return this.authService.signUp(authCredentialsDto);
+    }
 
-  @Post('/signin')
-  signIn(
-    @Body(new ValidationPipe({ groups: ['signin'] }))
-    authCredentialsDto: AuthCredentialsDto,
-  ): Promise<{ accessToken: string }> {
-    return this.authService.singIn(authCredentialsDto);
-  }
+    @Post('/signin')
+    signIn(
+        @Body(new ValidationPipe({ groups: ['signin'] }))
+        authCredentialsDto: AuthCredentialsDto,
+    ): Promise<{ accessToken: string }> {
+        return this.authService.singIn(authCredentialsDto);
+    }
 
-  @Post('/test')
-  @UseGuards(AuthGuard())
-  test(@GetUser() user: User) {
-    console.log(user);
-  }
+    @Post('/test')
+    @UseGuards(AuthGuard())
+    test(@GetUser() user: User) {
+        console.log(user);
+    }
 
-  @Post('/testface')
-  testface(@Body() authToken: string) {
-    console.log(authToken);
-  }
+    @Post('/testface')
+    testface(@Body() authToken: string) {
+        console.log(authToken);
+    }
 
-  @UseGuards(AuthGuard('facebook-token'))
-  @Get('facebook')
-  async getTokenAfterFacebookSignIn(@GetUser() user: User) {
-    return this.authService.singInFb(user);
-  }
+    @UseGuards(AuthGuard('facebook-token'))
+    @Get('facebook')
+    async getTokenAfterFacebookSignIn(@GetUser() user: User) {
+        return this.authService.singInFb(user);
+    }
 }
