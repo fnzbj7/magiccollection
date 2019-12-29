@@ -20,8 +20,9 @@ export class CardController {
         return await this.cardService.getCardSetUser(cardSet, user);
     }
 
-    @Post('/createDummyCards')
-    async createDummyCards(): Promise<string> {
-        return 'done';
+    @Post('/testAdd')
+    async addCard(): Promise<void> {
+        await this.cardService.testAddCard();
+        // return 'done';
     }
 }
