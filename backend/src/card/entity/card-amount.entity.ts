@@ -27,4 +27,7 @@ export class CardAmount extends BaseEntity {
     @ManyToOne(type => Card, card => card.cardAmount)
     @JoinColumn({ name: 'card_1' })
     card: Card;
+
+    @Column({ name: 'card_1' })
+    cardId: number;
 }

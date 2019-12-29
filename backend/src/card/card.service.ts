@@ -7,6 +7,8 @@ import { User } from '../auth/entity/user.entity';
 import { CardAmount } from './entity/card-amount.entity';
 import { CardRepository } from './card.repository';
 import { CardAmountDto } from './dto/card-amount.dto';
+import { AddCardDto } from './dto/add-card.dto';
+import { CardQuantity } from './dto/card-quantity.model';
 
 @Injectable()
 export class CardService {
@@ -31,7 +33,14 @@ export class CardService {
         return this.convertToCardAmountDto(cardList);
     }
 
-    convertToCardAmountDto(cardList: Card[]): CardAmountDto[] {
+    async testAddCard() {
+        const a = new AddCardDto();
+        a.setShortName = 'ELD';
+        a.cardQuantitys = [{cardNumber: 330, cardQuantity: 2}, {cardNumber: 115, cardQuantity: 11}];
+        await this.cardRepository.addSetCard(a, 1);
+    }
+
+    private convertToCardAmountDto(cardList: Card[]): CardAmountDto[] {
         const cardAmountDtoList: CardAmountDto[] = [];
         for (const card of cardList) {
             const cardAmountDto = new CardAmountDto();
