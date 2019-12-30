@@ -1,0 +1,7 @@
+<div class="container bg-light p-3">
+  <h1>Kártya hozzáadó rendszer</h1>
+  <form  (ngSubmit)="addCard()">
+    <textarea name="card-numbers" id="card-numbers" [(ngModel)]="cardNumbersStr" cols="30" rows="10"></textarea><br>
+    <button class="btn btn-primary">Elküld</button>
+  </form>
+</div>
