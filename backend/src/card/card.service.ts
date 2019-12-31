@@ -33,11 +33,8 @@ export class CardService {
         return this.convertToCardAmountDto(cardList);
     }
 
-    async testAddCard() {
-        const a = new AddCardDto();
-        a.setShortName = 'ELD';
-        a.cardQuantitys = [{cardNumber: 330, cardQuantity: 2}, {cardNumber: 115, cardQuantity: 11}];
-        await this.cardRepository.addSetCard(a, 1);
+    async addCard(addCard: AddCardDto, user: User) {
+        await this.cardRepository.addSetCard(addCard, user);
     }
 
     private convertToCardAmountDto(cardList: Card[]): CardAmountDto[] {
