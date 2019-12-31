@@ -1,8 +1,16 @@
-import { Controller, Get, Post, Query, Param, UseGuards } from '@nestjs/common';
+import {
+    Controller,
+    Get,
+    Post,
+    Param,
+    UseGuards,
+    Body,
+} from '@nestjs/common';
 import { CardService } from './card.service';
 import { AuthGuard } from '@nestjs/passport';
 import { GetUser } from '../auth/get-user.decorator';
 import { User } from '../auth/entity/user.entity';
+import { AddCardDto } from './dto/add-card.dto';
 
 @Controller('card')
 export class CardController {
@@ -20,9 +28,12 @@ export class CardController {
         return await this.cardService.getCardSetUser(cardSet, user);
     }
 
-    @Post('/testAdd')
-    async addCard(): Promise<void> {
-        await this.cardService.testAddCard();
-        // return 'done';
+    @Post('/addcard')
+    @UseGuards(AuthGuard())
+    async addCard(
+        @Body() addCard: AddCardDto,
+        @GetUser() user: User,
+    ): Promise<void> {
+        await this.cardService.addCard(addCard, user);
     }
 }

@@ -36,7 +36,9 @@ export class CardRepository extends Repository<Card> {
             .getMany();
     }
 
-    async addSetCard(addCard: AddCardDto, userId: number) {
+    async addSetCard(addCard: AddCardDto, user: User) {
+        console.log('Beérkezett3');
+        const userId = user.id;
         // check if there is more than one from the same card number
         addCard.cardQuantitys.reduce((a, b) => {
             if (a[b.cardNumber]) {
@@ -79,7 +81,7 @@ export class CardRepository extends Repository<Card> {
 
         // Get all the cards
         // cardId, cardAmountId, cardNumber, quantity
-        //Left join is kell a cardId-hoz
+        // Left join is kell a cardId-hoz
         const userCards: DbAddCard[] = await this.createQueryBuilder('t_card')
             .select([
                 't_card.id as cardId',
@@ -123,12 +125,14 @@ export class CardRepository extends Repository<Card> {
                     { id: userCard.cardAmountId },
                     { amount: userCard.quantity + newAddCard.cardQuantity },
                 );
+                console.log(`Update ${userCard.cardAmountId} and ${userCard.quantity} + ${newAddCard.cardQuantity}`);
             } else {
                 const insertCardAmount = new CardAmount();
                 insertCardAmount.amount = newAddCard.cardQuantity;
                 insertCardAmount.userId = userId;
                 insertCardAmount.cardId = userCard.cardId;
                 await insertCardAmount.save();
+                console.log('Save');
             }
         });
     }
