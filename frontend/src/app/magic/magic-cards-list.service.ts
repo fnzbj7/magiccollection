@@ -9,46 +9,71 @@ import { AuthenticationService } from '../auth/authentication.service';
 
 @Injectable()
 export class MagicCardsListService {
-  private filterArray: string[] = [
-    CardRarity.Common,
-    CardRarity.Uncommon,
-    CardRarity.Rare,
-    CardRarity.Mythic
-  ];
-  private filterChange = new Subject<FilterChange>();
-  private filterChangeSub = this.filterChange.asObservable();
+    private filterArray: string[] = [
+        CardRarity.Common,
+        CardRarity.Uncommon,
+        CardRarity.Rare,
+        CardRarity.Mythic,
+    ];
+    private filterChange = new Subject<FilterChange>();
+    private filterChangeSub = this.filterChange.asObservable();
 
-  constructor(private http: HttpClient,
-    private authService: AuthenticationService) {}
+    cardSetsArray: string[] = [
+        'ELD',
+        'M20',
+        'WAR',
+        'RNA',
+        'GRN',
+        'M19',
+        'DOM',
+        'RIX',
+        'XLN',
+        'HOU',
+        'AKH',
+        'AER',
+        'KLD',
+        'EMN',
+        'SOI',
+        'OGW',
+        'BFZ',
+    ];
 
-  getCardsForExpansion(expansion: string): Observable<Card[]> {
-    let url: string;
-    if (this.authService.isLoggedIn()) {
-      url = environment.mainUrl + `/card/cardsetuser/${expansion}`;
-    } else {
-      url = environment.mainUrl + `/card/cardset/${expansion}`;
+    constructor(
+        private http: HttpClient,
+        private authService: AuthenticationService,
+    ) {}
+
+    getCardsForExpansion(expansion: string): Observable<Card[]> {
+        let url: string;
+        if (this.authService.isLoggedIn()) {
+            url = environment.mainUrl + `/card/cardsetuser/${expansion}`;
+        } else {
+            url = environment.mainUrl + `/card/cardset/${expansion}`;
+        }
+        return this.http.get<Card[]>(url);
     }
-    return this.http.get<Card[]>(url);
-  }
 
-  getFilterChangeSub(): Observable<FilterChange> {
-    return this.filterChangeSub;
-  }
-
-  getfilterArray(): string[] {
-    return [...this.filterArray];
-  }
-
-  changeFilter(filterChangeName: string, filterChangeTo: boolean) {
-    const isInFilterArray = this.filterArray.includes(filterChangeName);
-    if (isInFilterArray !== filterChangeTo) {
-      isInFilterArray
-        ? this.filterArray.splice(this.filterArray.indexOf(filterChangeName), 1)
-        : this.filterArray.push(filterChangeName);
+    getFilterChangeSub(): Observable<FilterChange> {
+        return this.filterChangeSub;
     }
-    this.filterChange.next({
-      changedTo: filterChangeTo,
-      changeName: filterChangeName
-    });
-  }
+
+    getfilterArray(): string[] {
+        return [...this.filterArray];
+    }
+
+    changeFilter(filterChangeName: string, filterChangeTo: boolean) {
+        const isInFilterArray = this.filterArray.includes(filterChangeName);
+        if (isInFilterArray !== filterChangeTo) {
+            isInFilterArray
+                ? this.filterArray.splice(
+                      this.filterArray.indexOf(filterChangeName),
+                      1,
+                  )
+                : this.filterArray.push(filterChangeName);
+        }
+        this.filterChange.next({
+            changedTo: filterChangeTo,
+            changeName: filterChangeName,
+        });
+    }
 }

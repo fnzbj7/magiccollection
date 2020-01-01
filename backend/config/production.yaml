@@ -1,2 +1,5 @@
 db:
   synchronize: true
+
+facebook:
+  appId: '2495571677216519'
