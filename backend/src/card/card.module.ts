@@ -6,11 +6,8 @@ import { CardRepository } from './card.repository';
 import { AuthModule } from '../auth/auth.module';
 
 @Module({
-  imports: [
-    TypeOrmModule.forFeature([CardRepository]),
-    AuthModule,
-  ],
-  controllers: [CardController],
-  providers: [CardService],
+    imports: [TypeOrmModule.forFeature([CardRepository]), AuthModule],
+    controllers: [CardController],
+    providers: [CardService],
 })
 export class CardModule {}

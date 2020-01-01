@@ -16,13 +16,14 @@ import { MagicCardAmountDirective } from './magic/magic-card/magic-card-amount.d
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { JwtInterceptor } from './auth/jwt.interceptor';
 import { AuthComponent } from './auth/auth.component';
-import { ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from 'src/environments/environment';
 import { LandingComponent } from './landing/landing.component';
 import { MagicCardRarityFilterComponent } from './magic/magic-card-rarity-filter/magic-card-rarity-filter.component';
 import { MagicCardModalComponent } from './magic/magic-card-modal/magic-card-modal.component';
 import { SharedModule } from './shared/shared.module';
+import { AddCardComponent } from './magic/add-card/add-card.component';
 import {
   SocialLoginModule,
   AuthServiceConfig,
@@ -32,7 +33,7 @@ import {
 const config = new AuthServiceConfig([
   {
     id: FacebookLoginProvider.PROVIDER_ID,
-    provider: new FacebookLoginProvider('2495571677216519')
+    provider: new FacebookLoginProvider(environment.facebookAppId)
   }
 ]);
 
@@ -52,7 +53,8 @@ export function provideConfig() {
     AuthComponent,
     LandingComponent,
     MagicCardRarityFilterComponent,
-    MagicCardModalComponent
+    MagicCardModalComponent,
+    AddCardComponent
   ],
   entryComponents: [AuthComponent, MagicCardModalComponent],
   imports: [
@@ -63,6 +65,7 @@ export function provideConfig() {
     NgxPaginationModule,
     ModalModule.forRoot(),
     ReactiveFormsModule,
+    FormsModule,
     ServiceWorkerModule.register('/ngsw-worker.js', {
       enabled: environment.production
     }),

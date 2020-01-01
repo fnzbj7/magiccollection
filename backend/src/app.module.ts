@@ -7,9 +7,9 @@ import { MailService } from './shared/mail.service';
 
 @Global()
 @Module({
-  imports: [TypeOrmModule.forRoot(typeOrmConfig), CardModule, AuthModule],
-  exports: [MailService],
-  controllers: [],
-  providers: [MailService],
+    imports: [TypeOrmModule.forRoot(typeOrmConfig), CardModule, AuthModule],
+    exports: [MailService],
+    controllers: [],
+    providers: [MailService],
 })
 export class AppModule {}

@@ -9,7 +9,6 @@ import { User } from './entity/user.entity';
 
 @Injectable()
 export class AuthService {
-
     constructor(
         @InjectRepository(UserRepository)
         private userRepository: UserRepository,
@@ -22,8 +21,12 @@ export class AuthService {
         await this.mailService.sendRegMail(authCredentialsDto);
     }
 
-    async singIn(authCredentialsDto: AuthCredentialsDto): Promise<{ accessToken: string }> {
-        const email = await this.userRepository.validateUserPassword(authCredentialsDto);
+    async singIn(
+        authCredentialsDto: AuthCredentialsDto,
+    ): Promise<{ accessToken: string }> {
+        const email = await this.userRepository.validateUserPassword(
+            authCredentialsDto,
+        );
 
         if (!email) {
             throw new UnauthorizedException();
@@ -36,7 +39,7 @@ export class AuthService {
     }
 
     async singInFb(user: User): Promise<{ accessToken: string }> {
-        const {email} = user;
+        const { email } = user;
 
         if (!email) {
             throw new UnauthorizedException();
@@ -47,5 +50,4 @@ export class AuthService {
 
         return { accessToken };
     }
-
 }

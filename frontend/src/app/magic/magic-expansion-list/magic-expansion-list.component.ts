@@ -1,22 +1,24 @@
 import { Component, OnInit } from '@angular/core';
+import { MagicCardsListService } from '../magic-cards-list.service';
 
 @Component({
-  selector: 'app-magic-expansion-list',
-  templateUrl: './magic-expansion-list.component.html',
-  styleUrls: ['./magic-expansion-list.component.css']
+    selector: 'app-magic-expansion-list',
+    templateUrl: './magic-expansion-list.component.html',
+    styleUrls: ['./magic-expansion-list.component.css'],
 })
 export class MagicExpansionListComponent implements OnInit {
 
-  cardSetsArray: string[] = ['ELD','M20', 'WAR', 'RNA', 'GRN', 'M19', 'DOM', 'RIX', 'XLN', 'HOU', 'AKH', 'AER', 'KLD', 'EMN', 'SOI', 'OGW', 'BFZ'];
-  expansion: string;
-  isOpenMenu = false;
+    cardSetsArray: string[];
+    expansion: string;
+    isOpenMenu = false;
 
-  constructor() { }
+    constructor(private magicCardsListService: MagicCardsListService) {}
 
-  ngOnInit() {  }
+    ngOnInit() {
+        this.cardSetsArray = this.magicCardsListService.cardSetsArray;
+    }
 
-  onToggleMenu() {
-    this.isOpenMenu = !this.isOpenMenu;
-  }
-
+    onToggleMenu() {
+        this.isOpenMenu = !this.isOpenMenu;
+    }
 }
