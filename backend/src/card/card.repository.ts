@@ -37,7 +37,7 @@ export class CardRepository extends Repository<Card> {
     }
 
     async addSetCard(addCard: AddCardDto, user: User) {
-        console.log('Beérkezett3');
+        console.log(user);
         const userId = user.id;
         // check if there is more than one from the same card number
         addCard.cardQuantitys.reduce((a, b) => {
@@ -89,10 +89,14 @@ export class CardRepository extends Repository<Card> {
                 't_card_amount.amount as quantity',
                 't_card.cardNumber as cardNumber',
             ])
-            .leftJoin('t_card.cardAmount', 't_card_amount')
-            .leftJoin('t_card_amount.user', 't_user', 't_user.id = :userId', {
-                userId,
-            })
+            .leftJoin(
+                't_card.cardAmount',
+                't_card_amount',
+                't_card_amount.userId = :userId',
+                {
+                    userId,
+                },
+            )
             .innerJoin(
                 't_card.cardSet',
                 't_cardSet',
@@ -125,7 +129,11 @@ export class CardRepository extends Repository<Card> {
                     { id: userCard.cardAmountId },
                     { amount: userCard.quantity + newAddCard.cardQuantity },
                 );
-                console.log(`Update ${userCard.cardAmountId} and ${userCard.quantity} + ${newAddCard.cardQuantity}`);
+                console.log(
+                    `Update ${userCard.cardAmountId} and ${
+                        userCard.quantity
+                    } + ${newAddCard.cardQuantity}`,
+                );
             } else {
                 const insertCardAmount = new CardAmount();
                 insertCardAmount.amount = newAddCard.cardQuantity;
