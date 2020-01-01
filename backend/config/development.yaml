@@ -7,3 +7,6 @@ db:
 
 jwt:
   secret: 'topSecret51'
+
+facebook:
+  appId: '732644653890540'

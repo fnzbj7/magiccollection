@@ -4,9 +4,11 @@ import FacebookTokenStrategy = require('passport-facebook-token');
 import { User } from './entity/user.entity';
 import { UserRepository } from './user.repository';
 import { InjectRepository } from '@nestjs/typeorm';
+import * as config from 'config';
 
 @Injectable()
 export class FacebookStrategy {
+
     constructor(
         @InjectRepository(UserRepository)
         private userRepository: UserRepository,
@@ -17,9 +19,10 @@ export class FacebookStrategy {
     async init() {
         // Need to spearate options from the FacebookTokenStrategy construct,
         // because it's not accepts fbGraphVersion property, but we need to set it to the newest
+        const fbConfig: any = config.get('facebook');
         const options = {
-            clientID: '2495571677216519',
-            clientSecret: '7b1a32bb6ee396961a2e20fb99b00e8d',
+            clientID: fbConfig.appId,
+            clientSecret: process.env.FB_APP_SECRET,
             fbGraphVersion: 'v5.0',
         };
         use(

@@ -28,3 +28,5 @@ Now there are 2 functions on the live page<br/>
 * **PORT**: This port number will be used for the backend. *The default is 3000*
 * **DATABASE_URL**: The address to the database. (now only support MySQL databases)
 * **MAILGUN_API_KEY**: This key is used to send emails
+* **FB_APP_SECRET**: Facebook secret for OAuthV2 authentication
+
