@@ -3,3 +3,6 @@ db:
 
 facebook:
   appId: '2495571677216519'
+
+log:
+  logLevel: ['log', 'error']

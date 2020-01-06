@@ -24,6 +24,7 @@ import { MagicCardRarityFilterComponent } from './magic/magic-card-rarity-filter
 import { MagicCardModalComponent } from './magic/magic-card-modal/magic-card-modal.component';
 import { SharedModule } from './shared/shared.module';
 import { AddCardComponent } from './magic/add-card/add-card.component';
+import { RemoveCardComponent } from './magic/remove-card/remove-card.component';
 import {
   SocialLoginModule,
   AuthServiceConfig,
@@ -54,7 +55,8 @@ export function provideConfig() {
     LandingComponent,
     MagicCardRarityFilterComponent,
     MagicCardModalComponent,
-    AddCardComponent
+    AddCardComponent,
+    RemoveCardComponent
   ],
   entryComponents: [AuthComponent, MagicCardModalComponent],
   imports: [

@@ -7,3 +7,8 @@ db:
 
 jwt:
   expiresIn: 3600
+
+log:
+  logLevel: ['log', 'error']
+
+https: false
