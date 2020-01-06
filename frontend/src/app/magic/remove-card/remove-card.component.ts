@@ -1,14 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import { ModifyCardDto } from './dto/add-card.dto';
+import { ModifyCardDto } from '../add-card/dto/add-card.dto';
 import { ModifyCardService } from '../modify-card.service';
 import { MagicCardsListService } from '../magic-cards-list.service';
 
 @Component({
-    selector: 'app-add-card',
-    templateUrl: './add-card.component.html',
-    styleUrls: ['./add-card.component.css'],
+    selector: 'app-remove-card',
+    templateUrl: './remove-card.component.html',
+    styleUrls: ['./remove-card.component.css']
 })
-export class AddCardComponent implements OnInit {
+export class RemoveCardComponent implements OnInit {
     cardNumbersStr: string;
     cardSetsArray: string[];
     cardSet: string;
@@ -23,7 +23,7 @@ export class AddCardComponent implements OnInit {
         this.cardSet = this.cardSetsArray[0];
     }
 
-    addCard() {
+    removeCard() {
         console.log(this.cardSet);
         // Remove multiple spaces
         this.cardNumbersStr = this.cardNumbersStr.trim().replace(/  +/g, ' ');
@@ -31,30 +31,30 @@ export class AddCardComponent implements OnInit {
             .split(' ')
             .map(cardNum => parseInt(cardNum, 0));
 
-        const findedNum = cardNumbers.findIndex(num => isNaN(num));
-        if (findedNum >= 0) {
+        const foundedNum = cardNumbers.findIndex(num => isNaN(num));
+        if (foundedNum >= 0) {
             console.log('Founded NaN');
         } else {
-            const addCardDto = new ModifyCardDto();
-            addCardDto.setShortName = this.cardSet;
-            addCardDto.cardQuantitys = [];
+            const removeCardDto = new ModifyCardDto();
+            removeCardDto.setShortName = this.cardSet;
+            removeCardDto.cardQuantitys = [];
             const reducedArr = cardNumbers.reduce((addCard, cardNum) => {
                 const cardNumInd = addCard.cardQuantitys.findIndex(
                     c => c.cardNumber === cardNum,
                 );
                 if (cardNumInd >= 0) {
-                    addCard.cardQuantitys[cardNumInd].cardQuantity++;
+                    addCard.cardQuantitys[cardNumInd].cardQuantity--;
                 } else {
                     addCard.cardQuantitys.push({
                         cardNumber: cardNum,
-                        cardQuantity: 1,
+                        cardQuantity: -1,
                     });
                 }
                 return addCard;
-            }, addCardDto);
+            }, removeCardDto);
 
             console.log(reducedArr);
-            this.modifyCardService.addCard(reducedArr).subscribe(
+            this.modifyCardService.removeCard(reducedArr).subscribe(
                 () => {
                     console.log('Finished adding card');
                 },

@@ -1,6 +1,6 @@
 import { CardQuantity } from './card-quantity.model';
 
-export class AddCardDto {
+export class ModifyCardDto {
     setShortName: string;
     cardQuantitys: CardQuantity[];
 }

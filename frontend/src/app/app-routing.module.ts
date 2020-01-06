@@ -4,6 +4,7 @@ import { MagicCardListComponent } from './magic/magic-card-list/magic-card-list.
 import { MagicExpansionListComponent } from './magic/magic-expansion-list/magic-expansion-list.component';
 import { LandingComponent } from './landing/landing.component';
 import { AddCardComponent } from './magic/add-card/add-card.component';
+import { RemoveCardComponent } from './magic/remove-card/remove-card.component';
 
 const appRoute: Routes = [
     { path: 'calendar', loadChildren: () => import('./calendar/calendar.module').then(m => m.CalendarModule)},
@@ -11,6 +12,7 @@ const appRoute: Routes = [
     // { path: '', redirectTo: '/RNA', pathMatch: 'full'}
     { path: 'cards', component: MagicExpansionListComponent, pathMatch: 'full'},
     { path: 'addcards', component: AddCardComponent, pathMatch: 'full'},
+    { path: 'removecards', component: RemoveCardComponent, pathMatch: 'full'},
     { path: '', component: LandingComponent, pathMatch: 'full'},
     { path: '**', component: LandingComponent }
 ];
