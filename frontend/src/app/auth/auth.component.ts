@@ -44,10 +44,6 @@ export class AuthComponent implements OnInit {
     });
   }
 
-  async onFacebookLogout() {
-    await this.authServiceSocial.signOut();
-  }
-
   onPageChange(selectedPage: string) {
     this.selectedPage = selectedPage;
   }
