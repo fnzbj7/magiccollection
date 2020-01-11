@@ -9,8 +9,7 @@ import { MagicCardsListService } from '../magic-cards-list.service';
 export class MagicExpansionListComponent implements OnInit {
 
     cardSetsArray: string[];
-    expansion: string;
-    isOpenMenu = false;
+
 
     constructor(private magicCardsListService: MagicCardsListService) {}
 
@@ -18,7 +17,4 @@ export class MagicExpansionListComponent implements OnInit {
         this.cardSetsArray = this.magicCardsListService.cardSetsArray;
     }
 
-    onToggleMenu() {
-        this.isOpenMenu = !this.isOpenMenu;
-    }
 }
