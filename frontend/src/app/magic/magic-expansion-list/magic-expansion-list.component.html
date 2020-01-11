@@ -1,15 +1,17 @@
-<div id="expansionContainer" class="border border-sm-0 border-left-0 border-dark" [ngClass]="{ open: isOpenMenu }">
-  <div
-    id="open-arrow"
-    (click)="onToggleMenu()"
-  >
-  <div class=" border-container border border-left-0 border-dark rounded-right">
-    SET ICONS <fa-icon icon="angle-right"></fa-icon>
-  </div>
+<div
+    id="expansionContainer"
+    class="border border-sm-0 border-left-0 border-dark"
+    [ngClass]="{ open: isOpenMenu }"
+>
+    <app-magic-expansion
+        [expansionName]="cardSet"
+        *ngFor="let cardSet of cardSetsArray"
+    ></app-magic-expansion>
+</div>
 
-  </div>
-  <app-magic-expansion
-    [expansionName]="cardSet"
-    *ngFor="let cardSet of cardSetsArray"
-  ></app-magic-expansion>
+<div class="mobile-menu position-fixed bg-light">
+    <app-magic-expansion class="mx-2"
+        [expansionName]="cardSet"
+        *ngFor="let cardSet of cardSetsArray"
+    ></app-magic-expansion>
 </div>

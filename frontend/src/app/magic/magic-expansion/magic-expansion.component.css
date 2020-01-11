@@ -1,8 +1,8 @@
-.activeSet .setIcon{
+.activeSet .setIcon {
     opacity: 1;
 }
 
-.setIcon{
+.setIcon {
     height: 45px;
     margin: auto;
     display: block;
@@ -12,9 +12,13 @@
 }
 
 a:not(.activeSet) img:hover {
-
     position: relative;
     top: 1px;
     left: 1px;
+}
 
+@media (max-width: 575px) {
+    .setIcon {
+        display: inline-block;
+    }
 }
