@@ -1,25 +1,26 @@
 <li class="nowrap magiccard_li">
-  <!-- Normal cards -->
-  <picture
-    class="magiccard"
-    [appMagicCardAmount]="magicCard.cardAmount"
-    (click)="openCardModal()"
-  >
-    <source
-      srcset="assets/img/cards/{{magicCard.cardExpansion}}/webp/{{magicCard.cardExpansion}}_{{magicCard.cardNumber}}.webp"
-      type="image/webp"
-    />
-    <source
-      srcset="assets/img/cards/{{magicCard.cardExpansion}}/png/{{magicCard.cardExpansion}}_{{magicCard.cardNumber}}.png"
-      type="image/png"
-    />
-    <img
-      class="magiccard"
-      src="assets/img/cards/{{ magicCard.cardExpansion }}/{{
-        magicCard.cardExpansion
-      }}_{{ magicCard.cardNumber }}.png"
-      alt=""
-      [title]="magicCard.cardNumber"
-    />
-  </picture>
+    <!-- Normal cards -->
+    <picture
+        class="magiccard"
+        [appMagicCardAmount]="magicCard.cardAmount"
+        (click)="openCardModal()"
+    >
+        <source
+            srcset="https://magiccollection.s3.eu-central-1.amazonaws.com/{{magicCard.cardExpansion}}/webp/{{magicCard.cardExpansion}}_{{magicCard.cardNumber}}.webp"
+            type="image/webp"
+        />
+        <source
+            srcset="assets/img/cards/{{magicCard.cardExpansion}}/png/{{magicCard.cardExpansion}}_{{magicCard.cardNumber}}.png"
+            srcset="https://magiccollection.s3.eu-central-1.amazonaws.com/{{magicCard.cardExpansion}}/png/{{magicCard.cardExpansion}}_{{magicCard.cardNumber}}.png"
+            type="image/png"
+        />
+        <img
+            class="magiccard"
+            src="https://magiccollection.s3.eu-central-1.amazonaws.com/{{
+                magicCard.cardExpansion
+            }}/png/{{ magicCard.cardExpansion }}_{{ magicCard.cardNumber }}.png"
+            alt=""
+            [title]="magicCard.cardNumber"
+        />
+    </picture>
 </li>
