@@ -19,6 +19,7 @@ export class MagicCardsListService {
     private filterChangeSub = this.filterChange.asObservable();
 
     cardSetsArray: string[] = [
+        'THB',
         'ELD',
         'M20',
         'WAR',
