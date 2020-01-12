@@ -59,7 +59,7 @@ ol,ul{
     text-decoration: none;
 }
 
-.my-pagination /deep/ {
+.my-pagination {
     padding: 20px;
       font: 14px/24px sans-serif;
       margin: auto;
@@ -106,13 +106,13 @@ ol,ul{
     margin-bottom: 75px;
   }
 
-  .fake-card {
-    width: 114px;
-  }
+
 }
 
-@media screen and (min-width: 576px){
-
+@media (max-width: 767px) {
+    .fake-card {
+        width: 108px;
+      }
 }
 
 pagination-controls.my-pagination /deep/ pagination-template ul.ngx-pagination li {
