@@ -4,26 +4,35 @@ import { MagicCardModalComponent } from '../magic-card-modal/magic-card-modal.co
 import { ModalService } from 'src/app/shared/modal.service';
 
 @Component({
-  selector: 'app-magic-card',
-  templateUrl: './magic-card.component.html',
-  styleUrls: ['./magic-card.component.css']
+    selector: 'app-magic-card',
+    templateUrl: './magic-card.component.html',
+    styleUrls: ['./magic-card.component.css'],
 })
 export class MagicCardComponent implements OnInit {
-  @Input() magicCard: Card;
+    @Input() magicCard: Card;
 
-  constructor(private modalService: ModalService) {}
+    imageSrcPng: string;
+    imageSrcWebp: string;
 
-  ngOnInit() {}
+    constructor(private modalService: ModalService) {}
 
-  openCardModal() {
-    console.log('click happend');
+    ngOnInit() {
+        this.imageSrcPng =
+            `https://magiccollection.s3.eu-central-1.amazonaws.com/` +
+            `${this.magicCard.cardExpansion}/png/${this.magicCard.cardExpansion}_${this.magicCard.cardNumber}.png`;
 
-    this.modalService.init(
-      MagicCardModalComponent,
-      {
-        magicCard: this.magicCard
-      },
-      {}
-    );
-  }
+        this.imageSrcWebp =
+            `https://magiccollection.s3.eu-central-1.amazonaws.com/` +
+            `${this.magicCard.cardExpansion}/webp/${this.magicCard.cardExpansion}_${this.magicCard.cardNumber}.webp`;
+    }
+
+    openCardModal() {
+        this.modalService.init(
+            MagicCardModalComponent,
+            {
+                magicCard: this.magicCard,
+            },
+            {},
+        );
+    }
 }
