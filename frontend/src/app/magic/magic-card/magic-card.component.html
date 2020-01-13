@@ -6,19 +6,22 @@
         (click)="openCardModal()"
     >
         <source
-            srcset="https://magiccollection.s3.eu-central-1.amazonaws.com/{{magicCard.cardExpansion}}/webp/{{magicCard.cardExpansion}}_{{magicCard.cardNumber}}.webp"
+            [attr.lazyLoad]="imageSrcWebp"
+            [attr.defaultImage]="'assets/img/magic_card_back.webp'"
+            offset="100"
             type="image/webp"
         />
         <source
-            srcset="assets/img/cards/{{magicCard.cardExpansion}}/png/{{magicCard.cardExpansion}}_{{magicCard.cardNumber}}.png"
-            srcset="https://magiccollection.s3.eu-central-1.amazonaws.com/{{magicCard.cardExpansion}}/png/{{magicCard.cardExpansion}}_{{magicCard.cardNumber}}.png"
+            [attr.lazyLoad]="imageSrcPng"
+            [attr.defaultImage]="'assets/img/magic_card_back.png'"
+            offset="100"
             type="image/png"
         />
         <img
             class="magiccard"
-            src="https://magiccollection.s3.eu-central-1.amazonaws.com/{{
-                magicCard.cardExpansion
-            }}/png/{{ magicCard.cardExpansion }}_{{ magicCard.cardNumber }}.png"
+            [lazyLoad]="imageSrcPng"
+            [defaultImage]="'assets/img/magic_card_back.png'"
+            offset="100"
             alt=""
             [title]="magicCard.cardNumber"
         />

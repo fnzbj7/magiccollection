@@ -30,6 +30,7 @@ import {
   AuthServiceConfig,
   FacebookLoginProvider
 } from 'angularx-social-login';
+import { LazyLoadImageModule, intersectionObserverPreset } from 'ng-lazyload-image';
 
 const config = new AuthServiceConfig([
   {
@@ -72,6 +73,9 @@ export function provideConfig() {
       enabled: environment.production
     }),
     SocialLoginModule,
+    LazyLoadImageModule.forRoot({
+        preset: intersectionObserverPreset, // <-- tell LazyLoadImage that you want to use IntersectionObserver
+    }),
     SharedModule
   ],
   providers: [
