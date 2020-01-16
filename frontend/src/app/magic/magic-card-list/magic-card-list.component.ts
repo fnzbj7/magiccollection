@@ -32,7 +32,9 @@ export class MagicCardListComponent implements OnInit, OnDestroy {
   ngOnInit() {
 
     this.currentUserSub = this.authenticationService.currentUser.subscribe(user => {
-      this.getCardsFromExpansion(this.expansion);
+        if (this.expansion) {
+            this.getCardsFromExpansion(this.expansion);
+        }
     });
 
     this.routerChangeSub = this.route.params.subscribe((params: Params) => {
