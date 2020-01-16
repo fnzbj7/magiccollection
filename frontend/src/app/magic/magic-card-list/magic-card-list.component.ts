@@ -37,7 +37,9 @@ export class MagicCardListComponent implements OnInit, OnDestroy {
 
     this.routerChangeSub = this.route.params.subscribe((params: Params) => {
       this.expansion = params['expansion'];
-      this.getCardsFromExpansion(this.expansion);
+      if (this.expansion) {
+        this.getCardsFromExpansion(this.expansion);
+      }
     });
 
     this.magicCardsListService.getFilterChangeSub().subscribe(rarityFilter => {
