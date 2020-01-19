@@ -6,33 +6,33 @@ import { User } from '../model/user.model';
 import { VersionService } from 'src/environments/version.service';
 
 @Component({
-  selector: 'app-header',
-  templateUrl: './header.component.html',
-  styleUrls: ['./header.component.css']
+    selector: 'app-header',
+    templateUrl: './header.component.html',
+    styleUrls: ['./header.component.css'],
 })
 export class HeaderComponent implements OnInit {
-  bsModalRef: BsModalRef;
-  loggedUser: User;
-  version: string;
+    bsModalRef: BsModalRef;
+    loggedUser: User;
+    version: string;
 
-  constructor(
-    private modalService: BsModalService,
-    private authenticationService: AuthenticationService,
-    private versionService: VersionService
-  ) {}
+    constructor(
+        private modalService: BsModalService,
+        private authenticationService: AuthenticationService,
+        private versionService: VersionService,
+    ) {}
 
-  ngOnInit() {
-    this.authenticationService.currentUser.subscribe(user => {
-      this.loggedUser = user;
-    });
-    this.version = this.versionService.VERSION;
-  }
+    ngOnInit() {
+        this.authenticationService.currentUser.subscribe(user => {
+            this.loggedUser = user;
+        });
+        this.version = this.versionService.VERSION;
+    }
 
-  openModalWithComponent() {
-    this.bsModalRef = this.modalService.show(AuthComponent);
-  }
+    openModalWithComponent() {
+        this.bsModalRef = this.modalService.show(AuthComponent);
+    }
 
-  onLogout() {
-    this.authenticationService.logout();
-  }
+    onLogout() {
+        this.authenticationService.logout();
+    }
 }

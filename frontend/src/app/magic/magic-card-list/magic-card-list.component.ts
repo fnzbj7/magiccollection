@@ -7,88 +7,98 @@ import { AuthenticationService } from 'src/app/auth/authentication.service';
 import { Subscription } from 'rxjs';
 
 @Component({
-  selector: 'app-magic-card-list',
-  templateUrl: './magic-card-list.component.html',
-  styleUrls: ['./magic-card-list.component.css']
+    selector: 'app-magic-card-list',
+    templateUrl: './magic-card-list.component.html',
+    styleUrls: ['./magic-card-list.component.css'],
 })
 export class MagicCardListComponent implements OnInit, OnDestroy {
-  p = 1;
-  cardsArray: Card[];
-  filteredCardsArray: Card[];
-  expansion: string;
-  currentPage = 1;
-  itemsPerPage = 35;
-  @ViewChild('page', { static: true }) amountInputRef: PaginationControlsComponent;
-  currentUserSub: Subscription;
-  routerChangeSub: Subscription;
+    p = 1;
+    cardsArray: Card[];
+    filteredCardsArray: Card[];
+    expansion: string;
+    currentPage = 1;
+    itemsPerPage = 35;
+    @ViewChild('page', { static: true })
+    amountInputRef: PaginationControlsComponent;
+    currentUserSub: Subscription;
+    routerChangeSub: Subscription;
 
-  constructor(
-    private magicCardsListService: MagicCardsListService,
-    private route: ActivatedRoute,
-    private router: Router,
-    private authenticationService: AuthenticationService
-  ) {}
+    constructor(
+        private magicCardsListService: MagicCardsListService,
+        private route: ActivatedRoute,
+        private router: Router,
+        private authenticationService: AuthenticationService,
+    ) {}
 
-  ngOnInit() {
+    ngOnInit() {
+        this.currentUserSub = this.authenticationService.currentUser.subscribe(
+            user => {
+                if (this.expansion) {
+                    this.getCardsFromExpansion(this.expansion);
+                }
+            },
+        );
 
-    this.currentUserSub = this.authenticationService.currentUser.subscribe(user => {
-        if (this.expansion) {
-            this.getCardsFromExpansion(this.expansion);
+        this.routerChangeSub = this.route.params.subscribe((params: Params) => {
+            this.expansion = params['expansion'];
+            if (this.expansion) {
+                this.getCardsFromExpansion(this.expansion);
+            }
+        });
+
+        this.magicCardsListService
+            .getFilterChangeSub()
+            .subscribe(rarityFilter => {
+                this.filterCards();
+            });
+
+        this.route.queryParams.subscribe(data => {
+            if (data.page === undefined) {
+                // this.currentPage = 1;
+            } else if (this.currentPage !== +data.page) {
+                this.amountInputRef.pageChange.emit(data.page);
+            }
+        });
+    }
+
+    getCardsFromExpansion(expansionArg: string) {
+        this.magicCardsListService
+            .getCardsForExpansion(expansionArg)
+            .subscribe((cards: Card[]) => {
+                console.log(cards);
+                this.cardsArray = cards;
+                this.filterCards();
+                if (this.route.snapshot.queryParams['page']) {
+                    this.currentPage = +this.route.snapshot.queryParams['page'];
+                } else {
+                    this.currentPage = 1;
+                }
+            });
+    }
+
+    onPageChange(event: number) {
+        this.currentPage = event;
+        this.router.navigate([], {
+            relativeTo: this.route,
+            queryParams: { page: this.currentPage },
+            queryParamsHandling: 'merge', // remove to replace all query params by provided
+        });
+    }
+
+    private filterCards() {
+        this.filteredCardsArray = this.cardsArray.filter(card => {
+            return this.magicCardsListService
+                .getfilterArray()
+                .includes(card.rarity);
+        });
+    }
+
+    ngOnDestroy() {
+        if (this.currentUserSub) {
+            this.currentUserSub.unsubscribe();
         }
-    });
-
-    this.routerChangeSub = this.route.params.subscribe((params: Params) => {
-      this.expansion = params['expansion'];
-      if (this.expansion) {
-        this.getCardsFromExpansion(this.expansion);
-      }
-    });
-
-    this.magicCardsListService.getFilterChangeSub().subscribe(rarityFilter => {
-      this.filterCards();
-    });
-
-    this.route.queryParams.subscribe(data => {
-      if (data.page === undefined) {
-        // this.currentPage = 1;
-      } else if (this.currentPage !== +data.page) {
-        this.amountInputRef.pageChange.emit(data.page);
-      }
-    });
-  }
-
-  getCardsFromExpansion(expansionArg: string) {
-    this.magicCardsListService
-    .getCardsForExpansion(expansionArg)
-    .subscribe((cards: Card[]) => {
-      console.log(cards);
-      this.cardsArray = cards;
-      this.filterCards();
-      if (this.route.snapshot.queryParams['page']) {
-        this.currentPage = + this.route.snapshot.queryParams['page'];
-      } else {
-        this.currentPage = 1;
-      }
-    });
-  }
-
-  onPageChange(event: number) {
-    this.currentPage = event;
-    this.router.navigate([], {
-      relativeTo: this.route,
-      queryParams: { page: this.currentPage },
-      queryParamsHandling: 'merge' // remove to replace all query params by provided
-    });
-  }
-
-  private filterCards() {
-    this.filteredCardsArray = this.cardsArray.filter(card => {
-      return this.magicCardsListService.getfilterArray().includes(card.rarity);
-    });
-  }
-
-  ngOnDestroy() {
-    if (this.currentUserSub) {this.currentUserSub.unsubscribe(); }
-    if (this.routerChangeSub) { this.routerChangeSub.unsubscribe(); }
-  }
+        if (this.routerChangeSub) {
+            this.routerChangeSub.unsubscribe();
+        }
+    }
 }
