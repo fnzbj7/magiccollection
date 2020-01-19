@@ -7,14 +7,11 @@ import { MagicCardsListService } from '../magic-cards-list.service';
     styleUrls: ['./magic-expansion-list.component.css'],
 })
 export class MagicExpansionListComponent implements OnInit {
-
     cardSetsArray: string[];
-
 
     constructor(private magicCardsListService: MagicCardsListService) {}
 
     ngOnInit() {
         this.cardSetsArray = this.magicCardsListService.cardSetsArray;
     }
-
 }

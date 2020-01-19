@@ -26,63 +26,66 @@ import { SharedModule } from './shared/shared.module';
 import { AddCardComponent } from './magic/add-card/add-card.component';
 import { RemoveCardComponent } from './magic/remove-card/remove-card.component';
 import {
-  SocialLoginModule,
-  AuthServiceConfig,
-  FacebookLoginProvider
+    SocialLoginModule,
+    AuthServiceConfig,
+    FacebookLoginProvider,
 } from 'angularx-social-login';
-import { LazyLoadImageModule, intersectionObserverPreset } from 'ng-lazyload-image';
+import {
+    LazyLoadImageModule,
+    intersectionObserverPreset,
+} from 'ng-lazyload-image';
 
 const config = new AuthServiceConfig([
-  {
-    id: FacebookLoginProvider.PROVIDER_ID,
-    provider: new FacebookLoginProvider(environment.facebookAppId)
-  }
+    {
+        id: FacebookLoginProvider.PROVIDER_ID,
+        provider: new FacebookLoginProvider(environment.facebookAppId),
+    },
 ]);
 
 export function provideConfig() {
-  return config;
+    return config;
 }
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    MagicExpansionComponent,
-    MagicCardListComponent,
-    MagicExpansionListComponent,
-    MagicCardComponent,
-    HeaderComponent,
-    MagicCardAmountDirective,
-    AuthComponent,
-    LandingComponent,
-    MagicCardRarityFilterComponent,
-    MagicCardModalComponent,
-    AddCardComponent,
-    RemoveCardComponent
-  ],
-  entryComponents: [AuthComponent, MagicCardModalComponent],
-  imports: [
-    BrowserModule,
-    HttpClientModule,
-    NgbModule,
-    AppRoutingModule,
-    NgxPaginationModule,
-    ModalModule.forRoot(),
-    ReactiveFormsModule,
-    FormsModule,
-    ServiceWorkerModule.register('/ngsw-worker.js', {
-      enabled: environment.production
-    }),
-    SocialLoginModule,
-    LazyLoadImageModule.forRoot({
-        preset: intersectionObserverPreset, // <-- tell LazyLoadImage that you want to use IntersectionObserver
-    }),
-    SharedModule
-  ],
-  providers: [
-    MagicCardsListService,
-    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
-    { provide: AuthServiceConfig, useFactory: provideConfig },
-  ],
-  bootstrap: [AppComponent]
+    declarations: [
+        AppComponent,
+        MagicExpansionComponent,
+        MagicCardListComponent,
+        MagicExpansionListComponent,
+        MagicCardComponent,
+        HeaderComponent,
+        MagicCardAmountDirective,
+        AuthComponent,
+        LandingComponent,
+        MagicCardRarityFilterComponent,
+        MagicCardModalComponent,
+        AddCardComponent,
+        RemoveCardComponent,
+    ],
+    entryComponents: [AuthComponent, MagicCardModalComponent],
+    imports: [
+        BrowserModule,
+        HttpClientModule,
+        NgbModule,
+        AppRoutingModule,
+        NgxPaginationModule,
+        ModalModule.forRoot(),
+        ReactiveFormsModule,
+        FormsModule,
+        ServiceWorkerModule.register('/ngsw-worker.js', {
+            enabled: environment.production,
+        }),
+        SocialLoginModule,
+        LazyLoadImageModule.forRoot({
+            preset: intersectionObserverPreset, // <-- tell LazyLoadImage that you want to use IntersectionObserver
+        }),
+        SharedModule,
+    ],
+    providers: [
+        MagicCardsListService,
+        { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
+        { provide: AuthServiceConfig, useFactory: provideConfig },
+    ],
+    bootstrap: [AppComponent],
 })
 export class AppModule {}

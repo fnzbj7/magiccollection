@@ -4,33 +4,34 @@ import { CalendarService } from '../../calendar.service';
 import { Subscription } from 'rxjs';
 
 @Component({
-  selector: 'app-calendar-element',
-  templateUrl: './calendar-element.component.html',
-  styleUrls: ['./calendar-element.component.css']
+    selector: 'app-calendar-element',
+    templateUrl: './calendar-element.component.html',
+    styleUrls: ['./calendar-element.component.css'],
 })
 export class CalendarElementComponent implements OnInit, OnDestroy {
+    @Input() calendarEvent: CalendarEvent;
+    selectCalendarEventSub: Subscription;
+    isSelected = false;
 
-  @Input() calendarEvent: CalendarEvent;
-  selectCalendarEventSub: Subscription;
-  isSelected = false;
+    constructor(private calendarService: CalendarService) {}
 
-  constructor(private calendarService: CalendarService) { }
-
-  ngOnInit() {
-    this.isSelected = this.calendarEvent.id === this.calendarService.getSelectedEventId();
-    this.selectCalendarEventSub = this.calendarService.getselectCalendarEventSub().subscribe( selectedId => {
-      this.isSelected = selectedId === this.calendarEvent.id;
-    });
-  }
-
-  onSelectCalendarEvent() {
-    this.calendarService.selectCalendarEvent( this.calendarEvent );
-  }
-
-  ngOnDestroy() {
-    if (this.selectCalendarEventSub) {
-      this.selectCalendarEventSub.unsubscribe();
+    ngOnInit() {
+        this.isSelected =
+            this.calendarEvent.id === this.calendarService.getSelectedEventId();
+        this.selectCalendarEventSub = this.calendarService
+            .getselectCalendarEventSub()
+            .subscribe(selectedId => {
+                this.isSelected = selectedId === this.calendarEvent.id;
+            });
     }
-  }
 
+    onSelectCalendarEvent() {
+        this.calendarService.selectCalendarEvent(this.calendarEvent);
+    }
+
+    ngOnDestroy() {
+        if (this.selectCalendarEventSub) {
+            this.selectCalendarEventSub.unsubscribe();
+        }
+    }
 }

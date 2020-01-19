@@ -6,7 +6,7 @@ import { MagicCardsListService } from '../magic-cards-list.service';
 @Component({
     selector: 'app-remove-card',
     templateUrl: './remove-card.component.html',
-    styleUrls: ['./remove-card.component.css']
+    styleUrls: ['./remove-card.component.css'],
 })
 export class RemoveCardComponent implements OnInit {
     cardNumbersStr: string;

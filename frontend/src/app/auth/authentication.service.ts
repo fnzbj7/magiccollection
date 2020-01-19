@@ -12,23 +12,27 @@ export class AuthenticationService {
     private loggedIn = false;
 
     constructor(private http: HttpClient) {
-        let currentUserJson: User = JSON.parse(localStorage.getItem('currentUser'));
+        let currentUserJson: User = JSON.parse(
+            localStorage.getItem('currentUser'),
+        );
 
-        this.loggedIn = currentUserJson && this.expirationDateValid(<string>currentUserJson.expiresIn);
+        this.loggedIn =
+            currentUserJson &&
+            this.expirationDateValid(<string>currentUserJson.expiresIn);
         currentUserJson = this.loggedIn ? currentUserJson : null;
         this.currentUserSubject = new BehaviorSubject<User>(currentUserJson);
         this.currentUser = this.currentUserSubject.asObservable();
     }
 
     expirationDateValid(expiresIn: string) {
-      const now = new Date();
-      const expiresInDate = new Date(expiresIn);
-      const remainTime =  expiresInDate.getTime() - now.getTime();
+        const now = new Date();
+        const expiresInDate = new Date(expiresIn);
+        const remainTime = expiresInDate.getTime() - now.getTime();
 
-      if (remainTime < 0) {
-        localStorage.removeItem('currentUser');
-      }
-      return remainTime > 0;
+        if (remainTime < 0) {
+            localStorage.removeItem('currentUser');
+        }
+        return remainTime > 0;
     }
 
     public get currentUserValue(): User {
@@ -36,30 +40,41 @@ export class AuthenticationService {
     }
 
     registration(email: string, username: string, password: string) {
-      return this.http.post<any>(environment.mainUrl + '/auth/signup', { email, username, password, dci: '2121' });
+        return this.http.post<any>(environment.mainUrl + '/auth/signup', {
+            email,
+            username,
+            password,
+            dci: '2121',
+        });
     }
 
     login(email: string, password: string) {
-      return this.http.post<{accessToken}>(environment.mainUrl + '/auth/signin', { email, password })
-        .pipe(map(resp => {
-          // login successful if there's a jwt token in the response
-          return this.createAndLoginUser(resp.accessToken);
-        }));
+        return this.http
+            .post<{ accessToken }>(environment.mainUrl + '/auth/signin', {
+                email,
+                password,
+            })
+            .pipe(
+                map(resp => {
+                    // login successful if there's a jwt token in the response
+                    return this.createAndLoginUser(resp.accessToken);
+                }),
+            );
     }
 
     private createAndLoginUser(accessToken: string): User {
-      const user = new User();
-      if (accessToken) {
-        user.token = accessToken;
-        const now = new Date();
-        const expirationDate = new Date(now.getTime() + 1000 * 1000);
-        user.expiresIn = expirationDate;
-        // store user details and jwt token in local storage to keep user logged in between page refreshes
-        localStorage.setItem('currentUser', JSON.stringify(user));
-        this.loggedIn = true;
-        this.currentUserSubject.next(user);
-      }
-      return user;
+        const user = new User();
+        if (accessToken) {
+            user.token = accessToken;
+            const now = new Date();
+            const expirationDate = new Date(now.getTime() + 1000 * 1000);
+            user.expiresIn = expirationDate;
+            // store user details and jwt token in local storage to keep user logged in between page refreshes
+            localStorage.setItem('currentUser', JSON.stringify(user));
+            this.loggedIn = true;
+            this.currentUserSubject.next(user);
+        }
+        return user;
     }
 
     logout() {
@@ -70,13 +85,19 @@ export class AuthenticationService {
     }
 
     isLoggedIn() {
-      return this.loggedIn;
+        return this.loggedIn;
     }
 
     facebookSignIn(access_token: string): Observable<any> {
-      return this.http.get<{accessToken}>(environment.mainUrl + '/auth/facebook', {params: {access_token}}).pipe(map(resp => {
-        // login successful if there's a jwt token in the response
-        return this.createAndLoginUser(resp.accessToken);
-      }));
+        return this.http
+            .get<{ accessToken }>(environment.mainUrl + '/auth/facebook', {
+                params: { access_token },
+            })
+            .pipe(
+                map(resp => {
+                    // login successful if there's a jwt token in the response
+                    return this.createAndLoginUser(resp.accessToken);
+                }),
+            );
     }
 }
