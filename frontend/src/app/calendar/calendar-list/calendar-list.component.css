@@ -1,11 +1,10 @@
 :host {
-  width: 100%;
+    width: 100%;
 }
 
 .navigate-arrow-calendar.ng-fa-icon {
-  cursor: pointer;
-  color: #343a40;
-
+    cursor: pointer;
+    color: #343a40;
 }
 
 /*
@@ -14,17 +13,17 @@
 }*/
 
 .noselect {
-  -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-touch-callout: none; /* iOS Safari */
     -webkit-user-select: none; /* Safari */
-     -khtml-user-select: none; /* Konqueror HTML */
-       -moz-user-select: none; /* Firefox */
-        -ms-user-select: none; /* Internet Explorer/Edge */
-            user-select: none; /* Non-prefixed version, currently
+    -khtml-user-select: none; /* Konqueror HTML */
+    -moz-user-select: none; /* Firefox */
+    -ms-user-select: none; /* Internet Explorer/Edge */
+    user-select: none; /* Non-prefixed version, currently
                                   supported by Chrome and Opera */
 }
 
 /* .calendar-day-body:hover .add-event-icon { display: block !important; } */
 
 .calendar-container {
-	will-change: transform;
+    will-change: transform;
 }

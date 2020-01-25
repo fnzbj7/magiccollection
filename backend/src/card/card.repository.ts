@@ -17,7 +17,9 @@ export class CardRepository extends Repository<Card> {
                 'card.cardSet',
                 'cardSet',
                 'cardSet.short_name = :name',
-                { name: cardSet },
+                {
+                    name: cardSet,
+                },
             )
             .getMany();
     }
@@ -41,7 +43,9 @@ export class CardRepository extends Repository<Card> {
 
     async modifySetCard(modifyCard: ModifyCardDto, user: User) {
         this.logger.verbose(
-            `Method removeSetCard starting. ModifyCardDto: ${JSON.stringify(user)}`,
+            `Method removeSetCard starting. ModifyCardDto: ${JSON.stringify(
+                user,
+            )}`,
         );
         const userId = user.id;
         this.checkCardUniqueness(modifyCard);
@@ -63,9 +67,7 @@ export class CardRepository extends Repository<Card> {
         modifyCard.cardQuantitys.reduce((a, b) => {
             if (a[b.cardNumber]) {
                 throw new BadRequestException(
-                    `There was more than one from the same card number: ${
-                        b.cardNumber
-                    }`,
+                    `There was more than one from the same card number: ${b.cardNumber}`,
                 );
             }
             return { ...a, [b.cardNumber]: (a[b.cardNumber] || 0) + 1 };
@@ -84,7 +86,9 @@ export class CardRepository extends Repository<Card> {
                 't_card.cardSet',
                 't_cardSet',
                 't_cardSet.short_name = :name',
-                { name: setShortName },
+                {
+                    name: setShortName,
+                },
             )
             .orderBy('t_card.cardNumber', 'DESC')
             .getOne();
@@ -112,9 +116,7 @@ export class CardRepository extends Repository<Card> {
 
         if (incorrectNum.length > 0) {
             throw new BadRequestException(
-                `There are card number which is higher than the max: ${
-                    incorrectNum[0].cardNumber
-                }`,
+                `There are card number which is higher than the max: ${incorrectNum[0].cardNumber}`,
             );
         }
     }
@@ -149,7 +151,9 @@ export class CardRepository extends Repository<Card> {
                 't_card.cardSet',
                 't_cardSet',
                 't_cardSet.short_name = :name',
-                { name: modifyCard.setShortName },
+                {
+                    name: modifyCard.setShortName,
+                },
             )
             .where(
                 new Brackets(qb => {
@@ -221,9 +225,7 @@ export class CardRepository extends Repository<Card> {
         insertCardAmount.cardId = cardId;
         await insertCardAmount.save();
         this.logger.verbose(
-            `Save card amount with is ${
-                insertCardAmount.id
-            } with ${cardQuantity} quantity for userId ${userId} and CardId ${cardId}`,
+            `Save card amount with is ${insertCardAmount.id} with ${cardQuantity} quantity for userId ${userId} and CardId ${cardId}`,
         );
     }
 
@@ -245,11 +247,8 @@ export class CardRepository extends Repository<Card> {
             { amount: newAmount },
         );
         this.logger.verbose(
-            `Update cardAmountId ${userCard.cardAmountId} to (initial) ${
-                userCard.quantity
-            } + (adding value) ${modifyQuantity} for userId ${userId} and CardId ${
-                userCard.cardId
-            }`,
+            `Update cardAmountId ${userCard.cardAmountId} to (initial) ${userCard.quantity} + (adding value) ` +
+                `${modifyQuantity} for userId ${userId} and CardId ${userCard.cardId}`,
         );
     }
 }

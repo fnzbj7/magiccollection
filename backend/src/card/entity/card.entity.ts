@@ -27,10 +27,16 @@ export class Card extends BaseEntity {
     @Column()
     layout: string;
 
-    @ManyToOne(type => CardSet, cardSet => cardSet.card)
+    @ManyToOne(
+        type => CardSet,
+        cardSet => cardSet.card,
+    )
     @JoinColumn({ name: 'card_set_1' })
     cardSet: CardSet;
 
-    @OneToMany(type => CardAmount, cardAmount => cardAmount.card)
+    @OneToMany(
+        type => CardAmount,
+        cardAmount => cardAmount.card,
+    )
     cardAmount: CardAmount[];
 }
