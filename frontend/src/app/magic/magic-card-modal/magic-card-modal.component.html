@@ -19,7 +19,7 @@
     </picture>
 
     <!-- Double Side cards -->
-    <ng-container *ngSwitchCase="'transform'">
+    <ng-container *ngSwitchCase="magicCard.layout === 'transform' || magicCard.layout === 'meld' ? magicCard.layout : 'none'">
         <div
             class="flip-container"
             [ngClass]="flipClass ? 'hover' : ''"
