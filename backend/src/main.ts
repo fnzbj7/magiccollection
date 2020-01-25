@@ -2,7 +2,7 @@ import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { frontendMiddleware } from './frontend.middleware';
 import * as config from 'config';
-import { Logger } from '@nestjs/common';
+import * as compression from 'compression';
 
 async function bootstrap() {
     const server: any = config.get('server');
@@ -30,6 +30,7 @@ async function bootstrap() {
     const app = await NestFactory.create(AppModule, options);
     app.enableCors();
     app.setGlobalPrefix('api');
+    app.use(compression());
     app.use(frontendMiddleware);
     const port = process.env.PORT || server.port;
     await app.listen(port);
