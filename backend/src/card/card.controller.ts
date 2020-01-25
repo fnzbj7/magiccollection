@@ -1,11 +1,4 @@
-import {
-    Controller,
-    Get,
-    Post,
-    Param,
-    UseGuards,
-    Body,
-} from '@nestjs/common';
+import { Controller, Get, Post, Param, UseGuards, Body } from '@nestjs/common';
 import { CardService } from './card.service';
 import { AuthGuard } from '@nestjs/passport';
 import { GetUser } from '../auth/get-user.decorator';
@@ -14,7 +7,6 @@ import { ModifyCardDto } from './dto/add-card.dto';
 
 @Controller('card')
 export class CardController {
-
     constructor(private cardService: CardService) {}
 
     @Get('/cardset/:set')

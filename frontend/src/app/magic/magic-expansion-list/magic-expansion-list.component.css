@@ -1,25 +1,24 @@
 :host {
-  margin-right: 10px;
-  margin-left: 8px;
-  float: left;
+    margin-right: 10px;
+    margin-left: 8px;
+    float: left;
 }
 
 #expansionContainer {
     position: relative;
     width: 80px;
-    background-color: #EEE;
+    background-color: #eee;
     float: left;
     margin: 0px;
     display: inline-table;
-  z-index: 50;
+    z-index: 50;
 }
 
 .mobile-menu {
     display: none;
-
 }
 
-@media (max-width: 575px){
+@media (max-width: 575px) {
     #expansionContainer {
         display: none;
     }
@@ -35,8 +34,4 @@
         overflow-y: hidden;
         height: 75px;
     }
-
 }
-
-
-

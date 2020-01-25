@@ -17,14 +17,20 @@ export class CardAmount extends BaseEntity {
     @Column()
     amount: number;
 
-    @ManyToOne(type => User, user => user.cardAmount)
+    @ManyToOne(
+        type => User,
+        user => user.cardAmount,
+    )
     @JoinColumn({ name: 'user_1' })
     user: User;
 
     @Column({ name: 'user_1' })
     userId: number;
 
-    @ManyToOne(type => Card, card => card.cardAmount)
+    @ManyToOne(
+        type => Card,
+        card => card.cardAmount,
+    )
     @JoinColumn({ name: 'card_1' })
     card: Card;
 

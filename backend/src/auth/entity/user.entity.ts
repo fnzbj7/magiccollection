@@ -41,9 +41,13 @@ export class User extends BaseEntity {
     @Column({ type: 'enum', enum: UserSource, default: UserSource.SITE })
     source: UserSource;
 
-    @OneToMany(type => CardAmount, cardAmount => cardAmount.user, {
-        nullable: true,
-    })
+    @OneToMany(
+        type => CardAmount,
+        cardAmount => cardAmount.user,
+        {
+            nullable: true,
+        },
+    )
     cardAmount: CardAmount[];
 
     async validatePassword(password: string): Promise<boolean> {

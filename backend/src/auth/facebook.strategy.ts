@@ -8,7 +8,6 @@ import * as config from 'config';
 
 @Injectable()
 export class FacebookStrategy {
-
     constructor(
         @InjectRepository(UserRepository)
         private userRepository: UserRepository,
