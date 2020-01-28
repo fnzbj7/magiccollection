@@ -6,6 +6,7 @@ export const environment = {
     production: false,
     mainUrl: 'https://localhost:3000/api',
     facebookAppId: '732644653890540',
+    cardImgUrlBase: 'assets/img/static-img/cards/',
 };
 
 /*
