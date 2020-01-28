@@ -1,25 +1,31 @@
 <ng-container [ngSwitch]="magicCard.layout">
     <picture *ngSwitchDefault class="magiccard">
         <source
-            srcset="https://magiccollection.s3.eu-central-1.amazonaws.com/{{magicCard.cardExpansion}}/webp/{{magicCard.cardExpansion}}_{{magicCard.cardNumber}}.webp"
+            srcset="{{cardImgUrlBase}}{{magicCard.cardExpansion}}/webp/{{magicCard.cardExpansion}}_{{magicCard.cardNumber}}.webp"
             type="image/webp"
         />
         <source
-            srcset="https://magiccollection.s3.eu-central-1.amazonaws.com/{{magicCard.cardExpansion}}/png/{{magicCard.cardExpansion}}_{{magicCard.cardNumber}}.png"
+            srcset="{{cardImgUrlBase}}{{magicCard.cardExpansion}}/png/{{magicCard.cardExpansion}}_{{magicCard.cardNumber}}.png"
             type="image/png"
         />
         <img
             class="magiccard magiccard-full"
-            src="https://magiccollection.s3.eu-central-1.amazonaws.com/{{
+            src="{{ cardImgUrlBase }}{{ magicCard.cardExpansion }}/png/{{
                 magicCard.cardExpansion
-            }}/png/{{ magicCard.cardExpansion }}_{{ magicCard.cardNumber }}.png"
+            }}_{{ magicCard.cardNumber }}.png"
             alt=""
             [title]="magicCard.cardNumber"
         />
     </picture>
 
     <!-- Double Side cards -->
-    <ng-container *ngSwitchCase="magicCard.layout === 'transform' || magicCard.layout === 'meld' ? magicCard.layout : 'none'">
+    <ng-container
+        *ngSwitchCase="
+            magicCard.layout === 'transform' || magicCard.layout === 'meld'
+                ? magicCard.layout
+                : 'none'
+        "
+    >
         <div
             class="flip-container"
             [ngClass]="flipClass ? 'hover' : ''"
@@ -29,17 +35,17 @@
                 <div class="front">
                     <picture class="magiccard">
                         <source
-                            srcset="https://magiccollection.s3.eu-central-1.amazonaws.com/{{magicCard.cardExpansion}}/webp/{{magicCard.cardExpansion}}_{{magicCard.cardNumber}}.webp"
+                            srcset="{{cardImgUrlBase}}{{magicCard.cardExpansion}}/webp/{{magicCard.cardExpansion}}_{{magicCard.cardNumber}}.webp"
                             type="image/webp"
                         />
                         <source
-                            srcset="https://magiccollection.s3.eu-central-1.amazonaws.com/{{magicCard.cardExpansion}}/png/{{magicCard.cardExpansion}}_{{magicCard.cardNumber}}.png"
+                            srcset="{{cardImgUrlBase}}{{magicCard.cardExpansion}}/png/{{magicCard.cardExpansion}}_{{magicCard.cardNumber}}.png"
                             type="image/png"
                         />
                         <img
                             class="magiccard"
                             title="{{ magicCard.cardNumber }}"
-                            src="https://magiccollection.s3.eu-central-1.amazonaws.com/{{
+                            src="{{ cardImgUrlBase }}{{
                                 magicCard.cardExpansion
                             }}/png/{{ magicCard.cardExpansion }}_{{
                                 magicCard.cardNumber
@@ -51,17 +57,17 @@
                 <div class="back">
                     <picture class="magiccard">
                         <source
-                            srcset="https://magiccollection.s3.eu-central-1.amazonaws.com/{{magicCard.cardExpansion}}/webp/{{magicCard.cardExpansion}}_{{magicCard.cardNumber}}_F.webp"
+                            srcset="{{cardImgUrlBase}}{{magicCard.cardExpansion}}/webp/{{magicCard.cardExpansion}}_{{magicCard.cardNumber}}_F.webp"
                             type="image/webp"
                         />
                         <source
-                            srcset="https://magiccollection.s3.eu-central-1.amazonaws.com/{{magicCard.cardExpansion}}/png/{{magicCard.cardExpansion}}_{{magicCard.cardNumber}}_F.png"
+                            srcset="{{cardImgUrlBase}}{{magicCard.cardExpansion}}/png/{{magicCard.cardExpansion}}_{{magicCard.cardNumber}}_F.png"
                             type="image/png"
                         />
                         <img
                             class="magiccard"
                             title="{{ magicCard.cardNumber }}"
-                            src="https://magiccollection.s3.eu-central-1.amazonaws.com/{{
+                            src="{{ cardImgUrlBase }}{{
                                 magicCard.cardExpansion
                             }}/png/{{ magicCard.cardExpansion }}_{{
                                 magicCard.cardNumber
