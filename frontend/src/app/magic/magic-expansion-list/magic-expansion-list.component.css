@@ -39,6 +39,7 @@
     .set-icon {
         margin-left: 18px;
         margin-right: 18px;
+        display: block;
     }
 
     .sticky {
