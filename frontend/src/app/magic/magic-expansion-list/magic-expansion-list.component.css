@@ -18,12 +18,42 @@
     display: none;
 }
 
-@media (max-width: 575px) {
+@media (max-width: 740px) and (orientation: landscape) {
+    #expansionContainer {
+        display: none;
+    }
+
+    :host {
+        margin-right: 10px;
+        margin-left: 0;
+    }
+
+    .mobile-menu {
+        display: block;
+        left: 0;
+        z-index: 50;
+        height: 100vh;
+        overflow-y: scroll;
+    }
+
+    .set-icon {
+        margin-left: 18px;
+        margin-right: 18px;
+    }
+
+    .sticky {
+        top: 0;
+        position: fixed;
+    }
+}
+
+@media (max-width: 575px) and (orientation: portrait) {
     #expansionContainer {
         display: none;
     }
 
     .mobile-menu {
+        position: fixed;
         display: block;
         bottom: 0;
         left: 0;
@@ -33,5 +63,10 @@
         overflow-x: scroll;
         overflow-y: hidden;
         height: 75px;
+    }
+
+    .set-icon {
+        margin-right: 0.5rem;
+        margin-left: 0.5rem;
     }
 }
