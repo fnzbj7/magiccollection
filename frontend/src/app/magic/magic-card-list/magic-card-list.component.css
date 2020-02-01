@@ -18,6 +18,8 @@ ul {
         display: block;
         width: 81px;
         height: 10px;
+        position: sticky;
+        top: 0;
     }
 }
 
