@@ -1,4 +1,6 @@
-<app-magic-expansion-list></app-magic-expansion-list>
+<app-magic-expansion-list
+    class="card-set-mobil-landscape"
+></app-magic-expansion-list>
 <div id="fullThings">
     <app-magic-card-rarity-filter></app-magic-card-rarity-filter>
     <pagination-controls
@@ -31,7 +33,7 @@
         <li class="fake-card"></li>
     </ul>
     <pagination-controls
-        class="my-pagination card-set-mobil-landscape"
+        class="my-pagination"
         maxSize="20"
         directionLinks="false"
         (pageChange)="onPageChange($event)"
