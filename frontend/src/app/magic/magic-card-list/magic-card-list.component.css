@@ -13,6 +13,14 @@ ul {
     list-style: none;
 }
 
+@media (max-width: 740px) and (orientation: landscape) {
+    .card-set-mobil-landscape {
+        display: block;
+        width: 72px;
+        height: 10px;
+    }
+}
+
 .my-pagination /deep/ .ngx-pagination .current span {
     display: inline-block;
     padding: 0px 9px;
