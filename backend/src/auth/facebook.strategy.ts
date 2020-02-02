@@ -1,7 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { use } from 'passport';
 import FacebookTokenStrategy = require('passport-facebook-token');
-import { User } from './entity/user.entity';
 import { UserRepository } from './user.repository';
 import { InjectRepository } from '@nestjs/typeorm';
 import * as config from 'config';
