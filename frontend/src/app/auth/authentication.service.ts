@@ -4,6 +4,8 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { User } from '../model/user.model';
 import { environment } from 'src/environments/environment';
+import * as jwtDecode from 'jwt-decode';
+import { JwtTokenModel } from './jwt.model';
 
 @Injectable({ providedIn: 'root' })
 export class AuthenticationService {
@@ -50,10 +52,13 @@ export class AuthenticationService {
 
     login(email: string, password: string) {
         return this.http
-            .post<{ accessToken }>(environment.mainUrl + '/auth/signin', {
-                email,
-                password,
-            })
+            .post<{ accessToken: string }>(
+                environment.mainUrl + '/auth/signin',
+                {
+                    email,
+                    password,
+                },
+            )
             .pipe(
                 map(resp => {
                     // login successful if there's a jwt token in the response
@@ -65,9 +70,9 @@ export class AuthenticationService {
     private createAndLoginUser(accessToken: string): User {
         const user = new User();
         if (accessToken) {
+            const jwtToken = jwtDecode<JwtTokenModel>(accessToken);
             user.token = accessToken;
-            const now = new Date();
-            const expirationDate = new Date(now.getTime() + 1000 * 1000);
+            const expirationDate = new Date(jwtToken.exp * 1000);
             user.expiresIn = expirationDate;
             // store user details and jwt token in local storage to keep user logged in between page refreshes
             localStorage.setItem('currentUser', JSON.stringify(user));
