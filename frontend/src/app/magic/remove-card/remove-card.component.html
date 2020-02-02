@@ -1,5 +1,5 @@
 <div class="container bg-light p-3">
-    <h1>Kártya hozzáadó rendszer</h1>
+    <h1>Kártya törlése</h1>
     <form (ngSubmit)="removeCard()">
         <textarea
             name="card-numbers"
@@ -20,4 +20,7 @@
         <br />
         <button class="btn btn-primary">Elküld</button>
     </form>
+    <p *ngIf="inProgress">Feltöltés folyamatban</p>
+    <p *ngIf="isFinished && !isError">Feltöltés befejezősött</p>
+    <p *ngIf="isError">Valami hiba történt</p>
 </div>

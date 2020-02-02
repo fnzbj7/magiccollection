@@ -15,7 +15,7 @@ import { FacebookStrategy } from './facebook.strategy';
         PassportModule.register({ defaultStrategy: 'jwt' }),
         TypeOrmModule.forFeature([UserRepository]),
         JwtModule.register({
-            secret: 'topSecret51',
+            secret: process.env.JWT_KEY_MAGIC || 'topSecret51',
             signOptions: {
                 expiresIn: 604800,
             },

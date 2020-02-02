@@ -4,6 +4,7 @@ import { AuthComponent } from '../auth/auth.component';
 import { AuthenticationService } from '../auth/authentication.service';
 import { User } from '../model/user.model';
 import { VersionService } from 'src/environments/version.service';
+import { faInfoCircle } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
     selector: 'app-header',
@@ -14,6 +15,9 @@ export class HeaderComponent implements OnInit {
     bsModalRef: BsModalRef;
     loggedUser: User;
     version: string;
+
+    // Font-Aesome
+    faInfoCircle = faInfoCircle;
 
     constructor(
         private modalService: BsModalService,

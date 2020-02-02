@@ -13,7 +13,40 @@
     </button>
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav mr-auto">
+        <ul class="navbar-nav mr-auto d-none d-lg-flex">
+            <li
+                class="nav-item"
+                routerLinkActive="active"
+                [routerLinkActiveOptions]="{ exact: true }"
+            >
+                <a class="nav-link" routerLink="/">Home</a>
+            </li>
+            <li class="nav-item" routerLinkActive="active">
+                <a class="nav-link" routerLink="/cards">My Cards</a>
+            </li>
+            <li class="nav-item" routerLinkActive="active">
+                <a class="nav-link" routerLink="/calendar">Calendar</a>
+            </li>
+            <li class="nav-item" routerLinkActive="active">
+                <a class="nav-link" routerLink="/addcards">Add Cards</a>
+            </li>
+            <li class="nav-item" routerLinkActive="active">
+                <a class="nav-link" routerLink="/removecards">Remove Cards</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link disabled" href="#">Disabled</a>
+            </li>
+            <li class="nav-item" *ngIf="!loggedUser">
+                <p class="nav-link pointer" (click)="openModalWithComponent()">
+                    Log in
+                </p>
+            </li>
+            <li class="nav-item" *ngIf="loggedUser">
+                <p class="nav-link pointer" (click)="onLogout()">Log Out</p>
+            </li>
+        </ul>
+
+        <ul class="navbar-nav mr-auto d-flex d-lg-none">
             <li
                 class="nav-item"
                 routerLinkActive="active"
@@ -78,7 +111,7 @@
             </li>
         </ul>
         <div class="tooltip-w3">
-            <fa-icon icon="info-circle"></fa-icon>
+            <fa-icon [icon]="faInfoCircle"></fa-icon>
             <span class="tooltiptext-w3">{{ version }}</span>
         </div>
     </div>
