@@ -2,6 +2,11 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CalendarService } from '../calendar.service';
 import { CalendarDay } from './model/calendar-day.model';
 import { Subscription } from 'rxjs';
+import {
+    faAngleLeft,
+    faAngleRight,
+    faCalendarPlus,
+} from '@fortawesome/free-solid-svg-icons';
 
 @Component({
     selector: 'app-calendar-list',
@@ -9,6 +14,11 @@ import { Subscription } from 'rxjs';
     styleUrls: ['./calendar-list.component.css'],
 })
 export class CalendarListComponent implements OnInit, OnDestroy {
+    // Font-Awesome
+    faAngleLeft = faAngleLeft;
+    faAngleRight = faAngleRight;
+    faCalendarPlus = faCalendarPlus;
+
     calendarDayList: CalendarDay[] = [];
     daysArray = [
         { long: 'Hétfő', short: 'H' },

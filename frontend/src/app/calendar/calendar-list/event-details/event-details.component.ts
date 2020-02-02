@@ -2,6 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CalendarService } from '../../calendar.service';
 import { Subscription } from 'rxjs';
 import { CalendarEvent } from '../model/calendar-event.model';
+import { faTimes } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
     selector: 'app-event-details',
@@ -12,6 +13,9 @@ export class EventDetailsComponent implements OnInit, OnDestroy {
     selectedCalendarEvent: CalendarEvent = null;
     selectCalendarEventSub: Subscription = null;
     dummyArray: string[] = ['Nagy Csaba', 'Kis Peti', 'Lapátos Peti'];
+
+    // Font-Awesome
+    faTimes = faTimes;
 
     constructor(private calendarService: CalendarService) {}
 
