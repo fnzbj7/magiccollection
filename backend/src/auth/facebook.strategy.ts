@@ -32,10 +32,14 @@ export class FacebookStrategy {
                     profile: FacebookTokenStrategy.Profile,
                     done: any,
                 ) => {
-                    const user = await this.userRepository.findOrCreate(
-                        profile,
-                    );
-                    return done(null, user);
+                    try {
+                        const user = await this.userRepository.findOrCreate(
+                            profile,
+                        );
+                        return done(null, user);
+                    } catch (err) {
+                        return done(err, null);
+                    }
                 },
             ),
         );
