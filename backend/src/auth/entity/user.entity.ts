@@ -15,7 +15,7 @@ export enum UserSource {
 }
 
 @Entity()
-@Unique(['email'])
+@Unique(['email', 'source'])
 export class User extends BaseEntity {
     @PrimaryGeneratedColumn()
     id: number;
