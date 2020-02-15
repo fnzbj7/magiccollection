@@ -1,7 +1,5 @@
 import { Injectable } from '@angular/core';
 import { User } from '../model/user.model';
-import * as jwtDecode from 'jwt-decode';
-import { JwtTokenModel } from './jwt.model';
 
 @Injectable({ providedIn: 'root' })
 export class LocalStorageService {
@@ -21,14 +19,11 @@ export class LocalStorageService {
     }
 
     setCurrentUser(user: User) {
+        this.currentUser = user;
         localStorage.setItem(this.CURRENT_USER, JSON.stringify(user));
     }
 
     setAccessTokenAndSaveLocalStorage(accessToken: string) {
-        const jwtToken = jwtDecode<JwtTokenModel>(accessToken);
-        const expirationDate = new Date(jwtToken.exp * 1000);
-        this.currentUser.expiresIn = expirationDate;
-        this.currentUser.token = accessToken;
         this.setCurrentUser(this.currentUser);
     }
 }
