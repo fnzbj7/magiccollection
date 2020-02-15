@@ -1,6 +1,8 @@
 import { CalendarEvent } from './calendar-list/model/calendar-event.model';
 import { Subject } from 'rxjs';
+import { Injectable } from '@angular/core';
 
+@Injectable({ providedIn: 'root' })
 export class CalendarService {
     private calendarMap: Map<string, CalendarEvent[]>;
     private selectCalendarEventSub: Subject<number> = new Subject();
