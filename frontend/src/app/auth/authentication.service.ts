@@ -6,6 +6,7 @@ import { User } from '../model/user.model';
 import { environment } from 'src/environments/environment';
 import * as jwtDecode from 'jwt-decode';
 import { JwtTokenModel } from './jwt.model';
+import { LocalStorageService } from './local-storage.service';
 
 @Injectable({ providedIn: 'root' })
 export class AuthenticationService {
@@ -13,26 +14,32 @@ export class AuthenticationService {
     public currentUser: Observable<User>;
     private loggedIn = false;
 
-    constructor(private http: HttpClient) {
-        let currentUserJson: User = JSON.parse(
-            localStorage.getItem('currentUser'),
-        );
+    constructor(
+        private http: HttpClient,
+        private localStorageService: LocalStorageService,
+    ) {
+        let currentUserJson = this.localStorageService.currentUser;
 
         this.loggedIn =
             currentUserJson &&
-            this.expirationDateValid(<string>currentUserJson.expiresIn);
+            this.expirationDateValidAndRefresh(
+                <string>currentUserJson.expiresIn,
+            );
         currentUserJson = this.loggedIn ? currentUserJson : null;
         this.currentUserSubject = new BehaviorSubject<User>(currentUserJson);
         this.currentUser = this.currentUserSubject.asObservable();
     }
 
-    expirationDateValid(expiresIn: string) {
+    expirationDateValidAndRefresh(expiresIn: string): boolean {
         const now = new Date();
         const expiresInDate = new Date(expiresIn);
         const remainTime = expiresInDate.getTime() - now.getTime();
-
+        console.log(expiresInDate);
         if (remainTime < 0) {
-            localStorage.removeItem('currentUser');
+            this.localStorageService.removeCurrentUser();
+        } else {
+            // refresh
+            this.refreshToken();
         }
         return remainTime > 0;
     }
@@ -67,6 +74,22 @@ export class AuthenticationService {
             );
     }
 
+    private refreshToken() {
+        this.http
+            .get<{ accessToken: string }>(
+                environment.mainUrl + '/auth/refreshtoken',
+            )
+            .subscribe(resp => {
+                console.log('new token');
+                console.log(resp.accessToken);
+                if (resp.accessToken) {
+                    this.localStorageService.setAccessTokenAndSaveLocalStorage(
+                        resp.accessToken,
+                    );
+                }
+            });
+    }
+
     private createAndLoginUser(accessToken: string): User {
         const user = new User();
         if (accessToken) {
@@ -75,7 +98,7 @@ export class AuthenticationService {
             const expirationDate = new Date(jwtToken.exp * 1000);
             user.expiresIn = expirationDate;
             // store user details and jwt token in local storage to keep user logged in between page refreshes
-            localStorage.setItem('currentUser', JSON.stringify(user));
+            this.localStorageService.setCurrentUser(user);
             this.loggedIn = true;
             this.currentUserSubject.next(user);
         }
@@ -84,7 +107,7 @@ export class AuthenticationService {
 
     logout() {
         // remove user from local storage to log user out
-        localStorage.removeItem('currentUser');
+        this.localStorageService.removeCurrentUser();
         this.loggedIn = false;
         this.currentUserSubject.next(null);
     }
@@ -95,9 +118,12 @@ export class AuthenticationService {
 
     facebookSignIn(access_token: string): Observable<any> {
         return this.http
-            .get<{ accessToken }>(environment.mainUrl + '/auth/facebook', {
-                params: { access_token },
-            })
+            .get<{ accessToken: string }>(
+                environment.mainUrl + '/auth/facebook',
+                {
+                    params: { access_token },
+                },
+            )
             .pipe(
                 map(resp => {
                     // login successful if there's a jwt token in the response

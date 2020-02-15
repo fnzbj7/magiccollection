@@ -38,7 +38,7 @@ export class AuthService {
         return { accessToken };
     }
 
-    async singInFb(user: User): Promise<{ accessToken: string }> {
+    async singInWithUser(user: User): Promise<{ accessToken: string }> {
         const { email } = user;
 
         if (!email) {
