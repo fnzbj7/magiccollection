@@ -33,20 +33,15 @@ export class AuthController {
         return this.authService.singIn(authCredentialsDto);
     }
 
-    @Post('/test')
-    @UseGuards(AuthGuard())
-    test(@GetUser() user: User) {
-        console.log(user);
-    }
-
-    @Post('/testface')
-    testface(@Body() authToken: string) {
-        console.log(authToken);
-    }
-
     @UseGuards(AuthGuard('facebook-token'))
     @Get('facebook')
     async getTokenAfterFacebookSignIn(@GetUser() user: User) {
-        return this.authService.singInFb(user);
+        return this.authService.singInWithUser(user);
+    }
+
+    @Get('/refreshtoken')
+    @UseGuards(AuthGuard())
+    async getCardSetUser(@GetUser() user: User) {
+        return this.authService.singInWithUser(user);
     }
 }
