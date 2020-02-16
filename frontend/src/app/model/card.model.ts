@@ -2,6 +2,18 @@ export class Card {
     cardExpansion: string;
     cardNumber: string;
     cardAmount: number;
-    layout: string;
+    layout: CardLayout;
     rarity: string;
+}
+
+export enum CardLayout {
+    NORMAL = 'normal',
+    TRANSFORM = 'transform',
+    MELD = 'meld',
+    ADVENTURE = 'adventure',
+    AFTERMATH = 'aftermath',
+    SAGA = 'saga',
+    SPLIT = 'split',
+
+    NONE = 'none',
 }

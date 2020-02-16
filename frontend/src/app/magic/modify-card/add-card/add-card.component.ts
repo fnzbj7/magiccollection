@@ -15,6 +15,7 @@ export class AddCardComponent implements OnInit {
     inProgress = false;
     isFinished = false;
     isError = false;
+    reducedArr: ModifyCardDto;
 
     constructor(
         private modifyCardService: ModifyCardService,
@@ -40,13 +41,14 @@ export class AddCardComponent implements OnInit {
         const findedNum = cardNumbers.findIndex(num => isNaN(num));
         if (findedNum >= 0) {
             console.log('Founded NaN');
+            this.isError = true;
             return;
         }
 
         const addCardDto = new ModifyCardDto();
         addCardDto.setShortName = this.cardSet;
         addCardDto.cardQuantitys = [];
-        const reducedArr = cardNumbers.reduce((addCard, cardNum) => {
+        this.reducedArr = cardNumbers.reduce((addCard, cardNum) => {
             const cardNumInd = addCard.cardQuantitys.findIndex(
                 c => c.cardNumber === cardNum,
             );
@@ -61,8 +63,7 @@ export class AddCardComponent implements OnInit {
             return addCard;
         }, addCardDto);
 
-        console.log(reducedArr);
-        this.modifyCardService.addCard(reducedArr).subscribe(
+        this.modifyCardService.addCard(this.reducedArr).subscribe(
             () => {
                 console.log('Finished adding card');
                 this.inProgress = false;

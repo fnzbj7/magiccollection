@@ -23,4 +23,8 @@
     <p *ngIf="inProgress">Feltöltés folyamatban</p>
     <p *ngIf="isFinished && !isError">Feltöltés befejezősött</p>
     <p *ngIf="isError">Valami hiba történt</p>
+    <app-modify-preview
+        *ngIf="reducedArr"
+        [modifyCard]="reducedArr"
+    ></app-modify-preview>
 </div>

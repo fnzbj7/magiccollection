@@ -34,7 +34,6 @@ export class AuthenticationService {
         const now = new Date();
         const expiresInDate = new Date(expiresIn);
         const remainTime = expiresInDate.getTime() - now.getTime();
-        console.log(expiresInDate);
         if (remainTime < 0) {
             this.localStorageService.removeCurrentUser();
         } else {
@@ -80,8 +79,6 @@ export class AuthenticationService {
                 environment.mainUrl + '/auth/refreshtoken',
             )
             .subscribe(resp => {
-                console.log('new token');
-                console.log(resp.accessToken);
                 if (resp.accessToken) {
                     this.localStorageService.setAccessTokenAndSaveLocalStorage(
                         resp.accessToken,

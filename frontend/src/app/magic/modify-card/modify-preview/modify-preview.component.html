@@ -1,0 +1,11 @@
+<h2>Ezeket a kártyákat fogod feltölteni</h2>
+<ul
+    style="display: -webkit-box;display: flex;flex-wrap: wrap;-webkit-box-pack: center;justify-content: center; list-style: none;"
+>
+    <app-magic-card
+        [magicCard]="card"
+        *ngFor="let card of cards"
+    ></app-magic-card>
+</ul>
+
+<div style="clear: both;"></div>
