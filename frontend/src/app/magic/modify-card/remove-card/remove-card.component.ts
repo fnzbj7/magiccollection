@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ModifyCardDto } from '../add-card/dto/add-card.dto';
-import { ModifyCardService } from '../modify-card.service';
-import { MagicCardsListService } from '../magic-cards-list.service';
+import { ModifyCardService } from '../../modify-card.service';
+import { MagicCardsListService } from '../../magic-cards-list.service';
 
 @Component({
     selector: 'app-remove-card',
