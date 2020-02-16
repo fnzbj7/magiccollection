@@ -1,6 +1,6 @@
 import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
-import { ModifyCardDto } from '../add-card/dto/add-card.dto';
 import { Card, CardLayout } from '../../../model/card.model';
+import { ModifyCardDto } from '../dto/add-card.dto';
 
 @Component({
     selector: 'app-modify-preview',

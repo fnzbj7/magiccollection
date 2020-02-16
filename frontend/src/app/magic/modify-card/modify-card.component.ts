@@ -1,7 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ModifyCardDto } from './dto/add-card.dto';
-import { ModifyCardService } from '../../modify-card.service';
-import { MagicCardsListService } from '../../magic-cards-list.service';
+import { ActivatedRoute } from '@angular/router';
+import { Subscription } from 'rxjs';
+import { ModifyCardService } from '../modify-card.service';
+import { MagicCardsListService } from '../magic-cards-list.service';
 
 enum PageStep {
     FORM = 'from',
@@ -10,14 +12,15 @@ enum PageStep {
 }
 
 @Component({
-    selector: 'app-add-card',
-    templateUrl: './add-card.component.html',
-    styleUrls: ['./add-card.component.css'],
+    selector: 'app-modify-card',
+    templateUrl: './modify-card.component.html',
+    styleUrls: ['./modify-card.component.css'],
 })
-export class AddCardComponent implements OnInit {
+export class ModifyCardComponent implements OnInit, OnDestroy {
     cardNumbersStr: string;
     cardSetsArray: string[];
     cardSet: string;
+    modifyQty = 1;
     inProgress = false;
     isFinished = false;
     isError = false;
@@ -25,14 +28,21 @@ export class AddCardComponent implements OnInit {
     pageStep = PageStep;
     actualPageStep = PageStep.FORM;
 
+    param$: Subscription;
+
     constructor(
         private modifyCardService: ModifyCardService,
         private magicCardsListService: MagicCardsListService,
+        private route: ActivatedRoute,
     ) {}
 
     ngOnInit() {
         this.cardSetsArray = this.magicCardsListService.cardSetsArray;
         this.cardSet = this.cardSetsArray[0];
+        this.param$ = this.route.params.subscribe(param => {
+            this.modifyQty = +this.route.snapshot.data['modifyQty'];
+            this.resetPage();
+        });
     }
 
     addCard() {
@@ -76,8 +86,8 @@ export class AddCardComponent implements OnInit {
 
     private prepareAndValidate(cardNumbersStr: string) {
         // Remove multiple spaces
-        this.cardNumbersStr = cardNumbersStr.trim().replace(/  +/g, ' ');
-        const cardNumbers = this.cardNumbersStr
+        const cardNumbersStrArr = cardNumbersStr.trim().replace(/  +/g, ' ');
+        const cardNumbers = cardNumbersStrArr
             .split(' ')
             .map(cardNum => parseInt(cardNum, 0));
 
@@ -99,14 +109,22 @@ export class AddCardComponent implements OnInit {
                 c => c.cardNumber === cardNum,
             );
             if (cardNumInd >= 0) {
-                addCard.cardQuantitys[cardNumInd].cardQuantity++;
+                addCard.cardQuantitys[
+                    cardNumInd
+                ].cardQuantity += this.modifyQty;
             } else {
                 addCard.cardQuantitys.push({
                     cardNumber: cardNum,
-                    cardQuantity: 1,
+                    cardQuantity: this.modifyQty,
                 });
             }
             return addCard;
         }, addCardDto);
+    }
+
+    ngOnDestroy() {
+        if (this.param$) {
+            this.param$.unsubscribe();
+        }
     }
 }
