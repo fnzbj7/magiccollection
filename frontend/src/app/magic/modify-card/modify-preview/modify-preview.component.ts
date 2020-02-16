@@ -13,9 +13,6 @@ export class ModifyPreviewComponent implements OnChanges {
     constructor() {}
 
     ngOnChanges(changes: SimpleChanges): void {
-        console.log(changes);
-        console.log(changes.modifyCard.currentValue);
-        // changes.modifyCard;
         const modify: ModifyCardDto = changes.modifyCard.currentValue;
         this.cards = modify.cardQuantitys.map(x => {
             return {
