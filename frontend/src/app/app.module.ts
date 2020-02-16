@@ -23,7 +23,6 @@ import { LandingComponent } from './landing/landing.component';
 import { MagicCardRarityFilterComponent } from './magic/magic-card-rarity-filter/magic-card-rarity-filter.component';
 import { MagicCardModalComponent } from './magic/magic-card-modal/magic-card-modal.component';
 import { SharedModule } from './shared/shared.module';
-import { AddCardComponent } from './magic/modify-card/add-card/add-card.component';
 import {
     SocialLoginModule,
     AuthServiceConfig,
@@ -33,8 +32,8 @@ import {
     LazyLoadImageModule,
     intersectionObserverPreset,
 } from 'ng-lazyload-image';
-import { RemoveCardComponent } from './magic/modify-card/remove-card/remove-card.component';
 import { ModifyPreviewComponent } from './magic/modify-card/modify-preview/modify-preview.component';
+import { ModifyCardComponent } from './magic/modify-card/modify-card.component';
 
 const config = new AuthServiceConfig([
     {
@@ -60,8 +59,7 @@ export function provideConfig() {
         LandingComponent,
         MagicCardRarityFilterComponent,
         MagicCardModalComponent,
-        AddCardComponent,
-        RemoveCardComponent,
+        ModifyCardComponent,
         ModifyPreviewComponent,
     ],
     entryComponents: [AuthComponent, MagicCardModalComponent],

@@ -3,8 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { MagicCardListComponent } from './magic/magic-card-list/magic-card-list.component';
 import { MagicExpansionListComponent } from './magic/magic-expansion-list/magic-expansion-list.component';
 import { LandingComponent } from './landing/landing.component';
-import { AddCardComponent } from './magic/modify-card/add-card/add-card.component';
-import { RemoveCardComponent } from './magic/modify-card/remove-card/remove-card.component';
+import { ModifyCardComponent } from './magic/modify-card/modify-card.component';
 
 const appRoute: Routes = [
     {
@@ -19,8 +18,18 @@ const appRoute: Routes = [
         component: MagicExpansionListComponent,
         pathMatch: 'full',
     },
-    { path: 'addcards', component: AddCardComponent, pathMatch: 'full' },
-    { path: 'removecards', component: RemoveCardComponent, pathMatch: 'full' },
+    {
+        path: 'addcards',
+        component: ModifyCardComponent,
+        pathMatch: 'full',
+        data: { modifyQty: 1 },
+    },
+    {
+        path: 'removecards',
+        component: ModifyCardComponent,
+        pathMatch: 'full',
+        data: { modifyQty: -1 },
+    },
     { path: '', component: LandingComponent, pathMatch: 'full' },
     { path: '**', component: LandingComponent },
 ];

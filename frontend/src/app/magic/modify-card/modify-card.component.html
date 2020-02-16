@@ -1,5 +1,6 @@
 <div class="container bg-light p-3">
-    <h1>Kártya hozzáadó rendszer</h1>
+    <h1 *ngIf="modifyQty > 0">Kártya hozzáadó rendszer</h1>
+    <h1 *ngIf="modifyQty < 0">Kártya törlő rendszer</h1>
     <ng-container *ngIf="actualPageStep === pageStep.FORM">
         <form (ngSubmit)="addCard()">
             <textarea
