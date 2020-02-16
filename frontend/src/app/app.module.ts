@@ -34,6 +34,7 @@ import {
     intersectionObserverPreset,
 } from 'ng-lazyload-image';
 import { RemoveCardComponent } from './magic/modify-card/remove-card/remove-card.component';
+import { ModifyPreviewComponent } from './magic/modify-card/modify-preview/modify-preview.component';
 
 const config = new AuthServiceConfig([
     {
@@ -61,6 +62,7 @@ export function provideConfig() {
         MagicCardModalComponent,
         AddCardComponent,
         RemoveCardComponent,
+        ModifyPreviewComponent,
     ],
     entryComponents: [AuthComponent, MagicCardModalComponent],
     imports: [
