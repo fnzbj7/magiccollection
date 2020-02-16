@@ -3,8 +3,8 @@ import { Routes, RouterModule } from '@angular/router';
 import { MagicCardListComponent } from './magic/magic-card-list/magic-card-list.component';
 import { MagicExpansionListComponent } from './magic/magic-expansion-list/magic-expansion-list.component';
 import { LandingComponent } from './landing/landing.component';
-import { AddCardComponent } from './magic/add-card/add-card.component';
-import { RemoveCardComponent } from './magic/remove-card/remove-card.component';
+import { AddCardComponent } from './magic/modify-card/add-card/add-card.component';
+import { RemoveCardComponent } from './magic/modify-card/remove-card/remove-card.component';
 
 const appRoute: Routes = [
     {

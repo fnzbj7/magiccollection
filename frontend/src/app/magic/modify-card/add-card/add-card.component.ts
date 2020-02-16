@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ModifyCardDto } from './dto/add-card.dto';
-import { ModifyCardService } from '../modify-card.service';
-import { MagicCardsListService } from '../magic-cards-list.service';
-import { relativeTimeThreshold } from 'moment';
+import { ModifyCardService } from '../../modify-card.service';
+import { MagicCardsListService } from '../../magic-cards-list.service';
 
 @Component({
     selector: 'app-add-card',
