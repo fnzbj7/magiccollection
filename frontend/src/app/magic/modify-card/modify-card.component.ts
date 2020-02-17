@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { ModifyCardDto } from './dto/add-card.dto';
+import { ModifyCardDto } from './dto/modify-card.dto';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { ModifyCardService } from '../modify-card.service';
