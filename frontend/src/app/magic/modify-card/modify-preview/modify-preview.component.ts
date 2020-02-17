@@ -5,6 +5,7 @@ import { ModifyCardDto } from '../dto/modify-card.dto';
 @Component({
     selector: 'app-modify-preview',
     templateUrl: './modify-preview.component.html',
+    styleUrls: ['./modify-preview.component.css'],
 })
 export class ModifyPreviewComponent implements OnChanges {
     @Input() modifyCard: ModifyCardDto;

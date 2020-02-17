@@ -1,0 +1,10 @@
+.fake-card {
+    width: 217px;
+    margin: 5px 3px;
+}
+
+@media (max-width: 767px) {
+    .fake-card {
+        width: 108px;
+    }
+}
