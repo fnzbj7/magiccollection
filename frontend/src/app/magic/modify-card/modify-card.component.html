@@ -22,6 +22,18 @@
             <button class="btn btn-primary">Elküld</button>
             <p class="text-danger" *ngIf="isError">
                 Valami hiba történt, nézzed át a beírt számokat
+                <ng-container *ngIf="wrongNums?.length !== 0"
+                    ><br />A rossz számok:
+                    <ng-container *ngFor="let wrong of wrongNums"
+                        >{{ wrong }}
+                    </ng-container></ng-container
+                >
+                <ng-container *ngIf="notNumbers?.length !== 0"
+                    ><br />Nem szám:
+                    <ng-container *ngFor="let notNum of notNumbers"
+                        >{{ notNum }}
+                    </ng-container></ng-container
+                >
             </p>
         </form>
     </ng-container>

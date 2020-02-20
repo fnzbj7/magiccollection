@@ -39,6 +39,27 @@ export class MagicCardsListService {
         'BFZ',
     ];
 
+    maxCardNumber = {
+        AER: 194,
+        AKH: 287,
+        BFZ: 274,
+        DOM: 280,
+        ELD: 392,
+        EMN: 205,
+        GRN: 273,
+        HOU: 209,
+        KLD: 274,
+        M19: 314,
+        M20: 344,
+        OGW: 184,
+        RIX: 205,
+        RNA: 273,
+        SOI: 297,
+        THB: 357,
+        WAR: 275,
+        XLN: 289,
+    };
+
     constructor(
         private http: HttpClient,
         private authService: AuthenticationService,

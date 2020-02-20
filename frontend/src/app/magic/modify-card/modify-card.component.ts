@@ -27,6 +27,8 @@ export class ModifyCardComponent implements OnInit, OnDestroy {
     reducedArr: ModifyCardDto;
     pageStep = PageStep;
     actualPageStep = PageStep.FORM;
+    wrongNums: number[];
+    notNumbers: string[];
 
     param$: Subscription;
 
@@ -42,15 +44,18 @@ export class ModifyCardComponent implements OnInit, OnDestroy {
         this.param$ = this.route.params.subscribe(param => {
             this.modifyQty = +this.route.snapshot.data['modifyQty'];
             this.resetPage();
+            this.cardNumbersStr = '';
         });
     }
 
     addCard() {
+        this.resetPage();
         this.inProgress = true;
-        this.isError = false;
-        this.isFinished = false;
 
-        const cardNumbers = this.prepareAndValidate(this.cardNumbersStr);
+        const cardNumbers = this.prepareAndValidate(
+            this.cardNumbersStr,
+            this.cardSet,
+        );
 
         if (!this.isError) {
             this.reducedArr = this.convertToModifyCardDto(cardNumbers);
@@ -60,11 +65,12 @@ export class ModifyCardComponent implements OnInit, OnDestroy {
     }
 
     resetPage() {
-        this.inProgress = true;
+        this.inProgress = false;
         this.isError = false;
         this.isFinished = false;
         this.actualPageStep = PageStep.FORM;
-        this.cardNumbersStr = '';
+        this.wrongNums = [];
+        this.notNumbers = [];
     }
 
     startUploading() {
@@ -84,18 +90,28 @@ export class ModifyCardComponent implements OnInit, OnDestroy {
         );
     }
 
-    private prepareAndValidate(cardNumbersStr: string) {
+    private prepareAndValidate(cardNumbersStr: string, cardSet: string) {
         // Remove multiple spaces
-        const cardNumbersStrArr = cardNumbersStr.trim().replace(/  +/g, ' ');
-        const cardNumbers = cardNumbersStrArr
-            .split(' ')
-            .map(cardNum => parseInt(cardNum, 0));
+        const cardNumbersStrTrim = cardNumbersStr.trim().replace(/  +/g, ' ');
+        const cardNumbersStrArr: string[] = cardNumbersStrTrim.split(' ');
+        const cardNumbers = cardNumbersStrArr.map(cardNum =>
+            parseInt(cardNum, 0),
+        );
 
         const findedNum = cardNumbers.findIndex(num => isNaN(num));
         if (findedNum >= 0) {
+            this.notNumbers = cardNumbersStrArr.filter(num =>
+                isNaN(parseInt(num, 0)),
+            );
             console.log('Founded NaN');
             this.isError = true;
-            return;
+        }
+
+        const maxNumber = this.magicCardsListService.maxCardNumber[cardSet];
+        this.wrongNums = cardNumbers.filter(num => num > maxNumber);
+        if (this.wrongNums.length >= 0) {
+            console.log('High number');
+            this.isError = true;
         }
         return cardNumbers;
     }
