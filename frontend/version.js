@@ -24,6 +24,4 @@ export class VersionService {
     { encoding: 'utf-8' },
 );
 
-console.log(
-    `Wrote version info to ${relative(resolve(__dirname, '..'), file)}`,
-);
+console.log(`Wrote version info to ${relative(resolve(__dirname, '..'), file)}`);

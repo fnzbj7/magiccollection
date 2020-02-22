@@ -102,7 +102,7 @@ export class ModifyCardComponent implements OnInit, OnDestroy {
 
         const maxNumber = this.magicCardsListService.maxCardNumber[cardSet];
         this.wrongNums = cardNumbers.filter(num => num > maxNumber);
-        if (this.wrongNums.length >= 0) {
+        if (this.wrongNums.length > 0) {
             console.log('High number');
             this.isError = true;
         }
