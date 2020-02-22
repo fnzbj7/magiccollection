@@ -13,26 +13,18 @@
                     (n = r[f]),
                     n.name &&
                         (e.push(n.name.toLowerCase()),
-                        n.options &&
-                            n.options.aliases &&
-                            n.options.aliases.length))
+                        n.options && n.options.aliases && n.options.aliases.length))
                 )
                     for (A = 0; A < n.options.aliases.length; A++)
                         e.push(n.options.aliases[A].toLowerCase());
-                for (
-                    t = o(n.fn, 'function') ? n.fn() : n.fn, a = 0;
-                    a < e.length;
-                    a++
-                )
+                for (t = o(n.fn, 'function') ? n.fn() : n.fn, a = 0; a < e.length; a++)
                     (i = e[a]),
                         (l = i.split('.')),
                         1 === l.length
                             ? (Modernizr[l[0]] = t)
                             : (!Modernizr[l[0]] ||
                                   Modernizr[l[0]] instanceof Boolean ||
-                                  (Modernizr[l[0]] = new Boolean(
-                                      Modernizr[l[0]],
-                                  )),
+                                  (Modernizr[l[0]] = new Boolean(Modernizr[l[0]])),
                               (Modernizr[l[0]][l[1]] = t)),
                         s.push((t ? '' : 'no-') + l.join('-'));
             }
@@ -45,8 +37,7 @@
             n = n.replace(o, '$1' + A + 'js$2');
         }
         Modernizr._config.enableClasses &&
-            ((n += ' ' + A + e.join(' ' + A)),
-            c ? (u.className.baseVal = n) : (u.className = n));
+            ((n += ' ' + A + e.join(' ' + A)), c ? (u.className.baseVal = n) : (u.className = n));
     }
     function i(e, n) {
         if ('object' == typeof e) for (var A in e) f(e, A) && i(A, e[A]);
@@ -54,8 +45,7 @@
             e = e.toLowerCase();
             var o = e.split('.'),
                 t = Modernizr[o[0]];
-            if ((2 == o.length && (t = t[o[1]]), 'undefined' != typeof t))
-                return Modernizr;
+            if ((2 == o.length && (t = t[o[1]]), 'undefined' != typeof t)) return Modernizr;
             (n = 'function' == typeof n ? n() : n),
                 1 == o.length
                     ? (Modernizr[o[0]] = n)
@@ -102,9 +92,7 @@
         f =
             o(e, 'undefined') || o(e.call, 'undefined')
                 ? function(e, n) {
-                      return (
-                          n in e && o(e.constructor.prototype[n], 'undefined')
-                      );
+                      return n in e && o(e.constructor.prototype[n], 'undefined');
                   }
                 : function(n, A) {
                       return e.call(n, A);
