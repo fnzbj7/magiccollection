@@ -9,16 +9,10 @@ export class ModifyCardService {
     constructor(private http: HttpClient) {}
 
     addCard(addCardDto: ModifyCardDto): Observable<any> {
-        return this.http.post<any>(
-            environment.mainUrl + '/card/addcard',
-            addCardDto,
-        );
+        return this.http.post<any>(environment.mainUrl + '/card/addcard', addCardDto);
     }
 
     removeCard(addCardDto: ModifyCardDto): Observable<any> {
-        return this.http.post<any>(
-            environment.mainUrl + '/card/removecard',
-            addCardDto,
-        );
+        return this.http.post<any>(environment.mainUrl + '/card/removecard', addCardDto);
     }
 }

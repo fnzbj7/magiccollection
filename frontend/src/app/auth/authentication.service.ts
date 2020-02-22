@@ -14,17 +14,12 @@ export class AuthenticationService {
     public currentUser: Observable<User>;
     private loggedIn = false;
 
-    constructor(
-        private http: HttpClient,
-        private localStorageService: LocalStorageService,
-    ) {
+    constructor(private http: HttpClient, private localStorageService: LocalStorageService) {
         let currentUserJson = this.localStorageService.currentUser;
 
         this.loggedIn =
             currentUserJson &&
-            this.expirationDateValidAndRefresh(
-                <string>currentUserJson.expiresIn,
-            );
+            this.expirationDateValidAndRefresh(<string>currentUserJson.expiresIn);
         currentUserJson = this.loggedIn ? currentUserJson : null;
         this.currentUserSubject = new BehaviorSubject<User>(currentUserJson);
         this.currentUser = this.currentUserSubject.asObservable();
@@ -58,13 +53,10 @@ export class AuthenticationService {
 
     login(email: string, password: string) {
         return this.http
-            .post<{ accessToken: string }>(
-                environment.mainUrl + '/auth/signin',
-                {
-                    email,
-                    password,
-                },
-            )
+            .post<{ accessToken: string }>(environment.mainUrl + '/auth/signin', {
+                email,
+                password,
+            })
             .pipe(
                 map(resp => {
                     // login successful if there's a jwt token in the response
@@ -75,14 +67,10 @@ export class AuthenticationService {
 
     private refreshToken() {
         this.http
-            .get<{ accessToken: string }>(
-                environment.mainUrl + '/auth/refreshtoken',
-            )
+            .get<{ accessToken: string }>(environment.mainUrl + '/auth/refreshtoken')
             .subscribe(resp => {
                 if (resp.accessToken) {
-                    this.localStorageService.setAccessTokenAndSaveLocalStorage(
-                        resp.accessToken,
-                    );
+                    this.localStorageService.setAccessTokenAndSaveLocalStorage(resp.accessToken);
                 }
             });
     }
@@ -115,12 +103,9 @@ export class AuthenticationService {
 
     facebookSignIn(access_token: string): Observable<any> {
         return this.http
-            .get<{ accessToken: string }>(
-                environment.mainUrl + '/auth/facebook',
-                {
-                    params: { access_token },
-                },
-            )
+            .get<{ accessToken: string }>(environment.mainUrl + '/auth/facebook', {
+                params: { access_token },
+            })
             .pipe(
                 map(resp => {
                     // login successful if there's a jwt token in the response

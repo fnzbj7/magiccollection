@@ -60,10 +60,7 @@ export class MagicCardsListService {
         XLN: 289,
     };
 
-    constructor(
-        private http: HttpClient,
-        private authService: AuthenticationService,
-    ) {}
+    constructor(private http: HttpClient, private authService: AuthenticationService) {}
 
     getCardsForExpansion(expansion: string): Observable<Card[]> {
         let url: string;
@@ -87,10 +84,7 @@ export class MagicCardsListService {
         const isInFilterArray = this.filterArray.includes(filterChangeName);
         if (isInFilterArray !== filterChangeTo) {
             isInFilterArray
-                ? this.filterArray.splice(
-                      this.filterArray.indexOf(filterChangeName),
-                      1,
-                  )
+                ? this.filterArray.splice(this.filterArray.indexOf(filterChangeName), 1)
                 : this.filterArray.push(filterChangeName);
         }
         this.filterChange.next({

@@ -23,15 +23,8 @@ import { LandingComponent } from './landing/landing.component';
 import { MagicCardRarityFilterComponent } from './magic/magic-card-rarity-filter/magic-card-rarity-filter.component';
 import { MagicCardModalComponent } from './magic/magic-card-modal/magic-card-modal.component';
 import { SharedModule } from './shared/shared.module';
-import {
-    SocialLoginModule,
-    AuthServiceConfig,
-    FacebookLoginProvider,
-} from 'angularx-social-login';
-import {
-    LazyLoadImageModule,
-    intersectionObserverPreset,
-} from 'ng-lazyload-image';
+import { SocialLoginModule, AuthServiceConfig, FacebookLoginProvider } from 'angularx-social-login';
+import { LazyLoadImageModule, intersectionObserverPreset } from 'ng-lazyload-image';
 import { ModifyPreviewComponent } from './magic/modify-card/modify-preview/modify-preview.component';
 import { ModifyCardComponent } from './magic/modify-card/modify-card.component';
 

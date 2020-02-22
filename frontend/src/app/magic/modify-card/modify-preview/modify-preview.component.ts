@@ -19,8 +19,7 @@ export class ModifyPreviewComponent implements OnChanges {
             return {
                 cardExpansion: modify.setShortName,
                 cardNumber: this.pad(x.cardNumber, 3),
-                cardAmount:
-                    x.cardQuantity > 0 ? x.cardQuantity : x.cardQuantity * -1,
+                cardAmount: x.cardQuantity > 0 ? x.cardQuantity : x.cardQuantity * -1,
                 layout: CardLayout.NORMAL,
                 rarity: 'C',
             };
@@ -30,8 +29,6 @@ export class ModifyPreviewComponent implements OnChanges {
     private pad(text: string | number, width: number, z?: string) {
         z = z || '0';
         text = text + '';
-        return text.length >= width
-            ? text
-            : new Array(width - text.length + 1).join(z) + text;
+        return text.length >= width ? text : new Array(width - text.length + 1).join(z) + text;
     }
 }

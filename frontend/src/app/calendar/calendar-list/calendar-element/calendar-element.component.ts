@@ -16,8 +16,7 @@ export class CalendarElementComponent implements OnInit, OnDestroy {
     constructor(private calendarService: CalendarService) {}
 
     ngOnInit() {
-        this.isSelected =
-            this.calendarEvent.id === this.calendarService.getSelectedEventId();
+        this.isSelected = this.calendarEvent.id === this.calendarService.getSelectedEventId();
         this.selectCalendarEventSub = this.calendarService
             .getselectCalendarEventSub()
             .subscribe(selectedId => {

@@ -52,10 +52,7 @@ export class ModifyCardComponent implements OnInit, OnDestroy {
         this.resetPage();
         this.inProgress = true;
 
-        const cardNumbers = this.prepareAndValidate(
-            this.cardNumbersStr,
-            this.cardSet,
-        );
+        const cardNumbers = this.prepareAndValidate(this.cardNumbersStr, this.cardSet);
 
         if (!this.isError) {
             this.reducedArr = this.convertToModifyCardDto(cardNumbers);
@@ -94,15 +91,11 @@ export class ModifyCardComponent implements OnInit, OnDestroy {
         // Remove multiple spaces
         const cardNumbersStrTrim = cardNumbersStr.trim().replace(/  +/g, ' ');
         const cardNumbersStrArr: string[] = cardNumbersStrTrim.split(' ');
-        const cardNumbers = cardNumbersStrArr.map(cardNum =>
-            parseInt(cardNum, 0),
-        );
+        const cardNumbers = cardNumbersStrArr.map(cardNum => parseInt(cardNum, 0));
 
         const findedNum = cardNumbers.findIndex(num => isNaN(num));
         if (findedNum >= 0) {
-            this.notNumbers = cardNumbersStrArr.filter(num =>
-                isNaN(parseInt(num, 0)),
-            );
+            this.notNumbers = cardNumbersStrArr.filter(num => isNaN(parseInt(num, 0)));
             console.log('Founded NaN');
             this.isError = true;
         }
@@ -121,13 +114,9 @@ export class ModifyCardComponent implements OnInit, OnDestroy {
         addCardDto.setShortName = this.cardSet;
         addCardDto.cardQuantitys = [];
         return cardNumbers.reduce((addCard, cardNum) => {
-            const cardNumInd = addCard.cardQuantitys.findIndex(
-                c => c.cardNumber === cardNum,
-            );
+            const cardNumInd = addCard.cardQuantitys.findIndex(c => c.cardNumber === cardNum);
             if (cardNumInd >= 0) {
-                addCard.cardQuantitys[
-                    cardNumInd
-                ].cardQuantity += this.modifyQty;
+                addCard.cardQuantitys[cardNumInd].cardQuantity += this.modifyQty;
             } else {
                 addCard.cardQuantitys.push({
                     cardNumber: cardNum,
