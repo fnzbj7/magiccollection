@@ -13,11 +13,7 @@ export class ModalService {
             inputs: inputs,
             outputs: outputs,
         };
-        this.domService.appendComponentTo(
-            this.modalElementId,
-            component,
-            componentConfig,
-        );
+        this.domService.appendComponentTo(this.modalElementId, component, componentConfig);
         document.getElementsByTagName('BODY')[0].classList.add('modal-open');
         document.getElementById(this.modalElementId).className = 'show';
         document.getElementById(this.overlayElementId).className = 'show';

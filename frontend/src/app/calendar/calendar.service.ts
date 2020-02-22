@@ -1,15 +1,20 @@
 import { CalendarEvent } from './calendar-list/model/calendar-event.model';
 import { Subject } from 'rxjs';
 import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { environment } from 'src/environments/environment';
 
 @Injectable({ providedIn: 'root' })
 export class CalendarService {
     private calendarMap: Map<string, CalendarEvent[]>;
     private selectCalendarEventSub: Subject<number> = new Subject();
     private selectedCalendarEvent: CalendarEvent;
-    minnum = 20;
+
+    constructor(private http: HttpClient) {}
 
     getCalendarValue(year: number, month: number, day: number) {
+        // this.http.get(`${environment.mainUrl}/calendar/all`);
+
         if (!this.calendarMap) {
             // Init
             this.calendarMap = new Map();
@@ -17,21 +22,11 @@ export class CalendarService {
             const calendarItem2 = new CalendarEvent(2, 19, 30, 'St');
 
             const calendarItem3 = new CalendarEvent(3, 16, 30, 'Standard 2/7');
-            const calendarItem4 = new CalendarEvent(
-                4,
-                15,
-                30,
-                'RNA Prerelease Very long text',
-            );
+            const calendarItem4 = new CalendarEvent(4, 15, 30, 'RNA Prerelease Very long text');
             // const calendarItem5 = new CalendarEvent(0, 14, 30, 'RESET' );
             const calendarItem5 = new CalendarEvent(5, 14, 30, 'Event Cust');
             const calendarItem6 = new CalendarEvent(6, 14, 30, 'Event Cust');
-            const calendarItem7 = new CalendarEvent(
-                7,
-                15,
-                30,
-                'RNA Prerelease Very long text',
-            );
+            const calendarItem7 = new CalendarEvent(7, 15, 30, 'RNA Prerelease Very long text');
             const calendarItem8 = new CalendarEvent(8, 19, 30, 'St');
 
             this.addValueToCalendar(2019, 2, 20, calendarItem);
@@ -59,12 +54,7 @@ export class CalendarService {
         return this.calendarMap.get(dateS);
     }
 
-    addValueToCalendar(
-        year: number,
-        month: number,
-        day: number,
-        calendarEvent: CalendarEvent,
-    ) {
+    addValueToCalendar(year: number, month: number, day: number, calendarEvent: CalendarEvent) {
         // Save to database
         const dateS = this.convertNumbersToDateString(year, month, day);
         const calendarEventArray = this.calendarMap.get(dateS);
@@ -84,11 +74,7 @@ export class CalendarService {
         }
     }
 
-    private convertNumbersToDateString(
-        year: number,
-        month: number,
-        day: number,
-    ): string {
+    private convertNumbersToDateString(year: number, month: number, day: number): string {
         const yearS = '' + year;
         const monthS = month < 10 ? '0' + month : month;
         const dayS = day < 10 ? '0' + day : day;

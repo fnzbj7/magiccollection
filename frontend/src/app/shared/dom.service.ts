@@ -15,11 +15,7 @@ export class DomService {
         private injector: Injector,
     ) {}
 
-    public appendComponentTo(
-        parentId: string,
-        child: any,
-        childConfig?: ChildConfig,
-    ) {
+    public appendComponentTo(parentId: string, child: any, childConfig?: ChildConfig) {
         // Create a component reference from the component
         const childComponentRef = this.componentFactoryResolver
             .resolveComponentFactory(child)
@@ -33,9 +29,8 @@ export class DomService {
         this.appRef.attachView(childComponentRef.hostView);
 
         // Get DOM element from component
-        const childDomElem = (childComponentRef.hostView as EmbeddedViewRef<
-            any
-        >).rootNodes[0] as HTMLElement;
+        const childDomElem = (childComponentRef.hostView as EmbeddedViewRef<any>)
+            .rootNodes[0] as HTMLElement;
 
         // Append DOM element to the body
         document.getElementById(parentId).appendChild(childDomElem);

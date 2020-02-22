@@ -21,9 +21,7 @@ export class MagicCardModalComponent implements AfterViewInit, OnInit {
 
     ngAfterViewInit() {
         setTimeout(() => {
-            document
-                .getElementById('modal-container')
-                .classList.add('show-after');
+            document.getElementById('modal-container').classList.add('show-after');
             document.getElementById('overlay').classList.add('show-after');
         }, 10);
     }

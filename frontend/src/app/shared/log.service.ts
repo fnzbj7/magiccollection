@@ -20,12 +20,7 @@ export class LogService {
     }
 
     debug(msg: string, ...optionalParams: any[]) {
-        this.writeToLog(
-            msg,
-            LogLevel.Debug,
-            optionalParams,
-            'background: #222;color: #bada55',
-        );
+        this.writeToLog(msg, LogLevel.Debug, optionalParams, 'background: #222;color: #bada55');
     }
 
     info(msg: string, ...optionalParams: any[]) {
@@ -40,12 +35,7 @@ export class LogService {
         this.writeToLog(msg, LogLevel.Error, optionalParams, 'color: Red');
     }
 
-    private writeToLog(
-        msg: string,
-        level: LogLevel,
-        params: any[],
-        style: string,
-    ) {
+    private writeToLog(msg: string, level: LogLevel, params: any[], style: string) {
         if (this.shouldLog(level)) {
             let value = '';
 
@@ -67,10 +57,7 @@ export class LogService {
 
     private shouldLog(level: LogLevel): boolean {
         let ret = false;
-        if (
-            (level >= this.level && level !== LogLevel.Off) ||
-            this.level === LogLevel.All
-        ) {
+        if ((level >= this.level && level !== LogLevel.Off) || this.level === LogLevel.All) {
             ret = true;
         }
         return ret;

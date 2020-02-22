@@ -3,11 +3,7 @@ import { BsModalRef } from 'ngx-bootstrap/modal';
 import { AuthenticationService } from './authentication.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { first } from 'rxjs/operators';
-import {
-    SocialUser,
-    AuthService,
-    FacebookLoginProvider,
-} from 'angularx-social-login';
+import { SocialUser, AuthService, FacebookLoginProvider } from 'angularx-social-login';
 
 @Component({
     selector: 'app-auth-component',
@@ -95,9 +91,7 @@ export class AuthComponent implements OnInit {
                     console.error(error.status);
                     if (error.status === 420) {
                         // Email already in use
-                        this.registrationForm
-                            .get('email')
-                            .setErrors({ emailUsed: true });
+                        this.registrationForm.get('email').setErrors({ emailUsed: true });
                     }
                     this.loading = false;
                 },
@@ -132,9 +126,7 @@ export class AuthComponent implements OnInit {
                     console.error(error);
                     console.error(error.status);
                     if (error.status === 421) {
-                        this.loginForm
-                            .get('password')
-                            .setErrors({ wrongPass: true });
+                        this.loginForm.get('password').setErrors({ wrongPass: true });
                     }
                     this.loading = false;
                 },

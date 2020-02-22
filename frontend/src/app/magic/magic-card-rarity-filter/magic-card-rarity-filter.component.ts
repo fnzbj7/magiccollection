@@ -25,10 +25,7 @@ export class MagicCardRarityFilterComponent implements OnInit {
     }
 
     changeFilterValue(filterChangeName: string, filterChangeTo: boolean) {
-        this.magicCardsListService.changeFilter(
-            filterChangeName,
-            filterChangeTo,
-        );
+        this.magicCardsListService.changeFilter(filterChangeName, filterChangeTo);
     }
 
     initFilterValues(filterArray: string[]) {
@@ -43,9 +40,7 @@ export class MagicCardRarityFilterComponent implements OnInit {
             this.setFilter(new FilterChange(element, true));
         });
 
-        differenceArray = differenceArray.filter(
-            element => filterArray.indexOf(element) < 0,
-        );
+        differenceArray = differenceArray.filter(element => filterArray.indexOf(element) < 0);
         differenceArray.forEach(element => {
             this.setFilter(new FilterChange(element, false));
         });
