@@ -47,9 +47,12 @@ export class CalendarListComponent implements OnInit, OnDestroy {
     constructor(private calendarService: CalendarService) {}
 
     ngOnInit() {
-        const tmpDate = new Date();
-        this.currentDate = new Date(tmpDate.getFullYear(), tmpDate.getMonth(), 15);
-        this.initCalendar(this.currentDate);
+        this.calendarService.getAllCalendarEvent().subscribe(a => {
+            const tmpDate = new Date();
+            this.currentDate = new Date(tmpDate.getFullYear(), tmpDate.getMonth(), 15);
+            this.initCalendar(this.currentDate);
+        });
+
         this.selectCalendarEventSub = this.calendarService
             .getselectCalendarEventSub()
             .subscribe(selectedEventId => {
@@ -58,7 +61,7 @@ export class CalendarListComponent implements OnInit, OnDestroy {
     }
 
     initCalendar(relativeDate: Date) {
-        const tmpCalendarDayList: CalendarDay[] = [];
+        this.calendarDayList = [];
 
         const copyDate = new Date(relativeDate);
         copyDate.setUTCDate(1);
@@ -83,14 +86,11 @@ export class CalendarListComponent implements OnInit, OnDestroy {
             testCalendar.day = i + previousMonth.getUTCDate() - (num - 1);
             testCalendar.isOffMonth = true;
 
-            tmpCalendarDayList.push(testCalendar);
+            this.calendarDayList.push(testCalendar);
         }
 
-        for (
-            let i = 1;
-            i <= new Date(copyDate.getFullYear(), copyDate.getMonth() + 1, 0).getDate();
-            i++
-        ) {
+        const actualMonth = new Date(copyDate.getFullYear(), copyDate.getMonth() + 1, 0);
+        for (let i = 1; i <= actualMonth.getDate(); i++) {
             const testCalendar = new CalendarDay();
             testCalendar.calendarEventList = this.calendarService.getCalendarValue(
                 copyDate.getFullYear(),
@@ -99,11 +99,10 @@ export class CalendarListComponent implements OnInit, OnDestroy {
             );
             testCalendar.day = i;
             testCalendar.isOffMonth = false;
-            tmpCalendarDayList.push(testCalendar);
+            this.calendarDayList.push(testCalendar);
         }
 
         // After
-        const actualMonth = new Date(copyDate.getFullYear(), copyDate.getMonth() + 1, 0);
         const actualMonthLastDayType = actualMonth.getUTCDay();
         let year = actualMonth.getFullYear();
         let month = actualMonth.getMonth();
@@ -120,10 +119,8 @@ export class CalendarListComponent implements OnInit, OnDestroy {
                 day: i,
                 isOffMonth: true,
             };
-            tmpCalendarDayList.push(testCalendar);
+            this.calendarDayList.push(testCalendar);
         }
-
-        this.calendarDayList = tmpCalendarDayList;
     }
 
     onNextMonth() {
