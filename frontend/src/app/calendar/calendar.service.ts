@@ -1,8 +1,10 @@
 import { CalendarEvent } from './calendar-list/model/calendar-event.model';
-import { Subject } from 'rxjs';
+import { Subject, Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
+import { CalendarDto } from './calendar-list/model/Calendar.dto';
+import { map } from 'rxjs/operators';
 
 @Injectable({ providedIn: 'root' })
 export class CalendarService {
@@ -10,11 +12,24 @@ export class CalendarService {
     private selectCalendarEventSub: Subject<number> = new Subject();
     private selectedCalendarEvent: CalendarEvent;
 
-    constructor(private http: HttpClient) {}
+    constructor(private http: HttpClient) {
+        this.calendarMap = new Map();
+    }
+
+    getAllCalendarEvent(): Observable<Map<string, CalendarEvent[]>> {
+        return this.http.get<CalendarDto[]>(`${environment.mainUrl}/calendar/all`).pipe(
+            map(a => {
+                a.forEach(b => {
+                    const c = new Date(b.eventStart);
+                    const d = new CalendarEvent(b.id, c.getHours(), c.getMinutes(), 'RNA Draft');
+                    this.addValueToCalendar(c.getFullYear(), c.getMonth() + 1, c.getDate(), d);
+                });
+                return this.calendarMap;
+            }),
+        );
+    }
 
     getCalendarValue(year: number, month: number, day: number) {
-        // this.http.get(`${environment.mainUrl}/calendar/all`);
-
         if (!this.calendarMap) {
             // Init
             this.calendarMap = new Map();
