@@ -5,11 +5,14 @@ import { User, UserSource } from './entity/user.entity';
 import {
     ConflictException,
     InternalServerErrorException,
+    Logger,
 } from '@nestjs/common';
 import { Profile } from 'passport-facebook-token';
 
 @EntityRepository(User)
 export class UserRepository extends Repository<User> {
+    private logger = new Logger(UserRepository.name);
+
     async signUp(authCredentialsDto: AuthCredentialsDto): Promise<void> {
         const { email, password, username, dci } = authCredentialsDto;
 
