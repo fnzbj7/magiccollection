@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { AuthComponent } from '../auth/auth.component';
 import { AuthenticationService } from '../auth/authentication.service';
 import { User } from '../model/user.model';
 import { VersionService } from 'src/environments/version.service';
 import { faInfoCircle } from '@fortawesome/free-solid-svg-icons';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
     selector: 'app-header',
@@ -12,7 +12,6 @@ import { faInfoCircle } from '@fortawesome/free-solid-svg-icons';
     styleUrls: ['./header.component.css'],
 })
 export class HeaderComponent implements OnInit {
-    bsModalRef: BsModalRef;
     loggedUser: User;
     version: string;
 
@@ -20,7 +19,7 @@ export class HeaderComponent implements OnInit {
     faInfoCircle = faInfoCircle;
 
     constructor(
-        private modalService: BsModalService,
+        private dialog: MatDialog,
         private authenticationService: AuthenticationService,
         private versionService: VersionService,
     ) {}
@@ -33,7 +32,8 @@ export class HeaderComponent implements OnInit {
     }
 
     openModalWithComponent() {
-        this.bsModalRef = this.modalService.show(AuthComponent);
+        this.dialog.open(AuthComponent);
+        // this.bsModalRef = this.modalService.show(AuthComponent);
     }
 
     onLogout() {

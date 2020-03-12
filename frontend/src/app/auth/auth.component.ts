@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { BsModalRef } from 'ngx-bootstrap/modal';
 import { AuthenticationService } from './authentication.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { first } from 'rxjs/operators';
 import { SocialUser, AuthService, FacebookLoginProvider } from 'angularx-social-login';
+import { MatDialogRef } from '@angular/material/dialog';
 
 @Component({
     selector: 'app-auth-component',
@@ -21,7 +21,7 @@ export class AuthComponent implements OnInit {
     loggedIn: boolean;
 
     constructor(
-        public bsModalRef: BsModalRef,
+        public dialogRef: MatDialogRef<AuthComponent>,
         private authService: AuthenticationService,
         private formBuilder: FormBuilder,
         private authServiceSocial: AuthService,
@@ -47,7 +47,7 @@ export class AuthComponent implements OnInit {
         this.authService.facebookSignIn(user.authToken).subscribe(
             () => {
                 this.authServiceSocial.signOut();
-                this.bsModalRef.hide();
+                this.dialogRef.close();
             },
             err => {
                 this.authServiceSocial.signOut();
@@ -120,7 +120,7 @@ export class AuthComponent implements OnInit {
                 data => {
                     // this.router.navigate([this.returnUrl]);
                     this.loading = false;
-                    this.bsModalRef.hide();
+                    this.dialogRef.close();
                 },
                 error => {
                     console.error(error);

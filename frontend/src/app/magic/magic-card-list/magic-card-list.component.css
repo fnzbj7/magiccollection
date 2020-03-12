@@ -23,7 +23,11 @@ ul {
     }
 }
 
-.my-pagination /deep/ .ngx-pagination .current span {
+.my-pagination /deep/ .pagination {
+    flex-wrap: wrap;
+}
+
+.my-pagination /deep/ .pagination .active a {
     display: inline-block;
     padding: 0px 9px;
     margin-right: 4px;
@@ -39,7 +43,7 @@ ul {
     line-height: 24px;
 }
 
-.my-pagination /deep/ .ngx-pagination li {
+.my-pagination /deep/ .pagination li {
     float: left;
     display: block;
     margin: 0;
@@ -47,17 +51,16 @@ ul {
     background: none;
 }
 
-.my-pagination /deep/ .ngx-pagination li a:hover {
+.my-pagination /deep/ .pagination li:not(.active) a:hover {
     background: #fefefe;
-    background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#fefefe), to(#f0f0f0));
     background: -moz-linear-gradient(0% 0% 270deg, #fefefe, #f0f0f0);
     cursor: pointer;
 }
 
-.my-pagination /deep/ .ngx-pagination li.small-screen {
+.my-pagination /deep/ .pagination li.small-screen {
     display: none;
 }
-.my-pagination /deep/ .ngx-pagination li a {
+.my-pagination /deep/ .pagination li a {
     display: inline-block;
     padding: 0px 9px;
     margin-right: 4px;
@@ -110,7 +113,7 @@ ul {
 }
 
 @media screen and (max-width: 575px) {
-    pagination-controls.my-pagination /deep/ pagination-template ul.ngx-pagination li {
+    pagination-controls.my-pagination /deep/ pagination-template ul.pagination li {
         margin-right: 2px;
     }
 
@@ -127,15 +130,15 @@ ul {
     }
 }
 
-pagination-controls.my-pagination /deep/ pagination-template ul.ngx-pagination li {
+pagination-controls.my-pagination /deep/ ul.pagination li {
     margin-bottom: 1em;
 }
 
-pagination-controls.my-pagination /deep/ pagination-template ul.ngx-pagination li.current {
+pagination-controls.my-pagination /deep/ ul.pagination li.active {
     padding-right: 2px;
 }
 
-pagination-controls.my-pagination /deep/ pagination-template ul.ngx-pagination li:not(.current) {
+pagination-controls.my-pagination /deep/ ul.pagination li:not(.active) {
     margin-bottom: 1em;
     height: 25px;
 }

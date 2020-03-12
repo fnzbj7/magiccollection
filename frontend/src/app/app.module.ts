@@ -10,10 +10,8 @@ import { MagicCardListComponent } from './magic/magic-card-list/magic-card-list.
 import { MagicCardsListService } from './magic/magic-cards-list.service';
 import { MagicCardComponent } from './magic/magic-card/magic-card.component';
 import { AppRoutingModule } from './app-routing.module';
-import { NgxPaginationModule } from 'ngx-pagination';
 import { HeaderComponent } from './header/header.component';
 import { MagicCardAmountDirective } from './magic/magic-card/magic-card-amount.directive';
-import { ModalModule } from 'ngx-bootstrap/modal';
 import { JwtInterceptor } from './auth/jwt.interceptor';
 import { AuthComponent } from './auth/auth.component';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
@@ -27,6 +25,8 @@ import { SocialLoginModule, AuthServiceConfig, FacebookLoginProvider } from 'ang
 import { LazyLoadImageModule, intersectionObserverPreset } from 'ng-lazyload-image';
 import { ModifyPreviewComponent } from './magic/modify-card/modify-preview/modify-preview.component';
 import { ModifyCardComponent } from './magic/modify-card/modify-card.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatDialogModule } from '@angular/material/dialog';
 
 const config = new AuthServiceConfig([
     {
@@ -61,8 +61,6 @@ export function provideConfig() {
         HttpClientModule,
         NgbModule,
         AppRoutingModule,
-        NgxPaginationModule,
-        ModalModule.forRoot(),
         ReactiveFormsModule,
         FormsModule,
         ServiceWorkerModule.register('/ngsw-worker.js', {
@@ -73,6 +71,8 @@ export function provideConfig() {
             preset: intersectionObserverPreset, // <-- tell LazyLoadImage that you want to use IntersectionObserver
         }),
         SharedModule,
+        BrowserAnimationsModule,
+        MatDialogModule,
     ],
     providers: [
         MagicCardsListService,
