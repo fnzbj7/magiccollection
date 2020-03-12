@@ -2,7 +2,6 @@ import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
 import { MagicCardsListService } from '../magic-cards-list.service';
 import { Card } from '../../model/card.model';
 import { ActivatedRoute, Params, Router } from '@angular/router';
-import { PaginationControlsComponent } from 'ngx-pagination';
 import { AuthenticationService } from 'src/app/auth/authentication.service';
 import { Subscription } from 'rxjs';
 
@@ -19,7 +18,7 @@ export class MagicCardListComponent implements OnInit, OnDestroy {
     currentPage = 1;
     itemsPerPage = 35;
     @ViewChild('page', { static: true })
-    amountInputRef: PaginationControlsComponent;
+    amountInputRef: any;
     currentUserSub: Subscription;
     routerChangeSub: Subscription;
 

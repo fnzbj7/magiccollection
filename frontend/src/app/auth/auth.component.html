@@ -2,7 +2,7 @@
     <button type="button" (click)="onPageChange('Login')" [ngClass]="{ 'btn-primary' : selectedPage === 'Login', 'btn-outline-primary' : selectedPage !== 'Login'}" class="btn pull-left rounded-bottom-0 border-bottom-0">Log in</button>
     <button type="button"  (click)="onPageChange('Registration')" [ngClass]="{ 'btn-primary' : selectedPage === 'Registration', 'btn-outline-primary' : selectedPage !== 'Registration'}" class="btn btn-outline-primary pull-left rounded-bottom-0 border-bottom-0">Registration</button>
   <!-- <h4 class="modal-title pull-left">Modal</h4> -->
-  <button type="button" class="close pull-right" aria-label="Close" (click)="bsModalRef.hide()">
+  <button type="button" class="close pull-right" aria-label="Close" (click)="dialogRef.close()">
     <span aria-hidden="true">&times;</span>
   </button>
 </div>
