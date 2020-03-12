@@ -6,9 +6,15 @@ import { CalendarListComponent } from './calendar-list/calendar-list.component';
 import { CalendarElementComponent } from './calendar-list/calendar-element/calendar-element.component';
 import { EventDetailsComponent } from './calendar-list/event-details/event-details.component';
 import { SharedModule } from '../shared/shared.module';
+import { CalendarAddComponent } from './calendar-add/calendar-add.component';
 
 @NgModule({
-    declarations: [CalendarListComponent, CalendarElementComponent, EventDetailsComponent],
+    declarations: [
+        CalendarListComponent,
+        CalendarElementComponent,
+        EventDetailsComponent,
+        CalendarAddComponent,
+    ],
     imports: [CommonModule, CalendarRoutingModule, SharedModule],
 })
 export class CalendarModule {}
