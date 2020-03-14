@@ -4,8 +4,8 @@ import { NgModule } from '@angular/core';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { AppComponent } from './app.component';
-import { MagicExpansionComponent } from './magic/magic-expansion/magic-expansion.component';
-import { MagicExpansionListComponent } from './magic/magic-expansion-list/magic-expansion-list.component';
+import { MagicSetIconComponent } from './magic/magic-set-list/magic-set-icon/magic-set-icon.component';
+import { MagicSetListComponent } from './magic/magic-set-list/magic-set-list.component';
 import { MagicCardListComponent } from './magic/magic-card-list/magic-card-list.component';
 import { MagicCardsListService } from './magic/magic-cards-list.service';
 import { MagicCardComponent } from './magic/magic-card/magic-card.component';
@@ -42,9 +42,9 @@ export function provideConfig() {
 @NgModule({
     declarations: [
         AppComponent,
-        MagicExpansionComponent,
+        MagicSetIconComponent,
         MagicCardListComponent,
-        MagicExpansionListComponent,
+        MagicSetListComponent,
         MagicCardComponent,
         HeaderComponent,
         MagicCardAmountDirective,
