@@ -2,16 +2,16 @@
     id="expansionContainer"
     class="border border-sm-0 border-left-0 border-dark"
 >
-    <app-magic-expansion
+    <app-magic-set-icon
         [expansionName]="cardSet"
         *ngFor="let cardSet of cardSetsArray"
-    ></app-magic-expansion>
+    ></app-magic-set-icon>
 </div>
 
 <div class="mobile-menu bg-light">
-    <app-magic-expansion
+    <app-magic-set-icon
         class="set-icon"
         [expansionName]="cardSet"
         *ngFor="let cardSet of cardSetsArray"
-    ></app-magic-expansion>
+    ></app-magic-set-icon>
 </div>

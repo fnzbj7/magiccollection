@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { MagicCardListComponent } from './magic/magic-card-list/magic-card-list.component';
-import { MagicExpansionListComponent } from './magic/magic-expansion-list/magic-expansion-list.component';
 import { LandingComponent } from './landing/landing.component';
 import { ModifyCardComponent } from './magic/modify-card/modify-card.component';
 

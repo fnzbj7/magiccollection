@@ -1,11 +1,11 @@
 import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
-    selector: 'app-magic-expansion',
-    templateUrl: './magic-expansion.component.html',
-    styleUrls: ['./magic-expansion.component.css'],
+    selector: 'app-magic-set-icon',
+    templateUrl: './magic-set-icon.component.html',
+    styleUrls: ['./magic-set-icon.component.css'],
 })
-export class MagicExpansionComponent implements OnInit {
+export class MagicSetIconComponent implements OnInit {
     @Input() expansionName: string;
 
     constructor() {}

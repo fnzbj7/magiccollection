@@ -2,11 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { MagicCardsListService } from '../magic-cards-list.service';
 
 @Component({
-    selector: 'app-magic-expansion-list',
-    templateUrl: './magic-expansion-list.component.html',
-    styleUrls: ['./magic-expansion-list.component.css'],
+    selector: 'app-magic-set-list',
+    templateUrl: './magic-set-list.component.html',
+    styleUrls: ['./magic-set-list.component.css'],
 })
-export class MagicExpansionListComponent implements OnInit {
+export class MagicSetListComponent implements OnInit {
     cardSetsArray: string[];
 
     constructor(private magicCardsListService: MagicCardsListService) {}
