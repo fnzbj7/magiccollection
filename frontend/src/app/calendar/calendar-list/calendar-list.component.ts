@@ -15,7 +15,7 @@ export class CalendarListComponent implements OnInit, OnDestroy {
     faAngleRight = faAngleRight;
     faCalendarPlus = faCalendarPlus;
 
-    calendarDayList: CalendarDay[] = [];
+    calendarDayList: CalendarDay[];
     daysArray = [
         { long: 'Hétfő', short: 'H' },
         { long: 'Kedd', short: 'K' },
@@ -40,6 +40,7 @@ export class CalendarListComponent implements OnInit, OnDestroy {
         'November',
         'December',
     ];
+    dummyDays: number[] = Array(28);
     currentDate = new Date();
     isDetailsOpen = false;
     selectCalendarEventSub: Subscription;
@@ -47,9 +48,14 @@ export class CalendarListComponent implements OnInit, OnDestroy {
     constructor(private calendarService: CalendarService) {}
 
     ngOnInit() {
+        const tmpDate = new Date();
+        this.currentDate = new Date(tmpDate.getFullYear(), tmpDate.getMonth(), 15);
+
+        if (this.calendarService.inited) {
+            this.initCalendar(this.currentDate);
+        }
+
         this.calendarService.getAllCalendarEvent().subscribe(a => {
-            const tmpDate = new Date();
-            this.currentDate = new Date(tmpDate.getFullYear(), tmpDate.getMonth(), 15);
             this.initCalendar(this.currentDate);
         });
 
