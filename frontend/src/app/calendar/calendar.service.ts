@@ -11,6 +11,7 @@ export class CalendarService {
     private calendarMap: Map<string, CalendarEvent[]>;
     private selectCalendarEventSub: Subject<number> = new Subject();
     private selectedCalendarEvent: CalendarEvent;
+    inited = false;
 
     constructor(private http: HttpClient) {
         this.calendarMap = new Map();
@@ -19,6 +20,8 @@ export class CalendarService {
     getAllCalendarEvent(): Observable<Map<string, CalendarEvent[]>> {
         return this.http.get<CalendarDto[]>(`${environment.mainUrl}/calendar/all`).pipe(
             map(a => {
+                this.inited = true;
+                this.calendarMap.clear();
                 a.forEach(b => {
                     const c = new Date(b.eventStart);
                     const d = new CalendarEvent(b.id, c.getHours(), c.getMinutes(), 'RNA Draft');
