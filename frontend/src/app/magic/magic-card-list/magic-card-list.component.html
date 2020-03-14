@@ -1,7 +1,7 @@
 <app-magic-expansion-list
     class="card-set-mobil-landscape"
 ></app-magic-expansion-list>
-<div id="fullThings">
+<div id="fullThings" *ngIf="expansion && filteredCardsArray">
     <app-magic-card-rarity-filter></app-magic-card-rarity-filter>
     <ngb-pagination class="my-pagination" [(page)]="currentPage" [pageSize]="itemsPerPage" [collectionSize]="filteredCardsArray.length" [directionLinks]="false"></ngb-pagination>
     <ul id="things" class="px-0">

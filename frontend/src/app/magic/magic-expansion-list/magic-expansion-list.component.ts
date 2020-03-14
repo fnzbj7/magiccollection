@@ -1,12 +1,4 @@
-import {
-    Component,
-    OnInit,
-    HostListener,
-    ViewChild,
-    ElementRef,
-    AfterViewInit,
-    HostBinding,
-} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MagicCardsListService } from '../magic-cards-list.service';
 
 @Component({

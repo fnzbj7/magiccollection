@@ -11,11 +11,9 @@ const appRoute: Routes = [
         loadChildren: () => import('./calendar/calendar.module').then(m => m.CalendarModule),
     },
     { path: 'cards/:expansion', component: MagicCardListComponent },
-    // { path: '', redirectTo: '/RNA', pathMatch: 'full'}
     {
         path: 'cards',
-        component: MagicExpansionListComponent,
-        pathMatch: 'full',
+        component: MagicCardListComponent,
     },
     {
         path: 'addcards',
