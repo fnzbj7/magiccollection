@@ -8,10 +8,19 @@
     ></app-magic-set-icon>
 </div>
 
-<div class="mobile-menu bg-light">
+<div (scroll)="onScroll($event)" class="mobile-menu bg-light">
+
     <app-magic-set-icon
         class="set-icon"
         [expansionName]="cardSet"
         *ngFor="let cardSet of cardSetsArray"
     ></app-magic-set-icon>
+
+</div>
+
+<div *ngIf="isScrollVisible" class="position-fixed floating-arrow" style="bottom: 0; right: 0;">
+    <fa-icon
+        [icon]="faAngleRight"
+        class="floating-arrow-item"
+    ></fa-icon>
 </div>
