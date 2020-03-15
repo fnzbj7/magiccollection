@@ -4,6 +4,7 @@ import { Card } from '../../model/card.model';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { AuthenticationService } from 'src/app/auth/authentication.service';
 import { Subscription } from 'rxjs';
+import { QuantityFilterEnum } from '../../model/quantity-filter.enum';
 
 @Component({
     selector: 'app-magic-card-list',
@@ -21,6 +22,8 @@ export class MagicCardListComponent implements OnInit, OnDestroy {
     amountInputRef: any;
     currentUserSub: Subscription;
     routerChangeSub: Subscription;
+    quantityFilterSub: Subscription;
+    rarityFilterSub: Subscription;
 
     constructor(
         private magicCardsListService: MagicCardsListService,
@@ -44,7 +47,11 @@ export class MagicCardListComponent implements OnInit, OnDestroy {
             }
         });
 
-        this.magicCardsListService.getFilterChangeSub().subscribe(rarityFilter => {
+        this.rarityFilterSub = this.magicCardsListService.filterChange.subscribe(rarityFilter => {
+            this.filterCards();
+        });
+
+        this.quantityFilterSub = this.magicCardsListService.quantityFilterSub.subscribe(x => {
             this.filterCards();
         });
 
@@ -79,9 +86,25 @@ export class MagicCardListComponent implements OnInit, OnDestroy {
     }
 
     private filterCards() {
+        if (!this.cardsArray) {
+            return;
+        }
+
         this.filteredCardsArray = this.cardsArray.filter(card => {
             return this.magicCardsListService.getfilterArray().includes(card.rarity);
         });
+
+        switch (this.magicCardsListService.quantityFilterSub.value) {
+            case QuantityFilterEnum.HAVE:
+                this.filteredCardsArray = this.filteredCardsArray.filter(
+                    card => card.cardAmount > 0,
+                );
+                break;
+            case QuantityFilterEnum.NOTHAVE:
+                this.filteredCardsArray = this.filteredCardsArray.filter(
+                    card => card.cardAmount === 0,
+                );
+        }
     }
 
     ngOnDestroy() {
@@ -90,6 +113,12 @@ export class MagicCardListComponent implements OnInit, OnDestroy {
         }
         if (this.routerChangeSub) {
             this.routerChangeSub.unsubscribe();
+        }
+        if (this.rarityFilterSub) {
+            this.rarityFilterSub.unsubscribe();
+        }
+        if (this.quantityFilterSub) {
+            this.quantityFilterSub.unsubscribe();
         }
     }
 }
