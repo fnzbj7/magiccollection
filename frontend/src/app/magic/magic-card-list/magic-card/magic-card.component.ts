@@ -1,8 +1,8 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Card } from '../../model/card.model';
+import { Card } from '../../../model/card.model';
 import { MagicCardModalComponent } from '../magic-card-modal/magic-card-modal.component';
 import { ModalService } from 'src/app/shared/modal.service';
-import { environment } from '../../../environments/environment';
+import { environment } from '../../../../environments/environment';
 
 @Component({
     selector: 'app-magic-card',

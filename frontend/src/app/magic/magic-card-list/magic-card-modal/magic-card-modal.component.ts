@@ -1,6 +1,6 @@
 import { Component, Input, AfterViewInit, OnInit } from '@angular/core';
 import { Card } from 'src/app/model/card.model';
-import { environment } from '../../../environments/environment';
+import { environment } from '../../../../environments/environment';
 
 @Component({
     selector: 'app-magic-card-modal',

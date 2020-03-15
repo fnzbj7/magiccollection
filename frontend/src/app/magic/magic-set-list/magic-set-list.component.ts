@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { MagicCardsListService } from '../magic-cards-list.service';
+import { MagicCardsListService } from '../magic-card-list/magic-cards-list.service';
 
 @Component({
     selector: 'app-magic-set-list',
