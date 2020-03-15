@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MagicCardsListService } from '../magic-cards-list.service';
 import { FilterChange } from 'src/app/model/filter-change.model';
 import { CardRarity } from 'src/app/model/card-rarity.enum';
+import { QuantityFilterEnum } from '../../../model/quantity-filter.enum';
 
 @Component({
     selector: 'app-magic-card-rarity-filter',
@@ -13,19 +14,21 @@ export class MagicCardRarityFilterComponent implements OnInit {
     isUncommon = true;
     isRare = true;
     isMythic = true;
+    quantityFilter: QuantityFilterEnum;
 
     constructor(private magicCardsListService: MagicCardsListService) {}
 
     ngOnInit() {
+        this.quantityFilter = this.magicCardsListService.quantityFilterSub.value;
         this.initFilterValues(this.magicCardsListService.getfilterArray());
 
-        this.magicCardsListService.getFilterChangeSub().subscribe(change => {
-            this.setFilter(change);
+        this.magicCardsListService.filterChange.subscribe(change => {
+            this.setRarityFilter(change);
         });
     }
 
-    changeFilterValue(filterChangeName: string, filterChangeTo: boolean) {
-        this.magicCardsListService.changeFilter(filterChangeName, filterChangeTo);
+    onChangeRarityFilter(filterChangeName: string, filterChangeTo: boolean) {
+        this.magicCardsListService.changeRarityFilter(filterChangeName, filterChangeTo);
     }
 
     initFilterValues(filterArray: string[]) {
@@ -36,19 +39,17 @@ export class MagicCardRarityFilterComponent implements OnInit {
             CardRarity.Mythic,
         ];
 
-        filterArray.forEach(element => {
-            this.setFilter(new FilterChange(element, true));
+        filterArray.forEach(rarity => {
+            this.setRarityFilter(new FilterChange(rarity, true));
         });
 
-        differenceArray = differenceArray.filter(element => filterArray.indexOf(element) < 0);
-        differenceArray.forEach(element => {
-            this.setFilter(new FilterChange(element, false));
+        differenceArray = differenceArray.filter(rarity => filterArray.indexOf(rarity) < 0);
+        differenceArray.forEach(rarity => {
+            this.setRarityFilter(new FilterChange(rarity, false));
         });
-
-        // this.filter(function(i) {return a.indexOf(i) < 0;}
     }
 
-    setFilter(filterChange: FilterChange) {
+    setRarityFilter(filterChange: FilterChange) {
         switch (filterChange.changeName) {
             case CardRarity.Common:
                 this.isCommon = filterChange.changedTo;
@@ -65,5 +66,9 @@ export class MagicCardRarityFilterComponent implements OnInit {
             default:
                 break;
         }
+    }
+
+    onChangeRadio() {
+        this.magicCardsListService.changeQuantityFilter(this.quantityFilter);
     }
 }

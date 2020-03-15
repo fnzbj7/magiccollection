@@ -1,22 +1,23 @@
 import { Card } from '../../model/card.model';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, Subject } from 'rxjs';
+import { Observable, Subject, BehaviorSubject } from 'rxjs';
 import { FilterChange } from '../../model/filter-change.model';
 import { CardRarity } from '../../model/card-rarity.enum';
 import { environment } from 'src/environments/environment';
 import { AuthenticationService } from '../../auth/authentication.service';
+import { QuantityFilterEnum } from '../../model/quantity-filter.enum';
 
 @Injectable({ providedIn: 'root' })
 export class MagicCardsListService {
-    private filterArray: string[] = [
+    filterArray: string[] = [
         CardRarity.Common,
         CardRarity.Uncommon,
         CardRarity.Rare,
         CardRarity.Mythic,
     ];
-    private filterChange = new Subject<FilterChange>();
-    private filterChangeSub = this.filterChange.asObservable();
+    filterChange = new Subject<FilterChange>();
+    quantityFilterSub = new BehaviorSubject<QuantityFilterEnum>(QuantityFilterEnum.ALL);
 
     cardSetsArray: string[] = [
         'THB',
@@ -72,15 +73,11 @@ export class MagicCardsListService {
         return this.http.get<Card[]>(url);
     }
 
-    getFilterChangeSub(): Observable<FilterChange> {
-        return this.filterChangeSub;
-    }
-
     getfilterArray(): string[] {
         return [...this.filterArray];
     }
 
-    changeFilter(filterChangeName: string, filterChangeTo: boolean) {
+    changeRarityFilter(filterChangeName: string, filterChangeTo: boolean) {
         const isInFilterArray = this.filterArray.includes(filterChangeName);
         if (isInFilterArray !== filterChangeTo) {
             isInFilterArray
@@ -91,5 +88,9 @@ export class MagicCardsListService {
             changedTo: filterChangeTo,
             changeName: filterChangeName,
         });
+    }
+
+    changeQuantityFilter(qualityFilter: QuantityFilterEnum) {
+        this.quantityFilterSub.next(qualityFilter);
     }
 }

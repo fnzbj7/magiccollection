@@ -34,8 +34,9 @@
     font-weight: bold;
     text-decoration: none;
     line-height: 24px;
-    -webkit-user-select: none; /* Safari */
-    -moz-user-select: none; /* Firefox */
-    -ms-user-select: none; /* IE10+/Edge */
     user-select: none; /* Standard */
+}
+
+.no-li-style {
+    list-style-type: none;
 }
