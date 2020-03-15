@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MagicCardsListService } from '../magic-card-list/magic-cards-list.service';
-import { faAngleRight } from '@fortawesome/free-solid-svg-icons';
+import { faAngleRight, faAngleDown } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
     selector: 'app-magic-set-list',
@@ -12,8 +12,10 @@ export class MagicSetListComponent implements OnInit {
 
     // FontAwesome
     faAngleRight = faAngleRight;
+    faAngleDown = faAngleDown;
 
-    isScrollVisible = true;
+    isScrollRightHide = false;
+    isScrollDownHide = false;
 
     constructor(private magicCardsListService: MagicCardsListService) {}
 
@@ -22,8 +24,23 @@ export class MagicSetListComponent implements OnInit {
     }
 
     onScroll(event) {
-        if (this.isScrollVisible) {
-            this.isScrollVisible = false;
+        if (event.srcElement.scrollLeft > 200) {
+            this.isScrollRightHide = true;
         }
+        if (this.isScrollRightHide && event.srcElement.scrollLeft < 200) {
+            this.isScrollRightHide = false;
+        }
+
+        if (event.srcElement.scrollTop > 200) {
+            this.isScrollDownHide = true;
+        }
+        if (this.isScrollDownHide && event.srcElement.scrollTop < 200) {
+            this.isScrollDownHide = false;
+        }
+
+        // console.log(event.srcElement.scrollLeft)
+        // if (this.isScrollVisible) {
+        //     this.isScrollVisible = false;
+        // }
     }
 }
