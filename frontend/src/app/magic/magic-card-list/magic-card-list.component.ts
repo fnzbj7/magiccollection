@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
-import { MagicCardsListService } from '../magic-cards-list.service';
+import { MagicCardsListService } from './magic-cards-list.service';
 import { Card } from '../../model/card.model';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { AuthenticationService } from 'src/app/auth/authentication.service';
@@ -59,7 +59,6 @@ export class MagicCardListComponent implements OnInit, OnDestroy {
 
     getCardsFromExpansion(expansionArg: string) {
         this.magicCardsListService.getCardsForExpansion(expansionArg).subscribe((cards: Card[]) => {
-            console.log(cards);
             this.cardsArray = cards;
             this.filterCards();
             if (this.route.snapshot.queryParams['page']) {

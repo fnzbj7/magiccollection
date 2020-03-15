@@ -3,7 +3,7 @@ import { ModifyCardDto } from './dto/modify-card.dto';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { ModifyCardService } from '../modify-card.service';
-import { MagicCardsListService } from '../magic-cards-list.service';
+import { MagicCardsListService } from '../magic-card-list/magic-cards-list.service';
 
 enum PageStep {
     FORM = 'from',

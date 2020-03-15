@@ -1,13 +1,13 @@
-import { Card } from '../model/card.model';
+import { Card } from '../../model/card.model';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, Subject } from 'rxjs';
-import { FilterChange } from '../model/filter-change.model';
-import { CardRarity } from '../model/card-rarity.enum';
+import { FilterChange } from '../../model/filter-change.model';
+import { CardRarity } from '../../model/card-rarity.enum';
 import { environment } from 'src/environments/environment';
-import { AuthenticationService } from '../auth/authentication.service';
+import { AuthenticationService } from '../../auth/authentication.service';
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class MagicCardsListService {
     private filterArray: string[] = [
         CardRarity.Common,
