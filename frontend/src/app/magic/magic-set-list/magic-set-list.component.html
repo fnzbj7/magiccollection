@@ -18,9 +18,13 @@
 
 </div>
 
-<div *ngIf="isScrollVisible" class="position-fixed floating-arrow" style="bottom: 0; right: 0;">
+<div [ngClass]="{'dont-show-down': isScrollDownHide, 'dont-show-right': isScrollRightHide}" class="position-fixed floating-arrow">
     <fa-icon
         [icon]="faAngleRight"
-        class="floating-arrow-item"
+        class="floating-arrow-item-right"
+    ></fa-icon>
+    <fa-icon
+        [icon]="faAngleDown"
+        class="floating-arrow-item-down"
     ></fa-icon>
 </div>
