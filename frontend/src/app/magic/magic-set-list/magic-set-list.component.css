@@ -18,6 +18,10 @@
     display: none;
 }
 
+.floating-arrow {
+    display: none;
+}
+
 @media (max-width: 740px) and (orientation: landscape) {
     #expansionContainer {
         display: none;
@@ -55,7 +59,8 @@
 
     .mobile-menu {
         position: fixed;
-        display: block;
+        display: flex;
+        align-items: center;
         bottom: 0;
         left: 0;
         z-index: 50;
@@ -69,5 +74,35 @@
     .set-icon {
         margin-right: 0.5rem;
         margin-left: 0.5rem;
+    }
+
+    .floating-arrow {
+        display: block;
+        height: 75px;
+        background: linear-gradient(90deg, rgba(248, 249, 250, 0) 0%, rgba(230, 230, 230, 1) 100%);
+        display: flex;
+        align-items: center;
+        z-index: 60;
+    }
+
+    .floating-arrow-item {
+        font-size: 30px;
+        position: relative;
+        animation: example 2s 2s infinite alternate;
+    }
+
+    @keyframes example {
+        0% {
+            right: 0;
+        }
+        20% {
+            right: 0;
+        }
+        80% {
+            right: 3px;
+        }
+        100% {
+            right: 3px;
+        }
     }
 }
