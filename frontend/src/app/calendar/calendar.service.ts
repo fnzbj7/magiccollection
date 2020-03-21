@@ -1,27 +1,51 @@
 import { CalendarEvent } from './calendar-list/model/calendar-event.model';
-import { Subject } from 'rxjs';
+import { Subject, Observable } from 'rxjs';
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { environment } from 'src/environments/environment';
+import { CalendarDto } from './calendar-list/model/Calendar.dto';
+import { map } from 'rxjs/operators';
 
+@Injectable({ providedIn: 'root' })
 export class CalendarService {
-
     private calendarMap: Map<string, CalendarEvent[]>;
     private selectCalendarEventSub: Subject<number> = new Subject();
     private selectedCalendarEvent: CalendarEvent;
-    minnum = 20;
+    inited = false;
+
+    constructor(private http: HttpClient) {
+        this.calendarMap = new Map();
+    }
+
+    getAllCalendarEvent(): Observable<Map<string, CalendarEvent[]>> {
+        return this.http.get<CalendarDto[]>(`${environment.mainUrl}/calendar/all`).pipe(
+            map(a => {
+                this.inited = true;
+                this.calendarMap.clear();
+                a.forEach(b => {
+                    const c = new Date(b.eventStart);
+                    const d = new CalendarEvent(b.id, c.getHours(), c.getMinutes(), 'RNA Draft');
+                    this.addValueToCalendar(c.getFullYear(), c.getMonth() + 1, c.getDate(), d);
+                });
+                return this.calendarMap;
+            }),
+        );
+    }
 
     getCalendarValue(year: number, month: number, day: number) {
         if (!this.calendarMap) {
             // Init
             this.calendarMap = new Map();
-            const calendarItem = new CalendarEvent(1, 19, 20, 'RNA Draft' );
-            const calendarItem2 = new CalendarEvent(2, 19, 30, 'St' );
+            const calendarItem = new CalendarEvent(1, 19, 20, 'RNA Draft');
+            const calendarItem2 = new CalendarEvent(2, 19, 30, 'St');
 
-            const calendarItem3 = new CalendarEvent(3, 16, 30, 'Standard 2/7' );
-            const calendarItem4 = new CalendarEvent(4, 15, 30, 'RNA Prerelease Very long text' );
+            const calendarItem3 = new CalendarEvent(3, 16, 30, 'Standard 2/7');
+            const calendarItem4 = new CalendarEvent(4, 15, 30, 'RNA Prerelease Very long text');
             // const calendarItem5 = new CalendarEvent(0, 14, 30, 'RESET' );
-            const calendarItem5 = new CalendarEvent(5, 14, 30, 'Event Cust' );
-            const calendarItem6 = new CalendarEvent(6, 14, 30, 'Event Cust' );
-            const calendarItem7 = new CalendarEvent(7, 15, 30, 'RNA Prerelease Very long text' );
-            const calendarItem8 = new CalendarEvent(8, 19, 30, 'St' );
+            const calendarItem5 = new CalendarEvent(5, 14, 30, 'Event Cust');
+            const calendarItem6 = new CalendarEvent(6, 14, 30, 'Event Cust');
+            const calendarItem7 = new CalendarEvent(7, 15, 30, 'RNA Prerelease Very long text');
+            const calendarItem8 = new CalendarEvent(8, 19, 30, 'St');
 
             this.addValueToCalendar(2019, 2, 20, calendarItem);
             this.addValueToCalendar(2019, 2, 20, calendarItem2);
@@ -49,55 +73,54 @@ export class CalendarService {
     }
 
     addValueToCalendar(year: number, month: number, day: number, calendarEvent: CalendarEvent) {
-      // Save to database
-      const dateS = this.convertNumbersToDateString(year, month, day);
-      const calendarEventArray = this.calendarMap.get(dateS);
-      if (calendarEventArray) {
-        calendarEventArray.push(calendarEvent);
-        calendarEventArray.sort( (a, b) => {
-          if (a.hour !== b.hour) {
-            return a.hour - b.hour;
-          } else {
-            return a.minute - b.minute;
-          }
-        });
+        // Save to database
+        const dateS = this.convertNumbersToDateString(year, month, day);
+        const calendarEventArray = this.calendarMap.get(dateS);
+        if (calendarEventArray) {
+            calendarEventArray.push(calendarEvent);
+            calendarEventArray.sort((a, b) => {
+                if (a.hour !== b.hour) {
+                    return a.hour - b.hour;
+                } else {
+                    return a.minute - b.minute;
+                }
+            });
 
-        // ID-t késöbb megváltoztatni és a default 0 legyen
-      } else {
-        this.calendarMap.set(dateS, [calendarEvent]);
-      }
+            // ID-t késöbb megváltoztatni és a default 0 legyen
+        } else {
+            this.calendarMap.set(dateS, [calendarEvent]);
+        }
     }
 
     private convertNumbersToDateString(year: number, month: number, day: number): string {
         const yearS = '' + year;
         const monthS = month < 10 ? '0' + month : month;
-        const dayS =  day < 10 ? '0' + day : day;
+        const dayS = day < 10 ? '0' + day : day;
         return yearS + monthS + dayS;
     }
 
     getSelectedEventId() {
-      if (this.selectedCalendarEvent) {
-        return this.selectedCalendarEvent.id;
-      }
-      return 0;
+        if (this.selectedCalendarEvent) {
+            return this.selectedCalendarEvent.id;
+        }
+        return 0;
     }
 
     getselectCalendarEventSub() {
-      return this.selectCalendarEventSub.asObservable();
+        return this.selectCalendarEventSub.asObservable();
     }
 
-    selectCalendarEvent( calendarEvent?: CalendarEvent) {
-      if (calendarEvent) {
-        this.selectedCalendarEvent = calendarEvent;
-        this.selectCalendarEventSub.next(this.selectedCalendarEvent.id);
-      } else {
-        this.selectedCalendarEvent = null;
-        this.selectCalendarEventSub.next(0);
-      }
-
+    selectCalendarEvent(calendarEvent?: CalendarEvent) {
+        if (calendarEvent) {
+            this.selectedCalendarEvent = calendarEvent;
+            this.selectCalendarEventSub.next(this.selectedCalendarEvent.id);
+        } else {
+            this.selectedCalendarEvent = null;
+            this.selectCalendarEventSub.next(0);
+        }
     }
 
     getSelectedCalendarEvent() {
-      return this.selectedCalendarEvent;
+        return this.selectedCalendarEvent;
     }
 }

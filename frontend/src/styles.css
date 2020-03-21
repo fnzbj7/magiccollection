@@ -1,28 +1,40 @@
-@import "https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css";
+@import 'https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css';
 
 body {
-  background-repeat: no-repeat;
-  background-attachment: fixed;
-  background-position: top;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: top;
 }
 
 pagination-controls ul {
-  padding: 0;
+    padding: 0;
 }
 
 .pointer {
-  cursor: pointer;
+    cursor: pointer;
 }
 
-@media (min-width: 768px) { 
-  body.modal-open {
-    padding-right: 17px;
-  }
+@media (min-width: 768px) {
+    body.modal-open {
+        padding-right: 17px !important;
+    }
 }
 
 @media (min-width: 576px) {
-  .border-sm-0 {
-    border: 0 !important;
-  }
- }
+    .border-sm-0 {
+        border: 0 !important;
+    }
+}
 
+html,
+body {
+    height: 100%;
+}
+body {
+    margin: 0;
+    font-family: Roboto, 'Helvetica Neue', sans-serif;
+}
+
+.no-select {
+    user-select: none;
+}

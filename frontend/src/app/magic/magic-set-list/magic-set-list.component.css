@@ -1,0 +1,159 @@
+:host {
+    margin-right: 10px;
+    margin-left: 8px;
+    float: left;
+}
+
+#expansionContainer {
+    position: relative;
+    width: 80px;
+    background-color: #eee;
+    float: left;
+    margin: 0px;
+    display: inline-table;
+    z-index: 50;
+}
+
+.mobile-menu {
+    display: none;
+}
+
+.floating-arrow {
+    display: none;
+}
+
+@media (max-width: 740px) and (orientation: landscape) {
+    #expansionContainer {
+        display: none;
+    }
+
+    :host {
+        margin-right: 10px;
+        margin-left: 0;
+    }
+
+    .mobile-menu {
+        display: block;
+        left: 0;
+        z-index: 50;
+        height: 100vh;
+        overflow-y: scroll;
+    }
+
+    .set-icon {
+        margin-left: 18px;
+        margin-right: 18px;
+        display: block;
+    }
+
+    .sticky {
+        top: 0;
+        position: fixed;
+    }
+
+    .floating-arrow.dont-show-down {
+        display: none;
+    }
+
+    .floating-arrow {
+        bottom: 0;
+        left: 0;
+        height: 25px;
+        width: 81px;
+        background: linear-gradient(180deg, rgba(248, 249, 250, 0) 0%, rgba(230, 230, 230, 1) 100%);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 60;
+    }
+
+    .floating-arrow-item-down {
+        font-size: 30px;
+        position: relative;
+        animation: top-smooth 2s 2s infinite alternate;
+    }
+
+    .floating-arrow-item-right {
+        display: none;
+    }
+
+    @keyframes top-smooth {
+        0% {
+            top: 0;
+        }
+        20% {
+            top: 0;
+        }
+        80% {
+            top: 3px;
+        }
+        100% {
+            top: 3px;
+        }
+    }
+}
+
+@media (max-width: 575px) and (orientation: portrait) {
+    #expansionContainer {
+        display: none;
+    }
+
+    .mobile-menu {
+        position: fixed;
+        display: flex;
+        align-items: center;
+        bottom: 0;
+        left: 0;
+        z-index: 50;
+        width: 100%;
+        white-space: nowrap;
+        overflow-x: scroll;
+        overflow-y: hidden;
+        height: 75px;
+    }
+
+    .set-icon {
+        margin-right: 0.5rem;
+        margin-left: 0.5rem;
+    }
+
+    .floating-arrow.dont-show-right {
+        display: none;
+    }
+
+    .floating-arrow {
+        bottom: 0;
+        right: 0;
+        display: block;
+        height: 75px;
+        background: linear-gradient(90deg, rgba(248, 249, 250, 0) 0%, rgba(230, 230, 230, 1) 100%);
+        display: flex;
+        align-items: center;
+        z-index: 60;
+    }
+
+    .floating-arrow-item-right {
+        font-size: 30px;
+        position: relative;
+        animation: right-smooth 2s 2s infinite alternate;
+    }
+
+    .floating-arrow-item-down {
+        display: none;
+    }
+
+    @keyframes right-smooth {
+        0% {
+            right: 0;
+        }
+        20% {
+            right: 0;
+        }
+        80% {
+            right: 3px;
+        }
+        100% {
+            right: 3px;
+        }
+    }
+}

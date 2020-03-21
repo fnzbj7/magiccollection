@@ -7,10 +7,12 @@
     "rimraf": "^3.0.0"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "prealma": "echo Almafa",
+    "alma": "echo \"Error: no test specified\"",
+    "posttest2": "echo kacsa",
     "postinstall": "cd frontend && npm install --dev && cd ../backend && npm install --dev",
     "build": "cd backend && npm run build && cd ../frontend && npm run build && cd .. && rimraf frontend && cd backend npm prune",
-	"start": "cd backend && npm start"
+    "start": "cd backend && npm start"
   },
   "repository": {
     "type": "git",

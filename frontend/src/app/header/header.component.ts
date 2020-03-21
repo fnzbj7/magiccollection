@@ -1,38 +1,42 @@
 import { Component, OnInit } from '@angular/core';
-import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { AuthComponent } from '../auth/auth.component';
 import { AuthenticationService } from '../auth/authentication.service';
 import { User } from '../model/user.model';
 import { VersionService } from 'src/environments/version.service';
+import { faInfoCircle } from '@fortawesome/free-solid-svg-icons';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
-  selector: 'app-header',
-  templateUrl: './header.component.html',
-  styleUrls: ['./header.component.css']
+    selector: 'app-header',
+    templateUrl: './header.component.html',
+    styleUrls: ['./header.component.css'],
 })
 export class HeaderComponent implements OnInit {
-  bsModalRef: BsModalRef;
-  loggedUser: User;
-  version: string;
+    loggedUser: User;
+    version: string;
 
-  constructor(
-    private modalService: BsModalService,
-    private authenticationService: AuthenticationService,
-    private versionService: VersionService
-  ) {}
+    // Font-Aesome
+    faInfoCircle = faInfoCircle;
 
-  ngOnInit() {
-    this.authenticationService.currentUser.subscribe(user => {
-      this.loggedUser = user;
-    });
-    this.version = this.versionService.VERSION;
-  }
+    constructor(
+        private dialog: MatDialog,
+        private authenticationService: AuthenticationService,
+        private versionService: VersionService,
+    ) {}
 
-  openModalWithComponent() {
-    this.bsModalRef = this.modalService.show(AuthComponent);
-  }
+    ngOnInit() {
+        this.authenticationService.currentUser.subscribe(user => {
+            this.loggedUser = user;
+        });
+        this.version = this.versionService.VERSION;
+    }
 
-  onLogout() {
-    this.authenticationService.logout();
-  }
+    openModalWithComponent() {
+        this.dialog.open(AuthComponent);
+        // this.bsModalRef = this.modalService.show(AuthComponent);
+    }
+
+    onLogout() {
+        this.authenticationService.logout();
+    }
 }

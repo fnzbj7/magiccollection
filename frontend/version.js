@@ -4,14 +4,12 @@ var moment = require('moment-timezone');
 
 // moment.locale('hu')
 let a = moment().tz('Europe/Budapest');
-console.log(a);
-let gitInfo = a.format('YYYY-MM-DD HH:mm:ss')
-console.log(gitInfo);
-
+let gitInfo = a.format('YYYY-MM-DD HH:mm:ss');
 
 const file = resolve(__dirname, 'src', 'environments', 'version.service.ts');
-writeFileSync(file,
-`import { Injectable } from '@angular/core';
+writeFileSync(
+    file,
+    `import { Injectable } from '@angular/core';
 
 // IMPORTANT: THIS FILE IS AUTO GENERATED! DO NOT MANUALLY EDIT OR CHECKIN!
 /* tslint:disable */
@@ -20,7 +18,10 @@ export class VersionService {
   public VERSION = ${JSON.stringify(gitInfo, null, 4)};
 }
 /* tslint:enable */
-`, { encoding: 'utf-8' });
+`,
+    { encoding: 'utf-8' },
+);
 
-console.log(`Wrote version info to ${relative(resolve(__dirname, '..'), file)}`);
-
+console.log(
+    `Wrote version info to ${relative(resolve(__dirname, '..'), file)} with ${gitInfo} date.`,
+);

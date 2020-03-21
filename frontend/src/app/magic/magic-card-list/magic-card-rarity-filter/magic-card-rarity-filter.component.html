@@ -1,0 +1,11 @@
+<ul class="rarity-filter">
+  <li class="filter-element" (click)="onChangeRarityFilter('C', !isCommon)" [ngClass]="{'active': isCommon}">C</li>
+  <li class="filter-element" (click)="onChangeRarityFilter('U', !isUncommon)" [ngClass]="{'active': isUncommon}">U</li>
+  <li class="filter-element" (click)="onChangeRarityFilter('R', !isRare)" [ngClass]="{'active': isRare}">R</li>
+  <li class="filter-element" (click)="onChangeRarityFilter('M', !isMythic)" [ngClass]="{'active': isMythic}">M</li>
+</ul>
+<ul>
+    <li class="no-li-style"><input (change)="onChangeRadio()" type="radio" name="have" value="have" id="have" [(ngModel)]="quantityFilter" checked="checked">Van</li>
+    <li class="no-li-style"><input (change)="onChangeRadio()" type="radio" name="have" value="notHave" id="notHave" [(ngModel)]="quantityFilter" id="">Nincs</li>
+    <li class="no-li-style"><input (change)="onChangeRadio()" type="radio" name="have" value="all" id="all" [(ngModel)]="quantityFilter">Mindegyik</li>
+</ul>

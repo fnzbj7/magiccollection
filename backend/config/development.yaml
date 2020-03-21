@@ -1,9 +1,17 @@
 db:
-  host: 'localhost'
-  database: 'testmagic'
-  username: 'root'
-  password: 'admin'
-  synchronize: true
+    host: 'localhost'
+    database: 'testmagic'
+    username: 'root'
+    password: 'admin'
+    synchronize: true
 
 jwt:
-  secret: 'topSecret51'
+    secret: 'topSecret51'
+
+facebook:
+    appId: '732644653890540'
+
+log:
+    logLevel: ['log', 'error', 'warn', 'debug', 'verbose']
+
+https: true
