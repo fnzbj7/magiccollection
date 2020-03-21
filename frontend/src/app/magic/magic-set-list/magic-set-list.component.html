@@ -1,0 +1,30 @@
+<div
+    id="expansionContainer"
+    class="border border-sm-0 border-left-0 border-dark"
+>
+    <app-magic-set-icon
+        [expansionName]="cardSet"
+        *ngFor="let cardSet of cardSetsArray"
+    ></app-magic-set-icon>
+</div>
+
+<div (scroll)="onScroll($event)" class="mobile-menu bg-light">
+
+    <app-magic-set-icon
+        class="set-icon"
+        [expansionName]="cardSet"
+        *ngFor="let cardSet of cardSetsArray"
+    ></app-magic-set-icon>
+
+</div>
+
+<div [ngClass]="{'dont-show-down': isScrollDownHide, 'dont-show-right': isScrollRightHide}" class="position-fixed floating-arrow">
+    <fa-icon
+        [icon]="faAngleRight"
+        class="floating-arrow-item-right"
+    ></fa-icon>
+    <fa-icon
+        [icon]="faAngleDown"
+        class="floating-arrow-item-down"
+    ></fa-icon>
+</div>

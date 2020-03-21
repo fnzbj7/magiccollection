@@ -7,26 +7,21 @@ import { JwtModule } from '@nestjs/jwt';
 import { PassportModule } from '@nestjs/passport';
 import { JwtStrategy } from './jwt.strategy';
 import { GetUser } from './get-user.decorator';
+import { FacebookStrategy } from './facebook.strategy';
 
 @Module({
-  controllers: [AuthController],
-  imports: [
-    PassportModule.register({ defaultStrategy: 'jwt'}),
-    TypeOrmModule.forFeature([UserRepository]),
-    JwtModule.register( {
-      secret: 'topSecret51',
-      signOptions: {
-        expiresIn: 3600,
-      },
-    }),
-  ],
-  providers: [
-    AuthService,
-    JwtStrategy,
-  ],
-  exports: [
-    JwtStrategy,
-    PassportModule,
-  ],
+    controllers: [AuthController],
+    imports: [
+        PassportModule.register({ defaultStrategy: 'jwt' }),
+        TypeOrmModule.forFeature([UserRepository]),
+        JwtModule.register({
+            secret: process.env.JWT_KEY_MAGIC || 'topSecret51',
+            signOptions: {
+                expiresIn: 604800,
+            },
+        }),
+    ],
+    providers: [AuthService, JwtStrategy, FacebookStrategy],
+    exports: [JwtStrategy, PassportModule],
 })
 export class AuthModule {}

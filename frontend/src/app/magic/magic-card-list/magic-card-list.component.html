@@ -1,18 +1,21 @@
-<app-magic-expansion-list></app-magic-expansion-list>
-<div id="fullThings" class="mx-auto">
-  <app-magic-card-rarity-filter></app-magic-card-rarity-filter>
-  <pagination-controls class="my-pagination" maxSize="20" directionLinks="false" (pageChange)="onPageChange($event)" #page></pagination-controls>
-  <ul id="things" class="px-0">
-    <app-magic-card [magicCard]="card" *ngFor="let card of filteredCardsArray | paginate: { itemsPerPage: itemsPerPage, currentPage: currentPage }"></app-magic-card>
-    <!-- Fake Cards -->
-    <li class="fake-card"></li>
-    <li class="fake-card"></li>
-    <li class="fake-card"></li>
-    <li class="fake-card"></li>
-    <li class="fake-card"></li>
-    <li class="fake-card"></li>
-    <li class="fake-card"></li>
-    <li class="fake-card"></li>
-  </ul>
-  <pagination-controls class="my-pagination" maxSize="20" directionLinks="false" (pageChange)="onPageChange($event)"></pagination-controls>
+<app-magic-set-list
+    class="card-set-mobil-landscape"
+></app-magic-set-list>
+<div id="fullThings" *ngIf="expansion && filteredCardsArray">
+    <app-magic-card-rarity-filter></app-magic-card-rarity-filter>
+    <ngb-pagination class="my-pagination" [(page)]="currentPage" [pageSize]="itemsPerPage" [collectionSize]="filteredCardsArray.length" [directionLinks]="false"></ngb-pagination>
+    <ul id="things" class="px-0">
+        <app-magic-card [magicCard]="card" *ngFor="let card of filteredCardsArray | slice: (currentPage-1) * itemsPerPage : (currentPage-1) * itemsPerPage + itemsPerPage"></app-magic-card>
+
+        <!-- Fake Cards -->
+        <li class="fake-card"></li>
+        <li class="fake-card"></li>
+        <li class="fake-card"></li>
+        <li class="fake-card"></li>
+        <li class="fake-card"></li>
+        <li class="fake-card"></li>
+        <li class="fake-card"></li>
+        <li class="fake-card"></li>
+    </ul>
+    <ngb-pagination class="my-pagination" [(page)]="currentPage" [pageSize]="itemsPerPage" [collectionSize]="filteredCardsArray.length" [directionLinks]="false"></ngb-pagination>
 </div>

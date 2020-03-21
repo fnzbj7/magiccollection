@@ -1,6 +1,5 @@
 import { TypeOrmModuleOptions } from '@nestjs/typeorm';
 import * as config from 'config';
-import { join } from 'path';
 
 const dbConfig: any = config.get('db');
 

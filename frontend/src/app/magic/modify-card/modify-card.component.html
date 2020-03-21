@@ -1,0 +1,81 @@
+<div class="container bg-light p-3">
+    <h1 *ngIf="modifyQty > 0">Kártya hozzáadó rendszer</h1>
+    <h1 *ngIf="modifyQty < 0">Kártya törlő rendszer</h1>
+    <ng-container *ngIf="actualPageStep === pageStep.FORM">
+        <form (ngSubmit)="addCard()">
+            <textarea
+                name="card-numbers"
+                id="card-numbers"
+                [(ngModel)]="cardNumbersStr"
+                rows="5"
+            ></textarea
+            ><br />
+            Card set:
+            <select class="mb-3" name="cardSet" [(ngModel)]="cardSet">
+                <option
+                    [value]="cardSetvalue"
+                    *ngFor="let cardSetvalue of cardSetsArray"
+                    >{{ cardSetvalue }}</option
+                >
+            </select>
+            <br />
+            <button class="btn btn-primary">Elküld</button>
+            <p class="text-danger" *ngIf="isError">
+                Valami hiba történt, nézzed át a beírt számokat
+                <ng-container *ngIf="wrongNums?.length !== 0"
+                    ><br />A rossz számok:
+                    <ng-container *ngFor="let wrong of wrongNums"
+                        >{{ wrong }}
+                    </ng-container></ng-container
+                >
+                <ng-container *ngIf="notNumbers?.length !== 0"
+                    ><br />Nem szám:
+                    <ng-container *ngFor="let notNum of notNumbers"
+                        >{{ notNum }}
+                    </ng-container></ng-container
+                >
+            </p>
+        </form>
+    </ng-container>
+
+    <ng-container *ngIf="actualPageStep === pageStep.PREVIEW">
+        <div class="btn btn-primary" (click)="actualPageStep = pageStep.FORM">
+            Vissza
+        </div>
+        <div class="btn btn-primary ml-3" (click)="startUploading()">
+            Tovább a feltöltésre
+        </div>
+        <app-modify-preview
+            *ngIf="reducedArr"
+            [modifyCard]="reducedArr"
+        ></app-modify-preview>
+        <div class="btn btn-primary" (click)="actualPageStep = pageStep.FORM">
+            Vissza
+        </div>
+        <div class="btn btn-primary ml-3" (click)="startUploading()">
+            Tovább a feltöltésre
+        </div>
+    </ng-container>
+
+    <ng-container *ngIf="actualPageStep === pageStep.UPLOADED">
+        <p *ngIf="inProgress">Feltöltés folyamatban</p>
+
+        <p *ngIf="isError">Valami hiba történt</p>
+        <div
+            class="btn btn-primary"
+            *ngIf="isError"
+            (click)="actualPageStep = pageStep.FORM"
+        >
+            Vissza javítani
+        </div>
+
+        <p *ngIf="isFinished && !isError">Feltöltés befejezősött</p>
+        <div
+            class="btn btn-primary"
+            *ngIf="isFinished && !isError"
+            (click)="resetPage()"
+        >
+            Újabb feltöltés
+        </div>
+    </ng-container>
+</div>

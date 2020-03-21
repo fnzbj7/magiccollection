@@ -1,0 +1,7 @@
+:host {
+    width: 100%;
+}
+
+#card-numbers {
+    min-width: 350px;
+}
