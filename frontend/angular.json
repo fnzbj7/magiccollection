@@ -5,7 +5,7 @@
     "projects": {
         "magiccollection": {
             "root": "",
-            "sourceRoot": "src",
+            "sourceRoot": "src/frontend",
             "projectType": "application",
             "prefix": "app",
             "schematics": {},
@@ -15,24 +15,28 @@
                     "options": {
                         "aot": true,
                         "outputPath": "../backend/dist/magiccollection",
-                        "index": "src/index.html",
-                        "main": "src/main.ts",
-                        "polyfills": "src/polyfills.ts",
-                        "tsConfig": "src/tsconfig.app.json",
-                        "assets": ["src/favicon.ico", "src/assets", "src/sitemap.xml"],
+                        "index": "src/frontend/index.html",
+                        "main": "src/frontend/main.ts",
+                        "polyfills": "src/frontend/polyfills.ts",
+                        "tsConfig": "src/frontend/tsconfig.app.json",
+                        "assets": [
+                            "src/frontend/favicon.ico",
+                            "src/frontend/assets",
+                            "src/frontend/sitemap.xml"
+                        ],
                         "styles": [
                             "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
                             "./node_modules/bootstrap/dist/css/bootstrap.min.css",
-                            "src/styles.css"
+                            "src/frontend/styles.css"
                         ],
-                        "scripts": ["src/assets/js/modernizr-custom.js"]
+                        "scripts": ["src/frontend/assets/js/modernizr-custom.js"]
                     },
                     "configurations": {
                         "production": {
                             "fileReplacements": [
                                 {
-                                    "replace": "src/environments/environment.ts",
-                                    "with": "src/environments/environment.prod.ts"
+                                    "replace": "src/frontend/environments/environment.ts",
+                                    "with": "src/frontend/environments/environment.prod.ts"
                                 }
                             ],
                             "optimization": true,
@@ -45,7 +49,7 @@
                             "vendorChunk": false,
                             "buildOptimizer": true,
                             "serviceWorker": true,
-                            "ngswConfigPath": "src/ngsw-config.json",
+                            "ngswConfigPath": "src/frontend/ngsw-config.json",
                             "budgets": [
                                 {
                                     "type": "initial",
@@ -80,24 +84,27 @@
                 "test": {
                     "builder": "@angular-devkit/build-angular:karma",
                     "options": {
-                        "main": "src/test.ts",
-                        "polyfills": "src/polyfills.ts",
-                        "tsConfig": "src/tsconfig.spec.json",
-                        "karmaConfig": "src/karma.conf.js",
+                        "main": "src/frontend/test.ts",
+                        "polyfills": "src/frontend/polyfills.ts",
+                        "tsConfig": "src/frontend/tsconfig.spec.json",
+                        "karmaConfig": "src/frontend/karma.conf.js",
                         "styles": [
                             "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
                             "./node_modules/bootstrap/dist/css/bootstrap.min.css",
                             "./node_modules/ngx-bootstrap/datepicker/bs-datepicker.css",
-                            "src/styles.css"
+                            "src/frontend/styles.css"
                         ],
                         "scripts": [],
-                        "assets": ["src/favicon.ico", "src/assets"]
+                        "assets": ["src/frontend/favicon.ico", "src/frontend/assets"]
                     }
                 },
                 "lint": {
                     "builder": "@angular-devkit/build-angular:tslint",
                     "options": {
-                        "tsConfig": ["src/tsconfig.app.json", "src/tsconfig.spec.json"],
+                        "tsConfig": [
+                            "src/frontend/tsconfig.app.json",
+                            "src/frontend/tsconfig.spec.json"
+                        ],
                         "exclude": ["**/node_modules/**"]
                     }
                 }
