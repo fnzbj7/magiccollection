@@ -20,6 +20,7 @@ export class CardRepository extends Repository<Card> {
     }
 
     async getCardSetUser(cardSet: string, user: User): Promise<Card[]> {
+        console.log({ cardSet, user });
         return await this.createQueryBuilder('t_card')
             .innerJoinAndSelect('t_card.cardSet', 't_cardSet', 't_cardSet.short_name = :name', {
                 name: cardSet,
@@ -51,7 +52,7 @@ export class CardRepository extends Repository<Card> {
      * @param modifyCard
      */
     private checkCardUniqueness(modifyCard: ModifyCardDto) {
-        modifyCard.cardQuantitys.reduce((a, b) => {
+        modifyCard.cardQuantitys.reduce((a: any, b) => {
             if (a[b.cardNumber]) {
                 throw new BadRequestException(
                     `There was more than one from the same card number: ${b.cardNumber}`,

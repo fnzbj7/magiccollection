@@ -6,7 +6,6 @@ import { AuthService } from './auth.service';
 import { JwtModule } from '@nestjs/jwt';
 import { PassportModule } from '@nestjs/passport';
 import { JwtStrategy } from './jwt.strategy';
-import { GetUser } from './get-user.decorator';
 import { FacebookStrategy } from './facebook.strategy';
 
 @Module({
