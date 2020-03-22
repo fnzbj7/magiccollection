@@ -1,32 +1,103 @@
-# magiccollection
+# Magiccollection
+
+This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 7.2.1.
+
+## Development server
+
+Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+
+## Code scaffolding
+
+Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+
+## Build
+
+Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+
+## Running unit tests
+
+Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+
+## Running end-to-end tests
+
+Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
+
+## Further help
+
+To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+
+<p align="center">
+  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo_text.svg" width="320" alt="Nest Logo" /></a>
+</p>
+
+[travis-image]: https://api.travis-ci.org/nestjs/nest.svg?branch=master
+[travis-url]: https://travis-ci.org/nestjs/nest
+[linux-image]: https://img.shields.io/travis/nestjs/nest/master.svg?label=linux
+[linux-url]: https://travis-ci.org/nestjs/nest
+
+  <p align="center">A progressive <a href="http://nodejs.org" target="blank">Node.js</a> framework for building efficient and scalable server-side applications, heavily inspired by <a href="https://angular.io" target="blank">Angular</a>.</p>
+    <p align="center">
+<a href="https://www.npmjs.com/~nestjscore"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
+<a href="https://www.npmjs.com/~nestjscore"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
+<a href="https://www.npmjs.com/~nestjscore"><img src="https://img.shields.io/npm/dm/@nestjs/core.svg" alt="NPM Downloads" /></a>
+<a href="https://travis-ci.org/nestjs/nest"><img src="https://api.travis-ci.org/nestjs/nest.svg?branch=master" alt="Travis" /></a>
+<a href="https://travis-ci.org/nestjs/nest"><img src="https://img.shields.io/travis/nestjs/nest/master.svg?label=linux" alt="Linux" /></a>
+<a href="https://coveralls.io/github/nestjs/nest?branch=master"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#5" alt="Coverage" /></a>
+<a href="https://gitter.im/nestjs/nestjs?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=body_badge"><img src="https://badges.gitter.im/nestjs/nestjs.svg" alt="Gitter" /></a>
+<a href="https://opencollective.com/nest#backer"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
+<a href="https://opencollective.com/nest#sponsor"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
+  <a href="https://paypal.me/kamilmysliwiec"><img src="https://img.shields.io/badge/Donate-PayPal-dc3d53.svg"/></a>
+  <a href="https://twitter.com/nestframework"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
+</p>
+  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
+  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
 
 ## Description
 
-One day, i decided that, i want to train my webpage developing skills, and i need a system to organize my Magic® The Gathering collections. <br/>So, that's when this git repo was made.
+[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
 
-## Live
+## Installation
 
-This webpage is running on www.almateszekfoglaltvolt.hu <br/>
-\#Funfact: The url means **'I eat apples' was already taken**, don't ask how do i came up with this idea :)
+```bash
+$ npm install
+```
 
-## Functions
+## Running the app
 
-Now there are 2 functions on the live page<br/>
+```bash
+# development
+$ npm run start
 
-- The card list page (http://www.almateszekfoglaltvolt.hu/cards). Click on any Set icons on the left side. (There is a known bug, where the first selected set is not appearing, it will be fixed soon)
-- There is a calendar (still in development) to show and manage Magic contests (https://almateszekfoglaltvolt.hu/calendar)
-- Worth mentioning, you can register to my page and you get a dummy email. If you register and log in, you can see your own cards. The problem is that, you can't add new cards on the webpage (Work in progress)
+# watch mode
+$ npm run start:dev
 
-## Stack
+# production mode
+$ npm run start:prod
+```
 
-**Frontend:** Angular 7<br/>
-**Backend:** Nest.js + Express<br/>
-**Database:** Mysql
+## Test
 
-## Needed enviroment variable
+```bash
+# unit tests
+$ npm run test
 
-- **JWT_KEY_MAGIC**: It's the key for the JWT token
-- **PORT**: This port number will be used for the backend. _The default is 3000_
-- **DATABASE_URL**: The address to the database. (now only support MySQL databases)
-- **MAILGUN_API_KEY**: This key is used to send emails
-- **FB_APP_SECRET**: Facebook secret for OAuthV2 authentication
+# e2e tests
+$ npm run test:e2e
+
+# test coverage
+$ npm run test:cov
+```
+
+## Support
+
+Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+
+## Stay in touch
+
+-   Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
+-   Website - [https://nestjs.com](https://nestjs.com/)
+-   Twitter - [@nestframework](https://twitter.com/nestframework)
+
+## License
+
+Nest is [MIT licensed](LICENSE).

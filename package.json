@@ -1,28 +1,159 @@
 {
-  "name": "magiccollection",
-  "version": "1.0.0",
-  "description": "One day, i decided that, i want to train my webpage developing skills, and i need a system to organize my Magic® The Gathering collections. <br/>So, that's when this git repo was made.",
-  "main": "version.js",
-  "devDependencies": {
-    "rimraf": "^3.0.0"
-  },
-  "scripts": {
-    "prealma": "echo Almafa",
-    "alma": "echo \"Error: no test specified\"",
-    "posttest2": "echo kacsa",
-    "postinstall": "cd frontend && npm install --dev && cd ../backend && npm install --dev",
-    "build": "cd backend && npm run build && cd ../frontend && npm run build && cd .. && rimraf frontend && cd backend npm prune",
-    "start": "cd backend && npm start"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/fnzbj7/magiccollection.git"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/fnzbj7/magiccollection/issues"
-  },
-  "homepage": "https://github.com/fnzbj7/magiccollection#readme"
+    "name": "magiccollection",
+    "version": "1.0.0",
+    "description": "One day, i decided that, i want to train my webpage developing skills, and i need a system to organize my Magic® The Gathering collections. <br/>So, that's when this git repo was made.",
+    "main": "version.js",
+    "scripts": {
+        "build": "npm run back:build && npm run front:build",
+        "start": "node dist/main.js",
+        "postinstall": "node version.js",
+        "front:ng": "ng",
+        "front:start": "ng serve --ssl --ssl-key .\\certificates\\localhost.key  --ssl-cert .\\certificates\\localhost.crt",
+        "front:build": "ng build --prod",
+        "front:test": "ng test",
+        "front:posttest": "npm run format",
+        "front:lint": "ng lint",
+        "front:e2e": "ng e2e",
+        "front:prettier": "prettier --write \"src/frontend/app/**/*.{ts,scss}\"",
+        "front:format": "prettier --loglevel warn --write \"**/*.{js,css,md}\"",
+        "back:build": "rimraf dist && tsc -p tsconfig.build.json",
+        "back:format": "prettier --write \"src/**/*.ts\"",
+        "back:start": "ts-node -r tsconfig-paths/register src/main.ts",
+        "back:start:dev": "tsc-watch -p tsconfig.build.json --onSuccess \"node dist/main.js\"",
+        "back:start:debug": "tsc-watch -p tsconfig.build.json --onSuccess \"node --inspect-brk dist/main.js\"",
+        "back:start:prod": "node dist/main.js",
+        "back:lint": "tslint -p tsconfig.backend.json -c tslint.json",
+        "back:test": "jest",
+        "back:test:watch": "jest --watch",
+        "back:test:cov": "jest --coverage",
+        "back:test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
+        "back:test:e2e": "jest --config ./test/jest-e2e.json"
+    },
+    "dependencies": {
+        "@nestjs/common": "^7.0.3",
+        "@nestjs/core": "^7.0.3",
+        "@nestjs/jwt": "^7.0.0",
+        "@nestjs/passport": "^7.0.0",
+        "@nestjs/platform-express": "^7.0.3",
+        "@nestjs/typeorm": "^7.0.0",
+        "bcrypt": "^4.0.1",
+        "class-transformer": "^0.2.3",
+        "class-validator": "^0.11.1",
+        "compression": "^1.7.4",
+        "config": "^3.3.0",
+        "fs": "0.0.1-security",
+        "mailgun-js": "^0.22.0",
+        "mysql": "^2.18.1",
+        "passport": "^0.4.1",
+        "passport-facebook-token": "^3.3.0",
+        "passport-jwt": "^4.0.0",
+        "path": "^0.12.7",
+        "reflect-metadata": "^0.1.13",
+        "rimraf": "^3.0.2",
+        "rxjs": "^6.5.4",
+        "typeorm": "^0.2.24",
+        "@angular/animations": "^9.0.6",
+        "@angular/cdk": "^9.1.2",
+        "@angular/common": "^9.0.6",
+        "@angular/compiler": "^9.0.6",
+        "@angular/core": "^9.0.6",
+        "@angular/forms": "^9.0.6",
+        "@angular/localize": "^9.0.6",
+        "@angular/material": "^9.1.2",
+        "@angular/platform-browser": "^9.0.6",
+        "@angular/platform-browser-dynamic": "^9.0.6",
+        "@angular/router": "^9.0.6",
+        "@angular/service-worker": "^9.0.6",
+        "@fortawesome/angular-fontawesome": "^0.5.0",
+        "@fortawesome/fontawesome-svg-core": "^1.2.27",
+        "@fortawesome/free-solid-svg-icons": "^5.12.1",
+        "@ng-bootstrap/ng-bootstrap": "^5.3.0",
+        "@popperjs/core": "^2.1.0",
+        "@types/moment-timezone": "^0.5.12",
+        "angularx-social-login": "^2.2.1",
+        "bootstrap": "^4.4.1",
+        "core-js": "^2.6.11",
+        "husky": "^4.2.3",
+        "jquery": "^3.4.1",
+        "jwt-decode": "^2.2.0",
+        "ng-lazyload-image": "^7.1.0",
+        "popper.js": "^1.16.1",
+        "pretty-quick": "^2.0.1",
+        "tslib": "^1.11.1",
+        "yarn": "^1.22.4",
+        "zone.js": "~0.10.2"
+    },
+    "devDependencies": {
+        "@nestjs/testing": "^7.0.3",
+        "@types/bcrypt": "^3.0.0",
+        "@types/compression": "^1.7.0",
+        "@types/express": "4.17.3",
+        "@types/node": "13.9.2",
+        "@types/passport-facebook-token": "^0.4.34",
+        "@types/supertest": "2.0.8",
+        "@types/config": "0.0.36",
+        "@types/mailgun-js": "^0.22.4",
+        "jest": "25.1.0",
+        "supertest": "4.0.2",
+        "ts-jest": "25.2.1",
+        "ts-node": "8.7.0",
+        "tsc-watch": "4.2.3",
+        "tsconfig-paths": "3.9.0",
+        "tslint": "6.1.0",
+        "typescript": "~3.7.5",
+        "@angular-devkit/build-angular": "^0.900.6",
+        "@angular/cli": "^9.0.6",
+        "@angular/compiler-cli": "^9.0.6",
+        "@angular/language-service": "^9.0.6",
+        "@types/jwt-decode": "^2.2.1",
+        "codelyzer": "^5.1.2",
+        "fs-extra": "^8.1.0",
+        "jasmine-core": "~2.99.1",
+        "jasmine-spec-reporter": "~4.2.1",
+        "karma": "~4.1.0",
+        "karma-chrome-launcher": "~2.2.0",
+        "karma-coverage-istanbul-reporter": "~2.0.1",
+        "karma-jasmine": "~1.1.2",
+        "karma-jasmine-html-reporter": "^0.2.2",
+        "lint-staged": "^10.0.8",
+        "moment": "^2.24.0",
+        "moment-timezone": "^0.5.28",
+        "prettier": "^1.19.1",
+        "protractor": "^5.4.3"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/fnzbj7/magiccollection.git"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/fnzbj7/magiccollection/issues"
+    },
+    "homepage": "https://github.com/fnzbj7/magiccollection#readme",
+    "husky": {
+        "hooks": {
+            "pre-commit": "pretty-quick --staged"
+        }
+    },
+    "lint-staged": {
+        "*.ts": [
+            "./node_modules/.bin/tslint"
+        ]
+    },
+    "jest": {
+        "moduleFileExtensions": [
+            "js",
+            "json",
+            "ts"
+        ],
+        "rootDir": "src",
+        "testRegex": ".spec.ts$",
+        "transform": {
+            "^.+\\.(t|j)s$": "ts-jest"
+        },
+        "coverageDirectory": "../coverage",
+        "testEnvironment": "node"
+    }
 }
