@@ -1,0 +1,4 @@
+{
+    "extends": "./tsconfig.backend.json",
+    "exclude": ["node_modules", "test", "dist", "e2e", "src/frontend", "**/*spec.ts"]
+}
