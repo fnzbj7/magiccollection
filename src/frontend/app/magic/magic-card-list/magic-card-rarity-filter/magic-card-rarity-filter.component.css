@@ -40,3 +40,18 @@
 .no-li-style {
     list-style-type: none;
 }
+
+.quantity-img {
+    width: 20px;
+    box-sizing: content-box;
+}
+
+.quantity-img:not(.selected) {
+    padding: 7px;
+}
+
+.quantity-img.selected {
+    border: 2px solid black;
+    padding: 5px;
+    border-radius: 3px;
+}

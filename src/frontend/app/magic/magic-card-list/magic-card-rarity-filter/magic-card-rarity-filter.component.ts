@@ -15,6 +15,7 @@ export class MagicCardRarityFilterComponent implements OnInit {
     isRare = true;
     isMythic = true;
     quantityFilter: QuantityFilterEnum;
+    quantityEnum = QuantityFilterEnum;
 
     constructor(private magicCardsListService: MagicCardsListService) {}
 
@@ -68,7 +69,8 @@ export class MagicCardRarityFilterComponent implements OnInit {
         }
     }
 
-    onChangeRadio() {
+    onChangeRadio(newQuantity: QuantityFilterEnum) {
+        this.quantityFilter = newQuantity;
         this.magicCardsListService.changeQuantityFilter(this.quantityFilter);
     }
 }
