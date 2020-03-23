@@ -38,3 +38,83 @@ body {
 .no-select {
     user-select: none;
 }
+
+.tooltip-w3 {
+    position: relative;
+    display: inline-block;
+}
+
+.tooltip-w3 .tooltiptext-w3 {
+    visibility: hidden;
+    width: 120px;
+    background-color: #555;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 0;
+    position: absolute;
+    z-index: 10;
+    top: calc(100% + 10px);
+    left: -30px;
+    margin-left: -60px;
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.tooltip-w3 .tooltiptext-w3::after {
+    content: '';
+    position: absolute;
+    bottom: 100%;
+    right: 17px;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: transparent transparent #555 transparent;
+}
+
+.tooltip-w3 .right.tooltiptext-w3 {
+    margin-left: 30px;
+}
+
+.tooltip-w3 .right.tooltiptext-w3::after {
+    left: 17px;
+    right: unset;
+}
+
+.tooltip-w3 .top.tooltiptext-w3 {
+    top: initial;
+    bottom: calc(100% + 10px);
+}
+
+.tooltip-w3 .top.tooltiptext-w3::after {
+    top: 100%;
+    right: 96px;
+    border-color: #555 transparent transparent transparent;
+}
+
+@media (max-width: 991.98px) {
+    .tooltip-w3 .top-md.tooltiptext-w3 {
+        top: initial;
+        bottom: calc(100% + 10px);
+    }
+
+    .tooltip-w3 .top-md.tooltiptext-w3::after {
+        top: 100%;
+        right: 96px;
+        border-color: #555 transparent transparent transparent;
+    }
+
+    .tooltip-w3 .right-md.tooltiptext-w3 {
+        margin-left: 30px;
+    }
+
+    .tooltip-w3 .right-md.tooltiptext-w3::after {
+        left: 17px;
+        right: unset;
+    }
+}
+
+.tooltip-w3:hover .tooltiptext-w3 {
+    visibility: visible;
+    opacity: 1;
+}
