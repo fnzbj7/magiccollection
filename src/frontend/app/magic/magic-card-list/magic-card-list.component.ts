@@ -35,7 +35,7 @@ export class MagicCardListComponent implements OnInit, OnDestroy {
 
     ngOnInit() {
         this.expansion = this.route.snapshot.params['expansion'];
-        this.currentUserSub = this.authenticationService.currentUser.subscribe(user => {
+        this.currentUserSub = this.authenticationService.currentUserSubject.subscribe(user => {
             if (this.expansion) {
                 this.getCardsFromExpansion(this.expansion);
             }
@@ -106,6 +106,10 @@ export class MagicCardListComponent implements OnInit, OnDestroy {
                     card => card.cardAmount === 0,
                 );
         }
+    }
+
+    trackCard(index: number, card: Card) {
+        return card.cardExpansion + card.cardNumber;
     }
 
     ngOnDestroy() {

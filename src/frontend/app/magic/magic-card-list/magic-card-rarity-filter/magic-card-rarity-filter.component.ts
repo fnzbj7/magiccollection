@@ -3,6 +3,7 @@ import { MagicCardsListService } from '../magic-cards-list.service';
 import { QuantityFilterEnum } from '../../../model/quantity-filter.enum';
 import { CardRarity } from '../../../model/card-rarity.enum';
 import { FilterChange } from '../../../model/filter-change.model';
+import { AuthenticationService } from '../../../auth/authentication.service';
 
 @Component({
     selector: 'app-magic-card-rarity-filter',
@@ -16,8 +17,12 @@ export class MagicCardRarityFilterComponent implements OnInit {
     isMythic = true;
     quantityFilter: QuantityFilterEnum;
     quantityEnum = QuantityFilterEnum;
+    isAuth = false;
 
-    constructor(private magicCardsListService: MagicCardsListService) {}
+    constructor(
+        private magicCardsListService: MagicCardsListService,
+        private authenticationService: AuthenticationService,
+    ) {}
 
     ngOnInit() {
         this.quantityFilter = this.magicCardsListService.quantityFilterSub.value;
@@ -25,6 +30,14 @@ export class MagicCardRarityFilterComponent implements OnInit {
 
         this.magicCardsListService.filterChange.subscribe(change => {
             this.setRarityFilter(change);
+        });
+
+        this.authenticationService.currentUserSubject.subscribe(newStatus => {
+            this.isAuth = newStatus !== null;
+            if (!this.isAuth && QuantityFilterEnum.ALL !== this.quantityFilter) {
+                this.quantityFilter = QuantityFilterEnum.ALL;
+                this.magicCardsListService.changeQuantityFilter(QuantityFilterEnum.ALL);
+            }
         });
     }
 

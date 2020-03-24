@@ -25,7 +25,7 @@ export class HeaderComponent implements OnInit {
     ) {}
 
     ngOnInit() {
-        this.authenticationService.currentUser.subscribe(user => {
+        this.authenticationService.currentUserSubject.subscribe(user => {
             this.loggedUser = user;
         });
         this.version = this.versionService.VERSION;

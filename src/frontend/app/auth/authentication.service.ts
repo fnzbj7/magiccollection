@@ -10,8 +10,7 @@ import { LocalStorageService } from './local-storage.service';
 
 @Injectable({ providedIn: 'root' })
 export class AuthenticationService {
-    private currentUserSubject: BehaviorSubject<User>;
-    public currentUser: Observable<User>;
+    currentUserSubject: BehaviorSubject<User>;
     private loggedIn = false;
 
     constructor(private http: HttpClient, private localStorageService: LocalStorageService) {
@@ -22,7 +21,6 @@ export class AuthenticationService {
             this.expirationDateValidAndRefresh(<string>currentUserJson.expiresIn);
         currentUserJson = this.loggedIn ? currentUserJson : null;
         this.currentUserSubject = new BehaviorSubject<User>(currentUserJson);
-        this.currentUser = this.currentUserSubject.asObservable();
     }
 
     expirationDateValidAndRefresh(expiresIn: string): boolean {
