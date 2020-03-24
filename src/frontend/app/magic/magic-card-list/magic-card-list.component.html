@@ -5,7 +5,7 @@
     <app-magic-card-rarity-filter></app-magic-card-rarity-filter>
     <ngb-pagination class="my-pagination" [(page)]="currentPage" [pageSize]="itemsPerPage" [collectionSize]="filteredCardsArray.length" [directionLinks]="false"></ngb-pagination>
     <ul id="things" class="px-0">
-        <app-magic-card [magicCard]="card" *ngFor="let card of filteredCardsArray | slice: (currentPage-1) * itemsPerPage : (currentPage-1) * itemsPerPage + itemsPerPage"></app-magic-card>
+        <app-magic-card [magicCard]="card" *ngFor="let card of filteredCardsArray | slice: (currentPage-1) * itemsPerPage : (currentPage-1) * itemsPerPage + itemsPerPage; trackBy: trackCard"></app-magic-card>
 
         <!-- Fake Cards -->
         <li class="fake-card"></li>
