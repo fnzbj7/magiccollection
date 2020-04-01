@@ -37,7 +37,7 @@
                 <a class="nav-link disabled" href="#">Disabled</a>
             </li>
             <li class="nav-item">
-                <p *ngIf="!loggedUser" class="nav-link pointer" (click)="openModalWithComponent()">
+                <p *ngIf="!loggedUser" class="nav-link pointer mb-0" (click)="openModalWithComponent()">
                     Log in
                 </p>
                 <p *ngIf="loggedUser" class="nav-link pointer mb-0" (click)="onLogout()">Log Out</p>
@@ -99,7 +99,7 @@
                 data-toggle="collapse"
                 data-target="#navbarSupportedContent"
             >
-                <p class="nav-link pointer" (click)="openModalWithComponent()">
+                <p class="nav-link pointer mb-0" (click)="openModalWithComponent()">
                     Log in
                 </p>
             </li>
