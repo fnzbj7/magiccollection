@@ -1,5 +1,6 @@
 import { Component, ViewEncapsulation } from '@angular/core';
 import { ModalService } from './shared/modal.service';
+import { SwUpdate } from '@angular/service-worker';
 
 @Component({
     selector: 'app-root',
@@ -10,7 +11,11 @@ import { ModalService } from './shared/modal.service';
 export class AppComponent {
     title = 'Magicapp';
 
-    constructor(private modalService: ModalService) {}
+    constructor(private modalService: ModalService, updates: SwUpdate) {
+        updates.available.subscribe(event => {
+            updates.activateUpdate().then(() => document.location.reload());
+        });
+    }
 
     removeModal() {
         document.getElementById('modal-container').classList.remove('show-after');
