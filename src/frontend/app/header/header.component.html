@@ -13,7 +13,7 @@
     </button>
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav mr-auto d-none d-lg-flex">
+        <ul class="navbar-nav mr-auto d-none d-lg-flex" style="align-items: center;">
             <li
                 class="nav-item"
                 routerLinkActive="active"
@@ -36,13 +36,15 @@
             <li class="nav-item">
                 <a class="nav-link disabled" href="#">Disabled</a>
             </li>
-            <li class="nav-item" *ngIf="!loggedUser">
-                <p class="nav-link pointer" (click)="openModalWithComponent()">
+            <li class="nav-item">
+                <p *ngIf="!loggedUser" class="nav-link pointer" (click)="openModalWithComponent()">
                     Log in
                 </p>
+                <p *ngIf="loggedUser" class="nav-link pointer mb-0" (click)="onLogout()">Log Out</p>
             </li>
             <li class="nav-item" *ngIf="loggedUser">
-                <p class="nav-link pointer" (click)="onLogout()">Log Out</p>
+                <img src="/assets/img/user-icon/default-icon.png" style="width: 40px">
+                {{loggedUser.email}}
             </li>
         </ul>
 
@@ -107,7 +109,11 @@
                 data-toggle="collapse"
                 data-target="#navbarSupportedContent"
             >
-                <p class="nav-link pointer" (click)="onLogout()">Log Out</p>
+                <p class="nav-link pointer mb-0" (click)="onLogout()">Log Out</p>
+            </li>
+            <li class="nav-item" *ngIf="loggedUser">
+                <img src="/assets/img/user-icon/default-icon.png" style="width: 40px">
+                {{loggedUser.email}}
             </li>
         </ul>
         <div class="tooltip-w3">
