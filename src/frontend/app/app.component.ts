@@ -1,6 +1,7 @@
 import { Component, ViewEncapsulation } from '@angular/core';
 import { ModalService } from './shared/modal.service';
 import { SwUpdate } from '@angular/service-worker';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
     selector: 'app-root',
@@ -11,9 +12,20 @@ import { SwUpdate } from '@angular/service-worker';
 export class AppComponent {
     title = 'Magicapp';
 
-    constructor(private modalService: ModalService, updates: SwUpdate) {
+    constructor(
+        private modalService: ModalService,
+        updates: SwUpdate,
+        private snackbar: MatSnackBar,
+    ) {
         updates.available.subscribe(event => {
-            updates.activateUpdate().then(() => document.location.reload());
+            const snack = this.snackbar.open('Update Available', 'Reload', {
+                duration: 6000,
+                horizontalPosition: 'right',
+            });
+
+            snack.onAction().subscribe(() => {
+                window.location.reload();
+            });
         });
     }
 

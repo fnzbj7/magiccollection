@@ -27,6 +27,7 @@ import { ModifyPreviewComponent } from './magic/modify-card/modify-preview/modif
 import { ModifyCardComponent } from './magic/modify-card/modify-card.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 const config = new AuthServiceConfig([
     {
@@ -73,6 +74,7 @@ export function provideConfig() {
         SharedModule,
         BrowserAnimationsModule,
         MatDialogModule,
+        MatSnackBarModule,
     ],
     providers: [
         { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
