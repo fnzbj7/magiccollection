@@ -28,6 +28,11 @@
     z-index: -10;
 }
 
+.mat-drawer-content.mat-sidenav-content {
+    display: initial;
+    position: absolute;
+}
+
 @media (max-width: 575px) {
     .no-webp body {
         background-image: url('/assets/background/background_mobile.png');

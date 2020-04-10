@@ -23,6 +23,10 @@
     display: none;
 }
 
+.floating-arrow-left {
+    display: none;
+}
+
 @media (max-width: 740px) and (orientation: landscape) {
     #expansionContainer {
         display: none;
@@ -31,6 +35,8 @@
     :host {
         margin-right: 10px;
         margin-left: 0;
+        margin-top: -1.4rem;
+        height: 100px !important;
     }
 
     .mobile-menu {
@@ -52,7 +58,7 @@
         position: fixed;
     }
 
-    .floating-arrow.dont-show-down {
+    .dont-show-down {
         display: none;
     }
 
@@ -72,6 +78,9 @@
         font-size: 30px;
         position: relative;
         animation: top-smooth 2s 2s infinite alternate;
+    }
+    .floating-arrow-item-down-container {
+        display: block;
     }
 
     .floating-arrow-item-right {
@@ -118,7 +127,22 @@
         padding-left: 0.5rem;
     }
 
+    .floating-arrow-left {
+        display: block;
+        bottom: 0;
+        left: 0;
+        height: 75px;
+        display: flex;
+        align-items: center;
+        z-index: 60;
+        background: linear-gradient(270deg, rgba(248, 249, 250, 0) 0%, rgba(230, 230, 230, 1) 100%);
+    }
+
     .floating-arrow.dont-show-right {
+        display: none;
+    }
+
+    .dont-show-left {
         display: none;
     }
 
@@ -133,13 +157,22 @@
         z-index: 60;
     }
 
-    .floating-arrow-item-right {
+    .floating-arrow-item-right,
+    .floating-arrow-item-left {
         font-size: 30px;
         position: relative;
+    }
+
+    .floating-arrow-item-right {
         animation: right-smooth 2s 2s infinite alternate;
     }
 
-    .floating-arrow-item-down {
+    .floating-arrow-item-left {
+        animation: left-smooth 2s 2s infinite alternate;
+    }
+
+    .floating-arrow-item-down,
+    .floating-arrow-item-down-container {
         display: none;
     }
 
@@ -155,6 +188,21 @@
         }
         100% {
             right: 3px;
+        }
+    }
+
+    @keyframes left-smooth {
+        0% {
+            left: 0;
+        }
+        20% {
+            left: 0;
+        }
+        80% {
+            left: 3px;
+        }
+        100% {
+            left: 3px;
         }
     }
 }
