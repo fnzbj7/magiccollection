@@ -8,7 +8,7 @@
     ></app-magic-set-icon>
 </div>
 
-<div (scroll)="onScroll($event)" class="mobile-menu bg-light">
+<div (scroll)="onScroll($event)" class="mobile-menu bg-light" #setmenu>
 
     <app-magic-set-icon
         class="set-icon"
@@ -18,13 +18,25 @@
 
 </div>
 
-<div [ngClass]="{'dont-show-down': isScrollDownHide, 'dont-show-right': isScrollRightHide}" class="position-fixed floating-arrow">
+<div class="position-fixed floating-arrow-left pointer" (click)="onScrollLeft(setmenu)" [ngClass]="{'dont-show-left': isScrollLeftHide}">
     <fa-icon
+        [icon]="faAngleLeft"
+        class="floating-arrow-item-left"
+        ></fa-icon>
+</div>
+
+<div [ngClass]="{'dont-show-down': isScrollDownHide, 'dont-show-right': isScrollRightHide}" class="position-fixed floating-arrow">
+    <div class="pointer" (click)="onScrollRight(setmenu)" style="padding-left: 8px;">
+        <fa-icon
         [icon]="faAngleRight"
         class="floating-arrow-item-right"
-    ></fa-icon>
-    <fa-icon
-        [icon]="faAngleDown"
-        class="floating-arrow-item-down"
-    ></fa-icon>
+        ></fa-icon>
+    </div>
+
+    <div class="pointer floating-arrow-item-down-container" (click)="onScrollDown(setmenu)" style="padding-left: 10px; padding-right: 10px;">
+        <fa-icon
+            [icon]="faAngleDown"
+            class="floating-arrow-item-down"
+        ></fa-icon>
+    </div>
 </div>

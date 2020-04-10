@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ElementRef, AfterViewInit } from '@angular/core';
 import { MagicCardsListService } from '../magic-card-list/magic-cards-list.service';
-import { faAngleRight, faAngleDown } from '@fortawesome/free-solid-svg-icons';
+import { faAngleRight, faAngleDown, faAngleLeft } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
     selector: 'app-magic-set-list',
@@ -12,9 +12,12 @@ export class MagicSetListComponent implements OnInit {
 
     // FontAwesome
     faAngleRight = faAngleRight;
+    faAngleLeft = faAngleLeft;
     faAngleDown = faAngleDown;
 
     isScrollRightHide = false;
+    isScrollLeftHide = true;
+
     isScrollDownHide = false;
 
     constructor(private magicCardsListService: MagicCardsListService) {}
@@ -24,17 +27,25 @@ export class MagicSetListComponent implements OnInit {
     }
 
     onScroll(event: any) {
-        if (event.srcElement.scrollLeft > 200) {
+        const el: HTMLElement = event.srcElement;
+        const heightLimit = el.scrollHeight - el.clientHeight;
+        const widthLimit = el.scrollWidth - el.clientWidth;
+
+        if (widthLimit > 0 && el.scrollLeft >= widthLimit) {
             this.isScrollRightHide = true;
-        }
-        if (this.isScrollRightHide && event.srcElement.scrollLeft < 200) {
+        } else if (this.isScrollRightHide && el.scrollLeft < widthLimit) {
             this.isScrollRightHide = false;
         }
 
-        if (event.srcElement.scrollTop > 200) {
-            this.isScrollDownHide = true;
+        if (el.scrollLeft > 0) {
+            this.isScrollLeftHide = false;
+        } else {
+            this.isScrollLeftHide = true;
         }
-        if (this.isScrollDownHide && event.srcElement.scrollTop < 200) {
+
+        if (heightLimit === 0 || el.scrollTop >= heightLimit) {
+            this.isScrollDownHide = true;
+        } else if (this.isScrollDownHide && el.scrollTop < heightLimit) {
             this.isScrollDownHide = false;
         }
 
@@ -42,5 +53,26 @@ export class MagicSetListComponent implements OnInit {
         // if (this.isScrollVisible) {
         //     this.isScrollVisible = false;
         // }
+    }
+
+    onScrollDown(setListRef: any) {
+        setListRef.scrollBy({
+            top: setListRef.offsetHeight * 0.65,
+            behavior: 'smooth',
+        });
+    }
+
+    onScrollRight(setListRef: HTMLElement) {
+        setListRef.scrollBy({
+            left: setListRef.offsetWidth * 0.65,
+            behavior: 'smooth',
+        });
+    }
+
+    onScrollLeft(setListRef: HTMLElement) {
+        setListRef.scrollBy({
+            left: -setListRef.offsetWidth * 0.65,
+            behavior: 'smooth',
+        });
     }
 }
