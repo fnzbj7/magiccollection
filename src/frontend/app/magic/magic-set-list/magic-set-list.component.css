@@ -16,6 +16,7 @@
 
 .mobile-menu {
     display: none;
+    scrollbar-width: thin;
 }
 
 .floating-arrow {
@@ -113,8 +114,8 @@
     }
 
     .set-icon {
-        margin-right: 0.5rem;
-        margin-left: 0.5rem;
+        padding-right: 0.5rem;
+        padding-left: 0.5rem;
     }
 
     .floating-arrow.dont-show-right {

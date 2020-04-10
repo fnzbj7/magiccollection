@@ -28,6 +28,8 @@ import { ModifyCardComponent } from './magic/modify-card/modify-card.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { SideMenuComponent } from './header/side-menu/side-menu.component';
 
 const config = new AuthServiceConfig([
     {
@@ -55,6 +57,7 @@ export function provideConfig() {
         MagicCardModalComponent,
         ModifyCardComponent,
         ModifyPreviewComponent,
+        SideMenuComponent,
     ],
     entryComponents: [AuthComponent, MagicCardModalComponent],
     imports: [
@@ -75,6 +78,7 @@ export function provideConfig() {
         BrowserAnimationsModule,
         MatDialogModule,
         MatSnackBarModule,
+        MatSidenavModule,
     ],
     providers: [
         { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },

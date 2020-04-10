@@ -1,8 +1,18 @@
-<app-header></app-header>
-<div id="container" class="w-100 px-0 d-flex mt-4">
-        <router-outlet></router-outlet>
-</div>
 
-<!-- Custom modal setup -->
-<div id="modal-container" class="hidden"></div>
-<div id="overlay" (click)="removeModal()" class="hidden"></div>
+<mat-sidenav-container class="example-container" style="min-height: 100vh; background-color: unset;">
+    <mat-sidenav #sidenav mode="over" [(opened)]="opened">
+        <app-side-menu></app-side-menu>
+    </mat-sidenav>
+
+    <mat-sidenav-content>
+        <app-header></app-header>
+        <div id="container" class="w-100 px-0 d-flex mt-4">
+            <router-outlet></router-outlet>
+        </div>
+
+        <!-- Custom modal setup -->
+        <div id="modal-container" class="hidden"></div>
+        <div id="overlay" (click)="removeModal()" class="hidden"></div>
+    </mat-sidenav-content>
+</mat-sidenav-container>
+

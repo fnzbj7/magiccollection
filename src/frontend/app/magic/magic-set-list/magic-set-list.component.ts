@@ -23,7 +23,7 @@ export class MagicSetListComponent implements OnInit {
         this.cardSetsArray = this.magicCardsListService.cardSetsArray;
     }
 
-    onScroll(event) {
+    onScroll(event: any) {
         if (event.srcElement.scrollLeft > 200) {
             this.isScrollRightHide = true;
         }

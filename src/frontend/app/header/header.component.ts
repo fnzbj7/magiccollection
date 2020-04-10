@@ -3,8 +3,9 @@ import { AuthComponent } from '../auth/auth.component';
 import { AuthenticationService } from '../auth/authentication.service';
 import { User } from '../model/user.model';
 import { VersionService } from '../../environments/version.service';
-import { faInfoCircle } from '@fortawesome/free-solid-svg-icons';
+import { faInfoCircle, faBars } from '@fortawesome/free-solid-svg-icons';
 import { MatDialog } from '@angular/material/dialog';
+import { SideMenuService } from '../shared/side-menu.service';
 
 @Component({
     selector: 'app-header',
@@ -17,11 +18,13 @@ export class HeaderComponent implements OnInit {
 
     // Font-Aesome
     faInfoCircle = faInfoCircle;
+    faBars = faBars;
 
     constructor(
         private dialog: MatDialog,
         private authenticationService: AuthenticationService,
         private versionService: VersionService,
+        public sideMenuService: SideMenuService,
     ) {}
 
     ngOnInit() {
