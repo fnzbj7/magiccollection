@@ -2,6 +2,11 @@ import { Component, ViewEncapsulation } from '@angular/core';
 import { ModalService } from './shared/modal.service';
 import { SwUpdate } from '@angular/service-worker';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { SideMenuService } from './shared/side-menu.service';
+import { AuthenticationService } from './auth/authentication.service';
+import { AuthComponent } from './auth/auth.component';
+import { MatDialog } from '@angular/material/dialog';
+import { User } from './model/user.model';
 
 @Component({
     selector: 'app-root',
@@ -11,11 +16,14 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 })
 export class AppComponent {
     title = 'Magicapp';
+    opened = false;
+    loggedUser: User;
 
     constructor(
         private modalService: ModalService,
-        updates: SwUpdate,
+        private updates: SwUpdate,
         private snackbar: MatSnackBar,
+        private sideMenuService: SideMenuService,
     ) {
         updates.available.subscribe(event => {
             const snack = this.snackbar.open('Update Available', 'Reload', {
@@ -26,6 +34,10 @@ export class AppComponent {
             snack.onAction().subscribe(() => {
                 window.location.reload();
             });
+        });
+
+        this.sideMenuService.openSideMenuSub.subscribe(() => {
+            this.opened = !this.opened;
         });
     }
 

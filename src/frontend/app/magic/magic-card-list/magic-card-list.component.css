@@ -120,7 +120,12 @@ ul {
     #fullThings {
         padding-left: 0;
         padding-right: 0;
-        margin-bottom: 75px;
+        margin-bottom: 85px;
+        margin-left: 3px;
+    }
+
+    :host {
+        margin-right: 3px;
     }
 }
 

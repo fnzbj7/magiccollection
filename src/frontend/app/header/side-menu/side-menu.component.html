@@ -1,0 +1,54 @@
+<ul class="navbar-nav" style="margin-left: 30px; margin-right: 20px;">
+    <li
+        class="nav-item"
+        routerLinkActive="active"
+        [routerLinkActiveOptions]="{ exact: true }"
+    >
+        <a class="nav-link" routerLink="/">Home</a>
+    </li>
+    <li
+        class="nav-item"
+        routerLinkActive="active"
+    >
+        <a class="nav-link" routerLink="/cards">My Cards</a>
+    </li>
+    <li
+        class="nav-item"
+        routerLinkActive="active"
+    >
+        <a class="nav-link" routerLink="/calendar">Calendar</a>
+    </li>
+    <li
+        class="nav-item"
+        routerLinkActive="active"
+    >
+        <a class="nav-link" routerLink="/addcards">Add Cards</a>
+    </li>
+    <li
+        class="nav-item"
+        routerLinkActive="active"
+    >
+        <a class="nav-link" routerLink="/removecards">Remove Cards</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link disabled" href="#">Disabled</a>
+    </li>
+    <li
+        class="nav-item"
+        *ngIf="!loggedUser"
+    >
+        <p class="nav-link pointer mb-0" (click)="openModalWithComponent()">
+            Log in
+        </p>
+    </li>
+    <li
+        class="nav-item"
+        *ngIf="loggedUser"
+    >
+        <p class="nav-link pointer mb-0" (click)="onLogout()">Log Out</p>
+    </li>
+    <li class="nav-item" *ngIf="loggedUser">
+        <img src="/assets/img/user-icon/default-icon.png" style="width: 40px">
+        {{loggedUser.email}}
+    </li>
+</ul>
