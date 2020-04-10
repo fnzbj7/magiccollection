@@ -31,6 +31,7 @@
 .mat-drawer-content.mat-sidenav-content {
     display: initial;
     position: absolute;
+    width: 100%;
 }
 
 @media (max-width: 575px) {
