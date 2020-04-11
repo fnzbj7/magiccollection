@@ -20,6 +20,7 @@ export class MagicCardsListService {
     quantityFilterSub = new BehaviorSubject<QuantityFilterEnum>(QuantityFilterEnum.ALL);
 
     cardSetsArray: string[] = [
+        'IKO',
         'THB',
         'ELD',
         'M20',
@@ -41,6 +42,7 @@ export class MagicCardsListService {
     ];
 
     maxCardNumber = {
+        IKO: 387,
         AER: 194,
         AKH: 287,
         BFZ: 274,
