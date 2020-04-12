@@ -22,7 +22,8 @@
                         "assets": [
                             "src/frontend/favicon.ico",
                             "src/frontend/assets",
-                            "src/frontend/sitemap.xml"
+                            "src/frontend/sitemap.xml",
+                            "src/frontend/manifest.webmanifest"
                         ],
                         "styles": [
                             "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
@@ -95,7 +96,11 @@
                             "src/frontend/styles.css"
                         ],
                         "scripts": [],
-                        "assets": ["src/frontend/favicon.ico", "src/frontend/assets"]
+                        "assets": [
+                            "src/frontend/favicon.ico",
+                            "src/frontend/assets",
+                            "src/manifest.webmanifest"
+                        ]
                     }
                 },
                 "lint": {
