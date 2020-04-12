@@ -44,6 +44,7 @@ export class CardService {
             cardAmountDto.cardAmount = this.getCardAmount(card);
             cardAmountDto.layout = card.layout;
             cardAmountDto.rarity = card.rarity;
+            cardAmountDto.name = card.name;
             cardAmountDtoList.push(cardAmountDto);
         }
 

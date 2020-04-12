@@ -4,4 +4,5 @@ export class CardAmountDto {
     cardAmount: number;
     layout: string;
     rarity: string;
+    name: string;
 }

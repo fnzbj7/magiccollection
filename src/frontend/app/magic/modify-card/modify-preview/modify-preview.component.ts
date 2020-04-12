@@ -22,6 +22,7 @@ export class ModifyPreviewComponent implements OnChanges {
                 cardAmount: x.cardQuantity > 0 ? x.cardQuantity : x.cardQuantity * -1,
                 layout: CardLayout.NORMAL,
                 rarity: 'C',
+                name: 'Not relevant',
             };
         });
     }
