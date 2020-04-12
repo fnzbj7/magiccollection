@@ -59,7 +59,7 @@
     }
 
     .dont-show-down {
-        display: none;
+        display: none !important;
     }
 
     .floating-arrow {
