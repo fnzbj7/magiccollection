@@ -3,6 +3,7 @@ export class Card {
     cardNumber: string;
     cardAmount: number;
     layout: CardLayout;
+    name: string;
     rarity: string;
 }
 
