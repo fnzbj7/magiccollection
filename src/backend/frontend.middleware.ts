@@ -15,6 +15,7 @@ const allowedExt = [
     '.webp',
     '.html',
     '.json',
+    '.webmanifest',
 ];
 
 const resolvePath = (file: string) => path.resolve(`./dist/magiccollection/${file}`);
