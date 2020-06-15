@@ -4,6 +4,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { first } from 'rxjs/operators';
 import { SocialUser, AuthService, FacebookLoginProvider } from 'angularx-social-login';
 import { MatDialogRef } from '@angular/material/dialog';
+import { faFacebookSquare } from '@fortawesome/free-brands-svg-icons';
 
 @Component({
     selector: 'app-auth-component',
@@ -16,6 +17,8 @@ export class AuthComponent implements OnInit {
     selectedPage = 'Login';
     loading = false;
     submitted = false;
+
+    faFacebookSquare = faFacebookSquare;
 
     user: SocialUser;
     loggedIn: boolean;
