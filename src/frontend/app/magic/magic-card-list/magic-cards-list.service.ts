@@ -43,7 +43,7 @@ export class MagicCardsListService {
     ];
 
     maxCardNumber = {
-        M21: 274,
+        M21: 397,
         IKO: 387,
         AER: 194,
         AKH: 287,
