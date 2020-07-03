@@ -16,14 +16,11 @@
         <li class="nav-item" routerLinkActive="active">
             <a class="nav-link" routerLink="/calendar">Calendar</a>
         </li>
-        <li class="nav-item" routerLinkActive="active">
+        <li class="nav-item" routerLinkActive="active" *ngIf="loggedUser">
             <a class="nav-link" routerLink="/addcards">Add Cards</a>
         </li>
-        <li class="nav-item" routerLinkActive="active">
+        <li class="nav-item" routerLinkActive="active" *ngIf="loggedUser">
             <a class="nav-link" routerLink="/removecards">Remove Cards</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link disabled" href="#">Disabled</a>
         </li>
         <li class="nav-item">
             <p *ngIf="!loggedUser" class="nav-link pointer mb-0" (click)="openModalWithComponent()">

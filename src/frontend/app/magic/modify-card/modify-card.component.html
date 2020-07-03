@@ -20,6 +20,7 @@
             </select>
             <br />
             <button class="btn btn-primary">Elküld</button>
+            <button type="button" class="ml-3 btn btn-secondary">Törlés</button>
             <p class="text-danger" *ngIf="isError">
                 Valami hiba történt, nézzed át a beírt számokat
                 <ng-container *ngIf="wrongNums?.length !== 0"
