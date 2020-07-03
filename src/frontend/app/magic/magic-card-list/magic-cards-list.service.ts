@@ -42,7 +42,7 @@ export class MagicCardsListService {
         'BFZ',
     ];
 
-    maxCardNumber = {
+    maxCardNumber: any = {
         M21: 397,
         IKO: 387,
         AER: 194,

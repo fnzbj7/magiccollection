@@ -4,6 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { ModifyCardService } from '../modify-card.service';
 import { MagicCardsListService } from '../magic-card-list/magic-cards-list.service';
+import { ModifyQtyEnum } from '../../model/modify-qty.enum';
 
 enum PageStep {
     FORM = 'from',
@@ -20,7 +21,7 @@ export class ModifyCardComponent implements OnInit, OnDestroy {
     cardNumbersStr: string;
     cardSetsArray: string[];
     cardSet: string;
-    modifyQty = 1;
+    modifyQty: ModifyQtyEnum = ModifyQtyEnum.ADD;
     inProgress = false;
     isFinished = false;
     isError = false;
@@ -41,10 +42,10 @@ export class ModifyCardComponent implements OnInit, OnDestroy {
     ngOnInit() {
         this.cardSetsArray = this.magicCardsListService.cardSetsArray;
         this.cardSet = this.cardSetsArray[0];
-        this.param$ = this.route.params.subscribe(param => {
+        this.param$ = this.route.params.subscribe(() => {
             this.modifyQty = +this.route.snapshot.data['modifyQty'];
             this.resetPage();
-            this.cardNumbersStr = '';
+            this.cardNumbersStr = this.modifyCardService.getSavedModifyCard(this.modifyQty);
         });
     }
 
@@ -55,6 +56,7 @@ export class ModifyCardComponent implements OnInit, OnDestroy {
         const cardNumbers = this.prepareAndValidate(this.cardNumbersStr, this.cardSet);
 
         if (!this.isError) {
+            this.modifyCardService.saveModifyCard(this.modifyQty, this.cardNumbersStr);
             this.reducedArr = this.convertToModifyCardDto(cardNumbers);
 
             this.actualPageStep = PageStep.PREVIEW;
@@ -78,6 +80,7 @@ export class ModifyCardComponent implements OnInit, OnDestroy {
                 this.inProgress = false;
                 this.isFinished = true;
                 this.cardNumbersStr = '';
+                this.modifyCardService.clearModifyCard(this.modifyQty);
             },
             err => {
                 console.log(err);
@@ -100,8 +103,8 @@ export class ModifyCardComponent implements OnInit, OnDestroy {
             this.isError = true;
         }
 
-        const maxNumber = this.magicCardsListService.maxCardNumber[cardSet];
-        this.wrongNums = cardNumbers.filter(num => num > maxNumber);
+        const maxNumber: number = this.magicCardsListService.maxCardNumber[cardSet];
+        this.wrongNums = cardNumbers.filter(num => num > maxNumber || num <= 0);
         if (this.wrongNums.length > 0) {
             console.log('High number');
             this.isError = true;
@@ -128,6 +131,7 @@ export class ModifyCardComponent implements OnInit, OnDestroy {
     }
 
     ngOnDestroy() {
+        this.modifyCardService.saveModifyCard(this.modifyQty, this.cardNumbersStr);
         if (this.param$) {
             this.param$.unsubscribe();
         }
