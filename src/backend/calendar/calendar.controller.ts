@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Logger } from '@nestjs/common';
+import { Controller, Get, Post, Logger, Body } from '@nestjs/common';
 import { CalendarEvent } from './entity/calendar-event.entity';
 import { CalendarService } from './calendar.service';
 
@@ -21,12 +21,12 @@ export class CalendarController {
         return await this.calendarService.getAllCalendarEvent();
     }
 
+    // TODO autentikáció
     @Post('/add')
-    async addCalendarEvent(dat: Date) {
-        this.logger.log(dat);
-        const a = new CalendarEvent();
+    async addCalendarEvent(@Body() calendarEvent: CalendarEvent) {
+        this.logger.log(calendarEvent);
+        await this.calendarService.saveCalendarEvent(calendarEvent);
         // a.eventStart = new Date();
         // await a.save();
-        return 'alma';
     }
 }

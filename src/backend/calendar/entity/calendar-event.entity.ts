@@ -7,4 +7,16 @@ export class CalendarEvent extends BaseEntity {
 
     @Column()
     eventStart: Date;
+
+    @Column()
+    hour: number;
+
+    @Column()
+    minute: number;
+
+    @Column()
+    title: string;
+
+    @Column()
+    location: string;
 }

@@ -1,0 +1,11 @@
+:host {
+    width: 100%;
+}
+
+.input-width {
+    width: 300px;
+}
+
+.container-width {
+    max-width: 350px;
+}

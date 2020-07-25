@@ -7,7 +7,6 @@ import { AppComponent } from './app.component';
 import { MagicSetIconComponent } from './magic/magic-set-list/magic-set-icon/magic-set-icon.component';
 import { MagicSetListComponent } from './magic/magic-set-list/magic-set-list.component';
 import { MagicCardListComponent } from './magic/magic-card-list/magic-card-list.component';
-import { MagicCardsListService } from './magic/magic-card-list/magic-cards-list.service';
 import { MagicCardComponent } from './magic/magic-card-list/magic-card/magic-card.component';
 import { AppRoutingModule } from './app-routing.module';
 import { HeaderComponent } from './header/header.component';
