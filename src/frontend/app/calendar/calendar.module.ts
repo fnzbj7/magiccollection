@@ -7,6 +7,8 @@ import { CalendarElementComponent } from './calendar-list/calendar-element/calen
 import { EventDetailsComponent } from './calendar-list/event-details/event-details.component';
 import { SharedModule } from '../shared/shared.module';
 import { CalendarAddComponent } from './calendar-add/calendar-add.component';
+import { FormsModule } from '@angular/forms';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
     declarations: [
@@ -15,6 +17,6 @@ import { CalendarAddComponent } from './calendar-add/calendar-add.component';
         EventDetailsComponent,
         CalendarAddComponent,
     ],
-    imports: [CommonModule, CalendarRoutingModule, SharedModule],
+    imports: [CommonModule, CalendarRoutingModule, SharedModule, FormsModule, NgbModule],
 })
 export class CalendarModule {}

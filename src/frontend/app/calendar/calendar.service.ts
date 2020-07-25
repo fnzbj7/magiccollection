@@ -18,14 +18,18 @@ export class CalendarService {
     }
 
     getAllCalendarEvent(): Observable<Map<string, CalendarEvent[]>> {
-        return this.http.get<CalendarDto[]>(`${environment.mainUrl}/calendar/all`).pipe(
-            map(a => {
+        return this.http.get<CalendarEvent[]>(`${environment.mainUrl}/calendar/all`).pipe(
+            map(calendarEventArray => {
                 this.inited = true;
                 this.calendarMap.clear();
-                a.forEach(b => {
-                    const c = new Date(b.eventStart);
-                    const d = new CalendarEvent(b.id, c.getHours(), c.getMinutes(), 'RNA Draft');
-                    this.addValueToCalendar(c.getFullYear(), c.getMonth() + 1, c.getDate(), d);
+                calendarEventArray.forEach(calendarEvent => {
+                    const eventStartDate = new Date(calendarEvent.eventStart);
+                    this.addValueToCalendar(
+                        eventStartDate.getFullYear(),
+                        eventStartDate.getMonth() + 1,
+                        eventStartDate.getDate(),
+                        calendarEvent,
+                    );
                 });
                 return this.calendarMap;
             }),
@@ -122,5 +126,11 @@ export class CalendarService {
 
     getSelectedCalendarEvent() {
         return this.selectedCalendarEvent;
+    }
+
+    saveNewCalendarEvent(calendarEvent: CalendarEvent) {
+        this.http.post(environment.mainUrl + '/calendar/add', calendarEvent).subscribe(x => {
+            // Happy
+        });
     }
 }

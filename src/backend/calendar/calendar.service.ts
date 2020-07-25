@@ -13,4 +13,8 @@ export class CalendarService {
     async getAllCalendarEvent(): Promise<CalendarEvent[]> {
         return await this.calendarEventRepository.getAllCalendarEvent();
     }
+
+    async saveCalendarEvent(calendarEvent: CalendarEvent): Promise<CalendarEvent> {
+        return await this.calendarEventRepository.save(calendarEvent);
+    }
 }

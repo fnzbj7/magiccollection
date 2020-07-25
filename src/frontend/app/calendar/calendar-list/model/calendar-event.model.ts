@@ -1,4 +1,7 @@
 export class CalendarEvent {
+    eventStart: Date;
+    location: string;
+
     constructor(
         public id: number,
         public hour: number,
