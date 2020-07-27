@@ -1,30 +1,54 @@
 
 <div class="container bg-white pb-5 pt-3 pl-4 container-width">
-    <div class="form-group">
-        <label for="calendar-title">Verseny neve</label>
-        <input id="calendar-title" class="form-control input-width" name="event-name" [(ngModel)]="calendarEvent.title" placeholder="Adj meg egy nevet"/>
-    </div>
-    <div class="form-group">
-        <label for="event-location">Verseny helyszíne</label>
-        <input id="event-location" name="event-location" class="form-control input-width" [(ngModel)]="calendarEvent.location" placeholder="Hol lesz a verseny"/>
-    </div>
-    <!-- <div class="form-group">
-        <label for="event-date">Verseny dátuma</label>
-        <input id="event-date" class="form-control input-width" name="event-date" type="date" [(ngModel)]="calendarEvent.eventStart"/>
-    </div> -->
-
-    <label for="event-date">Verseny dátuma</label>
-    <div class="input-group input-width">
-        <input class="form-control" placeholder="yyyy-mm-dd"
-                name="event-date" [(ngModel)]="model" [displayMonths]="2" [navigation]="'select'"
-                [showWeekNumbers]="false" [outsideDays]="'visible'" ngbDatepicker #d="ngbDatepicker">
-        <div class="input-group-append">
-            <button class="btn btn-outline-secondary calendar" (click)="d.toggle()" type="button">
-                <fa-icon [icon]="faCalendarAlt"
-                ></fa-icon>
-            </button>
+    <ng-container *ngIf="!finished">
+        <h2>Verseny készítése</h2>
+        <div class="form-group">
+            <label for="calendar-title">Verseny neve</label>
+            <input id="calendar-title" class="form-control input-width d-inline" name="event-name" [(ngModel)]="calendarEvent.title" placeholder="Adj meg egy nevet"/>
+            <fa-icon [icon]="calendarEvent.title ? faCheckCircle : faTimesCircle" class="ml-2"
+            [ngClass]="calendarEvent.title ? 'text-success' : 'text-danger'"></fa-icon>
+            <small *ngIf="isSubmitted && !calendarEvent.title" class="form-text text-muted">Töltsed ki a nevet</small>
         </div>
-    </div>
-    <ngb-timepicker [(ngModel)]="time" [minuteStep]="5"></ngb-timepicker>
-    <input type="submit" value="Verseny létrehozása" class="btn btn-primary" (click)="submitCalendar()">
+        <div class="form-group">
+            <label for="event-location">Verseny helyszíne</label>
+            <input id="event-location" name="event-location" class="form-control input-width d-inline" [(ngModel)]="calendarEvent.location" placeholder="Hol lesz a verseny"/>
+            <fa-icon
+                [icon]="calendarEvent.location ? faCheckCircle : faTimesCircle"
+                class="ml-2"
+                [ngClass]="calendarEvent.location ? 'text-success' : 'text-danger'"></fa-icon>
+            <small *ngIf="isSubmitted && !calendarEvent.location" class="form-text text-muted">Töltsed ki a helyszínt</small>
+        </div>
+
+        <label for="event-date">Verseny dátuma</label>
+        <div class="input-group input-width-plus">
+            <input class="form-control" placeholder="Év-hónap-nap"
+                    name="event-date" [(ngModel)]="model" [displayMonths]="2" [navigation]="'select'"
+                    [showWeekNumbers]="false" [outsideDays]="'visible'" ngbDatepicker #d="ngbDatepicker">
+            <div class="input-group-append">
+                <button class="btn btn-outline-secondary calendar" (click)="d.toggle()" type="button">
+                    <fa-icon [icon]="faCalendarAlt"
+                    ></fa-icon>
+                </button>
+            </div>
+            <fa-icon
+                [icon]="model ? faCheckCircle : faTimesCircle"
+                class="ml-2 mt-2"
+                [ngClass]="model ? 'text-success' : 'text-danger'"
+            ></fa-icon>
+        </div>
+        <small *ngIf="isSubmitted && !model" class="form-text text-muted">Töltsed ki a dátumot</small>
+
+        <label for="event-date" class="mt-3">Verseny kezdés időpontja</label><br>
+        <ngb-timepicker [(ngModel)]="time" [minuteStep]="5" class="d-block float-left" style="width:100px"></ngb-timepicker>
+        <fa-icon [icon]="time.hour ? faCheckCircle : faTimesCircle" class="ml-2 mt-5 float-left d-block" [ngClass]="time.hour ? 'text-success' : 'text-danger'"></fa-icon>
+        <div class="clearfix"></div>
+        <small *ngIf="isSubmitted && !time.hour" class="form-text text-muted">Töltsed ki az időpontot</small>
+        <input type="submit" value="Verseny létrehozása" class="btn btn-primary" (click)="submitCalendar()">
+        <div routerLink="/calendar" class="btn btn-outline-secondary ml-2">Vissza</div>
+    </ng-container>
+
+    <ng-container *ngIf="finished">
+        Végzett
+        <div routerLink="/calendar" class="btn btn-primary ml-2">Vissza</div>
+    </ng-container>
 </div>

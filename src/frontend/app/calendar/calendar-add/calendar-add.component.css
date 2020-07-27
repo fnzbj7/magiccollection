@@ -5,7 +5,10 @@
 .input-width {
     width: 300px;
 }
+.input-width-plus {
+    width: 324px;
+}
 
 .container-width {
-    max-width: 350px;
+    max-width: 370px;
 }

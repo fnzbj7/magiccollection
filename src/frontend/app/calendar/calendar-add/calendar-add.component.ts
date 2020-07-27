@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CalendarEvent } from '../calendar-list/model/calendar-event.model';
 import { CalendarService } from '../calendar.service';
 import { NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
-import { faCalendarAlt } from '@fortawesome/free-solid-svg-icons';
+import { faCalendarAlt, faTimesCircle, faCheckCircle } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
     selector: 'app-calendar-add',
@@ -13,7 +13,13 @@ export class CalendarAddComponent implements OnInit {
     calendarEvent: CalendarEvent = new CalendarEvent(null, 0, 0, null);
     time: { hour: number; minute: number };
     model: NgbDateStruct;
+    isSubmitted = false;
+    finished = false;
+
+    // Fontawesome
     faCalendarAlt = faCalendarAlt;
+    faTimesCircle = faTimesCircle;
+    faCheckCircle = faCheckCircle;
 
     constructor(private calendarService: CalendarService) {}
 
@@ -23,15 +29,22 @@ export class CalendarAddComponent implements OnInit {
 
     // Egy form amit ellehet menteni és feltudjuk küldeni a backendnek
     submitCalendar() {
+        this.isSubmitted = true;
         // TODO do something
         this.calendarEvent = {
             ...this.calendarEvent,
             ...this.time,
-            eventStart: new Date(`${this.model.year}-${this.model.month}-${this.model.day}`),
         };
+        if (this.model != null) {
+            this.calendarEvent.eventStart = new Date(
+                `${this.model.year}-${this.model.month}-${this.model.day}`,
+            );
+        }
         console.log(this.calendarEvent);
         if (this.isCalendarEventValid(this.calendarEvent)) {
-            this.calendarService.saveNewCalendarEvent(this.calendarEvent);
+            this.calendarService.saveNewCalendarEvent(this.calendarEvent).subscribe(() => {
+                this.finished = true;
+            });
         } else {
             console.log('nem volt valid');
         }

@@ -128,9 +128,7 @@ export class CalendarService {
         return this.selectedCalendarEvent;
     }
 
-    saveNewCalendarEvent(calendarEvent: CalendarEvent) {
-        this.http.post(environment.mainUrl + '/calendar/add', calendarEvent).subscribe(x => {
-            // Happy
-        });
+    saveNewCalendarEvent(calendarEvent: CalendarEvent): Observable<void> {
+        return this.http.post<void>(environment.mainUrl + '/calendar/add', calendarEvent);
     }
 }
