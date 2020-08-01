@@ -12,10 +12,14 @@ export class CalendarElementComponent implements OnInit, OnDestroy {
     @Input() calendarEvent: CalendarEvent;
     selectCalendarEventSub: Subscription;
     isSelected = false;
+    minutePad: string;
+    hourPad: string;
 
     constructor(private calendarService: CalendarService) {}
 
     ngOnInit() {
+        this.minutePad = this.pad(this.calendarEvent.minute, 2);
+        this.hourPad = this.pad(this.calendarEvent.hour, 2);
         this.isSelected = this.calendarEvent.id === this.calendarService.getSelectedEventId();
         this.selectCalendarEventSub = this.calendarService
             .getselectCalendarEventSub()
@@ -26,6 +30,12 @@ export class CalendarElementComponent implements OnInit, OnDestroy {
 
     onSelectCalendarEvent() {
         this.calendarService.selectCalendarEvent(this.calendarEvent);
+    }
+
+    private pad(text: string | number, width: number, z?: string) {
+        z = z || '0';
+        text = text + '';
+        return text.length >= width ? text : new Array(width - text.length + 1).join(z) + text;
     }
 
     ngOnDestroy() {
