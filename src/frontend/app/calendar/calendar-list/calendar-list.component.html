@@ -42,62 +42,61 @@
 
 
 
-        <div class="row">
+    <div class="row">
 
-            <ng-container *ngIf="!calendarDayList">
-                <ng-container *ngFor="let dummyDay of dummyDays; let i = index">
-                    <div class="col px-0" style="margin: 2px;">
+        <ng-container *ngIf="!calendarDayList">
+            <ng-container *ngFor="let dummyDay of dummyDays; let i = index">
+                <div class="col px-0" style="margin: 2px;">
+                    <div
+                        class="card h-100 bg-secondary"
+                    >
                         <div
-                            class="card h-100 bg-secondary"
+                            class="card-body px-0 px-sm-1 py-1 calendar-day-body"
+                            style="min-height: 77px"
                         >
-                            <div
-                                class="card-body px-0 px-sm-1 py-1 calendar-day-body"
-                                style="min-height: 77px"
-                            >
-                                <div>
-                                </div>
+                            <div>
                             </div>
                         </div>
                     </div>
-                    <div *ngIf="i % 7 == 6" class="w-100"></div>
-                </ng-container>
+                </div>
+                <div *ngIf="i % 7 == 6" class="w-100"></div>
             </ng-container>
+        </ng-container>
 
 
-            <ng-container *ngIf="calendarDayList">
-                <ng-container *ngFor="let element of calendarDayList; let i = index">
-                    <div class="col px-0" style="margin: 2px;">
+        <ng-container *ngIf="calendarDayList">
+            <ng-container *ngFor="let element of calendarDayList; let i = index">
+                <div class="col px-0" style="margin: 2px;">
+                    <div
+                        class="card h-100"
+                        [ngClass]="{ 'bg-secondary': element.isOffMonth }"
+                    >
                         <div
-                            class="card h-100"
-                            [ngClass]="{ 'bg-secondary': element.isOffMonth }"
+                            class="card-body px-0 px-sm-1 py-1 calendar-day-body"
+                            style="min-height: 77px"
                         >
-                            <div
-                                class="card-body px-0 px-sm-1 py-1 calendar-day-body"
-                                style="min-height: 77px"
-                            >
-                                <fa-icon
-                                    [icon]="faCalendarPlus"
-                                    class="position-absolute d-none p-sm-1 add-event-icon"
-                                    style="bottom: 0;right: 0;z-index: 1;"
-                                ></fa-icon>
-                                <div>
-                                    <p class="text-right mb-0 no-select" style="font-size: 14px">
-                                        {{ element.day }}
-                                    </p>
-                                </div>
-                                <app-calendar-element
-                                    [calendarEvent]="e"
-                                    *ngFor="let e of element.calendarEventList"
-                                ></app-calendar-element>
+                            <fa-icon
+                                [icon]="faCalendarPlus"
+                                class="position-absolute d-none p-sm-1 add-event-icon"
+                                style="bottom: 0;right: 0;z-index: 1;"
+                            ></fa-icon>
+                            <div>
+                                <p class="text-right mb-0 no-select" style="font-size: 14px">
+                                    {{ element.day }}
+                                </p>
                             </div>
+                            <app-calendar-element
+                                [calendarEvent]="e"
+                                *ngFor="let e of element.calendarEventList"
+                            ></app-calendar-element>
                         </div>
                     </div>
-                    <div *ngIf="i % 7 == 6" class="w-100"></div>
-                </ng-container>
+                </div>
+                <div *ngIf="i % 7 == 6" class="w-100"></div>
             </ng-container>
+        </ng-container>
 
-        </div>
-
+    </div>
 
 
 </div>
