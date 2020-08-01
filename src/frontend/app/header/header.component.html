@@ -33,6 +33,10 @@
             {{loggedUser.email}}
         </li>
     </ul>
+    <div class="tooltip-w3 pointer" (click)="onUpdate()" *ngIf="needUpdate">
+        <fa-icon [icon]="faArrowCircleUp" style="color:red;margin-right:10px;"></fa-icon>
+        <span class="tooltiptext-w3">Új verzió elérhető!</span>
+    </div>
     <div class="tooltip-w3">
         <fa-icon [icon]="faInfoCircle"></fa-icon>
         <span class="tooltiptext-w3">{{ version }}</span>

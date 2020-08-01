@@ -7,6 +7,7 @@ import { AuthenticationService } from './auth/authentication.service';
 import { AuthComponent } from './auth/auth.component';
 import { MatDialog } from '@angular/material/dialog';
 import { User } from './model/user.model';
+import { UpdatePwaService } from './auth/update-pwa.service';
 
 @Component({
     selector: 'app-root',
@@ -24,8 +25,10 @@ export class AppComponent {
         private updates: SwUpdate,
         private snackbar: MatSnackBar,
         private sideMenuService: SideMenuService,
+        private updatePwaService: UpdatePwaService,
     ) {
-        updates.available.subscribe(event => {
+        this.updates.available.subscribe(event => {
+            this.updatePwaService.setNeedUpdateSubject(true);
             const snack = this.snackbar.open('Update Available', 'Reload', {
                 duration: 6000,
                 horizontalPosition: 'right',
