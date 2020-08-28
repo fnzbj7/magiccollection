@@ -28,6 +28,10 @@ const appRoute: Routes = [
         data: { modifyQty: -1 },
     },
     { path: '', component: LandingComponent, pathMatch: 'full' },
+    {
+        path: 'animation',
+        loadChildren: () => import('./animation/animation.module').then(m => m.AnimationModule),
+    },
     { path: '**', component: LandingComponent },
 ];
 
