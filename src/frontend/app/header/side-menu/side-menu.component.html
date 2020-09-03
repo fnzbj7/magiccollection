@@ -1,38 +1,14 @@
 <ul class="navbar-nav" style="margin-left: 30px; margin-right: 20px;">
-    <li
-        class="nav-item"
+
+    <ng-container *ngFor="let menu of menus">
+        <li class="nav-item"
         routerLinkActive="active"
-        [routerLinkActiveOptions]="{ exact: true }"
-    >
-        <a class="nav-link" routerLink="/">Home</a>
-    </li>
-    <li
-        class="nav-item"
-        routerLinkActive="active"
-    >
-        <a class="nav-link" routerLink="/cards">My Cards</a>
-    </li>
-    <li
-        class="nav-item"
-        routerLinkActive="active"
-    >
-        <a class="nav-link" routerLink="/calendar">Calendar</a>
-    </li>
-    <li
-        class="nav-item"
-        routerLinkActive="active"
-    >
-        <a class="nav-link" routerLink="/addcards">Add Cards</a>
-    </li>
-    <li
-        class="nav-item"
-        routerLinkActive="active"
-    >
-        <a class="nav-link" routerLink="/removecards">Remove Cards</a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link" routerLink="/animation">Animation</a>
-    </li>
+        [routerLinkActiveOptions]="{ exact: menu.exact }"
+        *ngIf="menu.always || loggedUser">
+        <a class="nav-link" [routerLink]="[menu.link]">{{menu.name}}</a>
+        </li>
+    </ng-container>
+
     <li
         class="nav-item"
         *ngIf="!loggedUser"

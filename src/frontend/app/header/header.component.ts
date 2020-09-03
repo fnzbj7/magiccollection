@@ -8,6 +8,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { SideMenuService } from '../shared/side-menu.service';
 import { UpdatePwaService } from '../auth/update-pwa.service';
 import { Subscription } from 'rxjs';
+import { MenuService, MenuElement } from './menu.service';
 
 @Component({
     selector: 'app-header',
@@ -18,6 +19,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     loggedUser: User;
     version: string;
     needUpdate = false;
+    menus: MenuElement[];
 
     // Font-Aesome
     faInfoCircle = faInfoCircle;
@@ -33,6 +35,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
         private versionService: VersionService,
         public sideMenuService: SideMenuService,
         private updatePwaService: UpdatePwaService,
+        private menuService: MenuService,
     ) {}
 
     ngOnInit() {
@@ -43,6 +46,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
             this.needUpdate = needUpdate;
         });
         this.version = this.versionService.VERSION;
+        this.menus = this.menuService.getMenus();
     }
 
     openModalWithComponent() {

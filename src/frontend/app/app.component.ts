@@ -1,4 +1,4 @@
-import { Component, ViewEncapsulation } from '@angular/core';
+import { Component, ViewEncapsulation, OnInit } from '@angular/core';
 import { ModalService } from './shared/modal.service';
 import { SwUpdate } from '@angular/service-worker';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -8,6 +8,7 @@ import { AuthComponent } from './auth/auth.component';
 import { MatDialog } from '@angular/material/dialog';
 import { User } from './model/user.model';
 import { UpdatePwaService } from './auth/update-pwa.service';
+import { Router, RouterEvent, NavigationEnd } from '@angular/router';
 
 @Component({
     selector: 'app-root',
@@ -15,7 +16,7 @@ import { UpdatePwaService } from './auth/update-pwa.service';
     styleUrls: ['./app.component.css'],
     encapsulation: ViewEncapsulation.None,
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
     title = 'Magicapp';
     opened = false;
     loggedUser: User;
@@ -26,7 +27,10 @@ export class AppComponent {
         private snackbar: MatSnackBar,
         private sideMenuService: SideMenuService,
         private updatePwaService: UpdatePwaService,
-    ) {
+        private router: Router,
+    ) {}
+
+    ngOnInit() {
         this.updates.available.subscribe(event => {
             this.updatePwaService.setNeedUpdateSubject(true);
             const snack = this.snackbar.open('Update Available', 'Reload', {
@@ -41,6 +45,11 @@ export class AppComponent {
 
         this.sideMenuService.openSideMenuSub.subscribe(() => {
             this.opened = !this.opened;
+        });
+        this.router.events.subscribe((val: RouterEvent) => {
+            if (val instanceof NavigationEnd) {
+                this.opened = false;
+            }
         });
     }
 

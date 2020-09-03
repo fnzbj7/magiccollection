@@ -3,28 +3,14 @@
     <fa-icon class="d-lg-none pointer" [icon]="faBars" (click)="sideMenuService.toggleSideMenu()"></fa-icon>
 
     <ul class="navbar-nav mr-auto d-none d-lg-flex" style="align-items: center;flex-direction: row;">
-        <li
-            class="nav-item"
+        <ng-container *ngFor="let menu of menus">
+            <li class="nav-item"
             routerLinkActive="active"
-            [routerLinkActiveOptions]="{ exact: true }"
-        >
-            <a class="nav-link" routerLink="/">Home</a>
-        </li>
-        <li class="nav-item" routerLinkActive="active">
-            <a class="nav-link" routerLink="/cards">My Cards</a>
-        </li>
-        <li class="nav-item" routerLinkActive="active">
-            <a class="nav-link" routerLink="/calendar">Calendar</a>
-        </li>
-        <li class="nav-item" routerLinkActive="active" *ngIf="loggedUser">
-            <a class="nav-link" routerLink="/addcards">Add Cards</a>
-        </li>
-        <li class="nav-item" routerLinkActive="active" *ngIf="loggedUser">
-            <a class="nav-link" routerLink="/removecards">Remove Cards</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" routerLink="/animation">Animation</a>
-        </li>
+            [routerLinkActiveOptions]="{ exact: menu.exact }"
+            *ngIf="menu.always || loggedUser">
+            <a class="nav-link" [routerLink]="[menu.link]">{{menu.name}}</a>
+            </li>
+        </ng-container>
         <li class="nav-item">
             <p *ngIf="!loggedUser" class="nav-link pointer mb-0" (click)="openModalWithComponent()">
                 Log in
@@ -36,7 +22,7 @@
             {{loggedUser.email}}
         </li>
     </ul>
-    <div class="tooltip-w3 pointer" (click)="onUpdate()" *ngIf="needUpdate">
+    <div class="tooltip-w3 pointer ml-auto" (click)="onUpdate()" *ngIf="needUpdate">
         <fa-icon [icon]="faArrowCircleUp" style="color:red;margin-right:10px;"></fa-icon>
         <span class="tooltiptext-w3">Új verzió elérhető!</span>
     </div>
@@ -45,49 +31,3 @@
         <span class="tooltiptext-w3">{{ version }}</span>
     </div>
 </nav>
-
-<!-- <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" routerLink="/">Navbar</a>
-    <button (click)="sideMenuService.toggleSideMenu()">Szia</button>
-
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav mr-auto d-none d-lg-flex" style="align-items: center;">
-            <li
-                class="nav-item"
-                routerLinkActive="active"
-                [routerLinkActiveOptions]="{ exact: true }"
-            >
-                <a class="nav-link" routerLink="/">Home</a>
-            </li>
-            <li class="nav-item" routerLinkActive="active">
-                <a class="nav-link" routerLink="/cards">My Cards</a>
-            </li>
-            <li class="nav-item" routerLinkActive="active">
-                <a class="nav-link" routerLink="/calendar">Calendar</a>
-            </li>
-            <li class="nav-item" routerLinkActive="active">
-                <a class="nav-link" routerLink="/addcards">Add Cards</a>
-            </li>
-            <li class="nav-item" routerLinkActive="active">
-                <a class="nav-link" routerLink="/removecards">Remove Cards</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link disabled" href="#">Disabled</a>
-            </li>
-            <li class="nav-item">
-                <p *ngIf="!loggedUser" class="nav-link pointer mb-0" (click)="openModalWithComponent()">
-                    Log in
-                </p>
-                <p *ngIf="loggedUser" class="nav-link pointer mb-0" (click)="onLogout()">Log Out</p>
-            </li>
-            <li class="nav-item" *ngIf="loggedUser">
-                <img src="/assets/img/user-icon/default-icon.png" style="width: 40px">
-                {{loggedUser.email}}
-            </li>
-        </ul>
-        <div class="tooltip-w3">
-            <fa-icon [icon]="faInfoCircle"></fa-icon>
-            <span class="tooltiptext-w3 top-md right-md">{{ version }}</span>
-        </div>
-    </div>
-</nav> -->
