@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { MagicCardListComponent } from './magic/magic-card-list/magic-card-list.component';
 import { LandingComponent } from './landing/landing.component';
 import { ModifyCardComponent } from './magic/modify-card/modify-card.component';
+import { AuthGuard } from './auth/auth.guard';
 
 const appRoute: Routes = [
     {
@@ -20,12 +21,14 @@ const appRoute: Routes = [
         component: ModifyCardComponent,
         pathMatch: 'full',
         data: { modifyQty: 1 },
+        canActivate: [AuthGuard],
     },
     {
         path: 'removecards',
         component: ModifyCardComponent,
         pathMatch: 'full',
         data: { modifyQty: -1 },
+        canActivate: [AuthGuard],
     },
     { path: '', component: LandingComponent, pathMatch: 'full' },
     {
