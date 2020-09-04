@@ -12,4 +12,6 @@ export const typeOrmConfig: TypeOrmModuleOptions = {
     database: process.env.DB_DATABASE || dbConfig.database,
     entities: [__dirname + '/../**/*.entity.{js,ts}'],
     synchronize: dbConfig.synchronize,
+    migrations: [__dirname + '/../**/*.migration.{js,ts}'],
+    migrationsRun: !dbConfig.synchronize,
 };
