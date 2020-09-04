@@ -59,3 +59,5 @@ yarn.lock
 /src/frontend/assets/img/static-img
 
 /src/frontend/environments/version.service.ts
+
+/src/backend/ormconfig.json

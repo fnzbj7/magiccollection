@@ -1,6 +1,16 @@
-import { Entity, PrimaryGeneratedColumn, Column, OneToMany, BaseEntity, Unique } from 'typeorm';
+import {
+    Entity,
+    PrimaryGeneratedColumn,
+    Column,
+    OneToMany,
+    BaseEntity,
+    Unique,
+    ManyToMany,
+    JoinTable,
+} from 'typeorm';
 import * as bcrypt from 'bcrypt';
 import { CardAmount } from '../../card/entity/card-amount.entity';
+import { Privilege } from './privilege.entity';
 
 export enum UserSource {
     SITE = 'site',
@@ -42,6 +52,17 @@ export class User extends BaseEntity {
         },
     )
     cardAmount: CardAmount[];
+
+    @ManyToMany(
+        type => Privilege,
+        privilege => privilege.users,
+    )
+    @JoinTable({
+        name: 'user_privilege',
+        joinColumn: { name: 'user_1' },
+        inverseJoinColumn: { name: 'privilege_1' },
+    })
+    privileges: Privilege[];
 
     async validatePassword(password: string): Promise<boolean> {
         const hash = await bcrypt.hash(password, this.salt);

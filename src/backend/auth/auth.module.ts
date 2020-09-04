@@ -7,12 +7,13 @@ import { JwtModule } from '@nestjs/jwt';
 import { PassportModule } from '@nestjs/passport';
 import { JwtStrategy } from './jwt.strategy';
 import { FacebookStrategy } from './facebook.strategy';
+import { PrivilegeRepository } from './repository/privilege.repository';
 
 @Module({
     controllers: [AuthController],
     imports: [
         PassportModule.register({ defaultStrategy: 'jwt' }),
-        TypeOrmModule.forFeature([UserRepository]),
+        TypeOrmModule.forFeature([UserRepository, PrivilegeRepository]),
         JwtModule.register({
             secret: process.env.JWT_KEY_MAGIC || 'topSecret51',
             signOptions: {
