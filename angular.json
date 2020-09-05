@@ -30,7 +30,8 @@
                             "./node_modules/bootstrap/dist/css/bootstrap.min.css",
                             "src/frontend/styles.css"
                         ],
-                        "scripts": ["src/frontend/assets/js/modernizr-custom.js"]
+                        "scripts": ["src/frontend/assets/js/modernizr-custom.js"],
+                        "allowedCommonJsDependencies": ["es6-promise-polyfill"]
                     },
                     "configurations": {
                         "production": {

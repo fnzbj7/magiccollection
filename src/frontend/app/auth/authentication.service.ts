@@ -4,16 +4,20 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { User } from '../model/user.model';
 import { environment } from '../../environments/environment';
-import * as jwtDecode from 'jwt-decode';
 import { JwtTokenModel } from './jwt.model';
 import { LocalStorageService } from './local-storage.service';
+import { JwtDecodeService } from './jwt-decode.service';
 
 @Injectable({ providedIn: 'root' })
 export class AuthenticationService {
     currentUserSubject: BehaviorSubject<User>;
     private loggedIn = false;
 
-    constructor(private http: HttpClient, private localStorageService: LocalStorageService) {
+    constructor(
+        private http: HttpClient,
+        private localStorageService: LocalStorageService,
+        private jwtDecodeService: JwtDecodeService,
+    ) {
         let currentUserJson = this.localStorageService.currentUser;
 
         this.loggedIn =
@@ -76,7 +80,7 @@ export class AuthenticationService {
     private createAndLoginUser(accessToken: string): User {
         const user = new User();
         if (accessToken) {
-            const jwtToken = jwtDecode<JwtTokenModel>(accessToken);
+            const jwtToken = this.jwtDecodeService.decode<JwtTokenModel>(accessToken);
             user.token = accessToken;
             const expirationDate = new Date(jwtToken.exp * 1000);
             user.expiresIn = expirationDate;
