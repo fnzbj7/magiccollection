@@ -1,7 +1,7 @@
 import { MigrationInterface, QueryRunner } from 'typeorm';
 
 export class PrivilegeMigration implements MigrationInterface {
-    name = 'migrationNameSe1599256555469';
+    name = 'privilege1599256555469';
 
     public async up(queryRunner: QueryRunner): Promise<void> {
         await queryRunner.query(
