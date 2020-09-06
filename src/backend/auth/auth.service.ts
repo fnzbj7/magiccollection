@@ -22,16 +22,19 @@ export class AuthService {
     }
 
     async singIn(authCredentialsDto: AuthCredentialsDto): Promise<{ accessToken: string }> {
-        const email = await this.userRepository.validateUserPassword(authCredentialsDto);
+        const user = await this.userRepository.validateUserPassword(authCredentialsDto);
 
-        if (!email) {
+        if (!user) {
             throw new UnauthorizedException();
         }
 
-        const payload: JwtPayload = { email };
+        const payload: JwtPayload = this.createJwtPayload(user);
         const accessToken = await this.jwtService.signAsync(payload);
 
         return { accessToken };
+    }
+    private createJwtPayload(user: User): JwtPayload {
+        return { email: user.email, privileges: user.privileges.map(priv => priv.name) };
     }
 
     async singInWithUser(user: User): Promise<{ accessToken: string }> {
@@ -41,7 +44,7 @@ export class AuthService {
             throw new UnauthorizedException();
         }
 
-        const payload: JwtPayload = { email };
+        const payload: JwtPayload = this.createJwtPayload(user);
         const accessToken = await this.jwtService.signAsync(payload);
 
         return { accessToken };

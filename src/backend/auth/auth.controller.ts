@@ -33,7 +33,7 @@ export class AuthController {
 
     @Get('/refreshtoken')
     @UseGuards(AuthGuard())
-    async getCardSetUser(@GetUser() user: User) {
+    async refreshToken(@GetUser() user: User) {
         return this.authService.singInWithUser(user);
     }
 }

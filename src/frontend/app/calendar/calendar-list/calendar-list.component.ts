@@ -3,6 +3,9 @@ import { CalendarService } from '../calendar.service';
 import { CalendarDay } from './model/calendar-day.model';
 import { Subscription } from 'rxjs';
 import { faAngleLeft, faAngleRight, faCalendarPlus } from '@fortawesome/free-solid-svg-icons';
+import { AuthenticationService } from '../../auth/authentication.service';
+import { User } from '../../model/user.model';
+import { Privilege } from '../../auth/privilege.enum';
 
 @Component({
     selector: 'app-calendar-list',
@@ -10,6 +13,9 @@ import { faAngleLeft, faAngleRight, faCalendarPlus } from '@fortawesome/free-sol
     styleUrls: ['./calendar-list.component.css'],
 })
 export class CalendarListComponent implements OnInit, OnDestroy {
+    eventPrivilege = false;
+    currentUserSub: Subscription;
+
     // Font-Awesome
     faAngleLeft = faAngleLeft;
     faAngleRight = faAngleRight;
@@ -45,9 +51,20 @@ export class CalendarListComponent implements OnInit, OnDestroy {
     isDetailsOpen = false;
     selectCalendarEventSub: Subscription;
 
-    constructor(private calendarService: CalendarService) {}
+    constructor(
+        private calendarService: CalendarService,
+        private authenticationService: AuthenticationService,
+    ) {}
 
     ngOnInit() {
+        this.currentUserSub = this.authenticationService.currentUserSubject.subscribe(user => {
+            if (!user) {
+                this.eventPrivilege = false;
+            } else {
+                this.eventPrivilege = user.privileges.includes(Privilege.EVENT_MODIFY);
+            }
+        });
+
         const tmpDate = new Date();
         this.currentDate = new Date(tmpDate.getFullYear(), tmpDate.getMonth(), 15);
 
@@ -152,6 +169,9 @@ export class CalendarListComponent implements OnInit, OnDestroy {
     ngOnDestroy() {
         if (this.selectCalendarEventSub) {
             this.selectCalendarEventSub.unsubscribe();
+        }
+        if (this.currentUserSub) {
+            this.currentUserSub.unsubscribe();
         }
     }
 }
