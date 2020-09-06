@@ -7,7 +7,7 @@ export class LocalStorageService {
     currentUser: User;
 
     constructor() {
-        this.getCurrentUser();
+        this.currentUser = this.getCurrentUser();
     }
 
     removeCurrentUser() {
@@ -15,7 +15,7 @@ export class LocalStorageService {
     }
 
     getCurrentUser() {
-        this.currentUser = JSON.parse(localStorage.getItem(this.CURRENT_USER));
+        return JSON.parse(localStorage.getItem(this.CURRENT_USER));
     }
 
     setCurrentUser(user: User) {
@@ -23,7 +23,7 @@ export class LocalStorageService {
         localStorage.setItem(this.CURRENT_USER, JSON.stringify(user));
     }
 
-    setAccessTokenAndSaveLocalStorage(accessToken: string) {
-        this.setCurrentUser(this.currentUser);
+    setAccessTokenAndSaveLocalStorage(user: User) {
+        this.setCurrentUser(user);
     }
 }

@@ -7,7 +7,7 @@ export class Privilege extends BaseEntity {
     id: number;
 
     @Column({ nullable: false })
-    name: String;
+    name: string;
 
     @Column({ nullable: false })
     desc: string;

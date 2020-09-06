@@ -1,6 +1,9 @@
-import { Controller, Get, Post, Logger, Body } from '@nestjs/common';
+import { Controller, Get, Post, Logger, Body, UseGuards } from '@nestjs/common';
 import { CalendarEvent } from './entity/calendar-event.entity';
 import { CalendarService } from './calendar.service';
+import { PrivilegeGuard } from '../auth/privilege.guard';
+import { PrivilegeEnum } from '../auth/enum/privilege.enum';
+import { AuthGuard } from '@nestjs/passport';
 
 @Controller('calendar')
 export class CalendarController {
@@ -23,6 +26,7 @@ export class CalendarController {
 
     // TODO autentikáció
     @Post('/add')
+    @UseGuards(AuthGuard(), new PrivilegeGuard(PrivilegeEnum.EVENT_MODIFY))
     async addCalendarEvent(@Body() calendarEvent: CalendarEvent) {
         this.logger.log(calendarEvent);
         await this.calendarService.saveCalendarEvent(calendarEvent);

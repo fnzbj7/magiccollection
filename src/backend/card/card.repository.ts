@@ -20,7 +20,6 @@ export class CardRepository extends Repository<Card> {
     }
 
     async getCardSetUser(cardSet: string, user: User): Promise<Card[]> {
-        console.log({ cardSet, user });
         return await this.createQueryBuilder('t_card')
             .innerJoinAndSelect('t_card.cardSet', 't_cardSet', 't_cardSet.short_name = :name', {
                 name: cardSet,

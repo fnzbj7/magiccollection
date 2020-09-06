@@ -18,7 +18,7 @@ export class AuthenticationService {
         private localStorageService: LocalStorageService,
         private jwtDecodeService: JwtDecodeService,
     ) {
-        let currentUserJson = this.localStorageService.currentUser;
+        let currentUserJson = this.localStorageService.getCurrentUser();
 
         this.loggedIn =
             currentUserJson &&
@@ -72,7 +72,11 @@ export class AuthenticationService {
             .get<{ accessToken: string }>(environment.mainUrl + '/auth/refreshtoken')
             .subscribe(resp => {
                 if (resp.accessToken) {
-                    this.localStorageService.setAccessTokenAndSaveLocalStorage(resp.accessToken);
+                    const jwtToken = this.jwtDecodeService.decode<JwtTokenModel>(resp.accessToken);
+                    const user = this.currentUserSubject.getValue();
+                    user.privileges = jwtToken.privileges || [];
+                    this.localStorageService.setAccessTokenAndSaveLocalStorage(user);
+                    this.currentUserSubject.next(user);
                 }
             });
     }
@@ -85,6 +89,7 @@ export class AuthenticationService {
             const expirationDate = new Date(jwtToken.exp * 1000);
             user.expiresIn = expirationDate;
             user.email = jwtToken.email;
+            user.privileges = jwtToken.privileges || [];
             // store user details and jwt token in local storage to keep user logged in between page refreshes
             this.localStorageService.setCurrentUser(user);
             this.loggedIn = true;

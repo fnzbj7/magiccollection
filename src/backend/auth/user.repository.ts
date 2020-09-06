@@ -31,11 +31,14 @@ export class UserRepository extends Repository<User> {
         }
     }
 
-    async validateUserPassword(authCredentialsDto: AuthCredentialsDto): Promise<string> {
+    async validateUserPassword(authCredentialsDto: AuthCredentialsDto): Promise<User> {
         const { password, email } = authCredentialsDto;
-        const user = await this.findOne({ email, source: UserSource.SITE });
+        const user = await this.findOne(
+            { email, source: UserSource.SITE },
+            { relations: ['privileges'] },
+        );
         if (user && (await user.validatePassword(password))) {
-            return user.email;
+            return user;
         } else {
             return null;
         }
