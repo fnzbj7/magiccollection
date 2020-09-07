@@ -14,6 +14,7 @@ export class CalendarAddComponent implements OnInit {
     isInit = true;
     isMobile: boolean;
     calendarEvent: CalendarEvent = new CalendarEvent(null, 0, 0, null);
+    originalCalendarEvent: CalendarEvent;
     time: { hour: number; minute: number };
     model: NgbDateStruct;
     isSubmitted = false;
@@ -32,7 +33,8 @@ export class CalendarAddComponent implements OnInit {
         if (expansionId) {
             // Get the event from the service or from the backend or go to the add screen
             if (this.calendarService.inited) {
-                this.calendarEvent = this.calendarService.getSelectedCalendarEvent();
+                this.originalCalendarEvent = this.calendarService.getSelectedCalendarEvent();
+                this.calendarEvent = { ...this.originalCalendarEvent };
                 this.model = {
                     year: this.calendarEvent.eventStart.getFullYear(),
                     month: this.calendarEvent.eventStart.getMonth() + 1,
@@ -45,9 +47,10 @@ export class CalendarAddComponent implements OnInit {
                 this.calendarService
                     .getAllCalendarEvent()
                     .subscribe((calendarEventArray: CalendarEvent[]) => {
-                        this.calendarEvent = calendarEventArray.find(
+                        this.originalCalendarEvent = calendarEventArray.find(
                             calendarEvent => expansionId === calendarEvent.id,
                         );
+                        this.calendarEvent = { ...this.originalCalendarEvent };
                         this.model = {
                             year: this.calendarEvent.eventStart.getFullYear(),
                             month: this.calendarEvent.eventStart.getMonth() + 1,
@@ -71,7 +74,6 @@ export class CalendarAddComponent implements OnInit {
     // Egy form amit ellehet menteni és feltudjuk küldeni a backendnek
     submitCalendar() {
         this.isSubmitted = true;
-        // TODO do something
         this.calendarEvent = {
             ...this.calendarEvent,
             ...this.time,
@@ -84,13 +86,21 @@ export class CalendarAddComponent implements OnInit {
         console.log(this.calendarEvent);
         if (this.isCalendarEventValid(this.calendarEvent)) {
             if (this.calendarEvent.id) {
-                this.calendarService.saveNewCalendarEvent(this.calendarEvent).subscribe(() => {
+                this.calendarService.updateCalendarEvent(this.calendarEvent).subscribe(() => {
+                    this.calendarService.updateCalendarValue(
+                        this.originalCalendarEvent,
+                        this.calendarEvent,
+                    );
                     this.finished = true;
                 });
             } else {
-                this.calendarService.saveNewCalendarEvent(this.calendarEvent).subscribe(() => {
-                    this.finished = true;
-                });
+                this.calendarService
+                    .saveNewCalendarEvent(this.calendarEvent)
+                    .subscribe(savedCalendarEvent => {
+                        this.calendarEvent.id = savedCalendarEvent.id;
+                        this.calendarService.addValueToCalendar(this.calendarEvent);
+                        this.finished = true;
+                    });
             }
         } else {
             console.log('nem volt valid');

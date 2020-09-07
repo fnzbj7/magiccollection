@@ -6,6 +6,8 @@ import {
     ViewChild,
     ElementRef,
     Input,
+    Output,
+    EventEmitter,
 } from '@angular/core';
 import { CalendarService } from '../../calendar.service';
 import { Subscription } from 'rxjs';
@@ -19,6 +21,7 @@ import { faTimes } from '@fortawesome/free-solid-svg-icons';
 })
 export class EventDetailsComponent implements OnInit, OnDestroy, AfterViewInit {
     @Input() eventPrivilege: boolean;
+    @Output() deleteCalendarEvent: EventEmitter<CalendarEvent> = new EventEmitter<CalendarEvent>();
     selectedCalendarEvent: CalendarEvent = null;
     selectCalendarEventSub: Subscription = null;
     dummyArray: string[] = ['Nagy Csaba', 'Kis Peti', 'Lapátos Peti'];
@@ -55,6 +58,12 @@ export class EventDetailsComponent implements OnInit, OnDestroy, AfterViewInit {
 
     onClose() {
         this.calendarService.selectCalendarEvent();
+    }
+
+    onDelete() {
+        this.calendarService.deleteCalendarEvent(this.selectedCalendarEvent).subscribe(() => {
+            this.deleteCalendarEvent.next(this.selectedCalendarEvent);
+        });
     }
 
     ngOnDestroy() {

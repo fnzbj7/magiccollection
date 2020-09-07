@@ -1,4 +1,14 @@
-import { Controller, Get, Post, Logger, Body, UseGuards, Patch } from '@nestjs/common';
+import {
+    Controller,
+    Get,
+    Post,
+    Logger,
+    Body,
+    UseGuards,
+    Patch,
+    Delete,
+    Param,
+} from '@nestjs/common';
 import { CalendarEvent } from './entity/calendar-event.entity';
 import { CalendarService } from './calendar.service';
 import { PrivilegeGuard } from '../auth/privilege.guard';
@@ -18,15 +28,22 @@ export class CalendarController {
 
     @Post('/add')
     @UseGuards(AuthGuard(), new PrivilegeGuard(PrivilegeEnum.EVENT_MODIFY))
-    async addCalendarEvent(@Body() calendarEvent: CalendarEvent) {
+    async addCalendarEvent(@Body() calendarEvent: CalendarEvent): Promise<CalendarEvent> {
         this.logger.log(calendarEvent);
-        await this.calendarService.saveCalendarEvent(calendarEvent);
+        return await this.calendarService.saveCalendarEvent(calendarEvent);
     }
 
     @Patch('/modify')
     @UseGuards(AuthGuard(), new PrivilegeGuard(PrivilegeEnum.EVENT_MODIFY))
-    async modifyCalendarEvent(@Body() calendarEvent: CalendarEvent) {
+    async modifyCalendarEvent(@Body() calendarEvent: CalendarEvent): Promise<CalendarEvent> {
         this.logger.log(calendarEvent);
-        await this.calendarService.saveCalendarEvent(calendarEvent);
+        return await this.calendarService.saveCalendarEvent(calendarEvent);
+    }
+
+    @Delete('/delete/:id')
+    @UseGuards(AuthGuard(), new PrivilegeGuard(PrivilegeEnum.EVENT_MODIFY))
+    async deleteCalendarEvent(@Param('id') id: number) {
+        this.logger.log(id);
+        await this.calendarService.deleteCalendarEvent(id);
     }
 }

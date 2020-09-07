@@ -16,3 +16,9 @@
 .calendar-container {
     will-change: transform;
 }
+
+@media (max-width: 767px) {
+    .card-body {
+        font-size: 0.9rem;
+    }
+}
