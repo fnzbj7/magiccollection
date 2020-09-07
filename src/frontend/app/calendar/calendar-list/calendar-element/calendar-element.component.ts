@@ -22,7 +22,7 @@ export class CalendarElementComponent implements OnInit, OnDestroy {
         this.hourPad = this.pad(this.calendarEvent.hour, 2);
         this.isSelected = this.calendarEvent.id === this.calendarService.getSelectedEventId();
         this.selectCalendarEventSub = this.calendarService
-            .getselectCalendarEventSub()
+            .getSelectCalendarEventSub()
             .subscribe(selectedId => {
                 this.isSelected = selectedId === this.calendarEvent.id;
             });

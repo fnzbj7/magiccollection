@@ -1,7 +1,7 @@
 <ul class="navbar-nav" style="margin-left: 30px; margin-right: 20px;">
 
     <ng-container *ngFor="let menu of menus">
-        <li class="nav-item"
+        <li class="nav-item my-1"
         routerLinkActive="active"
         [routerLinkActiveOptions]="{ exact: menu.exact }"
         *ngIf="menu.always || loggedUser">
@@ -10,21 +10,23 @@
     </ng-container>
 
     <li
-        class="nav-item"
+        class="nav-item my-1"
         *ngIf="!loggedUser"
     >
         <p class="nav-link pointer mb-0" (click)="openModalWithComponent()">
             Log in
         </p>
     </li>
-    <li
-        class="nav-item"
-        *ngIf="loggedUser"
-    >
-        <p class="nav-link pointer mb-0" (click)="onLogout()">Log Out</p>
-    </li>
-    <li class="nav-item" *ngIf="loggedUser">
-        <img src="/assets/img/user-icon/default-icon.png" style="width: 40px">
-        {{loggedUser.email}}
-    </li>
+    <ng-container *ngIf="loggedUser">
+        <li
+        class="nav-item my-1"
+        >
+            <p class="nav-link pointer mb-0" (click)="onLogout()">Log Out</p>
+        </li>
+        <li class="nav-item">
+            <img src="/assets/img/user-icon/default-icon.png" style="width: 40px">
+            {{loggedUser.email}}
+        </li>
+    </ng-container>
+
 </ul>

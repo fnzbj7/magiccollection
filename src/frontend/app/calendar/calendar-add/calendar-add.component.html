@@ -1,5 +1,5 @@
 
-<div class="container bg-white pb-5 pt-3 pl-4 container-width">
+<div class="container bg-white pb-5 mb-5 pt-3 pl-4 container-width">
     <ng-container *ngIf="!finished">
         <h2>Verseny készítése</h2>
         <div class="form-group">
@@ -22,7 +22,7 @@
         <label for="event-date">Verseny dátuma</label>
         <div class="input-group input-width-plus">
             <input class="form-control" placeholder="Év-hónap-nap"
-                    name="event-date" [(ngModel)]="model" [displayMonths]="2" [navigation]="'select'"
+                    name="event-date" [(ngModel)]="model" [displayMonths]="isMobile ? 1 : 2" [navigation]="'select'"
                     [showWeekNumbers]="false" [outsideDays]="'visible'" ngbDatepicker #d="ngbDatepicker">
             <div class="input-group-append">
                 <button class="btn btn-outline-secondary calendar" (click)="d.toggle()" type="button">
@@ -43,8 +43,10 @@
         <fa-icon [icon]="time.hour ? faCheckCircle : faTimesCircle" class="ml-2 mt-5 float-left d-block" [ngClass]="time.hour ? 'text-success' : 'text-danger'"></fa-icon>
         <div class="clearfix"></div>
         <small *ngIf="isSubmitted && !time.hour" class="form-text text-muted">Töltsed ki az időpontot</small>
-        <input type="submit" value="Verseny létrehozása" class="btn btn-primary" (click)="submitCalendar()">
-        <div routerLink="/calendar" class="btn btn-outline-secondary ml-2">Vissza</div>
+        <div class="mt-4">
+            <input type="submit" value="Verseny létrehozása" class="btn btn-primary" (click)="submitCalendar()">
+            <div routerLink="/calendar" class="btn btn-outline-secondary ml-2">Vissza</div>
+        </div>
     </ng-container>
 
     <ng-container *ngIf="finished">

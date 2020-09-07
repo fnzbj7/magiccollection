@@ -10,6 +10,7 @@ import { faCalendarAlt, faTimesCircle, faCheckCircle } from '@fortawesome/free-s
     styleUrls: ['./calendar-add.component.css'],
 })
 export class CalendarAddComponent implements OnInit {
+    isMobile: boolean;
     calendarEvent: CalendarEvent = new CalendarEvent(null, 0, 0, null);
     time: { hour: number; minute: number };
     model: NgbDateStruct;
@@ -25,6 +26,7 @@ export class CalendarAddComponent implements OnInit {
 
     ngOnInit(): void {
         this.time = { hour: this.calendarEvent.hour, minute: this.calendarEvent.minute };
+        this.isMobile = window.innerWidth < 700;
     }
 
     // Egy form amit ellehet menteni és feltudjuk küldeni a backendnek
