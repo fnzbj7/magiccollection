@@ -17,4 +17,8 @@ export class CalendarService {
     async saveCalendarEvent(calendarEvent: CalendarEvent): Promise<CalendarEvent> {
         return await this.calendarEventRepository.save(calendarEvent);
     }
+
+    async deleteCalendarEvent(id: number) {
+        await this.calendarEventRepository.delete({ id });
+    }
 }

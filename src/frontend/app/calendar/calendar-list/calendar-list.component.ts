@@ -6,6 +6,7 @@ import { faAngleLeft, faAngleRight, faCalendarPlus } from '@fortawesome/free-sol
 import { AuthenticationService } from '../../auth/authentication.service';
 import { User } from '../../model/user.model';
 import { Privilege } from '../../auth/privilege.enum';
+import { CalendarEvent } from './model/calendar-event.model';
 
 @Component({
     selector: 'app-calendar-list',
@@ -70,11 +71,12 @@ export class CalendarListComponent implements OnInit, OnDestroy {
 
         if (this.calendarService.inited) {
             this.initCalendar(this.currentDate);
+        } else {
+            console.log('Get All');
+            this.calendarService.getAllCalendarEvent().subscribe(a => {
+                this.initCalendar(this.currentDate);
+            });
         }
-
-        this.calendarService.getAllCalendarEvent().subscribe(a => {
-            this.initCalendar(this.currentDate);
-        });
 
         this.selectCalendarEventSub = this.calendarService
             .getSelectCalendarEventSub()
@@ -163,6 +165,12 @@ export class CalendarListComponent implements OnInit, OnDestroy {
             this.currentDate.getMonth() - 1,
             15,
         );
+        this.initCalendar(this.currentDate);
+    }
+
+    onDelete(calendarEvent: CalendarEvent) {
+        this.calendarService.removeCalendarValue(calendarEvent);
+        this.calendarService.selectCalendarEvent();
         this.initCalendar(this.currentDate);
     }
 

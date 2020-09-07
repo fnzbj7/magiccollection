@@ -27,12 +27,7 @@ export class CalendarService {
                         (calendarEvent.eventStart = new Date(calendarEvent.eventStart)),
                 );
                 calendarEventArray.forEach(calendarEvent => {
-                    this.addValueToCalendar(
-                        calendarEvent.eventStart.getFullYear(),
-                        calendarEvent.eventStart.getMonth() + 1,
-                        calendarEvent.eventStart.getDate(),
-                        calendarEvent,
-                    );
+                    this.addValueToCalendar(calendarEvent);
                 });
                 return calendarEventArray;
             }),
@@ -41,47 +36,20 @@ export class CalendarService {
 
     getCalendarValue(year: number, month: number, day: number) {
         if (!this.calendarMap) {
-            // Init
             this.calendarMap = new Map();
-            const calendarItem = new CalendarEvent(1, 19, 20, 'RNA Draft');
-            const calendarItem2 = new CalendarEvent(2, 19, 30, 'St');
-
-            const calendarItem3 = new CalendarEvent(3, 16, 30, 'Standard 2/7');
-            const calendarItem4 = new CalendarEvent(4, 15, 30, 'RNA Prerelease Very long text');
-            // const calendarItem5 = new CalendarEvent(0, 14, 30, 'RESET' );
-            const calendarItem5 = new CalendarEvent(5, 14, 30, 'Event Cust');
-            const calendarItem6 = new CalendarEvent(6, 14, 30, 'Event Cust');
-            const calendarItem7 = new CalendarEvent(7, 15, 30, 'RNA Prerelease Very long text');
-            const calendarItem8 = new CalendarEvent(8, 19, 30, 'St');
-
-            this.addValueToCalendar(2019, 2, 20, calendarItem);
-            this.addValueToCalendar(2019, 2, 20, calendarItem2);
-            this.addValueToCalendar(2019, 2, 20, calendarItem4);
-            this.addValueToCalendar(2019, 2, 20, calendarItem5);
-
-            this.addValueToCalendar(2019, 8, 20, calendarItem);
-            this.addValueToCalendar(2019, 8, 20, calendarItem2);
-            this.addValueToCalendar(2019, 8, 20, calendarItem4);
-            this.addValueToCalendar(2019, 8, 18, calendarItem5);
-
-            this.addValueToCalendar(2019, 8, 16, calendarItem);
-            this.addValueToCalendar(2019, 7, 23, calendarItem2);
-            this.addValueToCalendar(2019, 8, 5, calendarItem4);
-            this.addValueToCalendar(2019, 8, 5, calendarItem5);
-
-            this.calendarMap.set('20190223', [calendarItem3]);
-            this.calendarMap.set('20190226', [calendarItem8]);
-            this.calendarMap.set('20190301', [calendarItem7]);
-            this.calendarMap.set('20190308', [calendarItem6]);
         }
 
         const dateS = this.convertNumbersToDateString(year, month, day);
         return this.calendarMap.get(dateS);
     }
 
-    addValueToCalendar(year: number, month: number, day: number, calendarEvent: CalendarEvent) {
+    addValueToCalendar(calendarEvent: CalendarEvent) {
         // Save to database
-        const dateS = this.convertNumbersToDateString(year, month, day);
+        const dateS = this.convertNumbersToDateString(
+            calendarEvent.eventStart.getFullYear(),
+            calendarEvent.eventStart.getMonth() + 1,
+            calendarEvent.eventStart.getDate(),
+        );
         const calendarEventArray = this.calendarMap.get(dateS);
         if (calendarEventArray) {
             calendarEventArray.push(calendarEvent);
@@ -92,8 +60,6 @@ export class CalendarService {
                     return a.minute - b.minute;
                 }
             });
-
-            // ID-t késöbb megváltoztatni és a default 0 legyen
         } else {
             this.calendarMap.set(dateS, [calendarEvent]);
         }
@@ -104,6 +70,22 @@ export class CalendarService {
         const monthS = month < 10 ? '0' + month : month;
         const dayS = day < 10 ? '0' + day : day;
         return yearS + monthS + dayS;
+    }
+
+    updateCalendarValue(originalCalendarEvent: CalendarEvent, calendarEvent: CalendarEvent) {
+        this.removeCalendarValue(originalCalendarEvent);
+        this.addValueToCalendar(calendarEvent);
+    }
+
+    removeCalendarValue(calendarEvent: CalendarEvent) {
+        const dateS = this.convertNumbersToDateString(
+            calendarEvent.eventStart.getFullYear(),
+            calendarEvent.eventStart.getMonth() + 1,
+            calendarEvent.eventStart.getDate(),
+        );
+        let calendarEventArray = this.calendarMap.get(dateS);
+        calendarEventArray = calendarEventArray.filter(event => event.id !== calendarEvent.id);
+        this.calendarMap.set(dateS, calendarEventArray);
     }
 
     getSelectedEventId() {
@@ -131,11 +113,18 @@ export class CalendarService {
         return this.selectedCalendarEvent;
     }
 
-    saveNewCalendarEvent(calendarEvent: CalendarEvent): Observable<void> {
-        return this.http.post<void>(environment.mainUrl + '/calendar/add', calendarEvent);
+    saveNewCalendarEvent(calendarEvent: CalendarEvent): Observable<CalendarEvent> {
+        return this.http.post<CalendarEvent>(environment.mainUrl + '/calendar/add', calendarEvent);
     }
 
-    updateNewCalendarEvent(calendarEvent: CalendarEvent): Observable<void> {
-        return this.http.patch<void>(environment.mainUrl + '/calendar/modify', calendarEvent);
+    updateCalendarEvent(calendarEvent: CalendarEvent): Observable<CalendarEvent> {
+        return this.http.patch<CalendarEvent>(
+            environment.mainUrl + '/calendar/modify',
+            calendarEvent,
+        );
+    }
+
+    deleteCalendarEvent(calendarEvent: CalendarEvent): Observable<void> {
+        return this.http.delete<void>(environment.mainUrl + `/calendar/delete/${calendarEvent.id}`);
     }
 }
