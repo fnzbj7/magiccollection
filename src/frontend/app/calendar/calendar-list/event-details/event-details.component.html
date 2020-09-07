@@ -29,7 +29,12 @@
                 </div>
             </div>
 
-            <button type="button" class="btn btn-primary">Jelentkezés</button>
+            <button type="button" class="btn btn-primary">Jelentkezés</button> <br>
+
+            <ng-container *ngIf="eventPrivilege">
+                <a class="btn btn-primary my-4" [routerLink]="['/', 'calendar', 'modify', selectedCalendarEvent.id]">Módosítás</a>
+                <button type="button" class="btn btn-danger">Törlés</button>
+            </ng-container>
         </div>
     </div>
 </div>

@@ -17,21 +17,24 @@ export class CalendarService {
         this.calendarMap = new Map();
     }
 
-    getAllCalendarEvent(): Observable<Map<string, CalendarEvent[]>> {
+    getAllCalendarEvent(): Observable<CalendarEvent[]> {
         return this.http.get<CalendarEvent[]>(`${environment.mainUrl}/calendar/all`).pipe(
             map(calendarEventArray => {
                 this.inited = true;
                 this.calendarMap.clear();
+                calendarEventArray.map(
+                    calendarEvent =>
+                        (calendarEvent.eventStart = new Date(calendarEvent.eventStart)),
+                );
                 calendarEventArray.forEach(calendarEvent => {
-                    const eventStartDate = new Date(calendarEvent.eventStart);
                     this.addValueToCalendar(
-                        eventStartDate.getFullYear(),
-                        eventStartDate.getMonth() + 1,
-                        eventStartDate.getDate(),
+                        calendarEvent.eventStart.getFullYear(),
+                        calendarEvent.eventStart.getMonth() + 1,
+                        calendarEvent.eventStart.getDate(),
                         calendarEvent,
                     );
                 });
-                return this.calendarMap;
+                return calendarEventArray;
             }),
         );
     }
@@ -130,5 +133,9 @@ export class CalendarService {
 
     saveNewCalendarEvent(calendarEvent: CalendarEvent): Observable<void> {
         return this.http.post<void>(environment.mainUrl + '/calendar/add', calendarEvent);
+    }
+
+    updateNewCalendarEvent(calendarEvent: CalendarEvent): Observable<void> {
+        return this.http.patch<void>(environment.mainUrl + '/calendar/modify', calendarEvent);
     }
 }

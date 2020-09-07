@@ -3,6 +3,7 @@ import { CalendarEvent } from '../calendar-list/model/calendar-event.model';
 import { CalendarService } from '../calendar.service';
 import { NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
 import { faCalendarAlt, faTimesCircle, faCheckCircle } from '@fortawesome/free-solid-svg-icons';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
     selector: 'app-calendar-add',
@@ -10,6 +11,7 @@ import { faCalendarAlt, faTimesCircle, faCheckCircle } from '@fortawesome/free-s
     styleUrls: ['./calendar-add.component.css'],
 })
 export class CalendarAddComponent implements OnInit {
+    isInit = true;
     isMobile: boolean;
     calendarEvent: CalendarEvent = new CalendarEvent(null, 0, 0, null);
     time: { hour: number; minute: number };
@@ -22,10 +24,47 @@ export class CalendarAddComponent implements OnInit {
     faTimesCircle = faTimesCircle;
     faCheckCircle = faCheckCircle;
 
-    constructor(private calendarService: CalendarService) {}
+    constructor(private calendarService: CalendarService, private route: ActivatedRoute) {}
 
     ngOnInit(): void {
+        /* isInit */
+        let expansionId = this.route.snapshot.params['calendarId'];
+        if (expansionId) {
+            // Get the event from the service or from the backend or go to the add screen
+            if (this.calendarService.inited) {
+                this.calendarEvent = this.calendarService.getSelectedCalendarEvent();
+                this.model = {
+                    year: this.calendarEvent.eventStart.getFullYear(),
+                    month: this.calendarEvent.eventStart.getMonth() + 1,
+                    day: this.calendarEvent.eventStart.getDate(),
+                };
+                console.log(this.model);
+                this.isInit = false;
+            } else {
+                expansionId = +expansionId;
+                this.calendarService
+                    .getAllCalendarEvent()
+                    .subscribe((calendarEventArray: CalendarEvent[]) => {
+                        this.calendarEvent = calendarEventArray.find(
+                            calendarEvent => expansionId === calendarEvent.id,
+                        );
+                        this.model = {
+                            year: this.calendarEvent.eventStart.getFullYear(),
+                            month: this.calendarEvent.eventStart.getMonth() + 1,
+                            day: this.calendarEvent.eventStart.getDate(),
+                        };
+                        this.time = {
+                            hour: this.calendarEvent.hour,
+                            minute: this.calendarEvent.minute,
+                        };
+                        this.isInit = false;
+                    });
+            }
+        } else {
+            this.isInit = false;
+        }
         this.time = { hour: this.calendarEvent.hour, minute: this.calendarEvent.minute };
+
         this.isMobile = window.innerWidth < 700;
     }
 
@@ -44,9 +83,15 @@ export class CalendarAddComponent implements OnInit {
         }
         console.log(this.calendarEvent);
         if (this.isCalendarEventValid(this.calendarEvent)) {
-            this.calendarService.saveNewCalendarEvent(this.calendarEvent).subscribe(() => {
-                this.finished = true;
-            });
+            if (this.calendarEvent.id) {
+                this.calendarService.saveNewCalendarEvent(this.calendarEvent).subscribe(() => {
+                    this.finished = true;
+                });
+            } else {
+                this.calendarService.saveNewCalendarEvent(this.calendarEvent).subscribe(() => {
+                    this.finished = true;
+                });
+            }
         } else {
             console.log('nem volt valid');
         }
