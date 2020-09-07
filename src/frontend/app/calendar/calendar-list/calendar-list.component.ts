@@ -77,7 +77,7 @@ export class CalendarListComponent implements OnInit, OnDestroy {
         });
 
         this.selectCalendarEventSub = this.calendarService
-            .getselectCalendarEventSub()
+            .getSelectCalendarEventSub()
             .subscribe(selectedEventId => {
                 this.isDetailsOpen = selectedEventId !== 0;
             });

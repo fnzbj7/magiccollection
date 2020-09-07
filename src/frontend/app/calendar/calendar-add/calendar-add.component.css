@@ -3,12 +3,21 @@
 }
 
 .input-width {
-    width: 300px;
+    width: 290px;
 }
 .input-width-plus {
-    width: 324px;
+    width: 314px;
 }
 
 .container-width {
     max-width: 370px;
+}
+
+@media (min-width: 768px) {
+    .input-width {
+        width: 300px;
+    }
+    .input-width-plus {
+        width: 324px;
+    }
 }

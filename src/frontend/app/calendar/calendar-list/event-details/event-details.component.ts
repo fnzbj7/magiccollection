@@ -1,4 +1,13 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import {
+    Component,
+    OnInit,
+    OnDestroy,
+    AfterViewInit,
+    ViewChild,
+    ViewContainerRef,
+    TemplateRef,
+    ElementRef,
+} from '@angular/core';
 import { CalendarService } from '../../calendar.service';
 import { Subscription } from 'rxjs';
 import { CalendarEvent } from '../model/calendar-event.model';
@@ -9,10 +18,11 @@ import { faTimes } from '@fortawesome/free-solid-svg-icons';
     templateUrl: './event-details.component.html',
     styleUrls: ['./event-details.component.css'],
 })
-export class EventDetailsComponent implements OnInit, OnDestroy {
+export class EventDetailsComponent implements OnInit, OnDestroy, AfterViewInit {
     selectedCalendarEvent: CalendarEvent = null;
     selectCalendarEventSub: Subscription = null;
     dummyArray: string[] = ['Nagy Csaba', 'Kis Peti', 'Lapátos Peti'];
+    @ViewChild('target', { static: true }) input: ElementRef<HTMLDivElement>;
 
     // Font-Awesome
     faTimes = faTimes;
@@ -22,7 +32,7 @@ export class EventDetailsComponent implements OnInit, OnDestroy {
     ngOnInit() {
         this.selectedCalendarEvent = this.calendarService.getSelectedCalendarEvent();
         this.selectCalendarEventSub = this.calendarService
-            .getselectCalendarEventSub()
+            .getSelectCalendarEventSub()
             .subscribe(calendarEventId => {
                 if (calendarEventId === 0) {
                     this.selectedCalendarEvent = null;
@@ -33,6 +43,14 @@ export class EventDetailsComponent implements OnInit, OnDestroy {
                     this.selectedCalendarEvent = this.calendarService.getSelectedCalendarEvent();
                 }
             });
+    }
+
+    ngAfterViewInit(): void {
+        this.input.nativeElement.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start',
+            inline: 'nearest',
+        });
     }
 
     onClose() {

@@ -101,6 +101,7 @@
 
 </div>
 
-<a *ngIf="eventPrivilege" class="btn btn-primary" [routerLink]="['/', 'calendar', 'add']">Új esemény</a>
-
 <app-event-details *ngIf="isDetailsOpen"></app-event-details>
+
+
+<a *ngIf="eventPrivilege" class="btn btn-primary my-4" [routerLink]="['/', 'calendar', 'add']">Új esemény</a>
