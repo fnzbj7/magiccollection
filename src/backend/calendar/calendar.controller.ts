@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Logger, Body, UseGuards } from '@nestjs/common';
+import { Controller, Get, Post, Logger, Body, UseGuards, Patch } from '@nestjs/common';
 import { CalendarEvent } from './entity/calendar-event.entity';
 import { CalendarService } from './calendar.service';
 import { PrivilegeGuard } from '../auth/privilege.guard';
@@ -11,26 +11,22 @@ export class CalendarController {
 
     constructor(private calendarService: CalendarService) {}
 
-    @Get('/test')
-    async getTest() {
-        const a = new CalendarEvent();
-        a.eventStart = new Date();
-        await a.save();
-        return 'alma';
-    }
-
     @Get('/all')
-    async getAllCalendarEvent() {
+    async getAllCalendarEvent(): Promise<CalendarEvent[]> {
         return await this.calendarService.getAllCalendarEvent();
     }
 
-    // TODO autentikáció
     @Post('/add')
     @UseGuards(AuthGuard(), new PrivilegeGuard(PrivilegeEnum.EVENT_MODIFY))
     async addCalendarEvent(@Body() calendarEvent: CalendarEvent) {
         this.logger.log(calendarEvent);
         await this.calendarService.saveCalendarEvent(calendarEvent);
-        // a.eventStart = new Date();
-        // await a.save();
+    }
+
+    @Patch('/modify')
+    @UseGuards(AuthGuard(), new PrivilegeGuard(PrivilegeEnum.EVENT_MODIFY))
+    async modifyCalendarEvent(@Body() calendarEvent: CalendarEvent) {
+        this.logger.log(calendarEvent);
+        await this.calendarService.saveCalendarEvent(calendarEvent);
     }
 }

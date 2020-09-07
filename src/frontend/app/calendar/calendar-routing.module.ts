@@ -12,6 +12,10 @@ const routes: Routes = [
         path: 'add',
         component: CalendarAddComponent,
     },
+    {
+        path: 'modify/:calendarId',
+        component: CalendarAddComponent,
+    },
 ];
 
 @NgModule({

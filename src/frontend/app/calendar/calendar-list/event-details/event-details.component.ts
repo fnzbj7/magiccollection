@@ -4,9 +4,8 @@ import {
     OnDestroy,
     AfterViewInit,
     ViewChild,
-    ViewContainerRef,
-    TemplateRef,
     ElementRef,
+    Input,
 } from '@angular/core';
 import { CalendarService } from '../../calendar.service';
 import { Subscription } from 'rxjs';
@@ -19,6 +18,7 @@ import { faTimes } from '@fortawesome/free-solid-svg-icons';
     styleUrls: ['./event-details.component.css'],
 })
 export class EventDetailsComponent implements OnInit, OnDestroy, AfterViewInit {
+    @Input() eventPrivilege: boolean;
     selectedCalendarEvent: CalendarEvent = null;
     selectCalendarEventSub: Subscription = null;
     dummyArray: string[] = ['Nagy Csaba', 'Kis Peti', 'Lapátos Peti'];
