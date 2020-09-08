@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnChanges, OnDestroy } from '@angular/core';
 import { CalendarEvent } from '../calendar-list/model/calendar-event.model';
 import { CalendarService } from '../calendar.service';
 import { NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
@@ -10,7 +10,7 @@ import { ActivatedRoute } from '@angular/router';
     templateUrl: './calendar-add.component.html',
     styleUrls: ['./calendar-add.component.css'],
 })
-export class CalendarAddComponent implements OnInit {
+export class CalendarAddComponent implements OnInit, OnDestroy {
     isInit = true;
     isMobile: boolean;
     calendarEvent: CalendarEvent = new CalendarEvent(null, 0, 0, null);
@@ -19,6 +19,8 @@ export class CalendarAddComponent implements OnInit {
     model: NgbDateStruct;
     isSubmitted = false;
     finished = false;
+
+    mediaQuery: MediaQueryList;
 
     // Fontawesome
     faCalendarAlt = faCalendarAlt;
@@ -68,7 +70,13 @@ export class CalendarAddComponent implements OnInit {
         }
         this.time = { hour: this.calendarEvent.hour, minute: this.calendarEvent.minute };
 
-        this.isMobile = window.innerWidth < 700;
+        this.mediaQuery = window.matchMedia('(max-width: 768px)');
+        this.isMobile = this.mediaQuery.matches;
+        this.mediaQuery.addEventListener('change', this.onChange.bind(this));
+    }
+
+    onChange(mediaQueryListEvent: MediaQueryListEvent) {
+        this.isMobile = mediaQueryListEvent.matches;
     }
 
     // Egy form amit ellehet menteni és feltudjuk küldeni a backendnek
@@ -115,5 +123,9 @@ export class CalendarAddComponent implements OnInit {
             calendarEvent.location != null &&
             calendarEvent.title != null
         );
+    }
+
+    ngOnDestroy(): void {
+        this.mediaQuery.removeEventListener('change', this.onChange);
     }
 }
