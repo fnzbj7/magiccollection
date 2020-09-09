@@ -1,4 +1,5 @@
-import { Entity, PrimaryGeneratedColumn, Column, BaseEntity } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, BaseEntity, JoinTable, ManyToMany } from 'typeorm';
+import { User } from '../../auth/entity/user.entity';
 
 @Entity()
 export class CalendarEvent extends BaseEntity {
@@ -19,4 +20,15 @@ export class CalendarEvent extends BaseEntity {
 
     @Column()
     location: string;
+
+    @ManyToMany(
+        type => User,
+        user => user.calendarEvents,
+    )
+    @JoinTable({
+        name: 'user_calendar_event',
+        joinColumn: { name: 'calendar_event_1' },
+        inverseJoinColumn: { name: 'user_1' },
+    })
+    users: User[];
 }

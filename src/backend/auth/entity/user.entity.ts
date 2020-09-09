@@ -11,6 +11,7 @@ import {
 import * as bcrypt from 'bcrypt';
 import { CardAmount } from '../../card/entity/card-amount.entity';
 import { Privilege } from './privilege.entity';
+import { CalendarEvent } from '../../calendar/entity/calendar-event.entity';
 
 export enum UserSource {
     SITE = 'site',
@@ -63,6 +64,12 @@ export class User extends BaseEntity {
         inverseJoinColumn: { name: 'privilege_1' },
     })
     privileges: Privilege[];
+
+    @ManyToMany(
+        type => CalendarEvent,
+        calendarEvent => calendarEvent.users,
+    )
+    calendarEvents: CalendarEvent[];
 
     async validatePassword(password: string): Promise<boolean> {
         const hash = await bcrypt.hash(password, this.salt);

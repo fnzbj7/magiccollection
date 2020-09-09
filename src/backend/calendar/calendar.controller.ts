@@ -14,6 +14,8 @@ import { CalendarService } from './calendar.service';
 import { PrivilegeGuard } from '../auth/privilege.guard';
 import { PrivilegeEnum } from '../auth/enum/privilege.enum';
 import { AuthGuard } from '@nestjs/passport';
+import { GetUser } from '../auth/get-user.decorator';
+import { User } from '../auth/entity/user.entity';
 
 @Controller('calendar')
 export class CalendarController {
@@ -45,5 +47,31 @@ export class CalendarController {
     async deleteCalendarEvent(@Param('id') id: number) {
         this.logger.log(id);
         await this.calendarService.deleteCalendarEvent(id);
+    }
+
+    @Post('/join')
+    @UseGuards(AuthGuard())
+    async joinCalendarEvent(@Body() calendarEvent: CalendarEvent, @GetUser() user: User) {
+        await this.calendarService.joinCalendarEvent(calendarEvent, user);
+    }
+
+    @Delete('/leave/:id')
+    @UseGuards(AuthGuard())
+    async leaveCalendarEvent(@Param('id') calendarId: number, @GetUser() user: User) {
+        await this.calendarService.leaveCalendarEvent(calendarId, user);
+    }
+
+    @Get('/allparticipant/:id')
+    async allCalendarEventParticipant(@Param('id') calendarId: number): Promise<String[]> {
+        return await this.calendarService.allCalendarEventParticipant(calendarId);
+    }
+
+    @Get('/allparticipantuser/:id')
+    @UseGuards(AuthGuard())
+    async allCalendarEventParticipantWithUser(
+        @Param('id') calendarId: number,
+        @GetUser() user: User,
+    ): Promise<String[]> {
+        return await this.calendarService.allCalendarEventParticipant(calendarId);
     }
 }
