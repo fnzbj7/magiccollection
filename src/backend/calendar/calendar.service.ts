@@ -4,6 +4,7 @@ import { CalendarEventRepository } from './repository/calendar-event.repository'
 import { CalendarEvent } from './entity/calendar-event.entity';
 import { getConnection } from 'typeorm';
 import { User } from '../auth/entity/user.entity';
+import { CalendarParticipantUserDto } from './dto/calendar-participant-user.dto';
 
 @Injectable()
 export class CalendarService {
@@ -38,5 +39,19 @@ export class CalendarService {
             { relations: ['users'] },
         );
         return calendarEvent.users.map(user => user.name);
+    }
+
+    async allCalendarEventParticipantUser(
+        calendarId: number,
+        user: User,
+    ): Promise<CalendarParticipantUserDto> {
+        const calendarEvent: CalendarEvent = await this.calendarEventRepository.findOne(
+            calendarId,
+            { relations: ['users'] },
+        );
+        const calendarParticipantUserDto: CalendarParticipantUserDto = new CalendarParticipantUserDto();
+        calendarParticipantUserDto.participants = calendarEvent.users.map(u => u.name);
+        calendarParticipantUserDto.isUser = calendarEvent.users.some(u => u.id === user.id);
+        return calendarParticipantUserDto;
     }
 }

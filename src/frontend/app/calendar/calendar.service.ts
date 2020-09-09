@@ -1,10 +1,10 @@
 import { CalendarEvent } from './calendar-list/model/calendar-event.model';
-import { Subject, Observable, BehaviorSubject } from 'rxjs';
+import { Observable, BehaviorSubject } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment';
-import { CalendarDto } from './calendar-list/model/Calendar.dto';
 import { map } from 'rxjs/operators';
+import { CalendarParticipantUserDto } from './calendar-list/model/calendar-participant-user.dto';
 
 @Injectable({ providedIn: 'root' })
 export class CalendarService {
@@ -134,5 +134,17 @@ export class CalendarService {
 
     leaveCalendarEvent(calendarEvent: CalendarEvent): Observable<void> {
         return this.http.delete<void>(environment.mainUrl + `/calendar/leave/${calendarEvent.id}`);
+    }
+
+    getAllParticipant(calendarEvent: CalendarEvent): Observable<string[]> {
+        return this.http.get<string[]>(
+            environment.mainUrl + `/calendar/allparticipant/${calendarEvent.id}`,
+        );
+    }
+
+    getAllParticipantUser(calendarEvent: CalendarEvent): Observable<CalendarParticipantUserDto> {
+        return this.http.get<CalendarParticipantUserDto>(
+            environment.mainUrl + `/calendar/allparticipantuser/${calendarEvent.id}`,
+        );
     }
 }

@@ -16,6 +16,7 @@ import { PrivilegeEnum } from '../auth/enum/privilege.enum';
 import { AuthGuard } from '@nestjs/passport';
 import { GetUser } from '../auth/get-user.decorator';
 import { User } from '../auth/entity/user.entity';
+import { CalendarParticipantUserDto } from './dto/calendar-participant-user.dto';
 
 @Controller('calendar')
 export class CalendarController {
@@ -71,7 +72,7 @@ export class CalendarController {
     async allCalendarEventParticipantWithUser(
         @Param('id') calendarId: number,
         @GetUser() user: User,
-    ): Promise<String[]> {
-        return await this.calendarService.allCalendarEventParticipant(calendarId);
+    ): Promise<CalendarParticipantUserDto> {
+        return await this.calendarService.allCalendarEventParticipantUser(calendarId, user);
     }
 }
