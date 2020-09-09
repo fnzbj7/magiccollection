@@ -127,4 +127,12 @@ export class CalendarService {
     deleteCalendarEvent(calendarEvent: CalendarEvent): Observable<void> {
         return this.http.delete<void>(environment.mainUrl + `/calendar/delete/${calendarEvent.id}`);
     }
+
+    joinCalendarEvent(calendarEvent: CalendarEvent): Observable<CalendarEvent> {
+        return this.http.post<CalendarEvent>(environment.mainUrl + '/calendar/join', calendarEvent);
+    }
+
+    leaveCalendarEvent(calendarEvent: CalendarEvent): Observable<void> {
+        return this.http.delete<void>(environment.mainUrl + `/calendar/leave/${calendarEvent.id}`);
+    }
 }
