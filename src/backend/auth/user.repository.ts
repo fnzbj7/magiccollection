@@ -45,10 +45,13 @@ export class UserRepository extends Repository<User> {
     }
 
     async findOrCreate(profile: Profile): Promise<User> {
-        const userFind = await this.findOne({
-            email: profile.emails[0].value,
-            source: UserSource.FB,
-        });
+        const userFind = await this.findOne(
+            {
+                email: profile.emails[0].value,
+                source: UserSource.FB,
+            },
+            { relations: ['privileges'] },
+        );
 
         if (userFind) {
             return userFind;
@@ -58,6 +61,7 @@ export class UserRepository extends Repository<User> {
             userCreate.email = profile.emails[0].value;
             userCreate.activated = true;
             userCreate.source = UserSource.FB;
+            userCreate.privileges = [];
             try {
                 await userCreate.save();
             } catch (error) {
