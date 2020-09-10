@@ -9,3 +9,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 ### Changed
 
 -   Updated all npm package to the newest
+
+### Fixed
+
+-   Adding registration screen error messages and checks. Even Translated to hungarian

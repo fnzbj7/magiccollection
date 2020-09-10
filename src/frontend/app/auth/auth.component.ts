@@ -33,7 +33,13 @@ export class AuthComponent implements OnInit {
     ngOnInit() {
         this.registrationForm = this.formBuilder.group({
             username: ['', Validators.required],
-            password: ['', Validators.required],
+            password: [
+                '',
+                [
+                    Validators.required,
+                    Validators.pattern(/((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/),
+                ],
+            ],
             email: ['', [Validators.required, Validators.email]],
         });
 
@@ -52,7 +58,7 @@ export class AuthComponent implements OnInit {
                 this.authServiceSocial.signOut();
                 this.dialogRef.close();
             },
-            err => {
+            (err) => {
                 this.authServiceSocial.signOut();
             },
         );
@@ -72,6 +78,7 @@ export class AuthComponent implements OnInit {
 
         // stop here if form is invalid
         if (this.registrationForm.invalid) {
+            console.log('invalid volt');
             return;
         }
 
@@ -84,15 +91,15 @@ export class AuthComponent implements OnInit {
             )
             .pipe(first())
             .subscribe(
-                data => {
+                (data) => {
                     // this.router.navigate([this.returnUrl]);
                     this.loading = false;
                     this.onPageChange('Login');
                 },
-                error => {
+                (error) => {
                     console.error(error);
                     console.error(error.status);
-                    if (error.status === 420) {
+                    if (error.status === 409) {
                         // Email already in use
                         this.registrationForm.get('email').setErrors({ emailUsed: true });
                     }
@@ -120,12 +127,12 @@ export class AuthComponent implements OnInit {
             .login(this.logForm.email.value, this.logForm.password.value)
             .pipe(first())
             .subscribe(
-                data => {
+                (data) => {
                     // this.router.navigate([this.returnUrl]);
                     this.loading = false;
                     this.dialogRef.close();
                 },
-                error => {
+                (error) => {
                     console.error(error);
                     console.error(error.status);
                     if (error.status === 421) {
@@ -138,6 +145,14 @@ export class AuthComponent implements OnInit {
 
     get regemail() {
         return this.registrationForm.get('email');
+    }
+
+    get regpass() {
+        return this.registrationForm.get('password');
+    }
+
+    get regname() {
+        return this.registrationForm.get('username');
     }
 
     get logemail() {
