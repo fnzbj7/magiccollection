@@ -1,6 +1,6 @@
 <div class="modal-header pb-0">
     <button type="button" (click)="onPageChange('Login')" [ngClass]="{ 'btn-primary' : selectedPage === 'Login', 'btn-outline-primary' : selectedPage !== 'Login'}" class="btn pull-left rounded-bottom-0 border-bottom-0">Log in</button>
-    <button type="button"  (click)="onPageChange('Registration')" [ngClass]="{ 'btn-primary' : selectedPage === 'Registration', 'btn-outline-primary' : selectedPage !== 'Registration'}" class="btn btn-outline-primary pull-left rounded-bottom-0 border-bottom-0">Registration</button>
+    <button type="button"  (click)="onPageChange('Registration')" [ngClass]="{ 'btn-primary' : selectedPage === 'Registration', 'btn-outline-primary' : selectedPage !== 'Registration'}" class="btn btn-outline-primary pull-left rounded-bottom-0 border-bottom-0">Regisztráció</button>
   <!-- <h4 class="modal-title pull-left">Modal</h4> -->
   <button type="button" class="close pull-right" aria-label="Close" (click)="dialogRef.close()">
     <span aria-hidden="true">&times;</span>
@@ -10,20 +10,20 @@
   <!-- ---------LOGIN------ -->
   <form *ngIf="selectedPage === 'Login'" [formGroup]="loginForm" (ngSubmit)="onLoginSubmit()">
       <div class="form-group">
-        <label for="exampleInputEmail1">Email address</label>
-        <input type="email" [ngClass]="{'is-invalid':  logemail.touched && logemail.invalid && logemail.errors['email']}" class="form-control" formControlName="email" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+        <label for="exampleInputEmail1">Email cím</label>
+        <input type="email" [ngClass]="{'is-invalid':  logemail.touched && logemail.invalid && logemail.errors['email']}" class="form-control" formControlName="email" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Email cím">
         <span class="text-danger" *ngIf="logemail.touched && logemail.invalid && logemail.errors['email']">
-          This is not a valid email!
+          Nem valós email cím
         </span>
       </div>
       <div class="form-group">
-        <label for="exampleInputPassword1">Password</label>
-        <input type="password" [ngClass]="{'is-invalid': logpass.invalid && logpass.errors['wrongPass']}" class="form-control" formControlName="password" id="exampleInputPassword1" placeholder="Password">
+        <label for="exampleInputPassword1">Jelszó</label>
+        <input type="password" [ngClass]="{'is-invalid': logpass.invalid && logpass.errors['wrongPass']}" class="form-control" formControlName="password" id="exampleInputPassword1" placeholder="Jelszó">
         <span class="text-danger" *ngIf="logpass.invalid && logpass.errors['wrongPass']">
-          Wrong password
+          Rossz jelszó
         </span>
       </div>
-      <button [disabled]="loading" class="btn btn-primary">Login</button><br>
+      <button [disabled]="loading" class="btn btn-primary">Belépés</button><br>
       <button (click)="onFacebookLogin()" class="btn btn-primary mt-2">
         <fa-icon
         [icon]="faFacebookSquare"
@@ -33,22 +33,38 @@
   <!-- ---------REGISTRATION------ -->
   <form *ngIf="selectedPage === 'Registration'" [formGroup]="registrationForm" (ngSubmit)="onRegistrationSubmit()">
     <div class="form-group">
-      <label for="exampleInputUsername">Username</label>
-      <input type="text" class="form-control" formControlName="username" id="exampleInputUsername" aria-describedby="usernameHelp" placeholder="Enter Username">
-      <small id="usernameHelp" class="form-text text-muted">You will log in with this name</small>
-    </div>
-    <div class="form-group">
-      <label for="exampleInputEmail1">Email address</label>
-      <input type="email" class="form-control" formControlName="email" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
-      <small id="emailHelp" [ngClass]="{'is-invalid': regemail.invalid && regemail.errors['emailUsed']}" class="form-text text-muted">We'll never share your email with anyone else.</small>
-      <span class="text-danger" *ngIf="regemail.invalid && regemail.errors['emailUsed']">
-        Email already in use!
+      <label for="exampleInputUsername">Teljes név</label>
+      <input type="text" class="form-control" formControlName="username" id="exampleInputUsername" aria-describedby="usernameHelp" placeholder="Név">
+      <small id="usernameHelp" class="form-text text-muted">Ez a név lesz megjelenítve a versenynaptárnál</small>
+      <span class="text-danger" *ngIf="submitted && regname.invalid && regname.errors['required']">
+        Szükséges megadni nevet
       </span>
     </div>
     <div class="form-group">
-      <label for="exampleInputPassword1">Password</label>
-      <input type="password" class="form-control" formControlName="password" id="exampleInputPassword1" placeholder="Password">
+      <label for="exampleInputEmail1">Email cím</label>
+      <input type="email" class="form-control" formControlName="email" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Email">
+      <span class="text-danger" *ngIf="regemail.invalid && regemail.errors['emailUsed']">
+        Email already in use!
+      </span>
+      <span class="text-danger" *ngIf="submitted && regemail.invalid && regemail.errors['required']">
+        Szükséges megadni emailt
+      </span>
     </div>
-    <button [disabled]="loading" class="btn btn-primary">Registration</button>
+    <div class="form-group">
+      <label for="exampleInputPassword1">Jelszó</label>
+      <input type="password" class="form-control" formControlName="password" id="exampleInputPassword1" placeholder="Jelszó">
+      <ng-container *ngIf="regpass.invalid">
+        <p class="text-danger" *ngIf="submitted && regpass.errors['pattern']">
+            Jelszóban szerepelni kell:<br>
+            - Nagybetűnek<br>
+            - Kis betűnek<br>
+            - Számnak
+        </p>
+          <span class="text-danger" *ngIf="submitted && regpass.errors['required']">
+            Szükséges megadni jelszót
+          </span>
+      </ng-container>
+    </div>
+    <button [disabled]="loading" class="btn btn-primary">Regisztráció</button>
   </form>
 </div>
