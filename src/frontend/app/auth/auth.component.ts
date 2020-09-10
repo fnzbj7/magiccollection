@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AuthenticationService } from './authentication.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { first } from 'rxjs/operators';
-import { SocialUser, AuthService, FacebookLoginProvider } from 'angularx-social-login';
+import { SocialUser, SocialAuthService, FacebookLoginProvider } from 'angularx-social-login';
 import { MatDialogRef } from '@angular/material/dialog';
 import { faFacebookSquare } from '@fortawesome/free-brands-svg-icons';
 
@@ -27,7 +27,7 @@ export class AuthComponent implements OnInit {
         public dialogRef: MatDialogRef<AuthComponent>,
         private authService: AuthenticationService,
         private formBuilder: FormBuilder,
-        private authServiceSocial: AuthService,
+        private authServiceSocial: SocialAuthService,
     ) {}
 
     ngOnInit() {
