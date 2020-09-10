@@ -20,7 +20,11 @@ import { LandingComponent } from './landing/landing.component';
 import { MagicCardRarityFilterComponent } from './magic/magic-card-list/magic-card-rarity-filter/magic-card-rarity-filter.component';
 import { MagicCardModalComponent } from './magic/magic-card-list/magic-card-modal/magic-card-modal.component';
 import { SharedModule } from './shared/shared.module';
-import { SocialLoginModule, AuthServiceConfig, FacebookLoginProvider } from 'angularx-social-login';
+import {
+    SocialLoginModule,
+    FacebookLoginProvider,
+    SocialAuthServiceConfig,
+} from 'angularx-social-login';
 import { LazyLoadImageModule, intersectionObserverPreset } from 'ng-lazyload-image';
 import { ModifyPreviewComponent } from './magic/modify-card/modify-preview/modify-preview.component';
 import { ModifyCardComponent } from './magic/modify-card/modify-card.component';
@@ -29,17 +33,6 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { SideMenuComponent } from './header/side-menu/side-menu.component';
-
-const config = new AuthServiceConfig([
-    {
-        id: FacebookLoginProvider.PROVIDER_ID,
-        provider: new FacebookLoginProvider(environment.facebookAppId),
-    },
-]);
-
-export function provideConfig() {
-    return config;
-}
 
 @NgModule({
     declarations: [
@@ -81,7 +74,18 @@ export function provideConfig() {
     ],
     providers: [
         { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
-        { provide: AuthServiceConfig, useFactory: provideConfig },
+        {
+            provide: 'SocialAuthServiceConfig',
+            useValue: {
+                autoLogin: false,
+                providers: [
+                    {
+                        id: FacebookLoginProvider.PROVIDER_ID,
+                        provider: new FacebookLoginProvider(environment.facebookAppId),
+                    },
+                ],
+            } as SocialAuthServiceConfig,
+        },
     ],
     bootstrap: [AppComponent],
 })
