@@ -19,7 +19,7 @@ export class AuthCredentialsDto {
     password: string;
 
     @IsOptional({ groups: ['signin'] })
-    @IsNumberString({ always: true })
+    @IsNumberString(null, { always: true })
     @Length(3, 10, { always: true })
     dci: string;
 }

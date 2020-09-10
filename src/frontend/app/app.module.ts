@@ -25,7 +25,7 @@ import {
     FacebookLoginProvider,
     SocialAuthServiceConfig,
 } from 'angularx-social-login';
-import { LazyLoadImageModule, intersectionObserverPreset } from 'ng-lazyload-image';
+import { LazyLoadImageModule } from 'ng-lazyload-image';
 import { ModifyPreviewComponent } from './magic/modify-card/modify-preview/modify-preview.component';
 import { ModifyCardComponent } from './magic/modify-card/modify-card.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -63,9 +63,7 @@ import { SideMenuComponent } from './header/side-menu/side-menu.component';
             enabled: environment.production,
         }),
         SocialLoginModule,
-        LazyLoadImageModule.forRoot({
-            preset: intersectionObserverPreset, // <-- tell LazyLoadImage that you want to use IntersectionObserver
-        }),
+        LazyLoadImageModule,
         SharedModule,
         BrowserAnimationsModule,
         MatDialogModule,
