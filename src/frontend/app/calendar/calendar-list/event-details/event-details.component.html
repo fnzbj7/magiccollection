@@ -19,12 +19,10 @@
                     </div>
                 </div>
                 <div class="col-6">
-                    <p>Helyszín: Sárkánytűz</p>
+                    <p>Helyszín: {{ selectedCalendarEvent.location }}</p>
                     <p>Formátum: Draft</p>
                     <p>
-                        Időpont: {{ selectedCalendarEvent.hour }}:{{
-                            selectedCalendarEvent.minute
-                        }}
+                        Időpont: {{ hourPad }}:{{ minutePad }}
                     </p>
                 </div>
             </div>
