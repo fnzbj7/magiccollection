@@ -31,6 +31,8 @@ export class EventDetailsComponent implements OnInit, OnDestroy, AfterViewInit {
     isLoggedIn = false;
     currentUserSub: Subscription;
     participants: string[] = [];
+    hourPad = '00';
+    minutePad = '00';
 
     // Font-Awesome
     faTimes = faTimes;
@@ -41,23 +43,23 @@ export class EventDetailsComponent implements OnInit, OnDestroy, AfterViewInit {
     ) {}
 
     ngOnInit() {
-        this.selectedCalendarEvent = this.calendarService.getSelectedCalendarEvent();
+        this.getSelectedCalendarEvent();
         this.selectCalendarEventSub = this.calendarService
             .getSelectCalendarEventSub()
-            .subscribe(calendarEventId => {
+            .subscribe((calendarEventId) => {
                 if (calendarEventId === 0) {
                     this.selectedCalendarEvent = null;
                     return;
                 }
 
                 if (calendarEventId !== this.selectedCalendarEvent.id) {
-                    this.selectedCalendarEvent = this.calendarService.getSelectedCalendarEvent();
+                    this.getSelectedCalendarEvent();
                     this.getParticipants();
                 }
                 // TODO ez egy borzadály, egyszerűsíteni kéne
             });
 
-        this.currentUserSub = this.authenticationService.currentUserSubject.subscribe(user => {
+        this.currentUserSub = this.authenticationService.currentUserSubject.subscribe((user) => {
             this.isLoggedIn = user !== null;
             // TODO lekérni a versenyzőket
             this.getParticipants();
@@ -72,11 +74,17 @@ export class EventDetailsComponent implements OnInit, OnDestroy, AfterViewInit {
         });
     }
 
+    private getSelectedCalendarEvent() {
+        this.selectedCalendarEvent = this.calendarService.getSelectedCalendarEvent();
+        this.minutePad = this.pad(this.selectedCalendarEvent.minute, 2);
+        this.hourPad = this.pad(this.selectedCalendarEvent.hour, 2);
+    }
+
     getParticipants() {
         if (this.isLoggedIn) {
             this.calendarService
                 .getAllParticipantUser(this.selectedCalendarEvent)
-                .subscribe(calendarParticipantUserDto => {
+                .subscribe((calendarParticipantUserDto) => {
                     console.log({ calendarParticipantUserDto });
                     this.participants = calendarParticipantUserDto.participants;
                     this.isJoined = calendarParticipantUserDto.isUser;
@@ -84,7 +92,7 @@ export class EventDetailsComponent implements OnInit, OnDestroy, AfterViewInit {
         } else {
             this.calendarService
                 .getAllParticipant(this.selectedCalendarEvent)
-                .subscribe(participants => {
+                .subscribe((participants) => {
                     this.participants = participants;
                     this.isJoined = false;
                 });
@@ -104,7 +112,7 @@ export class EventDetailsComponent implements OnInit, OnDestroy, AfterViewInit {
     // TODO összevonni a 2 backend hívást
     onJoinCalendarEvent() {
         this.isLoading = true;
-        this.calendarService.joinCalendarEvent(this.selectedCalendarEvent).subscribe(x => {
+        this.calendarService.joinCalendarEvent(this.selectedCalendarEvent).subscribe((x) => {
             console.log('Feliratkouztál');
             this.isJoined = true;
             this.isLoading = false;
@@ -114,12 +122,18 @@ export class EventDetailsComponent implements OnInit, OnDestroy, AfterViewInit {
 
     onLeaveCalendarEvent() {
         this.isLoading = true;
-        this.calendarService.leaveCalendarEvent(this.selectedCalendarEvent).subscribe(x => {
+        this.calendarService.leaveCalendarEvent(this.selectedCalendarEvent).subscribe((x) => {
             console.log('Leiratkouztál');
             this.isJoined = false;
             this.isLoading = false;
             this.getParticipants();
         });
+    }
+
+    private pad(text: string | number, width: number, z?: string) {
+        z = z || '0';
+        text = text + '';
+        return text.length >= width ? text : new Array(width - text.length + 1).join(z) + text;
     }
 
     ngOnDestroy() {
