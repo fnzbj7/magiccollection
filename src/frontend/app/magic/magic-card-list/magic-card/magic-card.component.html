@@ -2,7 +2,7 @@
     <!-- Normal cards -->
     <picture
         class="magiccard"
-        [appMagicCardAmount]="magicCard.cardAmount"
+        [appMagicCardAmount]="magicCardAmount"
         (click)="openCardModal()"
     >
         <source
@@ -23,7 +23,7 @@
             [defaultImage]="'assets/img/magic_card_back.png'"
             offset="100"
             alt=""
-            [title]="magicCard.cardNumber"
+            [title]="_magicCard.cardNumber"
             ondragstart="return false;"
         />
     </picture>
