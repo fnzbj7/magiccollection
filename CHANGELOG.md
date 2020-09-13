@@ -13,3 +13,4 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 ### Fixed
 
 -   Adding registration screen error messages and checks. Even Translated to hungarian
+-   Fixing card amount upon log in/log out
