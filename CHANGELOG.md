@@ -6,6 +6,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+### Added
+
+-   Different layouts to card modal, like split, aftermath or melt layouts
+
 ### Changed
 
 -   Updated all npm package to the newest

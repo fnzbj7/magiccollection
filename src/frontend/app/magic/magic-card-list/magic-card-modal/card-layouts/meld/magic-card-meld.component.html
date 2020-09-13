@@ -1,0 +1,30 @@
+<div class="flip-container" [ngClass]="flipClass ? 'hover' : ''">
+    <div class="flipper">
+        <div class="front">
+            <picture class="magiccard">
+                <source srcset="{{cardImgUrlBase}}{{magicCard.cardExpansion}}/webp/{{magicCard.cardExpansion}}_{{magicCard.cardNumber}}.webp" type="image/webp" />
+                <source srcset="{{cardImgUrlBase}}{{magicCard.cardExpansion}}/png/{{magicCard.cardExpansion}}_{{magicCard.cardNumber}}.png" type="image/png" />
+                <img
+                    class="magiccard"
+                    title="{{ magicCard.cardNumber }}"
+                    src="{{ cardImgUrlBase + magicCard.cardExpansion }}/png/{{ magicCard.cardExpansion +'_'+magicCard.cardNumber}}.png"
+                    (click)="flipClass = true"
+                />
+            </picture>
+        </div>
+        <div class="back">
+            <picture class="magiccard">
+                <source srcset="{{cardImgUrlBase + magicCard.cardExpansion}}/webp/{{magicCard.cardExpansion}}_{{magicCard.cardNumber}}_F.webp" type="image/webp" />
+                <source srcset="{{cardImgUrlBase + magicCard.cardExpansion}}/png/{{magicCard.cardExpansion}}_{{magicCard.cardNumber}}_F.png" type="image/png" />
+                <img
+                    class="magiccard"
+                    title="{{ magicCard.cardNumber }}"
+                    src="{{ cardImgUrlBase + magicCard.cardExpansion}}/png/{{ magicCard.cardExpansion }}_{{magicCard.cardNumber}}_F.png"
+                    (click)="flipClass = false"
+                />
+            </picture>
+        </div>
+    </div>
+</div>
+<div class="clearfix"></div>
+<fa-icon [icon]="faSyncAlt" (click)="flipClass = !flipClass" class="pointer"></fa-icon>

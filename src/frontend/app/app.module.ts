@@ -33,6 +33,11 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { SideMenuComponent } from './header/side-menu/side-menu.component';
+import { MagicCardMeldComponent } from './magic/magic-card-list/magic-card-modal/card-layouts/meld/magic-card-meld.component';
+// tslint:disable-next-line: max-line-length
+import { MagicCardTransformComponent } from './magic/magic-card-list/magic-card-modal/card-layouts/transform/magic-card-transform.component';
+import { MagicCardSplitComponent } from './magic/magic-card-list/magic-card-modal/card-layouts/split/magic-card-split.component';
+import { MagicCardAftermathComponent } from './magic/magic-card-list/magic-card-modal/card-layouts/aftermath/magic-card-aftermath.component';
 
 @NgModule({
     declarations: [
@@ -50,6 +55,10 @@ import { SideMenuComponent } from './header/side-menu/side-menu.component';
         ModifyCardComponent,
         ModifyPreviewComponent,
         SideMenuComponent,
+        MagicCardMeldComponent,
+        MagicCardTransformComponent,
+        MagicCardSplitComponent,
+        MagicCardAftermathComponent,
     ],
     entryComponents: [AuthComponent, MagicCardModalComponent],
     imports: [
