@@ -1,0 +1,20 @@
+<picture >
+    <source
+        srcset="{{cardImgUrlBase}}{{magicCard.cardExpansion}}/webp/{{magicCard.cardExpansion}}_{{magicCard.cardNumber}}.webp"
+        type="image/webp"
+    />
+    <source
+        srcset="{{cardImgUrlBase}}{{magicCard.cardExpansion}}/png/{{magicCard.cardExpansion}}_{{magicCard.cardNumber}}.png"
+        type="image/png"
+    />
+    <img
+        class="magiccard magiccard-full"
+        [ngClass]="flipClass ? 'flipper' : ''"
+        src="{{ cardImgUrlBase + magicCard.cardExpansion }}/png/{{magicCard.cardExpansion}}_{{ magicCard.cardNumber }}.png"
+        alt=""
+        [title]="magicCard.cardNumber"
+        (click)="flipClass = !flipClass"
+    />
+</picture>
+<div class="clearfix"></div>
+<fa-icon [icon]="faSyncAlt" (click)="flipClass = !flipClass" class="pointer"></fa-icon>

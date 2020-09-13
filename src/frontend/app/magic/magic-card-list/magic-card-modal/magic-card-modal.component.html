@@ -18,66 +18,9 @@
         />
     </picture>
 
-    <!-- Double Side cards -->
-    <ng-container
-        *ngSwitchCase="
-            magicCard.layout === 'transform' || magicCard.layout === 'meld'
-                ? magicCard.layout
-                : 'none'
-        "
-    >
-        <div
-            class="flip-container"
-            [ngClass]="flipClass ? 'hover' : ''"
-            #flipperContainer
-        >
-            <div class="flipper">
-                <div class="front">
-                    <picture class="magiccard">
-                        <source
-                            srcset="{{cardImgUrlBase}}{{magicCard.cardExpansion}}/webp/{{magicCard.cardExpansion}}_{{magicCard.cardNumber}}.webp"
-                            type="image/webp"
-                        />
-                        <source
-                            srcset="{{cardImgUrlBase}}{{magicCard.cardExpansion}}/png/{{magicCard.cardExpansion}}_{{magicCard.cardNumber}}.png"
-                            type="image/png"
-                        />
-                        <img
-                            class="magiccard"
-                            title="{{ magicCard.cardNumber }}"
-                            src="{{ cardImgUrlBase }}{{
-                                magicCard.cardExpansion
-                            }}/png/{{ magicCard.cardExpansion }}_{{
-                                magicCard.cardNumber
-                            }}.png"
-                            (click)="flipClass = true"
-                        />
-                    </picture>
-                </div>
-                <div class="back">
-                    <picture class="magiccard">
-                        <source
-                            srcset="{{cardImgUrlBase}}{{magicCard.cardExpansion}}/webp/{{magicCard.cardExpansion}}_{{magicCard.cardNumber}}_F.webp"
-                            type="image/webp"
-                        />
-                        <source
-                            srcset="{{cardImgUrlBase}}{{magicCard.cardExpansion}}/png/{{magicCard.cardExpansion}}_{{magicCard.cardNumber}}_F.png"
-                            type="image/png"
-                        />
-                        <img
-                            class="magiccard"
-                            title="{{ magicCard.cardNumber }}"
-                            src="{{ cardImgUrlBase }}{{
-                                magicCard.cardExpansion
-                            }}/png/{{ magicCard.cardExpansion }}_{{
-                                magicCard.cardNumber
-                            }}_F.png"
-                            (click)="flipClass = false"
-                        />
-                    </picture>
-                </div>
-            </div>
-        </div>
-        <div class="clearfix"></div>
-    </ng-container>
+    <app-magic-card-meld *ngSwitchCase="'meld'" [magicCard]="magicCard" [cardImgUrlBase]="cardImgUrlBase"></app-magic-card-meld>
+    <app-magic-card-transform [magicCard]="magicCard" [cardImgUrlBase]="cardImgUrlBase" *ngSwitchCase="'transform'"></app-magic-card-transform>
+    <app-magic-card-split [magicCard]="magicCard" [cardImgUrlBase]="cardImgUrlBase" *ngSwitchCase="'split'"></app-magic-card-split>
+    <app-magic-card-aftermath [magicCard]="magicCard" [cardImgUrlBase]="cardImgUrlBase" *ngSwitchCase="'aftermath'"></app-magic-card-aftermath>
+
 </ng-container>
