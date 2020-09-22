@@ -4,7 +4,7 @@ export class EventPrivilegeMigration implements MigrationInterface {
     name = 'eventPrivilege1599433606361';
 
     public async up(queryRunner: QueryRunner): Promise<void> {
-        queryRunner.manager
+        await queryRunner.manager
             .createQueryBuilder()
             .insert()
             .into('privilege')
@@ -13,7 +13,7 @@ export class EventPrivilegeMigration implements MigrationInterface {
     }
 
     public async down(queryRunner: QueryRunner): Promise<void> {
-        queryRunner.manager
+        await queryRunner.manager
             .createQueryBuilder()
             .delete()
             .from('privilege')
