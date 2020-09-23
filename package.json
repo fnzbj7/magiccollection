@@ -29,7 +29,8 @@
         "back:test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
         "back:test:e2e": "jest --config ./test/jest-e2e.json",
         "typeorm": "cd src/backend && node --require ts-node/register ../../node_modules/typeorm/cli.js",
-        "typeorm:create": "cd src/backend && node --require ts-node/register ../../node_modules/typeorm/cli.js migration:generate -n migrationNameSe"
+        "typeorm:create": "cd src/backend && node --require ts-node/register ../../node_modules/typeorm/cli.js migration:generate -n migrationNameSe",
+        "typeorm:migration-run": "cd src/backend && node --require ts-node/register ../../node_modules/typeorm/cli.js migration:run"
     },
     "dependencies": {
         "@angular/animations": "^10.1.1",
