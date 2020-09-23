@@ -2764,11 +2764,20 @@ export class AddingZnrMigration implements MigrationInterface {
 
     async down(queryRunner: QueryRunner): Promise<any> {
         // Get the card set id
+        // TODO delete all card amount
+
         const cardSet = await queryRunner.manager
             .getRepository(CardSet)
             .createQueryBuilder('cardset')
             .where('cardset.short_name = :shortname', { shortname: 'ZNR' })
             .getOne();
+
+        await queryRunner.manager
+            .createQueryBuilder()
+            .delete()
+            .from('card_amount')
+            .where('card_set_1 = :cardsetid', { cardsetid: cardSet.id })
+            .execute();
 
         await queryRunner.manager
             .createQueryBuilder()
