@@ -33,12 +33,12 @@ export class CalendarService {
         await this.calendarEventRepository.leaveCalendarEvent(calendarId, user);
     }
 
-    async allCalendarEventParticipant(calendarId: number): Promise<String[]> {
+    async allCalendarEventParticipant(calendarId: number): Promise<string[]> {
         const calendarEvent: CalendarEvent = await this.calendarEventRepository.findOne(
             calendarId,
             { relations: ['users'] },
         );
-        return calendarEvent.users.map(user => user.name);
+        return calendarEvent.users.map((user) => user.name);
     }
 
     async allCalendarEventParticipantUser(
@@ -50,8 +50,8 @@ export class CalendarService {
             { relations: ['users'] },
         );
         const calendarParticipantUserDto: CalendarParticipantUserDto = new CalendarParticipantUserDto();
-        calendarParticipantUserDto.participants = calendarEvent.users.map(u => u.name);
-        calendarParticipantUserDto.isUser = calendarEvent.users.some(u => u.id === user.id);
+        calendarParticipantUserDto.participants = calendarEvent.users.map((u) => u.name);
+        calendarParticipantUserDto.isUser = calendarEvent.users.some((u) => u.id === user.id);
         return calendarParticipantUserDto;
     }
 }

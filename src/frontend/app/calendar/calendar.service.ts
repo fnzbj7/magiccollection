@@ -19,14 +19,14 @@ export class CalendarService {
 
     getAllCalendarEvent(): Observable<CalendarEvent[]> {
         return this.http.get<CalendarEvent[]>(`${environment.mainUrl}/calendar/all`).pipe(
-            map(calendarEventArray => {
+            map((calendarEventArray) => {
                 this.inited = true;
                 this.calendarMap.clear();
                 calendarEventArray.map(
-                    calendarEvent =>
+                    (calendarEvent) =>
                         (calendarEvent.eventStart = new Date(calendarEvent.eventStart)),
                 );
-                calendarEventArray.forEach(calendarEvent => {
+                calendarEventArray.forEach((calendarEvent) => {
                     this.addValueToCalendar(calendarEvent);
                 });
                 return calendarEventArray;
@@ -84,7 +84,7 @@ export class CalendarService {
             calendarEvent.eventStart.getDate(),
         );
         let calendarEventArray = this.calendarMap.get(dateS);
-        calendarEventArray = calendarEventArray.filter(event => event.id !== calendarEvent.id);
+        calendarEventArray = calendarEventArray.filter((event) => event.id !== calendarEvent.id);
         this.calendarMap.set(dateS, calendarEventArray);
     }
 
@@ -128,12 +128,14 @@ export class CalendarService {
         return this.http.delete<void>(environment.mainUrl + `/calendar/delete/${calendarEvent.id}`);
     }
 
-    joinCalendarEvent(calendarEvent: CalendarEvent): Observable<CalendarEvent> {
-        return this.http.post<CalendarEvent>(environment.mainUrl + '/calendar/join', calendarEvent);
+    joinCalendarEvent(calendarEvent: CalendarEvent): Observable<string[]> {
+        return this.http.post<string[]>(environment.mainUrl + '/calendar/join', calendarEvent);
     }
 
-    leaveCalendarEvent(calendarEvent: CalendarEvent): Observable<void> {
-        return this.http.delete<void>(environment.mainUrl + `/calendar/leave/${calendarEvent.id}`);
+    leaveCalendarEvent(calendarEvent: CalendarEvent): Observable<string[]> {
+        return this.http.delete<string[]>(
+            environment.mainUrl + `/calendar/leave/${calendarEvent.id}`,
+        );
     }
 
     getAllParticipant(calendarEvent: CalendarEvent): Observable<string[]> {

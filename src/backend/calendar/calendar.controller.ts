@@ -52,18 +52,26 @@ export class CalendarController {
 
     @Post('/join')
     @UseGuards(AuthGuard())
-    async joinCalendarEvent(@Body() calendarEvent: CalendarEvent, @GetUser() user: User) {
+    async joinCalendarEvent(
+        @Body() calendarEvent: CalendarEvent,
+        @GetUser() user: User,
+    ): Promise<string[]> {
         await this.calendarService.joinCalendarEvent(calendarEvent, user);
+        return await this.calendarService.allCalendarEventParticipant(calendarEvent.id);
     }
 
     @Delete('/leave/:id')
     @UseGuards(AuthGuard())
-    async leaveCalendarEvent(@Param('id') calendarId: number, @GetUser() user: User) {
+    async leaveCalendarEvent(
+        @Param('id') calendarId: number,
+        @GetUser() user: User,
+    ): Promise<string[]> {
         await this.calendarService.leaveCalendarEvent(calendarId, user);
+        return await this.calendarService.allCalendarEventParticipant(calendarId);
     }
 
     @Get('/allparticipant/:id')
-    async allCalendarEventParticipant(@Param('id') calendarId: number): Promise<String[]> {
+    async allCalendarEventParticipant(@Param('id') calendarId: number): Promise<string[]> {
         return await this.calendarService.allCalendarEventParticipant(calendarId);
     }
 
