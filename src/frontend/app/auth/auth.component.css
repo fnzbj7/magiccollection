@@ -2,3 +2,16 @@
     border-bottom-right-radius: 0 !important;
     border-bottom-left-radius: 0 !important;
 }
+
+.full-line {
+    width: 100%;
+    text-align: center;
+    border-bottom: 1px solid #000;
+    line-height: 0.1em;
+    margin: 10px 0 20px;
+}
+
+.full-line span {
+    background: #fff;
+    padding: 0 10px;
+}
