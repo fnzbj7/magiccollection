@@ -2764,8 +2764,6 @@ export class AddingZnrMigration implements MigrationInterface {
 
     async down(queryRunner: QueryRunner): Promise<any> {
         // Get the card set id
-        // TODO delete all card amount
-
         const cardSet = await queryRunner.manager
             .getRepository(CardSet)
             .createQueryBuilder('cardset')

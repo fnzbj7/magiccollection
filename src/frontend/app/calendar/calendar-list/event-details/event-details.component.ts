@@ -56,12 +56,10 @@ export class EventDetailsComponent implements OnInit, OnDestroy, AfterViewInit {
                     this.getSelectedCalendarEvent();
                     this.getParticipants();
                 }
-                // TODO ez egy borzadály, egyszerűsíteni kéne
             });
 
         this.currentUserSub = this.authenticationService.currentUserSubject.subscribe((user) => {
             this.isLoggedIn = user !== null;
-            // TODO lekérni a versenyzőket
             this.getParticipants();
         });
     }
@@ -109,25 +107,28 @@ export class EventDetailsComponent implements OnInit, OnDestroy, AfterViewInit {
         });
     }
 
-    // TODO összevonni a 2 backend hívást
     onJoinCalendarEvent() {
         this.isLoading = true;
-        this.calendarService.joinCalendarEvent(this.selectedCalendarEvent).subscribe((x) => {
-            console.log('Feliratkouztál');
-            this.isJoined = true;
-            this.isLoading = false;
-            this.getParticipants();
-        });
+        this.calendarService
+            .joinCalendarEvent(this.selectedCalendarEvent)
+            .subscribe((participants) => {
+                console.log('Feliratkouztál');
+                this.isJoined = true;
+                this.isLoading = false;
+                this.participants = participants;
+            });
     }
 
     onLeaveCalendarEvent() {
         this.isLoading = true;
-        this.calendarService.leaveCalendarEvent(this.selectedCalendarEvent).subscribe((x) => {
-            console.log('Leiratkouztál');
-            this.isJoined = false;
-            this.isLoading = false;
-            this.getParticipants();
-        });
+        this.calendarService
+            .leaveCalendarEvent(this.selectedCalendarEvent)
+            .subscribe((participants) => {
+                console.log('Leiratkouztál');
+                this.isJoined = false;
+                this.isLoading = false;
+                this.participants = participants;
+            });
     }
 
     private pad(text: string | number, width: number, z?: string) {
