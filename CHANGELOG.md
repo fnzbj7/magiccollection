@@ -9,6 +9,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 ### Added
 
 -   There is a (plain-looking) order button on Adding/Removing card
+-   Adding grouping button to Adding/Removing card
 
 ## [1.0.0] - 2020-09-23
 

@@ -1,21 +1,30 @@
 <h2>Ezeket a kártyákat fogod feltölteni</h2>
-<p> Rendezés:
+<button class="btn float-left mr-3" [ngClass]="isRaw ? 'btn-danger' : 'btn-primary'" (click)="onGrouping()">Összevonás</button>
+<p class="float-left"> Rendezés:
     <fa-icon
         [icon]="isNormalOrder ? faSortAlphaDown : faSortAlphaDownAlt"
         (click)="onChangeOrder()"
         style="font-size: 20px;"
     ></fa-icon>
 </p>
-
-<br>
+<div style="clear: both;"></div>
 <ul
     class="row pl-0"
     style="display: -webkit-box;display: flex;flex-wrap: wrap;-webkit-box-pack: center;justify-content: center; list-style: none;"
 >
-    <app-magic-card
-        [magicCard]="card"
-        *ngFor="let card of cards"
-    ></app-magic-card>
+    <ng-container *ngIf="!isRaw">
+        <app-magic-card
+            [magicCard]="card"
+            *ngFor="let card of cards"
+        ></app-magic-card>
+    </ng-container>
+    <ng-container *ngIf="isRaw">
+        <app-magic-card
+            [magicCard]="card"
+            *ngFor="let card of rawCards"
+        ></app-magic-card>
+    </ng-container>
+
     <li class="fake-card"></li>
     <li class="fake-card"></li>
     <li class="fake-card"></li>

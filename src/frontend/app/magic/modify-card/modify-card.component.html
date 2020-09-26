@@ -49,6 +49,7 @@
         <app-modify-preview
             *ngIf="reducedArr"
             [modifyCard]="reducedArr"
+            [rawModifyCard]="rawCardNumbers"
         ></app-modify-preview>
         <div class="btn btn-primary" (click)="actualPageStep = pageStep.FORM">
             Vissza
