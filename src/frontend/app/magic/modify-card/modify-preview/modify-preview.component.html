@@ -1,4 +1,13 @@
 <h2>Ezeket a kártyákat fogod feltölteni</h2>
+<p> Rendezés:
+    <fa-icon
+        [icon]="isNormalOrder ? faSortAlphaDown : faSortAlphaDownAlt"
+        (click)="onChangeOrder()"
+        style="font-size: 20px;"
+    ></fa-icon>
+</p>
+
+<br>
 <ul
     class="row pl-0"
     style="display: -webkit-box;display: flex;flex-wrap: wrap;-webkit-box-pack: center;justify-content: center; list-style: none;"
