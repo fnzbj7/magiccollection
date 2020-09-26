@@ -1,7 +1,7 @@
 import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { faSortAlphaDown, faSortAlphaDownAlt } from '@fortawesome/free-solid-svg-icons';
 import { Card, CardLayout } from '../../../model/card.model';
-import { ModifyCardDto } from '../dto/modify-card.dto';
+import { CardQuantity, ModifyCardDto } from '../dto/modify-card.dto';
 
 @Component({
     selector: 'app-modify-preview',
@@ -10,7 +10,10 @@ import { ModifyCardDto } from '../dto/modify-card.dto';
 })
 export class ModifyPreviewComponent implements OnChanges {
     @Input() modifyCard: ModifyCardDto;
+    @Input() rawModifyCard: any;
     cards: Card[];
+    rawCards: Card[];
+    isRaw = false;
 
     faSortAlphaDownAlt = faSortAlphaDownAlt;
     faSortAlphaDown = faSortAlphaDown;
@@ -31,11 +34,27 @@ export class ModifyPreviewComponent implements OnChanges {
                 name: 'Not relevant',
             };
         });
+
+        this.rawCards = changes.rawModifyCard.currentValue.map((x: number) => {
+            return {
+                cardExpansion: modify.setShortName,
+                cardNumber: this.pad(x, 3),
+                cardAmount: 1,
+                layout: CardLayout.NORMAL,
+                rarity: 'C',
+                name: 'Not relevant',
+            };
+        });
     }
 
     onChangeOrder() {
         this.isNormalOrder = !this.isNormalOrder;
         this.cards = this.cards.reverse();
+        this.rawCards = this.rawCards.reverse();
+    }
+
+    onGrouping() {
+        this.isRaw = !this.isRaw;
     }
 
     private pad(text: string | number, width: number, z?: string) {

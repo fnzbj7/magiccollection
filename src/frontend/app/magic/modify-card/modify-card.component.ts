@@ -30,6 +30,7 @@ export class ModifyCardComponent implements OnInit, OnDestroy {
     actualPageStep = PageStep.FORM;
     wrongNums: number[];
     notNumbers: string[];
+    rawCardNumbers: number[];
 
     param$: Subscription;
 
@@ -53,11 +54,11 @@ export class ModifyCardComponent implements OnInit, OnDestroy {
         this.resetPage();
         this.inProgress = true;
 
-        const cardNumbers = this.prepareAndValidate(this.cardNumbersStr, this.cardSet);
+        this.rawCardNumbers = this.prepareAndValidate(this.cardNumbersStr, this.cardSet);
 
         if (!this.isError) {
             this.modifyCardService.saveModifyCard(this.modifyQty, this.cardNumbersStr);
-            this.reducedArr = this.convertToModifyCardDto(cardNumbers);
+            this.reducedArr = this.convertToModifyCardDto(this.rawCardNumbers);
 
             this.actualPageStep = PageStep.PREVIEW;
         }
@@ -82,7 +83,7 @@ export class ModifyCardComponent implements OnInit, OnDestroy {
                 this.cardNumbersStr = '';
                 this.modifyCardService.clearModifyCard(this.modifyQty);
             },
-            err => {
+            (err) => {
                 console.log(err);
                 this.inProgress = false;
                 this.isError = true;
@@ -90,21 +91,21 @@ export class ModifyCardComponent implements OnInit, OnDestroy {
         );
     }
 
-    private prepareAndValidate(cardNumbersStr: string, cardSet: string) {
+    private prepareAndValidate(cardNumbersStr: string, cardSet: string): number[] {
         // Remove multiple spaces
         const cardNumbersStrTrim = cardNumbersStr.trim().replace(/  +/g, ' ');
         const cardNumbersStrArr: string[] = cardNumbersStrTrim.split(' ');
-        const cardNumbers = cardNumbersStrArr.map(cardNum => parseInt(cardNum, 0));
+        const cardNumbers = cardNumbersStrArr.map((cardNum) => parseInt(cardNum, 0));
 
-        const findedNum = cardNumbers.findIndex(num => isNaN(num));
+        const findedNum = cardNumbers.findIndex((num) => isNaN(num));
         if (findedNum >= 0) {
-            this.notNumbers = cardNumbersStrArr.filter(num => isNaN(parseInt(num, 0)));
+            this.notNumbers = cardNumbersStrArr.filter((num) => isNaN(parseInt(num, 0)));
             console.log('Founded NaN');
             this.isError = true;
         }
 
         const maxNumber: number = this.magicCardsListService.maxCardNumber[cardSet];
-        this.wrongNums = cardNumbers.filter(num => num > maxNumber || num <= 0);
+        this.wrongNums = cardNumbers.filter((num) => num > maxNumber || num <= 0);
         if (this.wrongNums.length > 0) {
             console.log('High number');
             this.isError = true;
@@ -117,7 +118,7 @@ export class ModifyCardComponent implements OnInit, OnDestroy {
         addCardDto.setShortName = this.cardSet;
         addCardDto.cardQuantitys = [];
         return cardNumbers.reduce((addCard, cardNum) => {
-            const cardNumInd = addCard.cardQuantitys.findIndex(c => c.cardNumber === cardNum);
+            const cardNumInd = addCard.cardQuantitys.findIndex((c) => c.cardNumber === cardNum);
             if (cardNumInd >= 0) {
                 addCard.cardQuantitys[cardNumInd].cardQuantity += this.modifyQty;
             } else {
