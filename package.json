@@ -7,7 +7,7 @@
     "node": "12.x"
   },
   "scripts": {
-    "postinstall": "cd backend && npm install && npm install --only=dev && cd ../frontend && npm install && npm install --only=dev",
+    "postinstall": "cd backend && npm install && npm install --only=dev && cd ../frontend && npm install && npm install --only=dev && node version.js && ngcc",
     "build": "cd backend && npm run build && cd ../frontend && npm run build",
     "start": "node dist/main.js",
     "test": "echo \"Error: no test specified\" && exit 1"
