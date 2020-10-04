@@ -5,7 +5,7 @@
   "main": "index.js",
   "engines": {
     "node": "12.x"
-  }
+  },
   "scripts": {
     "postinstall": "cd backend && npm install && cd ../frontend && npm install",
     "build": "cd backend && npm run build && cd ../frontend && npm run build",
@@ -52,5 +52,5 @@
         "hooks": {
             "pre-commit": "pretty-quick --staged"
         }
-  },
+  }
 }
