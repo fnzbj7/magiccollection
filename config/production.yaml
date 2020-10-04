@@ -1,8 +1,11 @@
 db:
-    synchronize: false
+  synchronize: false
 
 facebook:
-    appId: '2495571677216519'
+  appId: "2495571677216519"
 
 log:
-    logLevel: ['log', 'error']
+  logLevel: ["log", "error"]
+
+template:
+  dir: "./templates/registration.hbs"
