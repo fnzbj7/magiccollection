@@ -6,6 +6,7 @@ import { typeOrmConfig } from './config/typeorm.config';
 import { MailService } from './shared/mail.service';
 import { CalendarModule } from './calendar/calendar.module';
 import { AppService } from './app.service';
+import { AppController } from './app.controller';
 
 @Global()
 @Module({

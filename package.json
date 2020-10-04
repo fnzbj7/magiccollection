@@ -6,7 +6,8 @@
   "scripts": {
     "postinstall": "cd backend && npm install && cd ../frontend && npm install",
     "build": "cd backend && npm run build && cd ../frontend && npm run build",
-	"start": "node dist/main.js",
+    "postbuild": "rimraf frontend && rimraf backend",
+    "start": "node dist/main.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
