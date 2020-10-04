@@ -4,7 +4,7 @@
     "scripts": {
         "ng": "ng",
         "start": "ng serve --ssl --ssl-key .\\certificates\\localhost.key  --ssl-cert .\\certificates\\localhost.crt",
-        "build": "ng build",
+        "build": "ngcc && ng build",
         "test": "ng test",
         "lint": "ng lint",
         "e2e": "ng e2e"
