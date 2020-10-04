@@ -61,3 +61,5 @@ yarn.lock
 /frontend/src/environments/version.service.ts
 
 /backend/src/ormconfig.json
+
+/config
