@@ -7,7 +7,7 @@
     "node": "12.x"
   },
   "scripts": {
-    "postinstall": "cd backend && npm install && cd ../frontend && npm install",
+    "prebuild": "cd backend && npm install && cd ../frontend && npm install",
     "build": "cd backend && npm run build && cd ../frontend && npm run build",
     "postbuild": "rimraf frontend && rimraf backend",
     "start": "node dist/main.js",
@@ -41,16 +41,21 @@
   "author": "",
   "license": "ISC",
   "repository": {
-        "type": "git",
-        "url": "git+https://github.com/fnzbj7/magiccollection.git"
+    "type": "git",
+    "url": "git+https://github.com/fnzbj7/magiccollection.git"
   },
   "bugs": {
-        "url": "https://github.com/fnzbj7/magiccollection/issues"
+    "url": "https://github.com/fnzbj7/magiccollection/issues"
   },
   "homepage": "https://github.com/fnzbj7/magiccollection#readme",
   "husky": {
-        "hooks": {
-            "pre-commit": "pretty-quick --staged"
-        }
+    "hooks": {
+      "pre-commit": "pretty-quick --staged"
+    }
+  },
+  "devDependencies": {
+    "husky": "^4.3.0",
+    "prettier": "^2.1.2",
+    "pretty-quick": "^3.0.2"
   }
 }
