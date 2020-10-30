@@ -5,6 +5,7 @@ import { Subscription } from 'rxjs';
 import { ModifyCardService } from '../modify-card.service';
 import { MagicCardsListService } from '../magic-card-list/magic-cards-list.service';
 import { ModifyQtyEnum } from '../../model/modify-qty.enum';
+import { Card, CardLayout } from 'src/app/model/card.model';
 
 enum PageStep {
     FORM = 'from',
@@ -31,6 +32,9 @@ export class ModifyCardComponent implements OnInit, OnDestroy {
     wrongNums: number[];
     notNumbers: string[];
     rawCardNumbers: number[];
+    newCards: Card[];
+    isNewCardsLoading = false;
+    isNewCardsFinished = false;
 
     param$: Subscription;
 
@@ -44,7 +48,7 @@ export class ModifyCardComponent implements OnInit, OnDestroy {
         this.cardSetsArray = this.magicCardsListService.cardSetsArray;
         this.cardSet = this.cardSetsArray[0];
         this.param$ = this.route.params.subscribe(() => {
-            this.modifyQty = +this.route.snapshot.data['modifyQty'];
+            this.modifyQty = +this.route.snapshot.data.modifyQty;
             this.resetPage();
             this.cardNumbersStr = this.modifyCardService.getSavedModifyCard(this.modifyQty);
         });
@@ -71,6 +75,9 @@ export class ModifyCardComponent implements OnInit, OnDestroy {
         this.actualPageStep = PageStep.FORM;
         this.wrongNums = [];
         this.notNumbers = [];
+        this.isNewCardsLoading = false;
+        this.isNewCardsFinished = false;
+        this.newCards = undefined;
     }
 
     startUploading() {
@@ -129,6 +136,36 @@ export class ModifyCardComponent implements OnInit, OnDestroy {
             }
             return addCard;
         }, addCardDto);
+    }
+
+    onShowNewCards() {
+        // Get all cards
+        this.isNewCardsLoading = true; // TODO lehet egy betöltés flaget
+        this.magicCardsListService.getCardsForExpansion(this.cardSet).subscribe((cards) => {
+            this.isNewCardsFinished = true; // TODO átállítani / resetelni
+            this.isNewCardsLoading = false;
+            // Compare to the uploaded cards
+            const filteredNewCards = this.reducedArr.cardQuantitys.filter((x) => {
+                const foundCard = cards.find((card) => +card.cardNumber === x.cardNumber);
+                return foundCard.cardAmount === x.cardQuantity;
+            });
+
+            // Creating an array from the new cards
+            this.newCards = filteredNewCards.map((x) => {
+                const card = new Card();
+                card.cardAmount = x.cardQuantity;
+                card.cardExpansion = this.cardSet;
+                card.cardNumber = this.pad(x.cardNumber, 3);
+                card.layout = CardLayout.NORMAL;
+                return card;
+            });
+        });
+    }
+
+    private pad(text: string | number, width: number, z?: string) {
+        z = z || '0';
+        text = text + '';
+        return text.length >= width ? text : new Array(width - text.length + 1).join(z) + text;
     }
 
     ngOnDestroy() {

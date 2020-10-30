@@ -161,3 +161,16 @@ body {
     visibility: visible;
     opacity: 1;
 }
+
+/* -------- FAKE CARDS ------- */
+.fake-card {
+    width: 217px;
+    margin: 5px 3px;
+}
+
+@media (max-width: 767px) {
+    .fake-card {
+        width: 108px;
+    }
+}
+/* ----- FAKE CARDS END ------ */
