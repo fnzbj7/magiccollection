@@ -12,11 +12,9 @@
             ><br />
             Card set:
             <select class="mb-3" name="cardSet" [(ngModel)]="cardSet">
-                <option
-                    [value]="cardSetvalue"
-                    *ngFor="let cardSetvalue of cardSetsArray"
-                    >{{ cardSetvalue }}</option
-                >
+                <option [value]="cardSetvalue" *ngFor="let cardSetvalue of cardSetsArray">
+                    {{ cardSetvalue }}
+                </option>
             </select>
             <br />
             <button class="btn btn-primary">Elküld</button>
@@ -40,44 +38,61 @@
     </ng-container>
 
     <ng-container *ngIf="actualPageStep === pageStep.PREVIEW">
-        <div class="btn btn-primary" (click)="actualPageStep = pageStep.FORM">
-            Vissza
-        </div>
-        <div class="btn btn-primary ml-3" (click)="startUploading()">
-            Tovább a feltöltésre
-        </div>
+        <div class="btn btn-primary" (click)="actualPageStep = pageStep.FORM">Vissza</div>
+        <div class="btn btn-primary ml-3" (click)="startUploading()">Tovább a feltöltésre</div>
         <app-modify-preview
             *ngIf="reducedArr"
             [modifyCard]="reducedArr"
             [rawModifyCard]="rawCardNumbers"
         ></app-modify-preview>
-        <div class="btn btn-primary" (click)="actualPageStep = pageStep.FORM">
-            Vissza
-        </div>
-        <div class="btn btn-primary ml-3" (click)="startUploading()">
-            Tovább a feltöltésre
-        </div>
+        <div class="btn btn-primary" (click)="actualPageStep = pageStep.FORM">Vissza</div>
+        <div class="btn btn-primary ml-3" (click)="startUploading()">Tovább a feltöltésre</div>
     </ng-container>
 
     <ng-container *ngIf="actualPageStep === pageStep.UPLOADED">
         <p *ngIf="inProgress">Feltöltés folyamatban</p>
 
         <p *ngIf="isError">Valami hiba történt</p>
-        <div
-            class="btn btn-primary"
-            *ngIf="isError"
-            (click)="actualPageStep = pageStep.FORM"
-        >
+        <div class="btn btn-primary" *ngIf="isError" (click)="actualPageStep = pageStep.FORM">
             Vissza javítani
         </div>
 
         <p *ngIf="isFinished && !isError">Feltöltés befejezősött</p>
-        <div
-            class="btn btn-primary"
-            *ngIf="isFinished && !isError"
-            (click)="resetPage()"
-        >
+        <div class="btn btn-primary" *ngIf="isFinished && !isError" (click)="resetPage()">
             Újabb feltöltés
         </div>
+        <ng-container *ngIf="this.modifyQty > 0">
+            <br />
+            <button
+                *ngIf="!isNewCardsFinished"
+                [disabled]="isNewCardsLoading"
+                class="btn btn-primary mt-4"
+                (click)="onShowNewCards()"
+            >
+                Megmutatni az új kártyákat
+            </button>
+            <h1 *ngIf="isNewCardsFinished">Az új kártyák listája</h1>
+
+            <h2 *ngIf="newCards && newCards.length == 0">Nincs új kártya</h2>
+            <ul
+                *ngIf="newCards"
+                class="row pl-0"
+                style="
+                    display: -webkit-box;
+                    display: flex;
+                    flex-wrap: wrap;
+                    -webkit-box-pack: center;
+                    justify-content: center;
+                    list-style: none;
+                "
+            >
+                <app-magic-card [magicCard]="card" *ngFor="let card of newCards"></app-magic-card>
+                <li class="fake-card"></li>
+                <li class="fake-card"></li>
+                <li class="fake-card"></li>
+                <li class="fake-card"></li>
+                <li class="fake-card"></li>
+            </ul>
+        </ng-container>
     </ng-container>
 </div>

@@ -1,11 +1,15 @@
 <ng-container [ngSwitch]="magicCard.layout">
     <picture *ngSwitchDefault class="magiccard">
         <source
-            srcset="{{cardImgUrlBase}}{{magicCard.cardExpansion}}/webp/{{magicCard.cardExpansion}}_{{magicCard.cardNumber}}.webp"
+            srcset="
+                {{cardImgUrlBase}}{{magicCard.cardExpansion}}/webp/{{magicCard.cardExpansion}}_{{magicCard.cardNumber}}.webp
+            "
             type="image/webp"
         />
         <source
-            srcset="{{cardImgUrlBase}}{{magicCard.cardExpansion}}/png/{{magicCard.cardExpansion}}_{{magicCard.cardNumber}}.png"
+            srcset="
+                {{cardImgUrlBase}}{{magicCard.cardExpansion}}/png/{{magicCard.cardExpansion}}_{{magicCard.cardNumber}}.png
+            "
             type="image/png"
         />
         <img
@@ -18,10 +22,29 @@
         />
     </picture>
 
-    <app-magic-card-meld *ngSwitchCase="'meld'" [magicCard]="magicCard" [cardImgUrlBase]="cardImgUrlBase"></app-magic-card-meld>
-    <app-magic-card-transform [magicCard]="magicCard" [cardImgUrlBase]="cardImgUrlBase" *ngSwitchCase="'transform'"></app-magic-card-transform>
-    <app-magic-card-transform [magicCard]="magicCard" [cardImgUrlBase]="cardImgUrlBase" *ngSwitchCase="'modal_dfc'"></app-magic-card-transform>
-    <app-magic-card-split [magicCard]="magicCard" [cardImgUrlBase]="cardImgUrlBase" *ngSwitchCase="'split'"></app-magic-card-split>
-    <app-magic-card-aftermath [magicCard]="magicCard" [cardImgUrlBase]="cardImgUrlBase" *ngSwitchCase="'aftermath'"></app-magic-card-aftermath>
-
+    <app-magic-card-meld
+        *ngSwitchCase="'meld'"
+        [magicCard]="magicCard"
+        [cardImgUrlBase]="cardImgUrlBase"
+    ></app-magic-card-meld>
+    <app-magic-card-transform
+        *ngSwitchCase="'transform'"
+        [magicCard]="magicCard"
+        [cardImgUrlBase]="cardImgUrlBase"
+    ></app-magic-card-transform>
+    <app-magic-card-transform
+        *ngSwitchCase="'modal_dfc'"
+        [magicCard]="magicCard"
+        [cardImgUrlBase]="cardImgUrlBase"
+    ></app-magic-card-transform>
+    <app-magic-card-split
+        *ngSwitchCase="'split'"
+        [magicCard]="magicCard"
+        [cardImgUrlBase]="cardImgUrlBase"
+    ></app-magic-card-split>
+    <app-magic-card-aftermath
+        *ngSwitchCase="'aftermath'"
+        [magicCard]="magicCard"
+        [cardImgUrlBase]="cardImgUrlBase"
+    ></app-magic-card-aftermath>
 </ng-container>

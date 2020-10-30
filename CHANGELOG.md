@@ -8,25 +8,26 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ### Added
 
--   There is a (plain-looking) order button on Adding/Removing card
--   Adding grouping button to Adding/Removing card
+- There is a (plain-looking) order button on Adding/Removing card
+- Adding grouping button to Adding/Removing card
+- After uploading cards you can check if you added new cards (need a UI upgrade in the future)
 
 ### Changed
 
--   Separate the backend and frontend projects. (It happend because i want to create test cases for backend and frontend too)
+- Separate the backend and frontend projects. (It happend because i want to create test cases for backend and frontend too)
 
 ## [1.0.0] - 2020-09-23
 
 ### Added
 
--   Different layouts to card modal, like split, aftermath or melt layouts
--   Adding ZNR cards
+- Different layouts to card modal, like split, aftermath or melt layouts
+- Adding ZNR cards
 
 ### Changed
 
--   Updated all npm package to the newest
+- Updated all npm package to the newest
 
 ### Fixed
 
--   Adding registration screen error messages and checks. Even Translated to hungarian
--   Fixing card amount upon log in/log out
+- Adding registration screen error messages and checks. Even Translated to hungarian
+- Fixing card amount upon log in/log out
