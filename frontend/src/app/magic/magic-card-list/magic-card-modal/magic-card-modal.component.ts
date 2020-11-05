@@ -15,8 +15,15 @@ export class MagicCardModalComponent implements AfterViewInit, OnInit {
     flipClass = false;
     cardImgUrlBase: string;
 
+    imageSrcPng: string;
+    imageSrcWebp: string;
+
     ngOnInit() {
         this.cardImgUrlBase = environment.cardImgUrlBase;
+        const { cardExpansion, cardNumber } = this.magicCard;
+
+        this.imageSrcPng = `${this.cardImgUrlBase}${cardExpansion}/png/${cardExpansion}_${cardNumber}.png`;
+        this.imageSrcWebp = `${this.cardImgUrlBase}${cardExpansion}/webp/${cardExpansion}_${cardNumber}.webp`;
     }
 
     ngAfterViewInit() {
