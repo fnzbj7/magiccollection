@@ -1,17 +1,7 @@
 <ng-container [ngSwitch]="magicCard.layout">
     <picture *ngSwitchDefault class="magiccard">
-        <source
-            srcset="
-                {{cardImgUrlBase}}{{magicCard.cardExpansion}}/webp/{{magicCard.cardExpansion}}_{{magicCard.cardNumber}}.webp
-            "
-            type="image/webp"
-        />
-        <source
-            srcset="
-                {{cardImgUrlBase}}{{magicCard.cardExpansion}}/png/{{magicCard.cardExpansion}}_{{magicCard.cardNumber}}.png
-            "
-            type="image/png"
-        />
+        <source [srcset]="imageSrcWebp" type="image/webp" />
+        <source [srcset]="imageSrcPng" type="image/png" />
         <img
             class="magiccard magiccard-full"
             src="{{ cardImgUrlBase }}{{ magicCard.cardExpansion }}/png/{{

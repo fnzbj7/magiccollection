@@ -45,7 +45,7 @@ export class CardRepository extends Repository<Card> {
 
   async modifySetCard(modifyCard: ModifyCardDto, user: User) {
     this.logger.verbose(
-      `Method removeSetCard starting. ModifyCardDto: ${JSON.stringify(user)}`,
+      `Method modifySetCard starting. ModifyCardDto: ${JSON.stringify(user)}`,
     );
     const userId = user.id;
     this.checkCardUniqueness(modifyCard);
