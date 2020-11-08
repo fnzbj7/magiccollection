@@ -37,6 +37,7 @@ import { MagicCardMeldComponent } from './magic/magic-card-list/magic-card-modal
 // tslint:disable-next-line: max-line-length
 import { MagicCardTransformComponent } from './magic/magic-card-list/magic-card-modal/card-layouts/transform/magic-card-transform.component';
 import { MagicCardSplitComponent } from './magic/magic-card-list/magic-card-modal/card-layouts/split/magic-card-split.component';
+// tslint:disable-next-line: max-line-length
 import { MagicCardAftermathComponent } from './magic/magic-card-list/magic-card-modal/card-layouts/aftermath/magic-card-aftermath.component';
 
 @NgModule({

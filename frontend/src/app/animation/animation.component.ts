@@ -22,15 +22,15 @@ export class AnimationComponent implements OnInit, AfterViewInit {
     ngOnInit(): void {}
 
     ngAfterViewInit(): void {
-        this.canvas = <HTMLCanvasElement>document.getElementById('myCanvas');
+        this.canvas = document.getElementById('myCanvas') as HTMLCanvasElement;
 
-        let _w = window.innerWidth;
-        let _h = window.innerHeight;
+        let w = window.innerWidth;
+        let h = window.innerHeight;
 
         this.renderer = new PIXI.Renderer({
             view: this.canvas,
-            width: _w,
-            height: _h,
+            width: w,
+            height: h,
             resolution: window.devicePixelRatio || 1,
             autoDensity: true,
         });
@@ -40,10 +40,10 @@ export class AnimationComponent implements OnInit, AfterViewInit {
         this.loader = PIXI.Loader.shared;
 
         window.addEventListener('resize', () => {
-            _w = window.innerWidth;
-            _h = window.innerHeight;
+            w = window.innerWidth;
+            h = window.innerHeight;
 
-            this.renderer.resize(_w, _h);
+            this.renderer.resize(w, h);
         });
 
         this.loader = this.loader.add('stone', 'assets/stone_throw.png');

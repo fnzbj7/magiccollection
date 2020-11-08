@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 
 @Injectable({ providedIn: 'root' })
 export class JwtDecodeService {
-    decode<TTokenDto>(token: String, options?: any): TTokenDto {
+    decode<TTokenDto>(token: string, options?: any): TTokenDto {
         if (typeof token !== 'string') {
             throw new InvalidTokenError('Invalid token specified');
         }
@@ -19,10 +19,7 @@ export class JwtDecodeService {
     b64DecodeUnicode(str: string) {
         return decodeURIComponent(
             atob(str).replace(/(.)/g, (m, p) => {
-                let code = p
-                    .charCodeAt(0)
-                    .toString(16)
-                    .toUpperCase();
+                let code = p.charCodeAt(0).toString(16).toUpperCase();
                 if (code.length < 2) {
                     code = '0' + code;
                 }
