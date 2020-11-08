@@ -14,12 +14,12 @@ import { MagicCardAmount } from './model/magic-card-amount.model';
 })
 export class MagicCardComponent implements OnInit {
     // @Input() magicCard: Card;
-    @Input() set magicCard(value: Card) {
-        this._magicCard = value;
+    @Input('magicCard') set _magicCard(value: Card) {
+        this.magicCard = value;
         const isLoggedIn = this.authenticationService.currentUserValue !== null;
-        this.magicCardAmount = { isLoggedIn, cardAmount: this._magicCard.cardAmount };
+        this.magicCardAmount = { isLoggedIn, cardAmount: this.magicCard.cardAmount };
     }
-    _magicCard: Card;
+    magicCard: Card;
 
     imageSrcPng: string;
     imageSrcWebp: string;
@@ -33,18 +33,18 @@ export class MagicCardComponent implements OnInit {
     ngOnInit() {
         this.imageSrcPng =
             environment.cardImgUrlBase +
-            `${this._magicCard.cardExpansion}/png/${this._magicCard.cardExpansion}_${this._magicCard.cardNumber}.png`;
+            `${this.magicCard.cardExpansion}/png/${this.magicCard.cardExpansion}_${this.magicCard.cardNumber}.png`;
 
         this.imageSrcWebp =
             environment.cardImgUrlBase +
-            `${this._magicCard.cardExpansion}/webp/${this._magicCard.cardExpansion}_${this._magicCard.cardNumber}.webp`;
+            `${this.magicCard.cardExpansion}/webp/${this.magicCard.cardExpansion}_${this.magicCard.cardNumber}.webp`;
     }
 
     openCardModal() {
         this.modalService.init(
             MagicCardModalComponent,
             {
-                magicCard: this._magicCard,
+                magicCard: this.magicCard,
             },
             {},
         );
