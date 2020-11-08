@@ -34,7 +34,10 @@ export class AuthService {
         return { accessToken };
     }
     private createJwtPayload(user: User): JwtPayload {
-        return { email: user.email, privileges: user.privileges.map(priv => priv.name) };
+        return {
+            email: user.email,
+            privileges: user.privileges.map(priv => priv.name),
+        };
     }
 
     async singInWithUser(user: User): Promise<{ accessToken: string }> {
