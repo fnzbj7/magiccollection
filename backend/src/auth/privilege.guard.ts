@@ -4,10 +4,12 @@ import { User } from './entity/user.entity';
 
 @Injectable()
 export class PrivilegeGuard implements CanActivate {
-    constructor(public privilege: String) {}
+  constructor(public privilege: string) {}
 
-    canActivate(context: ExecutionContext): boolean | Promise<boolean> | Observable<boolean> {
-        const user: User = <User>context.switchToHttp().getRequest().user;
-        return user.privileges.some(priv => priv.name === this.privilege);
-    }
+  canActivate(
+    context: ExecutionContext,
+  ): boolean | Promise<boolean> | Observable<boolean> {
+    const user: User = <User>context.switchToHttp().getRequest().user;
+    return user.privileges.some((priv) => priv.name === this.privilege);
+  }
 }

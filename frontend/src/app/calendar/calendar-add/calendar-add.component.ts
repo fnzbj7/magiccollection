@@ -31,7 +31,7 @@ export class CalendarAddComponent implements OnInit, OnDestroy {
 
     ngOnInit(): void {
         /* isInit */
-        let expansionId = this.route.snapshot.params['calendarId'];
+        let expansionId = this.route.snapshot.params.calendarId;
         if (expansionId) {
             // Get the event from the service or from the backend or go to the add screen
             if (this.calendarService.inited) {
@@ -50,7 +50,7 @@ export class CalendarAddComponent implements OnInit, OnDestroy {
                     .getAllCalendarEvent()
                     .subscribe((calendarEventArray: CalendarEvent[]) => {
                         this.originalCalendarEvent = calendarEventArray.find(
-                            calendarEvent => expansionId === calendarEvent.id,
+                            (calendarEvent) => expansionId === calendarEvent.id,
                         );
                         this.calendarEvent = { ...this.originalCalendarEvent };
                         this.model = {
@@ -104,7 +104,7 @@ export class CalendarAddComponent implements OnInit, OnDestroy {
             } else {
                 this.calendarService
                     .saveNewCalendarEvent(this.calendarEvent)
-                    .subscribe(savedCalendarEvent => {
+                    .subscribe((savedCalendarEvent) => {
                         this.calendarEvent.id = savedCalendarEvent.id;
                         this.calendarService.addValueToCalendar(this.calendarEvent);
                         this.finished = true;

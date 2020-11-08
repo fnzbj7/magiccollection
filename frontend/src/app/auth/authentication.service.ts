@@ -22,7 +22,7 @@ export class AuthenticationService {
 
         this.loggedIn =
             currentUserJson &&
-            this.expirationDateValidAndRefresh(<string>currentUserJson.expiresIn);
+            this.expirationDateValidAndRefresh(currentUserJson.expiresIn as string);
         currentUserJson = this.loggedIn ? currentUserJson : null;
         this.currentUserSubject = new BehaviorSubject<User>(currentUserJson);
     }
@@ -60,7 +60,7 @@ export class AuthenticationService {
                 password,
             })
             .pipe(
-                map(resp => {
+                map((resp) => {
                     // login successful if there's a jwt token in the response
                     return this.createAndLoginUser(resp.accessToken);
                 }),
@@ -70,7 +70,7 @@ export class AuthenticationService {
     private refreshToken() {
         this.http
             .get<{ accessToken: string }>(environment.mainUrl + '/auth/refreshtoken')
-            .subscribe(resp => {
+            .subscribe((resp) => {
                 if (resp.accessToken) {
                     const jwtToken = this.jwtDecodeService.decode<JwtTokenModel>(resp.accessToken);
                     const user = this.currentUserSubject.getValue();
@@ -109,13 +109,13 @@ export class AuthenticationService {
         return this.loggedIn;
     }
 
-    facebookSignIn(access_token: string): Observable<any> {
+    facebookSignIn(accessToken: string): Observable<any> {
         return this.http
             .get<{ accessToken: string }>(environment.mainUrl + '/auth/facebook', {
-                params: { access_token },
+                params: { access_token: accessToken },
             })
             .pipe(
-                map(resp => {
+                map((resp) => {
                     // login successful if there's a jwt token in the response
                     return this.createAndLoginUser(resp.accessToken);
                 }),

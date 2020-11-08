@@ -34,29 +34,29 @@ export class MagicCardListComponent implements OnInit, OnDestroy {
     ) {}
 
     ngOnInit() {
-        this.expansion = this.route.snapshot.params['expansion'];
-        this.currentUserSub = this.authenticationService.currentUserSubject.subscribe(user => {
+        this.expansion = this.route.snapshot.params.expansion;
+        this.currentUserSub = this.authenticationService.currentUserSubject.subscribe((user) => {
             if (this.expansion) {
                 this.getCardsFromExpansion(this.expansion);
             }
         });
 
         this.routerChangeSub = this.route.params.subscribe((params: Params) => {
-            this.expansion = params['expansion'];
+            this.expansion = params.expansion;
             if (this.expansion) {
                 this.getCardsFromExpansion(this.expansion);
             }
         });
 
-        this.rarityFilterSub = this.magicCardsListService.filterChange.subscribe(rarityFilter => {
+        this.rarityFilterSub = this.magicCardsListService.filterChange.subscribe((rarityFilter) => {
             this.filterCards();
         });
 
-        this.quantityFilterSub = this.magicCardsListService.quantityFilterSub.subscribe(x => {
+        this.quantityFilterSub = this.magicCardsListService.quantityFilterSub.subscribe((x) => {
             this.filterCards();
         });
 
-        this.route.queryParams.subscribe(data => {
+        this.route.queryParams.subscribe((data) => {
             if (data.page === undefined) {
                 // this.currentPage = 1;
             } else if (this.currentPage !== +data.page) {
@@ -69,8 +69,8 @@ export class MagicCardListComponent implements OnInit, OnDestroy {
         this.magicCardsListService.getCardsForExpansion(expansionArg).subscribe((cards: Card[]) => {
             this.cardsArray = cards;
             this.filterCards();
-            if (this.route.snapshot.queryParams['page']) {
-                this.currentPage = +this.route.snapshot.queryParams['page'];
+            if (this.route.snapshot.queryParams.page) {
+                this.currentPage = +this.route.snapshot.queryParams.page;
             } else {
                 this.currentPage = 1;
             }
@@ -91,19 +91,19 @@ export class MagicCardListComponent implements OnInit, OnDestroy {
             return;
         }
 
-        this.filteredCardsArray = this.cardsArray.filter(card => {
+        this.filteredCardsArray = this.cardsArray.filter((card) => {
             return this.magicCardsListService.getfilterArray().includes(card.rarity);
         });
 
         switch (this.magicCardsListService.quantityFilterSub.value) {
             case QuantityFilterEnum.HAVE:
                 this.filteredCardsArray = this.filteredCardsArray.filter(
-                    card => card.cardAmount > 0,
+                    (card) => card.cardAmount > 0,
                 );
                 break;
             case QuantityFilterEnum.NOTHAVE:
                 this.filteredCardsArray = this.filteredCardsArray.filter(
-                    card => card.cardAmount === 0,
+                    (card) => card.cardAmount === 0,
                 );
         }
     }

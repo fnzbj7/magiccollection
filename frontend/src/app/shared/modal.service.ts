@@ -10,8 +10,8 @@ export class ModalService {
 
     init(component: any, inputs: object, outputs: object) {
         const componentConfig = {
-            inputs: inputs,
-            outputs: outputs,
+            inputs,
+            outputs,
         };
         this.domService.appendComponentTo(this.modalElementId, component, componentConfig);
         document.getElementsByTagName('BODY')[0].classList.add('modal-open');
