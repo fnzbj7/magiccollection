@@ -1,4 +1,4 @@
-import { HttpClientTestingModule, HttpTestingController  } from '@angular/common/http/testing';
+import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { AuthenticationService } from 'src/app/auth/authentication.service';
 import { CalendarService } from '../calendar.service';
@@ -9,17 +9,12 @@ describe('CalendarListComponent', () => {
     let fixture: ComponentFixture<CalendarListComponent>;
 
     beforeEach(async () => {
-          await TestBed.configureTestingModule({
-              imports: [
-                HttpClientTestingModule
-              ],
-              declarations: [CalendarListComponent],
-              providers: [
-                CalendarService,
-                AuthenticationService,
-              ]
-            }).compileComponents();
-        });
+        await TestBed.configureTestingModule({
+            imports: [HttpClientTestingModule],
+            declarations: [CalendarListComponent],
+            providers: [CalendarService, AuthenticationService],
+        }).compileComponents();
+    });
 
     beforeEach(() => {
         fixture = TestBed.createComponent(CalendarListComponent);

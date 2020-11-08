@@ -58,7 +58,7 @@ export class AuthComponent implements OnInit {
                 this.authServiceSocial.signOut();
                 this.dialogRef.close();
             },
-            (err) => {
+            err => {
                 this.authServiceSocial.signOut();
             },
         );
@@ -91,12 +91,12 @@ export class AuthComponent implements OnInit {
             )
             .pipe(first())
             .subscribe(
-                (data) => {
+                data => {
                     // this.router.navigate([this.returnUrl]);
                     this.loading = false;
                     this.onPageChange('Login');
                 },
-                (error) => {
+                error => {
                     console.error(error);
                     console.error(error.status);
                     if (error.status === 409) {
@@ -127,12 +127,12 @@ export class AuthComponent implements OnInit {
             .login(this.logForm.email.value, this.logForm.password.value)
             .pipe(first())
             .subscribe(
-                (data) => {
+                data => {
                     // this.router.navigate([this.returnUrl]);
                     this.loading = false;
                     this.dialogRef.close();
                 },
-                (error) => {
+                error => {
                     console.error(error);
                     console.error(error.status);
                     if (error.status === 421) {

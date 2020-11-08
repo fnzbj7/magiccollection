@@ -10,7 +10,8 @@
     "postinstall": "cd backend && npm install && npm install --only=dev && cd ../frontend && npm install && npm install --only=dev && node version.js",
     "build": "node copy-conf.js && cd backend && npm run build && cd ../frontend && npm run build",
     "start": "node dist/main.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+	"format": "cd frontend && pretty-quick --pattern \"frontend/src/app/**/*.{ts,css}\" --verbose"
   },
   "dependencies": {
     "@nestjs/common": "^7.0.0",
@@ -55,7 +56,7 @@
   "homepage": "https://github.com/fnzbj7/magiccollection#readme",
   "husky": {
     "hooks": {
-      "pre-commit": "pretty-quick --staged --pattern \"frontend/src/app/**/*.{ts,css}\" & pretty-quick --staged --pattern \"backend/src/**/*.ts\""
+      "pre-commit": "cd frontend && npm run pretty-format && pretty-quick --staged --pattern \"backend/src/**/*.ts\""
     }
   }
 }

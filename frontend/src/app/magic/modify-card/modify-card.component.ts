@@ -90,7 +90,7 @@ export class ModifyCardComponent implements OnInit, OnDestroy {
                 this.cardNumbersStr = '';
                 this.modifyCardService.clearModifyCard(this.modifyQty);
             },
-            (err) => {
+            err => {
                 console.log(err);
                 this.inProgress = false;
                 this.isError = true;
@@ -102,17 +102,17 @@ export class ModifyCardComponent implements OnInit, OnDestroy {
         // Remove multiple spaces
         const cardNumbersStrTrim = cardNumbersStr.trim().replace(/  +/g, ' ');
         const cardNumbersStrArr: string[] = cardNumbersStrTrim.split(' ');
-        const cardNumbers = cardNumbersStrArr.map((cardNum) => parseInt(cardNum, 0));
+        const cardNumbers = cardNumbersStrArr.map(cardNum => parseInt(cardNum, 0));
 
-        const findedNum = cardNumbers.findIndex((num) => isNaN(num));
+        const findedNum = cardNumbers.findIndex(num => isNaN(num));
         if (findedNum >= 0) {
-            this.notNumbers = cardNumbersStrArr.filter((num) => isNaN(parseInt(num, 0)));
+            this.notNumbers = cardNumbersStrArr.filter(num => isNaN(parseInt(num, 0)));
             console.log('Founded NaN');
             this.isError = true;
         }
 
         const maxNumber: number = this.magicCardsListService.maxCardNumber[cardSet];
-        this.wrongNums = cardNumbers.filter((num) => num > maxNumber || num <= 0);
+        this.wrongNums = cardNumbers.filter(num => num > maxNumber || num <= 0);
         if (this.wrongNums.length > 0) {
             console.log('High number');
             this.isError = true;
@@ -125,7 +125,7 @@ export class ModifyCardComponent implements OnInit, OnDestroy {
         addCardDto.setShortName = this.cardSet;
         addCardDto.cardQuantitys = [];
         return cardNumbers.reduce((addCard, cardNum) => {
-            const cardNumInd = addCard.cardQuantitys.findIndex((c) => c.cardNumber === cardNum);
+            const cardNumInd = addCard.cardQuantitys.findIndex(c => c.cardNumber === cardNum);
             if (cardNumInd >= 0) {
                 addCard.cardQuantitys[cardNumInd].cardQuantity += this.modifyQty;
             } else {
@@ -141,17 +141,17 @@ export class ModifyCardComponent implements OnInit, OnDestroy {
     onShowNewCards() {
         // Get all cards
         this.isNewCardsLoading = true; // TODO lehet egy betöltés flaget
-        this.magicCardsListService.getCardsForExpansion(this.cardSet).subscribe((cards) => {
+        this.magicCardsListService.getCardsForExpansion(this.cardSet).subscribe(cards => {
             this.isNewCardsFinished = true; // TODO átállítani / resetelni
             this.isNewCardsLoading = false;
             // Compare to the uploaded cards
-            const filteredNewCards = this.reducedArr.cardQuantitys.filter((x) => {
-                const foundCard = cards.find((card) => +card.cardNumber === x.cardNumber);
+            const filteredNewCards = this.reducedArr.cardQuantitys.filter(x => {
+                const foundCard = cards.find(card => +card.cardNumber === x.cardNumber);
                 return foundCard.cardAmount === x.cardQuantity;
             });
 
             // Creating an array from the new cards
-            this.newCards = filteredNewCards.map((x) => {
+            this.newCards = filteredNewCards.map(x => {
                 const card = new Card();
                 card.cardAmount = x.cardQuantity;
                 card.cardExpansion = this.cardSet;

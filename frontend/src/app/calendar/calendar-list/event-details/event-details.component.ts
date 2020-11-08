@@ -46,7 +46,7 @@ export class EventDetailsComponent implements OnInit, OnDestroy, AfterViewInit {
         this.getSelectedCalendarEvent();
         this.selectCalendarEventSub = this.calendarService
             .getSelectCalendarEventSub()
-            .subscribe((calendarEventId) => {
+            .subscribe(calendarEventId => {
                 if (calendarEventId === 0) {
                     this.selectedCalendarEvent = null;
                     return;
@@ -58,7 +58,7 @@ export class EventDetailsComponent implements OnInit, OnDestroy, AfterViewInit {
                 }
             });
 
-        this.currentUserSub = this.authenticationService.currentUserSubject.subscribe((user) => {
+        this.currentUserSub = this.authenticationService.currentUserSubject.subscribe(user => {
             this.isLoggedIn = user !== null;
             this.getParticipants();
         });
@@ -82,7 +82,7 @@ export class EventDetailsComponent implements OnInit, OnDestroy, AfterViewInit {
         if (this.isLoggedIn) {
             this.calendarService
                 .getAllParticipantUser(this.selectedCalendarEvent)
-                .subscribe((calendarParticipantUserDto) => {
+                .subscribe(calendarParticipantUserDto => {
                     console.log({ calendarParticipantUserDto });
                     this.participants = calendarParticipantUserDto.participants;
                     this.isJoined = calendarParticipantUserDto.isUser;
@@ -90,7 +90,7 @@ export class EventDetailsComponent implements OnInit, OnDestroy, AfterViewInit {
         } else {
             this.calendarService
                 .getAllParticipant(this.selectedCalendarEvent)
-                .subscribe((participants) => {
+                .subscribe(participants => {
                     this.participants = participants;
                     this.isJoined = false;
                 });
@@ -111,7 +111,7 @@ export class EventDetailsComponent implements OnInit, OnDestroy, AfterViewInit {
         this.isLoading = true;
         this.calendarService
             .joinCalendarEvent(this.selectedCalendarEvent)
-            .subscribe((participants) => {
+            .subscribe(participants => {
                 console.log('Feliratkouztál');
                 this.isJoined = true;
                 this.isLoading = false;
@@ -123,7 +123,7 @@ export class EventDetailsComponent implements OnInit, OnDestroy, AfterViewInit {
         this.isLoading = true;
         this.calendarService
             .leaveCalendarEvent(this.selectedCalendarEvent)
-            .subscribe((participants) => {
+            .subscribe(participants => {
                 console.log('Leiratkouztál');
                 this.isJoined = false;
                 this.isLoading = false;
