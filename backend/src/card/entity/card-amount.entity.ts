@@ -1,39 +1,32 @@
-import {
-  Entity,
-  Column,
-  PrimaryGeneratedColumn,
-  ManyToOne,
-  BaseEntity,
-  JoinColumn,
-} from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, ManyToOne, BaseEntity, JoinColumn } from 'typeorm';
 import { User } from '../../auth/entity/user.entity';
 import { Card } from './card.entity';
 
 @Entity()
 export class CardAmount extends BaseEntity {
-  @PrimaryGeneratedColumn()
-  id: number;
+    @PrimaryGeneratedColumn()
+    id: number;
 
-  @Column()
-  amount: number;
+    @Column()
+    amount: number;
 
-  @ManyToOne(
-    () => User, // type
-    (user) => user.cardAmount,
-  )
-  @JoinColumn({ name: 'user_1' })
-  user: User;
+    @ManyToOne(
+        () => User, // type
+        user => user.cardAmount,
+    )
+    @JoinColumn({ name: 'user_1' })
+    user: User;
 
-  @Column({ name: 'user_1' })
-  userId: number;
+    @Column({ name: 'user_1' })
+    userId: number;
 
-  @ManyToOne(
-    () => Card, // type
-    (card) => card.cardAmount,
-  )
-  @JoinColumn({ name: 'card_1' })
-  card: Card;
+    @ManyToOne(
+        () => Card, // type
+        card => card.cardAmount,
+    )
+    @JoinColumn({ name: 'card_1' })
+    card: Card;
 
-  @Column({ name: 'card_1' })
-  cardId: number;
+    @Column({ name: 'card_1' })
+    cardId: number;
 }

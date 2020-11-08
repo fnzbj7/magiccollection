@@ -55,7 +55,7 @@
   "homepage": "https://github.com/fnzbj7/magiccollection#readme",
   "husky": {
     "hooks": {
-      "pre-commit": "pretty-quick --staged"
+      "pre-commit": "pretty-quick --staged --pattern \"frontend/src/app/**/*.{ts,css}\" & pretty-quick --staged --pattern \"backend/src/**/*.ts\""
     }
   }
 }
