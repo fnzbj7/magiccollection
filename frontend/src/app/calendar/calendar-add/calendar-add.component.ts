@@ -50,7 +50,7 @@ export class CalendarAddComponent implements OnInit, OnDestroy {
                     .getAllCalendarEvent()
                     .subscribe((calendarEventArray: CalendarEvent[]) => {
                         this.originalCalendarEvent = calendarEventArray.find(
-                            (calendarEvent) => expansionId === calendarEvent.id,
+                            calendarEvent => expansionId === calendarEvent.id,
                         );
                         this.calendarEvent = { ...this.originalCalendarEvent };
                         this.model = {
@@ -104,7 +104,7 @@ export class CalendarAddComponent implements OnInit, OnDestroy {
             } else {
                 this.calendarService
                     .saveNewCalendarEvent(this.calendarEvent)
-                    .subscribe((savedCalendarEvent) => {
+                    .subscribe(savedCalendarEvent => {
                         this.calendarEvent.id = savedCalendarEvent.id;
                         this.calendarService.addValueToCalendar(this.calendarEvent);
                         this.finished = true;

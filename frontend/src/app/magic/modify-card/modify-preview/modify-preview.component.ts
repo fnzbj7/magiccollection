@@ -24,7 +24,7 @@ export class ModifyPreviewComponent implements OnChanges {
     ngOnChanges(changes: SimpleChanges): void {
         this.isNormalOrder = true;
         const modify: ModifyCardDto = changes.modifyCard.currentValue;
-        this.cards = modify.cardQuantitys.map((x) => {
+        this.cards = modify.cardQuantitys.map(x => {
             return {
                 cardExpansion: modify.setShortName,
                 cardNumber: this.pad(x.cardNumber, 3),

@@ -60,7 +60,7 @@ export class AuthenticationService {
                 password,
             })
             .pipe(
-                map((resp) => {
+                map(resp => {
                     // login successful if there's a jwt token in the response
                     return this.createAndLoginUser(resp.accessToken);
                 }),
@@ -70,7 +70,7 @@ export class AuthenticationService {
     private refreshToken() {
         this.http
             .get<{ accessToken: string }>(environment.mainUrl + '/auth/refreshtoken')
-            .subscribe((resp) => {
+            .subscribe(resp => {
                 if (resp.accessToken) {
                     const jwtToken = this.jwtDecodeService.decode<JwtTokenModel>(resp.accessToken);
                     const user = this.currentUserSubject.getValue();
@@ -115,7 +115,7 @@ export class AuthenticationService {
                 params: { access_token: accessToken },
             })
             .pipe(
-                map((resp) => {
+                map(resp => {
                     // login successful if there's a jwt token in the response
                     return this.createAndLoginUser(resp.accessToken);
                 }),

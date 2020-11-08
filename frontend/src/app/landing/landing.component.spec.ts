@@ -1,6 +1,5 @@
 import { async, ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
-
 import { LandingComponent } from './landing.component';
 
 describe('LandingComponent', () => {
@@ -11,8 +10,7 @@ describe('LandingComponent', () => {
         waitForAsync(() => {
             TestBed.configureTestingModule({
                 declarations: [LandingComponent],
-                providers: [
-                ]
+                providers: [],
             }).compileComponents();
         }),
     );
