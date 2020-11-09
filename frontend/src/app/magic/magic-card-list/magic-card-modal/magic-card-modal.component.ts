@@ -7,24 +7,8 @@ import { Card } from '../../../model/card.model';
     templateUrl: './magic-card-modal.component.html',
     styleUrls: ['./magic-card-modal.component.css'],
 })
-export class MagicCardModalComponent implements AfterViewInit, OnInit {
-    @Input() cardImgPng: string;
-    @Input() cardImgWebp: string;
+export class MagicCardModalComponent implements AfterViewInit {
     @Input() magicCard: Card;
-
-    flipClass = false;
-    cardImgUrlBase: string;
-
-    imageSrcPng: string;
-    imageSrcWebp: string;
-
-    ngOnInit() {
-        this.cardImgUrlBase = environment.cardImgUrlBase;
-        const { cardExpansion, cardNumber } = this.magicCard;
-
-        this.imageSrcPng = `${this.cardImgUrlBase}${cardExpansion}/png/${cardExpansion}_${cardNumber}.png`;
-        this.imageSrcWebp = `${this.cardImgUrlBase}${cardExpansion}/webp/${cardExpansion}_${cardNumber}.webp`;
-    }
 
     ngAfterViewInit() {
         setTimeout(() => {

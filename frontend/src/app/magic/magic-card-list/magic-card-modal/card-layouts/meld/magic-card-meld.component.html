@@ -2,24 +2,24 @@
     <div class="flipper">
         <div class="front">
             <picture class="magiccard">
-                <source srcset="{{cardImgUrlBase}}{{magicCard.cardExpansion}}/webp/{{magicCard.cardExpansion}}_{{magicCard.cardNumber}}.webp" type="image/webp" />
-                <source srcset="{{cardImgUrlBase}}{{magicCard.cardExpansion}}/png/{{magicCard.cardExpansion}}_{{magicCard.cardNumber}}.png" type="image/png" />
+                <source [srcset]="cardUrls.mainCardWebpUrl" type="image/webp" />
+                <source [srcset]="cardUrls.mainCardPngUrl" type="image/png" />
                 <img
                     class="magiccard"
-                    title="{{ magicCard.cardNumber }}"
-                    src="{{ cardImgUrlBase + magicCard.cardExpansion }}/png/{{ magicCard.cardExpansion +'_'+magicCard.cardNumber}}.png"
+                    [title]="magicCard.cardNumber"
+                    [src]="cardUrls.mainCardPngUrl"
                     (click)="flipClass = true"
                 />
             </picture>
         </div>
         <div class="back">
             <picture class="magiccard">
-                <source srcset="{{cardImgUrlBase + magicCard.cardExpansion}}/webp/{{magicCard.cardExpansion}}_{{magicCard.cardNumber}}_F.webp" type="image/webp" />
-                <source srcset="{{cardImgUrlBase + magicCard.cardExpansion}}/png/{{magicCard.cardExpansion}}_{{magicCard.cardNumber}}_F.png" type="image/png" />
+                <source [srcset]="cardUrls.flipCardWebpUrl" type="image/webp" />
+                <source [srcset]="cardUrls.flipCardPngUrl" type="image/png" />
                 <img
                     class="magiccard"
-                    title="{{ magicCard.cardNumber }}"
-                    src="{{ cardImgUrlBase + magicCard.cardExpansion}}/png/{{ magicCard.cardExpansion }}_{{magicCard.cardNumber}}_F.png"
+                    [title]="magicCard.cardNumber"
+                    [src]="cardUrls.flipCardPngUrl"
                     (click)="flipClass = false"
                 />
             </picture>
