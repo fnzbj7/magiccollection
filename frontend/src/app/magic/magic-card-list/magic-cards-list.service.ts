@@ -7,6 +7,7 @@ import { CardRarity } from '../../model/card-rarity.enum';
 import { environment } from '../../../environments/environment';
 import { AuthenticationService } from '../../auth/authentication.service';
 import { QuantityFilterEnum } from '../../model/quantity-filter.enum';
+import { CardUrls } from 'src/app/model/card-urls.model';
 
 @Injectable({ providedIn: 'root' })
 export class MagicCardsListService {
@@ -18,6 +19,7 @@ export class MagicCardsListService {
     ];
     filterChange = new Subject<FilterChange>();
     quantityFilterSub = new BehaviorSubject<QuantityFilterEnum>(QuantityFilterEnum.ALL);
+    cardImgUrlBase: string;
 
     cardSetsArray: string[] = [
         'ZNR',
@@ -67,7 +69,9 @@ export class MagicCardsListService {
         XLN: 289,
     };
 
-    constructor(private http: HttpClient, private authService: AuthenticationService) {}
+    constructor(private http: HttpClient, private authService: AuthenticationService) {
+        this.cardImgUrlBase = environment.cardImgUrlBase;
+    }
 
     getCardsForExpansion(cardSet: string): Observable<Card[]> {
         let url: string;
@@ -98,5 +102,20 @@ export class MagicCardsListService {
 
     changeQuantityFilter(qualityFilter: QuantityFilterEnum) {
         this.quantityFilterSub.next(qualityFilter);
+    }
+
+    creatingCardUrls(card: Card, isFlip: boolean = false): CardUrls {
+        const cardUrls = new CardUrls();
+
+        const { cardExpansion, cardNumber } = card;
+        cardUrls.mainCardWebpUrl = `${this.cardImgUrlBase}${cardExpansion}/webp/${cardExpansion}_${cardNumber}.webp`;
+        cardUrls.mainCardPngUrl = `${this.cardImgUrlBase}${cardExpansion}/png/${cardExpansion}_${cardNumber}.png`;
+
+        if (isFlip) {
+            cardUrls.flipCardWebpUrl = `${this.cardImgUrlBase}${cardExpansion}/webp/${cardExpansion}_${cardNumber}_F.webp`;
+            cardUrls.flipCardPngUrl = `${this.cardImgUrlBase}${cardExpansion}/png/${cardExpansion}_${cardNumber}_F.png`;
+        }
+
+        return cardUrls;
     }
 }
