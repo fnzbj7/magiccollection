@@ -16,6 +16,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 ### Changed
 
 - Separate the backend and frontend projects. (It happend because i want to create test cases for backend and frontend too)
+- Adding Proxy to the localhost dev enviroment and removing cors from backend
 
 ## [1.0.0] - 2020-09-23
 

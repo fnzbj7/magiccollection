@@ -2,7 +2,6 @@ import { CalendarEvent } from './calendar-list/model/calendar-event.model';
 import { Observable, BehaviorSubject } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { environment } from '../../environments/environment';
 import { map } from 'rxjs/operators';
 import { CalendarParticipantUserDto } from './calendar-list/model/calendar-participant-user.dto';
 
@@ -18,7 +17,7 @@ export class CalendarService {
     }
 
     getAllCalendarEvent(): Observable<CalendarEvent[]> {
-        return this.http.get<CalendarEvent[]>(`${environment.mainUrl}/calendar/all`).pipe(
+        return this.http.get<CalendarEvent[]>(`/api/calendar/all`).pipe(
             map(calendarEventArray => {
                 this.inited = true;
                 this.calendarMap.clear();
@@ -114,39 +113,32 @@ export class CalendarService {
     }
 
     saveNewCalendarEvent(calendarEvent: CalendarEvent): Observable<CalendarEvent> {
-        return this.http.post<CalendarEvent>(environment.mainUrl + '/calendar/add', calendarEvent);
+        return this.http.post<CalendarEvent>('/api/calendar/add', calendarEvent);
     }
 
     updateCalendarEvent(calendarEvent: CalendarEvent): Observable<CalendarEvent> {
-        return this.http.patch<CalendarEvent>(
-            environment.mainUrl + '/calendar/modify',
-            calendarEvent,
-        );
+        return this.http.patch<CalendarEvent>('/api/calendar/modify', calendarEvent);
     }
 
     deleteCalendarEvent(calendarEvent: CalendarEvent): Observable<void> {
-        return this.http.delete<void>(environment.mainUrl + `/calendar/delete/${calendarEvent.id}`);
+        return this.http.delete<void>(`/api/calendar/delete/${calendarEvent.id}`);
     }
 
     joinCalendarEvent(calendarEvent: CalendarEvent): Observable<string[]> {
-        return this.http.post<string[]>(environment.mainUrl + '/calendar/join', calendarEvent);
+        return this.http.post<string[]>('/api/calendar/join', calendarEvent);
     }
 
     leaveCalendarEvent(calendarEvent: CalendarEvent): Observable<string[]> {
-        return this.http.delete<string[]>(
-            environment.mainUrl + `/calendar/leave/${calendarEvent.id}`,
-        );
+        return this.http.delete<string[]>(`/api/calendar/leave/${calendarEvent.id}`);
     }
 
     getAllParticipant(calendarEvent: CalendarEvent): Observable<string[]> {
-        return this.http.get<string[]>(
-            environment.mainUrl + `/calendar/allparticipant/${calendarEvent.id}`,
-        );
+        return this.http.get<string[]>(`/api/calendar/allparticipant/${calendarEvent.id}`);
     }
 
     getAllParticipantUser(calendarEvent: CalendarEvent): Observable<CalendarParticipantUserDto> {
         return this.http.get<CalendarParticipantUserDto>(
-            environment.mainUrl + `/calendar/allparticipantuser/${calendarEvent.id}`,
+            `/api/calendar/allparticipantuser/${calendarEvent.id}`,
         );
     }
 }
