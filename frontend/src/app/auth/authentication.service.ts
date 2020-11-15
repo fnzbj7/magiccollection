@@ -45,7 +45,7 @@ export class AuthenticationService {
     }
 
     registration(email: string, username: string, password: string) {
-        return this.http.post<any>(environment.mainUrl + '/auth/signup', {
+        return this.http.post<any>('/api/auth/signup', {
             email,
             username,
             password,
@@ -55,7 +55,7 @@ export class AuthenticationService {
 
     login(email: string, password: string) {
         return this.http
-            .post<{ accessToken: string }>(environment.mainUrl + '/auth/signin', {
+            .post<{ accessToken: string }>('/api/auth/signin', {
                 email,
                 password,
             })
@@ -68,17 +68,15 @@ export class AuthenticationService {
     }
 
     private refreshToken() {
-        this.http
-            .get<{ accessToken: string }>(environment.mainUrl + '/auth/refreshtoken')
-            .subscribe(resp => {
-                if (resp.accessToken) {
-                    const jwtToken = this.jwtDecodeService.decode<JwtTokenModel>(resp.accessToken);
-                    const user = this.currentUserSubject.getValue();
-                    user.privileges = jwtToken.privileges || [];
-                    this.localStorageService.setAccessTokenAndSaveLocalStorage(user);
-                    this.currentUserSubject.next(user);
-                }
-            });
+        this.http.get<{ accessToken: string }>('/api/auth/refreshtoken').subscribe(resp => {
+            if (resp.accessToken) {
+                const jwtToken = this.jwtDecodeService.decode<JwtTokenModel>(resp.accessToken);
+                const user = this.currentUserSubject.getValue();
+                user.privileges = jwtToken.privileges || [];
+                this.localStorageService.setAccessTokenAndSaveLocalStorage(user);
+                this.currentUserSubject.next(user);
+            }
+        });
     }
 
     private createAndLoginUser(accessToken: string): User {
@@ -111,7 +109,7 @@ export class AuthenticationService {
 
     facebookSignIn(accessToken: string): Observable<any> {
         return this.http
-            .get<{ accessToken: string }>(environment.mainUrl + '/auth/facebook', {
+            .get<{ accessToken: string }>('/api/auth/facebook', {
                 params: { access_token: accessToken },
             })
             .pipe(
