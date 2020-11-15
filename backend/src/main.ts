@@ -27,7 +27,7 @@ async function bootstrap() {
     }
 
     const app = await NestFactory.create(AppModule, options);
-    app.enableCors();
+    // app.enableCors();
     app.setGlobalPrefix('api');
     app.use(compression());
     app.use(frontendMiddleware);

@@ -76,9 +76,9 @@ export class MagicCardsListService {
     getCardsForExpansion(cardSet: string): Observable<Card[]> {
         let url: string;
         if (this.authService.isLoggedIn()) {
-            url = environment.mainUrl + `/card/cardsetuser/${cardSet}`;
+            url = `/api/card/cardsetuser/${cardSet}`;
         } else {
-            url = environment.mainUrl + `/card/cardset/${cardSet}`;
+            url = `/api/card/cardset/${cardSet}`;
         }
         return this.http.get<Card[]>(url);
     }
