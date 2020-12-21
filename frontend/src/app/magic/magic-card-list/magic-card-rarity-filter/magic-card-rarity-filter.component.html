@@ -4,8 +4,27 @@
   <li class="filter-element" (click)="onChangeRarityFilter('R', !isRare)" [ngClass]="{'active': isRare}">R</li>
   <li class="filter-element" (click)="onChangeRarityFilter('M', !isMythic)" [ngClass]="{'active': isMythic}">M</li>
 </ul>
+<div class="tooltip-w3">
+  <fa-icon [icon]="faInfoCircle"></fa-icon>
+  <span class="right left-md tooltiptext-w3" style="width: 130px; text-align: left;z-index: 25;">
+    <ng-container *ngIf="isCommon || isUncommon || isRare || isMythic">
+      &nbsp;<span>Megjelenő:<br></span>
+      <ng-container *ngIf="isCommon">&nbsp;&nbsp;&#183;&nbsp;Common<br></ng-container>
+      <ng-container *ngIf="isUncommon">&nbsp;&nbsp;&#183;&nbsp;Uncommon<br></ng-container>
+      <ng-container *ngIf="isRare">&nbsp;&nbsp;&#183;&nbsp;Rare<br></ng-container>
+      <ng-container *ngIf="isMythic">&nbsp;&nbsp;&#183;&nbsp;Mythic&nbsp;Rare<br></ng-container>
+    </ng-container>
+    <ng-container *ngIf="!isCommon || !isUncommon || !isRare || !isMythic">
+      &nbsp;<span>Elrejtett:<br></span>
+      <ng-container *ngIf="!isCommon">&nbsp;&nbsp;&#183;&nbsp;Common<br></ng-container>
+      <ng-container *ngIf="!isUncommon">&nbsp;&nbsp;&#183;&nbsp;Uncommon<br></ng-container>
+      <ng-container *ngIf="!isRare">&nbsp;&nbsp;&#183;&nbsp;Rare<br></ng-container>
+      <ng-container *ngIf="!isMythic">&nbsp;&nbsp;&#183;&nbsp;Mythic&nbsp;Rare<br></ng-container>
+    </ng-container>
+  </span>
+</div>
 <ng-container *ngIf="isAuth">
-    <div class=" ml-4 d-inline-block tooltip-w3 pointer">
+    <div class="ml-4 d-inline-block tooltip-w3 pointer">
         <img src="/assets/img/filter/card-all.svg" (click)="onChangeRadio(quantityEnum.ALL)" [ngClass]="{ 'selected' : quantityFilter === quantityEnum.ALL}" class="quantity-img">
         <span class="right left-md tooltiptext-w3">Összes</span>
     </div>

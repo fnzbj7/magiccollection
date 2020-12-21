@@ -4,6 +4,7 @@ import { QuantityFilterEnum } from '../../../model/quantity-filter.enum';
 import { CardRarity } from '../../../model/card-rarity.enum';
 import { FilterChange } from '../../../model/filter-change.model';
 import { AuthenticationService } from '../../../auth/authentication.service';
+import { faInfoCircle } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
     selector: 'app-magic-card-rarity-filter',
@@ -18,6 +19,9 @@ export class MagicCardRarityFilterComponent implements OnInit {
     quantityFilter: QuantityFilterEnum;
     quantityEnum = QuantityFilterEnum;
     isAuth = false;
+
+    // Font-Aesome
+    faInfoCircle = faInfoCircle;
 
     constructor(
         private magicCardsListService: MagicCardsListService,
