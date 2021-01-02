@@ -164,13 +164,13 @@ body {
 
 /* -------- FAKE CARDS ------- */
 .fake-card {
-    width: 217px;
+    width: 108px;
     margin: 5px 3px;
 }
 
-@media (max-width: 767px) {
+@media (min-width: 827px) {
     .fake-card {
-        width: 108px;
+      width: 217px;
     }
 }
 /* ----- FAKE CARDS END ------ */

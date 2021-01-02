@@ -29,7 +29,7 @@ ul {
 
 .my-pagination /deep/ .pagination .active a {
     display: inline-block;
-    padding: 0px 9px;
+    padding: 0px 10px;
     margin-right: 4px;
     border-radius: 3px;
     border: none;
@@ -121,6 +121,24 @@ ul {
 
     :host {
         margin-right: 3px;
+    }
+}
+
+@media (max-width: 826px) {
+    /* TODO megcsinálni */
+
+    .my-pagination /deep/ .pagination li {
+        margin: 2px 2px;
+    }
+
+    .my-pagination /deep/ .pagination li a {
+        padding: 10px 15px;
+        font-size: 1em;
+    }
+
+    .my-pagination /deep/ .pagination .active a {
+        padding: 10px 16px;
+        font-size: 1em;
     }
 }
 

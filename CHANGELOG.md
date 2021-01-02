@@ -13,6 +13,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 - After uploading cards you can check if you added new cards (need a UI upgrade in the future)
 - Added a new Normal card layout for the card modal and refactored the whole code (to create all the urls in the same place)
 - Adding information tooltip to the rarity filter (CURM) in the card list page
+- Change pagination size to bigger on mobile screen to be easier to use
 
 ### Changed
 
