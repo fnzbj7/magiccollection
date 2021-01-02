@@ -10,12 +10,13 @@
 
 <div (scroll)="onScroll($event)" class="mobile-menu bg-light" #setmenu>
 
+  <div class="mobile-menu-inner">
     <app-magic-set-icon
         class="set-icon"
         [expansionName]="cardSet"
         *ngFor="let cardSet of cardSetsArray"
     ></app-magic-set-icon>
-
+  </div>
 </div>
 
 <div class="position-fixed floating-arrow-left pointer" (click)="onScrollLeft(setmenu)" [ngClass]="{'dont-show-left': isScrollLeftHide}">

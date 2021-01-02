@@ -109,17 +109,24 @@
     }
 
     .mobile-menu {
+        display: block;
         position: fixed;
-        display: flex;
-        align-items: center;
         bottom: 0;
         left: 0;
         z-index: 50;
         width: 100%;
-        white-space: nowrap;
         overflow-x: scroll;
         overflow-y: hidden;
         height: 75px;
+    }
+
+    .mobile-menu-inner {
+        display: flex;
+        align-items: center;
+        white-space: nowrap;
+        float: left;
+        padding-left: 30px;
+        padding-right: 30px;
     }
 
     .set-icon {
