@@ -29,7 +29,7 @@ export class MagicSetListComponent implements OnInit {
     onScroll(event: any) {
         const el: HTMLElement = event.srcElement;
         const heightLimit = el.scrollHeight - el.clientHeight;
-        const widthLimit = el.scrollWidth - el.clientWidth;
+        const widthLimit = el.scrollWidth - el.clientWidth - 1;
 
         if (widthLimit > 0 && el.scrollLeft >= widthLimit) {
             this.isScrollRightHide = true;
@@ -55,7 +55,7 @@ export class MagicSetListComponent implements OnInit {
         // }
     }
 
-    onScrollDown(setListRef: any) {
+    onScrollDown(setListRef: HTMLElement) {
         setListRef.scrollBy({
             top: setListRef.offsetHeight * 0.65,
             behavior: 'smooth',
