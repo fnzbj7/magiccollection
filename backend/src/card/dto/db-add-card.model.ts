@@ -3,4 +3,5 @@ export interface DbAddCard {
     cardAmountId: number;
     cardNumber: number;
     quantity: number;
+    quantityFoil: number;
 }

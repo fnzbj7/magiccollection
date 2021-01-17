@@ -4,6 +4,7 @@ import { AuthGuard } from '@nestjs/passport';
 import { GetUser } from '../auth/get-user.decorator';
 import { User } from '../auth/entity/user.entity';
 import { ModifyCardDto } from './dto/add-card.dto';
+import { CardAmountDto } from './dto/card-amount.dto';
 
 @Controller('card')
 export class CardController {
@@ -16,7 +17,10 @@ export class CardController {
 
     @Get('/cardsetuser/:set')
     @UseGuards(AuthGuard())
-    async getCardSetUser(@Param('set') cardSet: string, @GetUser() user: User) {
+    async getCardSetUser(
+        @Param('set') cardSet: string,
+        @GetUser() user: User,
+    ): Promise<CardAmountDto[]> {
         return await this.cardService.getCardSetUser(cardSet, user);
     }
 

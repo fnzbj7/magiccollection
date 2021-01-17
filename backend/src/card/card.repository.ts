@@ -98,7 +98,7 @@ export class CardRepository extends Repository<Card> {
     }
 
     /**
-     * Get all the cards
+     * Get all cards from the database which is in the modifyCard.cardQuantitys
      *  cardId, cardAmountId, cardNumber, quantity
      *  Left join is kell a cardId-hoz
      * @param modifyCard
@@ -113,6 +113,7 @@ export class CardRepository extends Repository<Card> {
                 't_card.id as cardId',
                 't_card_amount.id as cardAmountId',
                 't_card_amount.amount as quantity',
+                't_card_amount.foilAmount as quantityFoil',
                 't_card.cardNumber as cardNumber',
             ])
             .leftJoin('t_card.cardAmount', 't_card_amount', 't_card_amount.userId = :userId', {
@@ -150,9 +151,19 @@ export class CardRepository extends Repository<Card> {
         userCards.forEach(async userCard => {
             const newAddCard = cardQuantitys.find(card => card.cardNumber === userCard.cardNumber);
             if (userCard.cardAmountId) {
-                await this.updateCardAmount(userCard, newAddCard.cardQuantity, userId);
+                await this.updateCardAmount(
+                    userCard,
+                    newAddCard.cardQuantity,
+                    newAddCard.cardQuantityFoil,
+                    userId,
+                );
             } else {
-                await this.insertCardAmount(userCard.cardId, newAddCard.cardQuantity, userId);
+                await this.insertCardAmount(
+                    userCard.cardId,
+                    newAddCard.cardQuantity,
+                    newAddCard.cardQuantityFoil,
+                    userId,
+                );
             }
         });
     }
@@ -163,15 +174,22 @@ export class CardRepository extends Repository<Card> {
      * @param cardQuantity
      * @param userId
      */
-    private async insertCardAmount(cardId: number, cardQuantity: number, userId: number) {
+    private async insertCardAmount(
+        cardId: number,
+        cardQuantity: number,
+        cardQuantityFoil: number,
+        userId: number,
+    ) {
         cardQuantity = cardQuantity > 0 ? cardQuantity : -1 * cardQuantity;
         const insertCardAmount = new CardAmount();
         insertCardAmount.amount = cardQuantity;
+        insertCardAmount.foilAmount = cardQuantityFoil;
         insertCardAmount.userId = userId;
         insertCardAmount.cardId = cardId;
         await insertCardAmount.save();
         this.logger.verbose(
-            `Save card amount with is ${insertCardAmount.id} with ${cardQuantity} quantity for userId ${userId} and CardId ${cardId}`,
+            `Save card amount with is ${insertCardAmount.id} with ${cardQuantity} quantity and ` +
+                ` ${cardQuantityFoil} foil quantity for userId ${userId} and CardId ${cardId}`,
         );
     }
 
@@ -181,13 +199,24 @@ export class CardRepository extends Repository<Card> {
      * @param modifyQuantity
      * @param userId
      */
-    private async updateCardAmount(userCard: DbAddCard, modifyQuantity: number, userId: number) {
+    private async updateCardAmount(
+        userCard: DbAddCard,
+        modifyQuantity: number,
+        modifyQuantityFoil: number,
+        userId: number,
+    ) {
         let newAmount = userCard.quantity + modifyQuantity;
+        let newAmountFoil = userCard.quantityFoil + modifyQuantityFoil;
         newAmount = newAmount > 0 ? newAmount : 0;
-        await CardAmount.update({ id: userCard.cardAmountId }, { amount: newAmount });
+        newAmountFoil = newAmountFoil > 0 ? newAmountFoil : 0;
+        await CardAmount.update(
+            { id: userCard.cardAmountId },
+            { amount: newAmount, foilAmount: newAmountFoil },
+        );
         this.logger.verbose(
             `Update cardAmountId ${userCard.cardAmountId} to (initial) ${userCard.quantity} + (adding value) ` +
-                `${modifyQuantity} for userId ${userId} and CardId ${userCard.cardId}`,
+                `${modifyQuantity} and (initial foil) ${userCard.quantityFoil} + (adding value foil) ${modifyQuantityFoil} ` +
+                ` for userId ${userId} and CardId ${userCard.cardId}`,
         );
     }
 }

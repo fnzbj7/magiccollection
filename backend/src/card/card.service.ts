@@ -37,7 +37,9 @@ export class CardService {
             const cardAmountDto = new CardAmountDto();
             cardAmountDto.cardExpansion = card.cardSet.shortName;
             cardAmountDto.cardNumber = this.pad(card.cardNumber, 3);
-            cardAmountDto.cardAmount = this.getCardAmount(card);
+            const { cardAmount, cardAmountFoil } = this.getCardAmount(card);
+            cardAmountDto.cardAmount = cardAmount;
+            cardAmountDto.cardAmountFoil = cardAmountFoil;
             cardAmountDto.layout = card.layout;
             cardAmountDto.rarity = card.rarity;
             cardAmountDto.name = card.name;
@@ -47,8 +49,12 @@ export class CardService {
         return cardAmountDtoList;
     }
 
-    private getCardAmount(card: Card): number {
-        return card.cardAmount && card.cardAmount[0] ? card.cardAmount[0].amount : 0;
+    private getCardAmount(card: Card): { cardAmount: number; cardAmountFoil: number } {
+        return {
+            cardAmount: card.cardAmount && card.cardAmount[0] ? card.cardAmount[0].amount : 0,
+            cardAmountFoil:
+                card.cardAmount && card.cardAmount[0] ? card.cardAmount[0].foilAmount : 0,
+        };
     }
 
     private pad(text: string | number, width: number, z?: string) {
