@@ -5,6 +5,10 @@ export class InitTableMigration implements MigrationInterface {
 
     public async up(queryRunner: QueryRunner): Promise<void> {
         await queryRunner.query(
+            "CREATE TABLE `user` (`id` int NOT NULL AUTO_INCREMENT, `name` varchar(255) NULL, `email` varchar(255) NULL, `password` varchar(255) NULL, `salt` varchar(255) NULL, `dci` varchar(10) NULL, `activated` tinyint NULL DEFAULT 0, `source` enum ('site', 'fb') NOT NULL DEFAULT 'site', UNIQUE INDEX `IDX_bc989f4315b237c89c463c07e9` (`email`, `source`), PRIMARY KEY (`id`)) ENGINE=InnoDB",
+        );
+
+        await queryRunner.query(
             'CREATE TABLE `card_set` (`id` int NOT NULL AUTO_INCREMENT, `name` varchar(255) NOT NULL, `short_name` varchar(255) NOT NULL, PRIMARY KEY (`id`)) ENGINE=InnoDB',
         );
         await queryRunner.query(
@@ -41,5 +45,7 @@ export class InitTableMigration implements MigrationInterface {
         await queryRunner.query('DROP TABLE `card_amount`');
         await queryRunner.query('DROP TABLE `card`');
         await queryRunner.query('DROP TABLE `card_set`');
+        await queryRunner.query('DROP INDEX `IDX_bc989f4315b237c89c463c07e9` ON `user`');
+        await queryRunner.query('DROP TABLE `user`');
     }
 }
