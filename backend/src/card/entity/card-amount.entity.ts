@@ -10,6 +10,9 @@ export class CardAmount extends BaseEntity {
     @Column()
     amount: number;
 
+    @Column({ name: 'foil_amount', default: 0 })
+    foilAmount: number;
+
     @ManyToOne(
         () => User, // type
         user => user.cardAmount,
