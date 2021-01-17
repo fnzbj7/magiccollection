@@ -15,7 +15,11 @@ import { MagicCardAmount } from './model/magic-card-amount.model';
     selector: '[appMagicCardAmount]',
 })
 export class MagicCardAmountDirective implements OnChanges {
-    @Input() appMagicCardAmount: MagicCardAmount = { cardAmount: 0, isLoggedIn: false };
+    @Input() appMagicCardAmount: MagicCardAmount = {
+        cardAmount: 0,
+        cardAmountFoil: 0,
+        isLoggedIn: false,
+    };
     amountImg: HTMLImageElement;
 
     constructor(private elRef: ElementRef<HTMLPictureElement>, private renderer: Renderer2) {}
@@ -24,7 +28,8 @@ export class MagicCardAmountDirective implements OnChanges {
         if (changes.appMagicCardAmount.firstChange) {
             // If there is no logged in user, just show the cards, do nothing.
             if (this.appMagicCardAmount.isLoggedIn) {
-                this.createAmountForImage(this.appMagicCardAmount.cardAmount);
+                const { cardAmount, cardAmountFoil } = this.appMagicCardAmount;
+                this.createAmountForImage(cardAmount + cardAmountFoil);
             }
         } else {
             this.removeLoggedInCards(changes.appMagicCardAmount.previousValue.cardAmount);

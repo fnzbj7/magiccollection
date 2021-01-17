@@ -6,6 +6,7 @@ import { ModifyCardService } from '../modify-card.service';
 import { MagicCardsListService } from '../magic-card-list/magic-cards-list.service';
 import { ModifyQtyEnum } from '../../model/modify-qty.enum';
 import { Card, CardLayout } from 'src/app/model/card.model';
+import { CardWithFoil } from './dto/foil.dto';
 
 enum PageStep {
     FORM = 'from',
@@ -31,7 +32,7 @@ export class ModifyCardComponent implements OnInit, OnDestroy {
     actualPageStep = PageStep.FORM;
     wrongNums: number[];
     notNumbers: string[];
-    rawCardNumbers: number[];
+    rawCardNumbers: CardWithFoil[];
     newCards: Card[];
     isNewCardsLoading = false;
     isNewCardsFinished = false;
@@ -98,13 +99,19 @@ export class ModifyCardComponent implements OnInit, OnDestroy {
         );
     }
 
-    private prepareAndValidate(cardNumbersStr: string, cardSet: string): number[] {
+    private prepareAndValidate(cardNumbersStr: string, cardSet: string): CardWithFoil[] {
         // Remove multiple spaces
         const cardNumbersStrTrim = cardNumbersStr.trim().replace(/  +/g, ' ');
         const cardNumbersStrArr: string[] = cardNumbersStrTrim.split(' ');
-        const cardNumbers = cardNumbersStrArr.map(cardNum => parseInt(cardNum, 0));
+        const cardsAndFoil: CardWithFoil[] = cardNumbersStrArr.map(cardNum => {
+            const foil: CardWithFoil = {
+                cardNum: parseInt(cardNum, 0),
+                isFoil: cardNum.includes('*'),
+            };
+            return foil;
+        });
 
-        const findedNum = cardNumbers.findIndex(num => isNaN(num));
+        const findedNum = cardsAndFoil.findIndex(cardAndFoil => isNaN(cardAndFoil.cardNum));
         if (findedNum >= 0) {
             this.notNumbers = cardNumbersStrArr.filter(num => isNaN(parseInt(num, 0)));
             console.log('Founded NaN');
@@ -112,26 +119,35 @@ export class ModifyCardComponent implements OnInit, OnDestroy {
         }
 
         const maxNumber: number = this.magicCardsListService.maxCardNumber[cardSet];
-        this.wrongNums = cardNumbers.filter(num => num > maxNumber || num <= 0);
+        this.wrongNums = cardsAndFoil
+            .filter(cardAndFoil => cardAndFoil.cardNum > maxNumber || cardAndFoil.cardNum <= 0)
+            .map(cardAndFoil => cardAndFoil.cardNum);
         if (this.wrongNums.length > 0) {
             console.log('High number');
             this.isError = true;
         }
-        return cardNumbers;
+        return cardsAndFoil;
     }
 
-    private convertToModifyCardDto(cardNumbers: number[]) {
+    private convertToModifyCardDto(cardNumbers: CardWithFoil[]) {
         const addCardDto = new ModifyCardDto();
         addCardDto.setShortName = this.cardSet;
         addCardDto.cardQuantitys = [];
-        return cardNumbers.reduce((addCard, cardNum) => {
-            const cardNumInd = addCard.cardQuantitys.findIndex(c => c.cardNumber === cardNum);
+        return cardNumbers.reduce((addCard, cardWithFoil) => {
+            const cardNumInd = addCard.cardQuantitys.findIndex(
+                c => c.cardNumber === cardWithFoil.cardNum,
+            );
             if (cardNumInd >= 0) {
-                addCard.cardQuantitys[cardNumInd].cardQuantity += this.modifyQty;
+                if (!cardWithFoil.isFoil) {
+                    addCard.cardQuantitys[cardNumInd].cardQuantity += this.modifyQty;
+                } else {
+                    addCard.cardQuantitys[cardNumInd].cardQuantityFoil += this.modifyQty;
+                }
             } else {
                 addCard.cardQuantitys.push({
-                    cardNumber: cardNum,
-                    cardQuantity: this.modifyQty,
+                    cardNumber: cardWithFoil.cardNum,
+                    cardQuantity: cardWithFoil.isFoil ? 0 : this.modifyQty,
+                    cardQuantityFoil: cardWithFoil.isFoil ? this.modifyQty : 0,
                 });
             }
             return addCard;

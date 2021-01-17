@@ -11,12 +11,12 @@ export class ModifyCardService {
 
     constructor(private http: HttpClient) {}
 
-    addCard(addCardDto: ModifyCardDto): Observable<any> {
-        return this.http.post<any>('/api/card/addcard', addCardDto);
+    addCard(addCardDto: ModifyCardDto): Observable<void> {
+        return this.http.post<void>('/api/card/addcard', addCardDto);
     }
 
-    removeCard(addCardDto: ModifyCardDto): Observable<any> {
-        return this.http.post<any>('/api/card/removecard', addCardDto);
+    removeCard(addCardDto: ModifyCardDto): Observable<void> {
+        return this.http.post<void>('/api/card/removecard', addCardDto);
     }
 
     getSavedModifyCard(modify: ModifyQtyEnum): string {

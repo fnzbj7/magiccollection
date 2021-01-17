@@ -1,7 +1,8 @@
 import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { faSortAlphaDown, faSortAlphaDownAlt } from '@fortawesome/free-solid-svg-icons';
 import { Card, CardLayout } from '../../../model/card.model';
-import { CardQuantity, ModifyCardDto } from '../dto/modify-card.dto';
+import { CardWithFoil } from '../dto/foil.dto';
+import { ModifyCardDto } from '../dto/modify-card.dto';
 
 @Component({
     selector: 'app-modify-preview',
@@ -10,7 +11,7 @@ import { CardQuantity, ModifyCardDto } from '../dto/modify-card.dto';
 })
 export class ModifyPreviewComponent implements OnChanges {
     @Input() modifyCard: ModifyCardDto;
-    @Input() rawModifyCard: any;
+    @Input() rawModifyCard: CardWithFoil[]; // TODO ezt majd be kell állítani, hogy feldolgozza a foilt
     cards: Card[];
     rawCards: Card[];
     isRaw = false;
@@ -29,22 +30,27 @@ export class ModifyPreviewComponent implements OnChanges {
                 cardExpansion: modify.setShortName,
                 cardNumber: this.pad(x.cardNumber, 3),
                 cardAmount: x.cardQuantity > 0 ? x.cardQuantity : x.cardQuantity * -1,
+                cardAmountFoil:
+                    x.cardQuantityFoil > 0 ? x.cardQuantityFoil : x.cardQuantityFoil * -1,
                 layout: CardLayout.NORMAL,
                 rarity: 'C',
                 name: 'Not relevant',
             };
         });
 
-        this.rawCards = changes.rawModifyCard.currentValue.map((x: number) => {
-            return {
-                cardExpansion: modify.setShortName,
-                cardNumber: this.pad(x, 3),
-                cardAmount: 1,
-                layout: CardLayout.NORMAL,
-                rarity: 'C',
-                name: 'Not relevant',
-            };
-        });
+        this.rawCards = changes.rawModifyCard.currentValue.map(
+            (x: CardWithFoil): Card => {
+                return {
+                    cardExpansion: modify.setShortName,
+                    cardNumber: this.pad(x.cardNum, 3),
+                    cardAmount: x.isFoil ? 0 : 1,
+                    cardAmountFoil: x.isFoil ? 1 : 0,
+                    layout: CardLayout.NORMAL,
+                    rarity: 'C',
+                    name: 'Not relevant',
+                };
+            },
+        );
     }
 
     onChangeOrder() {
