@@ -6,6 +6,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+## [1.1.0] - 2021-01-22
+
 ### Added
 
 - There is a (plain-looking) order button on Adding/Removing card
@@ -15,6 +17,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 - Adding information tooltip to the rarity filter (CURM) in the card list page
 - Change pagination size to bigger on mobile screen to be easier to use
 - Now you can add foil cards: you just need to add a star (\*) after the card number (the display part will be created later)
+- Adding KHM cards
 
 ### Changed
 

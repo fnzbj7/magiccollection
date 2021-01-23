@@ -132,6 +132,8 @@ ul {
     }
 
     .my-pagination /deep/ .pagination li a {
+        width: 48px;
+        text-align: center;
         padding: 10px 15px;
         font-size: 1em;
     }
@@ -139,6 +141,7 @@ ul {
     .my-pagination /deep/ .pagination .active a {
         padding: 10px 16px;
         font-size: 1em;
+        margin-top: 1px;
     }
 }
 
