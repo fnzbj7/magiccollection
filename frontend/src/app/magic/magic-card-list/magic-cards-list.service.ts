@@ -22,6 +22,7 @@ export class MagicCardsListService {
     cardImgUrlBase: string;
 
     cardSetsArray: string[] = [
+        'KHM',
         'ZNR',
         'M21',
         'IKO',
@@ -46,6 +47,7 @@ export class MagicCardsListService {
     ];
 
     maxCardNumber: any = {
+        KHM: 405,
         ZNR: 391,
         M21: 397,
         IKO: 387,
