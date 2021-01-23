@@ -1,4 +1,4 @@
-import { CardSet } from 'src/card/entity/card-set.entity';
+import { CardSet } from '../card/entity/card-set.entity';
 import { InsertResult, MigrationInterface, QueryRunner } from 'typeorm';
 
 export class migrationNameSe1611402162304 implements MigrationInterface {
@@ -9,7 +9,7 @@ export class migrationNameSe1611402162304 implements MigrationInterface {
             .createQueryBuilder()
             .insert()
             .into('card_set')
-            .values({ name: 'Kaldheim', short_name: 'KHM' })
+            .values({ name: 'Kaldheim', shortName: 'KHM' })
             .execute();
         const cardSetId: number = insertResult.identifiers[0].id;
 
