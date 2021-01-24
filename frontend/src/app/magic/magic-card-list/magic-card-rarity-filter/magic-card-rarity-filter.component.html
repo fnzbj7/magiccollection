@@ -23,18 +23,19 @@
     </ng-container>
   </span>
 </div>
-<ng-container *ngIf="isAuth">
-    <div class="ml-4 d-inline-block tooltip-w3 pointer">
-        <img src="/assets/img/filter/card-all.svg" (click)="onChangeRadio(quantityEnum.ALL)" [ngClass]="{ 'selected' : quantityFilter === quantityEnum.ALL}" class="quantity-img">
-        <span class="right left-md tooltiptext-w3">Összes</span>
-    </div>
+<div class="quantity-block ml-4 d-inline-block" *ngIf="isAuth">
     <div class="d-inline-block tooltip-w3 pointer">
-        <img src="/assets/img/filter/card-have.svg" (click)="onChangeRadio(quantityEnum.HAVE)" [ngClass]="{ 'selected' : quantityFilter === quantityEnum.HAVE}" class="quantity-img">
-        <span class="right left-md tooltiptext-w3">Meglévő</span>
-    </div>
-    <div class="d-inline-block tooltip-w3 pointer">
-        <img src="/assets/img/filter/card-miss.svg" (click)="onChangeRadio(quantityEnum.NOTHAVE)" [ngClass]="{ 'selected' : quantityFilter === quantityEnum.NOTHAVE}" class="quantity-img">
-        <span class="right left-md tooltiptext-w3">Hiányzó</span>
-    </div>
-</ng-container>
+      <img src="/assets/img/filter/card-all.svg" (click)="onChangeRadio(quantityEnum.ALL)" [ngClass]="{ 'selected' : quantityFilter === quantityEnum.ALL}" class="quantity-img">
+      <span class="right left-md tooltiptext-w3">Összes</span>
+  </div>
+  <div class="d-inline-block tooltip-w3 pointer">
+      <img src="/assets/img/filter/card-have.svg" (click)="onChangeRadio(quantityEnum.HAVE)" [ngClass]="{ 'selected' : quantityFilter === quantityEnum.HAVE}" class="quantity-img">
+      <span class="right left-md tooltiptext-w3">Meglévő</span>
+  </div>
+  <div class="d-inline-block tooltip-w3 pointer">
+      <img src="/assets/img/filter/card-miss.svg" (click)="onChangeRadio(quantityEnum.NOTHAVE)" [ngClass]="{ 'selected' : quantityFilter === quantityEnum.NOTHAVE}" class="quantity-img">
+      <span class="right left-md tooltiptext-w3">Hiányzó</span>
+  </div>
+</div>
+
 

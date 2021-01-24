@@ -55,3 +55,20 @@
     padding: 5px;
     border-radius: 3px;
 }
+
+@media (max-width: 826px) {
+    .quantity-block {
+        float: right;
+        margin-right: 40px;
+    }
+}
+
+@media (max-width: 740px) {
+    .rarity-filter {
+        padding-left: 20px;
+    }
+
+    .quantity-block {
+        margin-right: 20px;
+    }
+}
