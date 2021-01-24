@@ -35,6 +35,7 @@ export class AuthService {
     }
     private createJwtPayload(user: User): JwtPayload {
         return {
+            name: user.name,
             email: user.email,
             privileges: user.privileges.map(priv => priv.name),
         };

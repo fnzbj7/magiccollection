@@ -1,11 +1,22 @@
-<ul class="navbar-nav" style="margin-left: 30px; margin-right: 20px;">
+<ng-container *ngIf="loggedUser">
+  <div class="ml-4 mt-4">
+    <img src="/assets/img/user-icon/default-icon.png" style="width: 40px">
+    <div class="mt-3">{{loggedUser.username}}</div>
+    <div class="mt-1">{{loggedUser.email}}</div>
+  </div>
+  <hr>
+</ng-container>
+<ul class="navbar-nav ml-4 mr-3">
 
     <ng-container *ngFor="let menu of menus">
-        <li class="nav-item my-1"
+        <li class="nav-item my-2"
         routerLinkActive="active"
         [routerLinkActiveOptions]="{ exact: menu.exact }"
-        *ngIf="menu.always || loggedUser">
-        <a class="nav-link" [routerLink]="[menu.link]">{{menu.name}}</a>
+        *ngIf="menu.always || loggedUser"><fa-icon
+        [icon]="menu.icon"
+        class="mr-4"
+        ></fa-icon>
+        <a class="nav-link d-inline" [routerLink]="[menu.link]">{{menu.name}}</a>
         </li>
     </ng-container>
 
@@ -13,7 +24,11 @@
         class="nav-item my-1"
         *ngIf="!loggedUser"
     >
-        <p class="nav-link pointer mb-0" (click)="openModalWithComponent()">
+    <fa-icon
+        [icon]="faSignInAlt"
+        class="mr-4"
+        ></fa-icon>
+        <p class="nav-link d-inline pointer mb-0" (click)="openModalWithComponent()">
             Log in
         </p>
     </li>
@@ -21,11 +36,10 @@
         <li
         class="nav-item my-1"
         >
-            <p class="nav-link pointer mb-0" (click)="onLogout()">Log Out</p>
-        </li>
-        <li class="nav-item">
-            <img src="/assets/img/user-icon/default-icon.png" style="width: 40px">
-            {{loggedUser.email}}
+        <fa-icon
+        [icon]="faSignOutAlt"
+        class="mr-4"
+        ></fa-icon><p class="nav-link pointer mb-0 d-inline" (click)="onLogout()">Log Out</p>
         </li>
     </ng-container>
 

@@ -5,6 +5,12 @@ import { AuthenticationService } from '../../auth/authentication.service';
 import { User } from '../../model/user.model';
 import { Subscription } from 'rxjs';
 import { MenuService, MenuElement } from '../menu.service';
+import {
+    faFolder,
+    faFolderOpen,
+    faSignInAlt,
+    faSignOutAlt,
+} from '@fortawesome/free-solid-svg-icons';
 
 @Component({
     selector: 'app-side-menu',
@@ -15,6 +21,10 @@ export class SideMenuComponent implements OnInit, OnDestroy {
     loggedUser: User;
     currentUserSub: Subscription;
     menus: MenuElement[];
+
+    // Font Awesome
+    faSignOutAlt = faSignOutAlt;
+    faSignInAlt = faSignInAlt;
 
     constructor(
         private dialog: MatDialog,
