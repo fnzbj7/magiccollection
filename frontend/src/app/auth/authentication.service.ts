@@ -86,6 +86,7 @@ export class AuthenticationService {
             user.token = accessToken;
             const expirationDate = new Date(jwtToken.exp * 1000);
             user.expiresIn = expirationDate;
+            user.username = jwtToken.name;
             user.email = jwtToken.email;
             user.privileges = jwtToken.privileges || [];
             // store user details and jwt token in local storage to keep user logged in between page refreshes

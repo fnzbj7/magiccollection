@@ -6,6 +6,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+### Changed
+
+- The mobile menu style and order
+
 ### Fixed
 
 - In log in when you give wrong password, the error message was not shown properly
