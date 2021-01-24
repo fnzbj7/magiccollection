@@ -5,6 +5,7 @@ import { first } from 'rxjs/operators';
 import { SocialUser, SocialAuthService, FacebookLoginProvider } from 'angularx-social-login';
 import { MatDialogRef } from '@angular/material/dialog';
 import { faFacebookSquare } from '@fortawesome/free-brands-svg-icons';
+import { StatusCodes } from 'http-status-codes';
 
 @Component({
     selector: 'app-auth-component',
@@ -91,7 +92,7 @@ export class AuthComponent implements OnInit {
             )
             .pipe(first())
             .subscribe(
-                data => {
+                () => {
                     // this.router.navigate([this.returnUrl]);
                     this.loading = false;
                     this.onPageChange('Login');
@@ -99,7 +100,7 @@ export class AuthComponent implements OnInit {
                 error => {
                     console.error(error);
                     console.error(error.status);
-                    if (error.status === 409) {
+                    if (error.status === StatusCodes.CONFLICT) {
                         // Email already in use
                         this.registrationForm.get('email').setErrors({ emailUsed: true });
                     }
@@ -127,15 +128,17 @@ export class AuthComponent implements OnInit {
             .login(this.logForm.email.value, this.logForm.password.value)
             .pipe(first())
             .subscribe(
-                data => {
-                    // this.router.navigate([this.returnUrl]);
+                () => {
                     this.loading = false;
                     this.dialogRef.close();
                 },
                 error => {
                     console.error(error);
                     console.error(error.status);
-                    if (error.status === 421) {
+                    if (
+                        error.status === StatusCodes.UNAUTHORIZED ||
+                        error.status === StatusCodes.BAD_REQUEST
+                    ) {
                         this.loginForm.get('password').setErrors({ wrongPass: true });
                     }
                     this.loading = false;
