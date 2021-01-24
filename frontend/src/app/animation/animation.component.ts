@@ -46,6 +46,7 @@ export class AnimationComponent implements OnInit, AfterViewInit {
             this.renderer.resize(w, h);
         });
 
+        this.loader.reset();
         this.loader = this.loader.add('stone', 'assets/stone_throw.png');
         this.loader.load(this.startGame.bind(this));
     }
