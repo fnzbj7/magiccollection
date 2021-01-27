@@ -105,6 +105,9 @@ export class MagicCardListComponent implements OnInit, OnDestroy {
                 this.filteredCardsArray = this.filteredCardsArray.filter(
                     card => card.cardAmount === 0,
                 );
+                break;
+            default:
+                throw new Error('QuantityFilterEnum has a wrong value');
         }
     }
 
