@@ -36,7 +36,7 @@ async function bootstrap() {
     await app.listen(port);
 }
 
-function wrapBackgroundTask(promise) {
+function wrapBackgroundTask(promise: Promise<void>) {
     promise.catch((error: any) => console.error('Oh no!', error));
 }
 
