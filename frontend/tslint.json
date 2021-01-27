@@ -61,6 +61,7 @@
     "no-switch-case-fall-through": true,
     "no-var-requires": false,
     "no-submodule-imports": false,
+    "no-backbone-get-set-outside-model": false,
     "object-literal-key-quotes": [
       true,
       "as-needed"

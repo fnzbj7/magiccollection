@@ -96,6 +96,8 @@ export class MagicCardListComponent implements OnInit, OnDestroy {
         });
 
         switch (this.magicCardsListService.quantityFilterSub.value) {
+            case QuantityFilterEnum.ALL:
+                break;
             case QuantityFilterEnum.HAVE:
                 this.filteredCardsArray = this.filteredCardsArray.filter(
                     card => card.cardAmount > 0,

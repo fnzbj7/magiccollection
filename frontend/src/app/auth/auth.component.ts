@@ -146,7 +146,7 @@ export class AuthComponent implements OnInit {
             );
     }
 
-    get regemail() {
+    protected get regemail() {
         return this.registrationForm.get('email');
     }
 
