@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { InvalidTokenError } from './model/invalid-token-error.model';
 
 @Injectable({ providedIn: 'root' })
 export class JwtDecodeService {
@@ -48,12 +49,5 @@ export class JwtDecodeService {
         } catch (err) {
             return atob(output);
         }
-    }
-}
-
-export class InvalidTokenError extends Error {
-    constructor(public message: string) {
-        super();
-        this.name = 'InvalidTokenError';
     }
 }

@@ -13,11 +13,11 @@ export class CalendarService {
     ) {}
 
     async getAllCalendarEvent(): Promise<CalendarEvent[]> {
-        return await this.calendarEventRepository.getAllCalendarEvent();
+        return this.calendarEventRepository.getAllCalendarEvent();
     }
 
     async saveCalendarEvent(calendarEvent: CalendarEvent): Promise<CalendarEvent> {
-        return await this.calendarEventRepository.save(calendarEvent);
+        return this.calendarEventRepository.save(calendarEvent);
     }
 
     async deleteCalendarEvent(id: number) {

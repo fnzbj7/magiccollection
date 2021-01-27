@@ -12,7 +12,7 @@ export class CardRepository extends Repository<Card> {
     private logger = new Logger('CardRepository');
 
     async getCardSet(cardSet: string): Promise<Card[]> {
-        return await this.createQueryBuilder('card')
+        return this.createQueryBuilder('card')
             .innerJoinAndSelect('card.cardSet', 'cardSet', 'cardSet.short_name = :name', {
                 name: cardSet,
             })
@@ -20,7 +20,7 @@ export class CardRepository extends Repository<Card> {
     }
 
     async getCardSetUser(cardSet: string, user: User): Promise<Card[]> {
-        return await this.createQueryBuilder('t_card')
+        return this.createQueryBuilder('t_card')
             .innerJoinAndSelect('t_card.cardSet', 't_cardSet', 't_cardSet.short_name = :name', {
                 name: cardSet,
             })

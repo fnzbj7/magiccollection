@@ -4,13 +4,9 @@ import { MatDialog } from '@angular/material/dialog';
 import { AuthenticationService } from '../../auth/authentication.service';
 import { User } from '../../model/user.model';
 import { Subscription } from 'rxjs';
-import { MenuService, MenuElement } from '../menu.service';
-import {
-    faFolder,
-    faFolderOpen,
-    faSignInAlt,
-    faSignOutAlt,
-} from '@fortawesome/free-solid-svg-icons';
+import { MenuService } from '../menu.service';
+import { faSignInAlt, faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
+import { MenuElement } from '../model/menu-element.model';
 
 @Component({
     selector: 'app-side-menu',

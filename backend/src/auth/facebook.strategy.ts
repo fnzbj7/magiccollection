@@ -14,7 +14,7 @@ export class FacebookStrategy {
         this.init();
     }
 
-    async init() {
+    init() {
         // Need to spearate options from the FacebookTokenStrategy construct,
         // because it's not accepts fbGraphVersion property, but we need to set it to the newest
         const fbConfig: any = config.get('facebook');

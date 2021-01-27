@@ -1,13 +1,7 @@
 import { Injectable } from '@angular/core';
 import { faWizardsOfTheCoast } from '@fortawesome/free-brands-svg-icons';
-import {
-    faHome,
-    IconDefinition,
-    faCalendarAlt,
-    faPlus,
-    faMinus,
-    faGem,
-} from '@fortawesome/free-solid-svg-icons';
+import { faHome, faCalendarAlt, faPlus, faMinus, faGem } from '@fortawesome/free-solid-svg-icons';
+import { MenuElement } from './model/menu-element.model';
 
 @Injectable({ providedIn: 'root' })
 export class MenuService {
@@ -27,14 +21,4 @@ export class MenuService {
     getMenus(): MenuElement[] {
         return this.menus;
     }
-}
-
-export class MenuElement {
-    constructor(
-        public link: string,
-        public name: string,
-        public always: boolean,
-        public exact: boolean,
-        public icon: IconDefinition,
-    ) {}
 }
