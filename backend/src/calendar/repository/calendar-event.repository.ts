@@ -6,7 +6,7 @@ import { ConflictException, InternalServerErrorException } from '@nestjs/common'
 @EntityRepository(CalendarEvent)
 export class CalendarEventRepository extends Repository<CalendarEvent> {
     async getAllCalendarEvent(): Promise<CalendarEvent[]> {
-        return await this.find();
+        return this.find();
     }
 
     async joinCalendarEvent(calendarEvent: CalendarEvent, user: User) {

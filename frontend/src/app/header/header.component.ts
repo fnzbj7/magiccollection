@@ -8,7 +8,8 @@ import { MatDialog } from '@angular/material/dialog';
 import { SideMenuService } from '../shared/side-menu.service';
 import { UpdatePwaService } from '../auth/update-pwa.service';
 import { Subscription } from 'rxjs';
-import { MenuService, MenuElement } from './menu.service';
+import { MenuService } from './menu.service';
+import { MenuElement } from './model/menu-element.model';
 
 @Component({
     selector: 'app-header',

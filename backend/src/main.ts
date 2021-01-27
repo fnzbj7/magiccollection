@@ -15,8 +15,8 @@ async function bootstrap() {
     if (config.get('https')) {
         // eslint-disable-next-line @typescript-eslint/no-var-requires
         const fs = require('fs');
-        const keyFile = fs.readFileSync(__dirname + '/../frontend/certificates/localhost.key');
-        const certFile = fs.readFileSync(__dirname + '/../frontend/certificates/localhost.crt');
+        const keyFile = fs.readFileSync('../frontend/certificates/localhost.key');
+        const certFile = fs.readFileSync('../frontend/certificates/localhost.crt');
         options = {
             ...options,
             httpsOptions: {
@@ -35,4 +35,9 @@ async function bootstrap() {
     logger.log(`The server is listening on port ${port}`);
     await app.listen(port);
 }
-bootstrap();
+
+function wrapBackgroundTask(promise) {
+    promise.catch((error: any) => console.error('Oh no!', error));
+}
+
+wrapBackgroundTask(bootstrap());

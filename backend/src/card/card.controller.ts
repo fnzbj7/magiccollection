@@ -11,8 +11,8 @@ export class CardController {
     constructor(private cardService: CardService) {}
 
     @Get('/cardset/:set')
-    async getCardSet(@Param('set') cardSet: string) {
-        return await this.cardService.getCardSet(cardSet);
+    async getCardSet(@Param('set') cardSet: string): Promise<CardAmountDto[]> {
+        return this.cardService.getCardSet(cardSet);
     }
 
     @Get('/cardsetuser/:set')
@@ -21,7 +21,7 @@ export class CardController {
         @Param('set') cardSet: string,
         @GetUser() user: User,
     ): Promise<CardAmountDto[]> {
-        return await this.cardService.getCardSetUser(cardSet, user);
+        return this.cardService.getCardSetUser(cardSet, user);
     }
 
     @Post('/addcard')

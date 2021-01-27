@@ -94,7 +94,7 @@ import { MagicCardNormalComponent } from './magic/magic-card-list/magic-card-mod
                         provider: new FacebookLoginProvider(environment.facebookAppId),
                     },
                 ],
-            } as SocialAuthServiceConfig,
+            },
         },
     ],
     bootstrap: [AppComponent],
