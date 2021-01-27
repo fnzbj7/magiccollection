@@ -20,17 +20,12 @@ import { LandingComponent } from './landing/landing.component';
 import { MagicCardRarityFilterComponent } from './magic/magic-card-list/magic-card-rarity-filter/magic-card-rarity-filter.component';
 import { MagicCardModalComponent } from './magic/magic-card-list/magic-card-modal/magic-card-modal.component';
 import { SharedModule } from './shared/shared.module';
-import {
-    SocialLoginModule,
-    FacebookLoginProvider,
-    SocialAuthServiceConfig,
-} from 'angularx-social-login';
+import { SocialLoginModule, FacebookLoginProvider } from 'angularx-social-login';
 import { LazyLoadImageModule } from 'ng-lazyload-image';
 import { ModifyPreviewComponent } from './magic/modify-card/modify-preview/modify-preview.component';
 import { ModifyCardComponent } from './magic/modify-card/modify-card.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatDialogModule } from '@angular/material/dialog';
-import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { SideMenuComponent } from './header/side-menu/side-menu.component';
 import { MagicCardMeldComponent } from './magic/magic-card-list/magic-card-modal/card-layouts/meld/magic-card-meld.component';
@@ -40,6 +35,7 @@ import { MagicCardSplitComponent } from './magic/magic-card-list/magic-card-moda
 // tslint:disable-next-line: max-line-length
 import { MagicCardAftermathComponent } from './magic/magic-card-list/magic-card-modal/card-layouts/aftermath/magic-card-aftermath.component';
 import { MagicCardNormalComponent } from './magic/magic-card-list/magic-card-modal/card-layouts/normal/magic-card-normal.component';
+import { MatSnackBarModule } from '@angular/material/snack-bar/public-api';
 
 @NgModule({
     declarations: [
