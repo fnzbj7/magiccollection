@@ -35,7 +35,7 @@ import { MagicCardSplitComponent } from './magic/magic-card-list/magic-card-moda
 // tslint:disable-next-line: max-line-length
 import { MagicCardAftermathComponent } from './magic/magic-card-list/magic-card-modal/card-layouts/aftermath/magic-card-aftermath.component';
 import { MagicCardNormalComponent } from './magic/magic-card-list/magic-card-modal/card-layouts/normal/magic-card-normal.component';
-import { MatSnackBarModule } from '@angular/material/snack-bar/public-api';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 @NgModule({
     declarations: [
