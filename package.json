@@ -4,7 +4,7 @@
   "description": "One day, i decided that, i want to train my webpage developing skills, and i need a system to organize my Magic® The Gathering collections. <br/>So, that's when this git repo was made.",
   "main": "index.js",
   "engines": {
-    "node": "12.x"
+    "node": "14.x"
   },
   "scripts": {
     "postinstall": "cd backend && npm install && npm install --only=dev && cd ../frontend && npm install && npm install --only=dev && node version.js",
