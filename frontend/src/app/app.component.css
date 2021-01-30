@@ -89,3 +89,7 @@
     transition: opacity 0.15s;
 }
 /* -------------- Modal Settings END--------------*/
+
+.mat-drawer.mat-sidenav {
+    min-width: 80%;
+}

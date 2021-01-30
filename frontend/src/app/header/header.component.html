@@ -7,14 +7,11 @@
             <li class="nav-item"
             routerLinkActive="active"
             [routerLinkActiveOptions]="{ exact: menu.exact }"
-            *ngIf="menu.always || loggedUser">
+            *ngIf="needToShow(menu.showMenu)">
             <a class="nav-link" [routerLink]="[menu.link]">{{menu.name}}</a>
             </li>
         </ng-container>
         <li class="nav-item">
-            <p *ngIf="!loggedUser" class="nav-link pointer mb-0" (click)="openModalWithComponent()">
-                Log in
-            </p>
             <p *ngIf="loggedUser" class="nav-link pointer mb-0" (click)="onLogout()">Log Out</p>
         </li>
         <li class="nav-item" *ngIf="loggedUser">

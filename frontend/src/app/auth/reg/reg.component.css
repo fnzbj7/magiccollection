@@ -1,0 +1,11 @@
+:host {
+    width: 100%;
+}
+
+.modal-body {
+    width: 320px;
+    margin: auto;
+    background-color: #fff;
+    padding: 24px;
+    border-radius: 4px;
+}

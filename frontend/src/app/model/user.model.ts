@@ -1,4 +1,4 @@
-import { Privilege } from '../auth/privilege.enum';
+import { Privilege } from '../auth/model/privilege.enum';
 
 export class User {
     id: number;
