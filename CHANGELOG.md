@@ -8,11 +8,13 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ### Changed
 
+- The login and registering dialog now cahnged to screens. The logic stas the same
 - The mobile menu style and order
 
 ### Fixed
 
 - In log in when you give wrong password, the error message was not shown properly
+
 ## [1.1.0] - 2021-01-22
 
 ### Added

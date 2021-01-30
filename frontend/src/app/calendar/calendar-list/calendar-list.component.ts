@@ -4,8 +4,7 @@ import { CalendarDay } from './model/calendar-day.model';
 import { Subscription } from 'rxjs';
 import { faAngleLeft, faAngleRight, faCalendarPlus } from '@fortawesome/free-solid-svg-icons';
 import { AuthenticationService } from '../../auth/authentication.service';
-import { User } from '../../model/user.model';
-import { Privilege } from '../../auth/privilege.enum';
+import { Privilege } from '../../auth/model/privilege.enum';
 import { CalendarEvent } from './model/calendar-event.model';
 
 @Component({

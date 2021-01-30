@@ -36,6 +36,8 @@ import { MagicCardSplitComponent } from './magic/magic-card-list/magic-card-moda
 import { MagicCardAftermathComponent } from './magic/magic-card-list/magic-card-modal/card-layouts/aftermath/magic-card-aftermath.component';
 import { MagicCardNormalComponent } from './magic/magic-card-list/magic-card-modal/card-layouts/normal/magic-card-normal.component';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { LoginComponent } from './auth/login/login.component';
+import { RegComponent } from './auth/reg/reg.component';
 
 @NgModule({
     declarations: [
@@ -58,6 +60,8 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
         MagicCardSplitComponent,
         MagicCardAftermathComponent,
         MagicCardNormalComponent,
+        LoginComponent,
+        RegComponent,
     ],
     entryComponents: [AuthComponent, MagicCardModalComponent],
     imports: [

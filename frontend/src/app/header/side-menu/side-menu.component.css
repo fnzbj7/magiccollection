@@ -9,7 +9,3 @@
 .nav-link:hover {
     color: rgba(0, 0, 0, 0.7);
 }
-
-.navbar-nav {
-    min-width: 300px;
-}

@@ -7,7 +7,7 @@ import { CardRarity } from '../../model/card-rarity.enum';
 import { environment } from '../../../environments/environment';
 import { AuthenticationService } from '../../auth/authentication.service';
 import { QuantityFilterEnum } from '../../model/quantity-filter.enum';
-import { CardUrls } from 'src/app/model/card-urls.model';
+import { CardUrls } from '../../model/card-urls.model';
 
 @Injectable({ providedIn: 'root' })
 export class MagicCardsListService {

@@ -1,12 +1,11 @@
-import { Component, OnInit, OnDestroy, OnChanges } from '@angular/core';
-import { AuthComponent } from '../../auth/auth.component';
-import { MatDialog } from '@angular/material/dialog';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { AuthenticationService } from '../../auth/authentication.service';
 import { User } from '../../model/user.model';
 import { Subscription } from 'rxjs';
 import { MenuService } from '../menu.service';
-import { faSignInAlt, faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
+import { faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
 import { MenuElement } from '../model/menu-element.model';
+import { ShowMenu } from '../model/show-menu.enum';
 
 @Component({
     selector: 'app-side-menu',
@@ -20,10 +19,8 @@ export class SideMenuComponent implements OnInit, OnDestroy {
 
     // Font Awesome
     faSignOutAlt = faSignOutAlt;
-    faSignInAlt = faSignInAlt;
 
     constructor(
-        private dialog: MatDialog,
         private authenticationService: AuthenticationService,
         private menuService: MenuService,
     ) {}
@@ -35,8 +32,17 @@ export class SideMenuComponent implements OnInit, OnDestroy {
         this.menus = this.menuService.getMenus();
     }
 
-    openModalWithComponent() {
-        this.dialog.open(AuthComponent);
+    needToShow(showMenu: ShowMenu): boolean {
+        switch (showMenu) {
+            case ShowMenu.ALWAYS:
+                return true;
+            case ShowMenu.LOGIN:
+                return this.loggedUser !== null;
+            case ShowMenu.LOGOUT:
+                return this.loggedUser === null;
+            default:
+                throw new Error('ShowMenu has a wrong value');
+        }
     }
 
     onLogout() {

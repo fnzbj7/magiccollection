@@ -100,12 +100,12 @@ export class MagicCardListComponent implements OnInit, OnDestroy {
                 break;
             case QuantityFilterEnum.HAVE:
                 this.filteredCardsArray = this.filteredCardsArray.filter(
-                    card => card.cardAmount > 0,
+                    card => card.cardAmount + card.cardAmountFoil > 0,
                 );
                 break;
             case QuantityFilterEnum.NOTHAVE:
                 this.filteredCardsArray = this.filteredCardsArray.filter(
-                    card => card.cardAmount === 0,
+                    card => card.cardAmount + card.cardAmountFoil === 0,
                 );
                 break;
             default:

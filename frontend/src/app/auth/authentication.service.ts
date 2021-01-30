@@ -3,8 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { User } from '../model/user.model';
-import { environment } from '../../environments/environment';
-import { JwtTokenModel } from './jwt.model';
+import { JwtTokenModel } from './model/jwt.model';
 import { LocalStorageService } from './local-storage.service';
 import { JwtDecodeService } from './jwt-decode.service';
 

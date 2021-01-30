@@ -5,7 +5,7 @@ import { Subscription } from 'rxjs';
 import { ModifyCardService } from '../modify-card.service';
 import { MagicCardsListService } from '../magic-card-list/magic-cards-list.service';
 import { ModifyQtyEnum } from '../../model/modify-qty.enum';
-import { Card, CardLayout } from 'src/app/model/card.model';
+import { Card, CardLayout } from '../../model/card.model';
 import { CardWithFoil } from './dto/foil.dto';
 
 enum PageStep {
@@ -156,9 +156,9 @@ export class ModifyCardComponent implements OnInit, OnDestroy {
 
     onShowNewCards() {
         // Get all cards
-        this.isNewCardsLoading = true; // TODO lehet egy betöltés flaget
+        this.isNewCardsLoading = true;
         this.magicCardsListService.getCardsForExpansion(this.cardSet).subscribe(cards => {
-            this.isNewCardsFinished = true; // TODO átállítani / resetelni
+            this.isNewCardsFinished = true;
             this.isNewCardsLoading = false;
             // Compare to the uploaded cards
             const filteredNewCards = this.reducedArr.cardQuantitys.filter(x => {

@@ -10,6 +10,7 @@ import { UpdatePwaService } from '../auth/update-pwa.service';
 import { Subscription } from 'rxjs';
 import { MenuService } from './menu.service';
 import { MenuElement } from './model/menu-element.model';
+import { ShowMenu } from './model/show-menu.enum';
 
 @Component({
     selector: 'app-header',
@@ -50,9 +51,17 @@ export class HeaderComponent implements OnInit, OnDestroy {
         this.menus = this.menuService.getMenus();
     }
 
-    openModalWithComponent() {
-        this.dialog.open(AuthComponent);
-        // this.bsModalRef = this.modalService.show(AuthComponent);
+    needToShow(showMenu: ShowMenu): boolean {
+        switch (showMenu) {
+            case ShowMenu.ALWAYS:
+                return true;
+            case ShowMenu.LOGIN:
+                return this.loggedUser !== null;
+            case ShowMenu.LOGOUT:
+                return this.loggedUser === null;
+            default:
+                throw new Error('ShowMenu has a wrong value');
+        }
     }
 
     onUpdate() {

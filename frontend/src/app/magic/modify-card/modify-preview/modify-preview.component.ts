@@ -11,7 +11,7 @@ import { ModifyCardDto } from '../dto/modify-card.dto';
 })
 export class ModifyPreviewComponent implements OnChanges {
     @Input() modifyCard: ModifyCardDto;
-    @Input() rawModifyCard: CardWithFoil[]; // TODO ezt majd be kell állítani, hogy feldolgozza a foilt
+    @Input() rawModifyCard: CardWithFoil[];
     cards: Card[];
     rawCards: Card[];
     isRaw = false;

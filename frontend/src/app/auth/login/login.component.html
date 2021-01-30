@@ -1,0 +1,31 @@
+<div class="modal-body">
+  <h3 class="mb-3">Bejelentkezés</h3>
+  <!-- ---------LOGIN------ -->
+  <form [formGroup]="loginForm" (ngSubmit)="onLoginSubmit()">
+      <div class="form-group">
+        <label for="exampleInputEmail1">Email cím</label>
+        <input type="email" [ngClass]="{'is-invalid':  logemail.touched && logemail.invalid && logemail.errors['email']}" class="form-control" formControlName="email" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Email cím">
+        <span class="text-danger" *ngIf="logemail.touched && logemail.invalid && logemail.errors['email']">
+          Nem valós email cím
+        </span>
+      </div>
+      <div class="form-group">
+        <label for="exampleInputPassword1">Jelszó</label>
+        <input type="password" [ngClass]="{'is-invalid': logpass.invalid && logpass.errors['wrongPass']}" class="form-control" formControlName="password" id="exampleInputPassword1" placeholder="Jelszó">
+        <span class="text-danger" *ngIf="logpass.invalid && logpass.errors['wrongPass']">
+          Rossz jelszó
+        </span>
+      </div>
+      <button [disabled]="loading" class="btn btn-primary">Belépés</button><br>
+      <p class="full-line my-4"><span>Social</span></p>
+      <button (click)="onFacebookLogin()" class="btn btn-primary mt-2">
+        <fa-icon
+        [icon]="faFacebookSquare"
+        class="mr-1"
+        ></fa-icon>Facebook Login</button>
+    </form>
+</div>
+
+<div class="modal-body mt-4">
+  Nincs accountod? <a [routerLink]="'/reg'">Regisztrálj!</a>
+</div>

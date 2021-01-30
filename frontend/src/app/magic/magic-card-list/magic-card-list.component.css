@@ -125,8 +125,6 @@ ul {
 }
 
 @media (max-width: 826px) {
-    /* TODO megcsinálni */
-
     .my-pagination /deep/ .pagination li {
         margin: 2px 2px;
     }
