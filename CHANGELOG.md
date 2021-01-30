@@ -6,6 +6,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+### Added
+
+- In the card list page and the calendar page you can use left and right swipe to change page (powered with HammerJs)
+
 ### Changed
 
 - The login and registering dialog now cahnged to screens. The logic stas the same
