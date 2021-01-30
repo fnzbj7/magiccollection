@@ -1,9 +1,9 @@
 <app-magic-set-list
     class="card-set-mobil-landscape"
 ></app-magic-set-list>
-<div id="fullThings" *ngIf="expansion && filteredCardsArray">
+<div id="fullThings" *ngIf="expansion && filteredCardsArray" (swipe)="onSwipe($event)">
     <app-magic-card-rarity-filter></app-magic-card-rarity-filter>
-    <ngb-pagination class="my-pagination" [(page)]="currentPage" [pageSize]="itemsPerPage" [collectionSize]="filteredCardsArray.length" [directionLinks]="false"></ngb-pagination>
+    <ngb-pagination class="my-pagination" [page]="currentPage" (pageChange)="onPageChange($event)" [pageSize]="itemsPerPage" [collectionSize]="filteredCardsArray.length" [directionLinks]="false"></ngb-pagination>
     <ul id="things" class="px-0">
         <app-magic-card [magicCard]="card" *ngFor="let card of filteredCardsArray | slice: (currentPage-1) * itemsPerPage : (currentPage-1) * itemsPerPage + itemsPerPage; trackBy: trackCard"></app-magic-card>
 

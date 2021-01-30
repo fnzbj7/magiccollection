@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
+import { Component, OnInit, ViewChild, OnDestroy, AfterViewInit } from '@angular/core';
 import { MagicCardsListService } from './magic-cards-list.service';
 import { Card } from '../../model/card.model';
 import { ActivatedRoute, Params, Router } from '@angular/router';
@@ -25,6 +25,7 @@ export class MagicCardListComponent implements OnInit, OnDestroy {
     routerChangeSub: Subscription;
     quantityFilterSub: Subscription;
     rarityFilterSub: Subscription;
+    lastPageNum: number;
 
     constructor(
         private magicCardsListService: MagicCardsListService,
@@ -55,14 +56,6 @@ export class MagicCardListComponent implements OnInit, OnDestroy {
         this.quantityFilterSub = this.magicCardsListService.quantityFilterSub.subscribe(x => {
             this.filterCards();
         });
-
-        this.route.queryParams.subscribe(data => {
-            if (data.page === undefined) {
-                // this.currentPage = 1;
-            } else if (this.currentPage !== +data.page) {
-                this.amountInputRef.pageChange.emit(data.page);
-            }
-        });
     }
 
     getCardsFromExpansion(expansionArg: string) {
@@ -84,6 +77,22 @@ export class MagicCardListComponent implements OnInit, OnDestroy {
             queryParams: { page: this.currentPage },
             queryParamsHandling: 'merge', // remove to replace all query params by provided
         });
+    }
+
+    onSwipe(event) {
+        const x = Math.abs(event.deltaX) > 40 ? (event.deltaX > 0 ? 'Right' : 'Left') : '';
+
+        if (x === 'Right') {
+            const nextPage = this.currentPage - 1;
+            if (nextPage > 0) {
+                this.onPageChange(nextPage);
+            }
+        } else if (x === 'Left') {
+            const nextPage = this.currentPage + 1;
+            if (nextPage <= this.lastPageNum) {
+                this.onPageChange(nextPage);
+            }
+        }
     }
 
     private filterCards() {
@@ -111,6 +120,8 @@ export class MagicCardListComponent implements OnInit, OnDestroy {
             default:
                 throw new Error('QuantityFilterEnum has a wrong value');
         }
+
+        this.lastPageNum = Math.ceil(this.filteredCardsArray.length / this.itemsPerPage);
     }
 
     trackCard(index: number, card: Card) {
