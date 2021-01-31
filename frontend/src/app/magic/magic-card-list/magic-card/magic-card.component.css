@@ -13,17 +13,70 @@
     -ms-user-select: none;
 }
 
+/* ------------ */
+.magiccard {
+    height: 100%;
+    display: inline-block;
+    overflow: hidden;
+}
+.magiccard img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+}
+.magiccard.dothefoil:before {
+    content: '';
+    z-index: 10;
+    position: absolute;
+    height: 200%;
+    width: 200%;
+    top: -120%;
+    left: -120%;
+    background: linear-gradient(
+        transparent 0%,
+        rgba(255, 255, 255, 0.1) 45%,
+        rgba(255, 255, 255, 0.5) 50%,
+        rgba(255, 255, 255, 0.1) 55%,
+        transparent 100%
+    );
+    transition: all 2s;
+    transform: rotate(-45deg);
+    animation: shine 10s infinite forwards;
+}
+@keyframes shine {
+    0% {
+        top: -120%;
+        left: -120%;
+    }
+    10% {
+        left: 100%;
+        top: 100%;
+    }
+    20% {
+        left: 100%;
+        top: 100%;
+    }
+    100% {
+        left: 100%;
+        top: 100%;
+    }
+}
+
+/*   ------------------ */
+
 .nowrap {
     position: relative;
     z-index: 20;
     float: left;
-    margin: 5px 3px;
+    margin: 6px 3px;
 }
 
 .amountIcon {
     position: absolute;
     z-index: 21;
-    top: 97.4%;
+    bottom: calc(0% - 3px);
     width: 15%;
     margin-left: 42.5%;
 }
@@ -56,7 +109,11 @@
 @media (min-width: 827px) {
     .magiccard_li {
         width: 217px;
-        height: 306px;
+        height: 303px;
+    }
+
+    .amountIcon {
+        bottom: calc(0% - 5px);
     }
 }
 
