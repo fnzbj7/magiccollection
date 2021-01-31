@@ -79,19 +79,17 @@ export class MagicCardListComponent implements OnInit, OnDestroy {
         });
     }
 
-    onSwipe(event) {
-        const x = Math.abs(event.deltaX) > 40 ? (event.deltaX > 0 ? 'Right' : 'Left') : '';
+    onSwipeRight() {
+        const nextPage = this.currentPage - 1;
+        if (nextPage > 0) {
+            this.onPageChange(nextPage);
+        }
+    }
 
-        if (x === 'Right') {
-            const nextPage = this.currentPage - 1;
-            if (nextPage > 0) {
-                this.onPageChange(nextPage);
-            }
-        } else if (x === 'Left') {
-            const nextPage = this.currentPage + 1;
-            if (nextPage <= this.lastPageNum) {
-                this.onPageChange(nextPage);
-            }
+    onSwipeLeft() {
+        const nextPage = this.currentPage + 1;
+        if (nextPage <= this.lastPageNum) {
+            this.onPageChange(nextPage);
         }
     }
 
