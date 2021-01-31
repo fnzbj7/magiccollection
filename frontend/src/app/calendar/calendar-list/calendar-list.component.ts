@@ -167,14 +167,12 @@ export class CalendarListComponent implements OnInit, OnDestroy {
         this.initCalendar(this.currentDate);
     }
 
-    onSwipe(event) {
-        const x = Math.abs(event.deltaX) > 40 ? (event.deltaX > 0 ? 'Right' : 'Left') : '';
+    onSwipeRight() {
+        this.onPreviousMonth();
+    }
 
-        if (x === 'Right') {
-            this.onPreviousMonth();
-        } else if (x === 'Left') {
-            this.onNextMonth();
-        }
+    onSwipeLeft() {
+        this.onNextMonth();
     }
 
     onDelete(calendarEvent: CalendarEvent) {
