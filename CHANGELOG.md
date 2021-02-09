@@ -8,14 +8,14 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ### Added
 
-- Adding the virst version of foil cards, still could change later
+- Adding the first version of foil cards, still could change later
 - Adding shining for the foil cards (it's still on development)
 - When in the card list screen don't have showable card, then you will see message like this: "There is no avaliable card, make less strict filtering"
 - In the card list page and the calendar page you can use left and right swipe to change page (powered with HammerJs)
 
 ### Changed
 
-- The login and registering dialog now cahnged to screens. The logic stas the same
+- The login and registering dialog now changed to screens. The logic stays the same
 - The mobile menu style and order
 
 ### Fixed
