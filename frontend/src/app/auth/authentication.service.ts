@@ -9,7 +9,7 @@ import { JwtDecodeService } from './jwt-decode.service';
 
 @Injectable({ providedIn: 'root' })
 export class AuthenticationService {
-    currentUserSubject: BehaviorSubject<User>;
+    currentUserSubject: BehaviorSubject<User | null>;
     private loggedIn = false;
 
     constructor(
@@ -23,7 +23,7 @@ export class AuthenticationService {
             currentUserJson &&
             this.expirationDateValidAndRefresh(currentUserJson.expiresIn as string);
         currentUserJson = this.loggedIn ? currentUserJson : null;
-        this.currentUserSubject = new BehaviorSubject<User>(currentUserJson);
+        this.currentUserSubject = new BehaviorSubject<User | null>(currentUserJson);
     }
 
     expirationDateValidAndRefresh(expiresIn: string): boolean {
@@ -39,12 +39,12 @@ export class AuthenticationService {
         return remainTime > 0;
     }
 
-    public get currentUserValue(): User {
+    public get currentUserValue(): User | null {
         return this.currentUserSubject.value;
     }
 
     registration(email: string, username: string, password: string) {
-        return this.http.post<any>('/api/auth/signup', {
+        return this.http.post('/api/auth/signup', {
             email,
             username,
             password,
@@ -71,7 +71,9 @@ export class AuthenticationService {
             if (resp.accessToken) {
                 const jwtToken = this.jwtDecodeService.decode<JwtTokenModel>(resp.accessToken);
                 const user = this.currentUserSubject.getValue();
-                user.privileges = jwtToken.privileges || [];
+                if (user !== null) {
+                    user.privileges = jwtToken.privileges || [];
+                }
                 this.localStorageService.setAccessTokenAndSaveLocalStorage(user);
                 this.currentUserSubject.next(user);
             }
