@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { DomService } from './dom.service';
+import { ModalInterface } from './modal.interface';
 
 @Injectable({ providedIn: 'root' })
 export class ModalService {
@@ -8,25 +9,35 @@ export class ModalService {
     private modalElementId = 'modal-container';
     private overlayElementId = 'overlay';
 
-    init(component: any, inputs: object, outputs: object) {
+    init(component: ModalInterface, inputs: object, outputs: object) {
         const componentConfig = {
             inputs,
             outputs,
         };
         this.domService.appendComponentTo(this.modalElementId, component, componentConfig);
         document.getElementsByTagName('BODY')[0].classList.add('modal-open');
-        document.getElementById(this.modalElementId).className = 'show';
-        document.getElementById(this.overlayElementId).className = 'show';
+        const modalElement = document.getElementById(this.modalElementId);
+        if (modalElement !== null) {
+            modalElement.className = 'show';
+        }
+        const overlayElemen = document.getElementById(this.overlayElementId);
+        if (overlayElemen !== null) {
+            overlayElemen.className = 'show';
+        }
     }
 
     destroy() {
         this.domService.removeComponent();
         const modalElement = document.getElementById(this.modalElementId);
-        modalElement.classList.add('hidden');
-        modalElement.classList.remove('show');
+        if (modalElement !== null) {
+            modalElement.classList.add('hidden');
+            modalElement.classList.remove('show');
+        }
         const overlayElement = document.getElementById(this.overlayElementId);
-        overlayElement.classList.add('hidden');
-        overlayElement.classList.remove('show');
+        if (overlayElement !== null) {
+            overlayElement.classList.add('hidden');
+            overlayElement.classList.remove('show');
+        }
         document.getElementsByTagName('BODY')[0].classList.remove('modal-open');
     }
 }
