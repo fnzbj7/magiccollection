@@ -20,24 +20,24 @@ enum PageStep {
     styleUrls: ['./modify-card.component.css'],
 })
 export class ModifyCardComponent implements OnInit, OnDestroy {
-    cardNumbersStr: string;
-    cardSetsArray: string[];
-    cardSet: string;
+    cardNumbersStr!: string;
+    cardSetsArray!: string[];
+    cardSet!: string;
     modifyQty: ModifyQtyEnum = ModifyQtyEnum.ADD;
     inProgress = false;
     isFinished = false;
     isError = false;
-    reducedArr: ModifyCardDto;
+    reducedArr!: ModifyCardDto;
     pageStep = PageStep;
     actualPageStep = PageStep.FORM;
-    wrongNums: number[];
-    notNumbers: string[];
-    rawCardNumbers: CardWithFoil[];
-    newCards: Card[];
+    wrongNums!: number[];
+    notNumbers!: string[];
+    rawCardNumbers!: CardWithFoil[];
+    newCards: Card[] | null = null;
     isNewCardsLoading = false;
     isNewCardsFinished = false;
 
-    param$: Subscription;
+    param$!: Subscription;
 
     constructor(
         private modifyCardService: ModifyCardService,
@@ -78,7 +78,7 @@ export class ModifyCardComponent implements OnInit, OnDestroy {
         this.notNumbers = [];
         this.isNewCardsLoading = false;
         this.isNewCardsFinished = false;
-        this.newCards = undefined;
+        this.newCards = null;
     }
 
     startUploading() {
@@ -99,28 +99,70 @@ export class ModifyCardComponent implements OnInit, OnDestroy {
         );
     }
 
+    onShowNewCards() {
+        // Get all cards
+        this.isNewCardsLoading = true;
+        this.magicCardsListService.getCardsForExpansion(this.cardSet).subscribe(cards => {
+            this.isNewCardsFinished = true;
+            this.isNewCardsLoading = false;
+            // Compare to the uploaded cards
+            if (this.reducedArr && this.reducedArr.cardQuantitys) {
+                const filteredNewCards = this.reducedArr.cardQuantitys.filter(x => {
+                    const foundCard = cards.find(
+                        card => card.cardNumber && +card.cardNumber === x.cardNumber,
+                    );
+                    return foundCard && foundCard.cardAmount === x.cardQuantity;
+                });
+
+                // Creating an array from the new cards
+                this.newCards = filteredNewCards.map(x => {
+                    const card = new Card();
+                    card.cardAmount = x.cardQuantity;
+                    card.cardExpansion = this.cardSet;
+                    card.cardNumber = this.pad(x.cardNumber, 3);
+                    card.layout = CardLayout.NORMAL;
+                    return card;
+                });
+            }
+        });
+    }
+
+    ngOnDestroy() {
+        this.modifyCardService.saveModifyCard(this.modifyQty, this.cardNumbersStr);
+        if (this.param$) {
+            this.param$.unsubscribe();
+        }
+    }
+
     private prepareAndValidate(cardNumbersStr: string, cardSet: string): CardWithFoil[] {
         // Remove multiple spaces
         const cardNumbersStrTrim = cardNumbersStr.trim().replace(/  +/g, ' ');
         const cardNumbersStrArr: string[] = cardNumbersStrTrim.split(' ');
         const cardsAndFoil: CardWithFoil[] = cardNumbersStrArr.map(cardNum => {
             const foil: CardWithFoil = {
-                cardNum: parseInt(cardNum, 0),
+                cardNum: parseInt(cardNum, 10),
                 isFoil: cardNum.includes('*'),
             };
             return foil;
         });
 
-        const findedNum = cardsAndFoil.findIndex(cardAndFoil => isNaN(cardAndFoil.cardNum));
+        const findedNum = cardsAndFoil.findIndex(
+            cardAndFoil => !cardAndFoil || !cardAndFoil.cardNum || isNaN(cardAndFoil.cardNum),
+        );
         if (findedNum >= 0) {
-            this.notNumbers = cardNumbersStrArr.filter(num => isNaN(parseInt(num, 0)));
+            this.notNumbers = cardNumbersStrArr.filter(num => isNaN(parseInt(num, 10)));
             console.log('Founded NaN');
             this.isError = true;
         }
 
-        const maxNumber: number = this.magicCardsListService.maxCardNumber[cardSet];
-        this.wrongNums = cardsAndFoil
-            .filter(cardAndFoil => cardAndFoil.cardNum > maxNumber || cardAndFoil.cardNum <= 0)
+        const maxNumber: number = this.magicCardsListService.getMagicSetMaxNumber(cardSet);
+        cardsAndFoil
+            .filter(
+                cardAndFoil =>
+                    !(cardAndFoil && cardAndFoil.cardNum) ||
+                    cardAndFoil.cardNum > maxNumber ||
+                    cardAndFoil.cardNum <= 0,
+            )
             .map(cardAndFoil => cardAndFoil.cardNum);
         if (this.wrongNums.length > 0) {
             console.log('High number');
@@ -130,9 +172,7 @@ export class ModifyCardComponent implements OnInit, OnDestroy {
     }
 
     private convertToModifyCardDto(cardNumbers: CardWithFoil[]) {
-        const addCardDto = new ModifyCardDto();
-        addCardDto.setShortName = this.cardSet;
-        addCardDto.cardQuantitys = [];
+        const addCardDto = new ModifyCardDto(this.cardSet, []);
         return cardNumbers.reduce((addCard, cardWithFoil) => {
             const cardNumInd = addCard.cardQuantitys.findIndex(
                 c => c.cardNumber === cardWithFoil.cardNum,
@@ -154,40 +194,9 @@ export class ModifyCardComponent implements OnInit, OnDestroy {
         }, addCardDto);
     }
 
-    onShowNewCards() {
-        // Get all cards
-        this.isNewCardsLoading = true;
-        this.magicCardsListService.getCardsForExpansion(this.cardSet).subscribe(cards => {
-            this.isNewCardsFinished = true;
-            this.isNewCardsLoading = false;
-            // Compare to the uploaded cards
-            const filteredNewCards = this.reducedArr.cardQuantitys.filter(x => {
-                const foundCard = cards.find(card => +card.cardNumber === x.cardNumber);
-                return foundCard.cardAmount === x.cardQuantity;
-            });
-
-            // Creating an array from the new cards
-            this.newCards = filteredNewCards.map(x => {
-                const card = new Card();
-                card.cardAmount = x.cardQuantity;
-                card.cardExpansion = this.cardSet;
-                card.cardNumber = this.pad(x.cardNumber, 3);
-                card.layout = CardLayout.NORMAL;
-                return card;
-            });
-        });
-    }
-
     private pad(text: string | number, width: number, z?: string) {
         z = z || '0';
         text = text + '';
         return text.length >= width ? text : new Array(width - text.length + 1).join(z) + text;
-    }
-
-    ngOnDestroy() {
-        this.modifyCardService.saveModifyCard(this.modifyQty, this.cardNumbersStr);
-        if (this.param$) {
-            this.param$.unsubscribe();
-        }
     }
 }

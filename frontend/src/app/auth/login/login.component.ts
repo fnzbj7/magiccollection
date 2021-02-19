@@ -13,7 +13,7 @@ import { Router } from '@angular/router';
     styleUrls: ['./login.component.css'],
 })
 export class LoginComponent implements OnInit {
-    loginForm: FormGroup;
+    loginForm!: FormGroup;
     selectedPage = 'Login';
     loading = false;
     submitted = false;
@@ -76,7 +76,10 @@ export class LoginComponent implements OnInit {
                         error.status === StatusCodes.UNAUTHORIZED ||
                         error.status === StatusCodes.BAD_REQUEST
                     ) {
-                        this.loginForm.get('password').setErrors({ wrongPass: true });
+                        const formPassword = this.loginForm.get('password');
+                        if (formPassword) {
+                            formPassword.setErrors({ wrongPass: true });
+                        }
                     }
                     this.loading = false;
                 },

@@ -4,18 +4,22 @@ import {
     ComponentFactoryResolver,
     EmbeddedViewRef,
     ApplicationRef,
+    ComponentRef,
+    Type,
 } from '@angular/core';
 
 @Injectable({ providedIn: 'root' })
 export class DomService {
-    private childComponentRef: any;
+    // eslint-disable-next-line @typescript-eslint/ban-types
+    private childComponentRef?: ComponentRef<unknown>;
     constructor(
         private componentFactoryResolver: ComponentFactoryResolver,
         private appRef: ApplicationRef,
         private injector: Injector,
     ) {}
 
-    public appendComponentTo(parentId: string, child: any, childConfig?: ChildConfig) {
+    // eslint-disable-next-line @typescript-eslint/ban-types
+    public appendComponentTo<T>(parentId: string, child: Type<T>, childConfig?: ChildConfig) {
         // Create a component reference from the component
         const childComponentRef = this.componentFactoryResolver
             .resolveComponentFactory(child)
@@ -29,35 +33,45 @@ export class DomService {
         this.appRef.attachView(childComponentRef.hostView);
 
         // Get DOM element from component
-        const childDomElem = (childComponentRef.hostView as EmbeddedViewRef<any>)
+        const childDomElem = (childComponentRef.hostView as EmbeddedViewRef<unknown>)
             .rootNodes[0] as HTMLElement;
 
         // Append DOM element to the body
-        document.getElementById(parentId).appendChild(childDomElem);
+        const parent = document.getElementById(parentId);
+        if (parent !== null) {
+            parent.appendChild(childDomElem);
+        }
     }
 
     public removeComponent() {
-        this.appRef.detachView(this.childComponentRef.hostView);
-        this.childComponentRef.destroy();
+        if (this.childComponentRef) {
+            this.appRef.detachView(this.childComponentRef.hostView);
+            this.childComponentRef.destroy();
+        }
     }
 
-    private attachConfig(config, componentRef) {
-        const inputs = config.inputs;
-        const outputs = config.outputs;
-        for (const key in inputs) {
-            if (inputs.hasOwnProperty(key)) {
-                componentRef.instance[key] = inputs[key];
+    // eslint-disable-next-line @typescript-eslint/ban-types
+    private attachConfig<T>(config: ChildConfig | undefined, componentRef: ComponentRef<T>) {
+        if (config) {
+            const inputs = config.inputs;
+            const outputs = config.outputs;
+            for (const key in Object.keys(inputs)) {
+                if (inputs.hasOwnProperty(key)) {
+                    inputs[key];
+                    componentRef.instance[key] = inputs[key];
+                }
             }
-        }
-        for (const key in outputs) {
-            if (inputs.hasOwnProperty(key)) {
-                componentRef.instance[key] = outputs[key];
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            for (const key in outputs as any) {
+                if (inputs.hasOwnProperty(key)) {
+                    componentRef.instance[key] = outputs[key];
+                }
             }
         }
     }
 }
 
-interface ChildConfig {
-    inputs: object;
-    outputs: object;
+interface ChildConfig<T, S> {
+    inputs: Type<T>;
+    outputs: Type<S>;
 }

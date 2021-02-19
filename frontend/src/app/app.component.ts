@@ -5,7 +5,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { SideMenuService } from './shared/side-menu.service';
 import { User } from './model/user.model';
 import { UpdatePwaService } from './auth/update-pwa.service';
-import { Router, RouterEvent, NavigationEnd } from '@angular/router';
+import { Router, NavigationEnd } from '@angular/router';
 
 @Component({
     selector: 'app-root',
@@ -43,7 +43,7 @@ export class AppComponent implements OnInit {
         this.sideMenuService.openSideMenuSub.subscribe(() => {
             this.opened = !this.opened;
         });
-        this.router.events.subscribe((val: RouterEvent) => {
+        this.router.events.subscribe(val => {
             if (val instanceof NavigationEnd) {
                 this.opened = false;
             }
@@ -51,9 +51,15 @@ export class AppComponent implements OnInit {
     }
 
     removeModal() {
-        document.getElementById('modal-container').classList.remove('show-after');
+        const modalContainer = document.getElementById('modal-container');
+        if (modalContainer) {
+            modalContainer.classList.remove('show-after');
+        }
         setTimeout(() => {
-            document.getElementById('overlay').classList.remove('show-after');
+            const overlay = document.getElementById('overlay');
+            if (overlay) {
+                overlay.classList.remove('show-after');
+            }
         }, 150);
         setTimeout(() => {
             this.modalService.destroy();

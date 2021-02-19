@@ -11,8 +11,8 @@
   <form *ngIf="selectedPage === 'Login'" [formGroup]="loginForm" (ngSubmit)="onLoginSubmit()">
       <div class="form-group">
         <label for="exampleInputEmail1">Email cím</label>
-        <input type="email" [ngClass]="{'is-invalid':  logemail.touched && logemail.invalid && logemail.errors['email']}" class="form-control" formControlName="email" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Email cím">
-        <span class="text-danger" *ngIf="logemail.touched && logemail.invalid && logemail.errors['email']">
+        <input type="email" [ngClass]="{'is-invalid': logemail && logemail.touched && logemail.invalid && logemail.errors && logemail.errors['email']}" class="form-control" formControlName="email" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Email cím">
+        <span class="text-danger" *ngIf="logemail && logemail.touched && logemail.invalid && logemail.errors && logemail.errors['email']">
           Nem valós email cím
         </span>
       </div>
@@ -44,24 +44,24 @@
     <div class="form-group">
       <label for="exampleInputEmail1">Email cím</label>
       <input type="email" class="form-control" formControlName="email" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Email">
-      <span class="text-danger" *ngIf="regemail.invalid && regemail.errors['emailUsed']">
+      <span class="text-danger" *ngIf="regemail && regemail.invalid && regemail.errors && regemail.errors['emailUsed']">
         Email already in use!
       </span>
-      <span class="text-danger" *ngIf="submitted && regemail.invalid && regemail.errors['required']">
+      <span class="text-danger" *ngIf="submitted && regemail && regemail.invalid && regemail.errors && regemail.errors['required']">
         Szükséges megadni emailt
       </span>
     </div>
     <div class="form-group">
       <label for="exampleInputPassword1">Jelszó</label>
       <input type="password" class="form-control" formControlName="password" id="exampleInputPassword1" placeholder="Jelszó">
-      <ng-container *ngIf="regpass.invalid">
-        <p class="text-danger" *ngIf="submitted && regpass.errors['pattern']">
+      <ng-container *ngIf="regpass && regpass.invalid">
+        <p class="text-danger" *ngIf="submitted && regpass.errors && regpass.errors['pattern']">
             Jelszóban szerepelni kell:<br>
             - Nagybetűnek<br>
             - Kis betűnek<br>
             - Számnak
         </p>
-          <span class="text-danger" *ngIf="submitted && regpass.errors['required']">
+          <span class="text-danger" *ngIf="submitted && regpass.errors && regpass.errors['required']">
             Szükséges megadni jelszót
           </span>
       </ng-container>

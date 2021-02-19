@@ -7,10 +7,10 @@ import { CalendarParticipantUserDto } from './calendar-list/model/calendar-parti
 
 @Injectable({ providedIn: 'root' })
 export class CalendarService {
+    inited = false;
     private calendarMap: Map<string, CalendarEvent[]>;
     private selectCalendarEventSub: BehaviorSubject<number> = new BehaviorSubject(0);
-    private selectedCalendarEvent: CalendarEvent;
-    inited = false;
+    private selectedCalendarEvent: CalendarEvent | null = null;
 
     constructor(private http: HttpClient) {
         this.calendarMap = new Map();
@@ -33,16 +33,22 @@ export class CalendarService {
         );
     }
 
-    getCalendarValue(year: number, month: number, day: number) {
+    getCalendarValue(year: number, month: number, day: number): CalendarEvent[] {
         if (!this.calendarMap) {
             this.calendarMap = new Map();
         }
 
         const dateS = this.convertNumbersToDateString(year, month, day);
-        return this.calendarMap.get(dateS);
+        const calendarEventArr = this.calendarMap.get(dateS);
+
+        return calendarEventArr !== undefined ? calendarEventArr : [];
     }
 
     addValueToCalendar(calendarEvent: CalendarEvent) {
+        if (!calendarEvent.eventStart) {
+            throw new Error('eventStart nem volt megadva');
+        }
+
         // Save to database
         const dateS = this.convertNumbersToDateString(
             calendarEvent.eventStart.getFullYear(),
@@ -64,27 +70,25 @@ export class CalendarService {
         }
     }
 
-    private convertNumbersToDateString(year: number, month: number, day: number): string {
-        const yearS = '' + year;
-        const monthS = month < 10 ? '0' + month : month;
-        const dayS = day < 10 ? '0' + day : day;
-        return yearS + monthS + dayS;
-    }
-
     updateCalendarValue(originalCalendarEvent: CalendarEvent, calendarEvent: CalendarEvent) {
         this.removeCalendarValue(originalCalendarEvent);
         this.addValueToCalendar(calendarEvent);
     }
 
     removeCalendarValue(calendarEvent: CalendarEvent) {
+        if (!calendarEvent.eventStart) {
+            throw new Error('eventStart nem volt kitöltve');
+        }
         const dateS = this.convertNumbersToDateString(
             calendarEvent.eventStart.getFullYear(),
             calendarEvent.eventStart.getMonth() + 1,
             calendarEvent.eventStart.getDate(),
         );
         let calendarEventArray = this.calendarMap.get(dateS);
-        calendarEventArray = calendarEventArray.filter(event => event.id !== calendarEvent.id);
-        this.calendarMap.set(dateS, calendarEventArray);
+        if (calendarEventArray) {
+            calendarEventArray = calendarEventArray.filter(event => event.id !== calendarEvent.id);
+            this.calendarMap.set(dateS, calendarEventArray);
+        }
     }
 
     getSelectedEventId() {
@@ -140,5 +144,12 @@ export class CalendarService {
         return this.http.get<CalendarParticipantUserDto>(
             `/api/calendar/allparticipantuser/${calendarEvent.id}`,
         );
+    }
+
+    private convertNumbersToDateString(year: number, month: number, day: number): string {
+        const yearS = '' + year;
+        const monthS = month < 10 ? '0' + month : month;
+        const dayS = day < 10 ? '0' + day : day;
+        return yearS + monthS + dayS;
     }
 }

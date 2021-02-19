@@ -13,16 +13,16 @@ import { StatusCodes } from 'http-status-codes';
     styleUrls: ['auth.component.css'],
 })
 export class AuthComponent implements OnInit {
-    loginForm: FormGroup;
-    registrationForm: FormGroup;
+    loginForm!: FormGroup;
+    registrationForm!: FormGroup;
     selectedPage = 'Login';
     loading = false;
     submitted = false;
 
     faFacebookSquare = faFacebookSquare;
 
-    user: SocialUser;
-    loggedIn: boolean;
+    user!: SocialUser;
+    loggedIn!: boolean;
 
     constructor(
         public dialogRef: MatDialogRef<AuthComponent>,
@@ -146,7 +146,7 @@ export class AuthComponent implements OnInit {
             );
     }
 
-    protected get regemail() {
+    get regemail() {
         return this.registrationForm.get('email');
     }
 

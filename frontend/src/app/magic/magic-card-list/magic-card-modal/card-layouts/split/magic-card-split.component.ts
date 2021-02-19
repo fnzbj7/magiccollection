@@ -10,9 +10,9 @@ import { MagicCardsListService } from '../../../magic-cards-list.service';
     styleUrls: ['./magic-card-split.component.css'],
 })
 export class MagicCardSplitComponent implements OnInit {
-    @Input() magicCard: Card;
+    @Input() magicCard!: Card;
     flipClass = false;
-    cardUrls: CardUrls;
+    cardUrls!: CardUrls;
 
     faSyncAlt = faSyncAlt;
 

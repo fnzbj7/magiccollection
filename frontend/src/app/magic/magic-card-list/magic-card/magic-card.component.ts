@@ -13,6 +13,7 @@ import { MagicCardAmount } from './model/magic-card-amount.model';
     styleUrls: ['./magic-card.component.css'],
 })
 export class MagicCardComponent implements OnInit {
+    // eslint-disable-next-line @angular-eslint/no-input-rename
     @Input('magicCard') set _magicCard(value: Card) {
         this.magicCard = value;
         const isLoggedIn = this.authenticationService.currentUserValue !== null;
@@ -22,11 +23,11 @@ export class MagicCardComponent implements OnInit {
             cardAmountFoil: this.magicCard.cardAmountFoil,
         };
     }
-    magicCard: Card;
+    magicCard!: Card;
 
-    imageSrcPng: string;
-    imageSrcWebp: string;
-    magicCardAmount: MagicCardAmount;
+    imageSrcPng!: string;
+    imageSrcWebp!: string;
+    magicCardAmount!: MagicCardAmount;
 
     constructor(
         private modalService: ModalService,

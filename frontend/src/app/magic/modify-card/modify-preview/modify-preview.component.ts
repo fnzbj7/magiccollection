@@ -10,10 +10,10 @@ import { ModifyCardDto } from '../dto/modify-card.dto';
     styleUrls: ['./modify-preview.component.css'],
 })
 export class ModifyPreviewComponent implements OnChanges {
-    @Input() modifyCard: ModifyCardDto;
-    @Input() rawModifyCard: CardWithFoil[];
-    cards: Card[];
-    rawCards: Card[];
+    @Input() modifyCard!: ModifyCardDto;
+    @Input() rawModifyCard!: CardWithFoil[];
+    cards!: Card[];
+    rawCards!: Card[];
     isRaw = false;
 
     faSortAlphaDownAlt = faSortAlphaDownAlt;
@@ -25,31 +25,26 @@ export class ModifyPreviewComponent implements OnChanges {
     ngOnChanges(changes: SimpleChanges): void {
         this.isNormalOrder = true;
         const modify: ModifyCardDto = changes.modifyCard.currentValue;
-        this.cards = modify.cardQuantitys.map(x => {
-            return {
+        this.cards = modify.cardQuantitys.map(x => ({
+            cardExpansion: modify.setShortName,
+            cardNumber: this.pad(x.cardNumber, 3),
+            cardAmount: x.cardQuantity > 0 ? x.cardQuantity : x.cardQuantity * -1,
+            cardAmountFoil: x.cardQuantityFoil > 0 ? x.cardQuantityFoil : x.cardQuantityFoil * -1,
+            layout: CardLayout.NORMAL,
+            rarity: 'C',
+            name: 'Not relevant',
+        }));
+
+        this.rawCards = changes.rawModifyCard.currentValue.map(
+            (x: CardWithFoil): Card => ({
                 cardExpansion: modify.setShortName,
-                cardNumber: this.pad(x.cardNumber, 3),
-                cardAmount: x.cardQuantity > 0 ? x.cardQuantity : x.cardQuantity * -1,
-                cardAmountFoil:
-                    x.cardQuantityFoil > 0 ? x.cardQuantityFoil : x.cardQuantityFoil * -1,
+                cardNumber: this.pad(x.cardNum, 3),
+                cardAmount: x.isFoil ? 0 : 1,
+                cardAmountFoil: x.isFoil ? 1 : 0,
                 layout: CardLayout.NORMAL,
                 rarity: 'C',
                 name: 'Not relevant',
-            };
-        });
-
-        this.rawCards = changes.rawModifyCard.currentValue.map(
-            (x: CardWithFoil): Card => {
-                return {
-                    cardExpansion: modify.setShortName,
-                    cardNumber: this.pad(x.cardNum, 3),
-                    cardAmount: x.isFoil ? 0 : 1,
-                    cardAmountFoil: x.isFoil ? 1 : 0,
-                    layout: CardLayout.NORMAL,
-                    rarity: 'C',
-                    name: 'Not relevant',
-                };
-            },
+            }),
         );
     }
 

@@ -1,4 +1,3 @@
 export class CardWithFoil {
-    cardNum: number;
-    isFoil: boolean;
+    constructor(public cardNum: number, public isFoil: boolean) {}
 }

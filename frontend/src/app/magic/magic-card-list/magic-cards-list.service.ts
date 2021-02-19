@@ -8,6 +8,7 @@ import { environment } from '../../../environments/environment';
 import { AuthenticationService } from '../../auth/authentication.service';
 import { QuantityFilterEnum } from '../../model/quantity-filter.enum';
 import { CardUrls } from '../../model/card-urls.model';
+import { MagicSet } from './model/magic-set.model';
 
 @Injectable({ providedIn: 'root' })
 export class MagicCardsListService {
@@ -21,58 +22,44 @@ export class MagicCardsListService {
     quantityFilterSub = new BehaviorSubject<QuantityFilterEnum>(QuantityFilterEnum.ALL);
     cardImgUrlBase: string;
 
-    cardSetsArray: string[] = [
-        'KHM',
-        'ZNR',
-        'M21',
-        'IKO',
-        'THB',
-        'ELD',
-        'M20',
-        'WAR',
-        'RNA',
-        'GRN',
-        'M19',
-        'DOM',
-        'RIX',
-        'XLN',
-        'HOU',
-        'AKH',
-        'AER',
-        'KLD',
-        'EMN',
-        'SOI',
-        'OGW',
-        'BFZ',
+    magicSetArray: MagicSet[] = [
+        new MagicSet('KHM', 405),
+        new MagicSet('ZNR', 391),
+        new MagicSet('M21', 397),
+        new MagicSet('IKO', 387),
+        new MagicSet('AER', 194),
+        new MagicSet('AKH', 287),
+        new MagicSet('BFZ', 274),
+        new MagicSet('DOM', 280),
+        new MagicSet('ELD', 392),
+        new MagicSet('EMN', 205),
+        new MagicSet('GRN', 273),
+        new MagicSet('HOU', 209),
+        new MagicSet('KLD', 274),
+        new MagicSet('M19', 314),
+        new MagicSet('M20', 344),
+        new MagicSet('OGW', 184),
+        new MagicSet('RIX', 205),
+        new MagicSet('RNA', 273),
+        new MagicSet('SOI', 297),
+        new MagicSet('THB', 357),
+        new MagicSet('WAR', 275),
+        new MagicSet('XLN', 289),
     ];
 
-    maxCardNumber: any = {
-        KHM: 405,
-        ZNR: 391,
-        M21: 397,
-        IKO: 387,
-        AER: 194,
-        AKH: 287,
-        BFZ: 274,
-        DOM: 280,
-        ELD: 392,
-        EMN: 205,
-        GRN: 273,
-        HOU: 209,
-        KLD: 274,
-        M19: 314,
-        M20: 344,
-        OGW: 184,
-        RIX: 205,
-        RNA: 273,
-        SOI: 297,
-        THB: 357,
-        WAR: 275,
-        XLN: 289,
-    };
+    cardSetsArray: string[] = this.magicSetArray.map(magicSet => magicSet.name);
 
     constructor(private http: HttpClient, private authService: AuthenticationService) {
         this.cardImgUrlBase = environment.cardImgUrlBase;
+    }
+
+    getMagicSetMaxNumber(magicSetName: string): number {
+        const foundedMagicSet = this.magicSetArray.find(magicSet => magicSet.name === magicSetName);
+        if (foundedMagicSet === undefined) {
+            throw Error();
+        }
+
+        return foundedMagicSet.maxNum;
     }
 
     getCardsForExpansion(cardSet: string): Observable<Card[]> {
@@ -92,9 +79,11 @@ export class MagicCardsListService {
     changeRarityFilter(filterChangeName: string, filterChangeTo: boolean) {
         const isInFilterArray = this.filterArray.includes(filterChangeName);
         if (isInFilterArray !== filterChangeTo) {
-            isInFilterArray
-                ? this.filterArray.splice(this.filterArray.indexOf(filterChangeName), 1)
-                : this.filterArray.push(filterChangeName);
+            if (isInFilterArray) {
+                this.filterArray.splice(this.filterArray.indexOf(filterChangeName), 1);
+            } else {
+                this.filterArray.push(filterChangeName);
+            }
         }
         this.filterChange.next({
             changedTo: filterChangeTo,
@@ -107,11 +96,11 @@ export class MagicCardsListService {
     }
 
     creatingCardUrls(card: Card, isFlip: boolean = false): CardUrls {
-        const cardUrls = new CardUrls();
-
         const { cardExpansion, cardNumber } = card;
-        cardUrls.mainCardWebpUrl = `${this.cardImgUrlBase}${cardExpansion}/webp/${cardExpansion}_${cardNumber}.webp`;
-        cardUrls.mainCardPngUrl = `${this.cardImgUrlBase}${cardExpansion}/png/${cardExpansion}_${cardNumber}.png`;
+        const cardUrls = new CardUrls(
+            `${this.cardImgUrlBase}${cardExpansion}/webp/${cardExpansion}_${cardNumber}.webp`,
+            `${this.cardImgUrlBase}${cardExpansion}/png/${cardExpansion}_${cardNumber}.png`,
+        );
 
         if (isFlip) {
             cardUrls.flipCardWebpUrl = `${this.cardImgUrlBase}${cardExpansion}/webp/${cardExpansion}_${cardNumber}_F.webp`;

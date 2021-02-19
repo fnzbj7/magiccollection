@@ -18,21 +18,20 @@ import { ShowMenu } from './model/show-menu.enum';
     styleUrls: ['./header.component.css'],
 })
 export class HeaderComponent implements OnInit, OnDestroy {
-    loggedUser: User;
-    version: string;
+    loggedUser!: User | null;
+    version!: string;
     needUpdate = false;
-    menus: MenuElement[];
+    menus!: MenuElement[];
 
     // Font-Aesome
     faInfoCircle = faInfoCircle;
     faArrowCircleUp = faArrowCircleUp;
     faBars = faBars;
 
-    currentUserSub: Subscription;
-    needUpdateSub: Subscription;
+    currentUserSub!: Subscription;
+    needUpdateSub!: Subscription;
 
     constructor(
-        private dialog: MatDialog,
         private authenticationService: AuthenticationService,
         private versionService: VersionService,
         public sideMenuService: SideMenuService,

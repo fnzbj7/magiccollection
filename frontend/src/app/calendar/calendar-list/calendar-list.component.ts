@@ -14,14 +14,14 @@ import { CalendarEvent } from './model/calendar-event.model';
 })
 export class CalendarListComponent implements OnInit, OnDestroy {
     eventPrivilege = false;
-    currentUserSub: Subscription;
+    currentUserSub!: Subscription;
 
     // Font-Awesome
     faAngleLeft = faAngleLeft;
     faAngleRight = faAngleRight;
     faCalendarPlus = faCalendarPlus;
 
-    calendarDayList: CalendarDay[];
+    calendarDayList!: CalendarDay[];
     daysArray = [
         { long: 'Hétfő', short: 'H' },
         { long: 'Kedd', short: 'K' },
@@ -49,7 +49,7 @@ export class CalendarListComponent implements OnInit, OnDestroy {
     dummyDays: number[] = Array(28);
     currentDate = new Date();
     isDetailsOpen = false;
-    selectCalendarEventSub: Subscription;
+    selectCalendarEventSub!: Subscription;
 
     constructor(
         private calendarService: CalendarService,
@@ -101,28 +101,31 @@ export class CalendarListComponent implements OnInit, OnDestroy {
 
         // Before
         for (let i = 1; i <= num - 1; i++) {
-            const testCalendar = new CalendarDay();
-            testCalendar.calendarEventList = this.calendarService.getCalendarValue(
-                previousMonth.getFullYear(),
-                previousMonth.getMonth(),
+            const testCalendar = new CalendarDay(
+                this.calendarService.getCalendarValue(
+                    previousMonth.getFullYear(),
+                    previousMonth.getMonth(),
+                    i + previousMonth.getUTCDate() - (num - 1),
+                ),
                 i + previousMonth.getUTCDate() - (num - 1),
+                true,
             );
-            testCalendar.day = i + previousMonth.getUTCDate() - (num - 1);
-            testCalendar.isOffMonth = true;
 
             this.calendarDayList.push(testCalendar);
         }
 
         const actualMonth = new Date(copyDate.getFullYear(), copyDate.getMonth() + 1, 0);
         for (let i = 1; i <= actualMonth.getDate(); i++) {
-            const testCalendar = new CalendarDay();
-            testCalendar.calendarEventList = this.calendarService.getCalendarValue(
-                copyDate.getFullYear(),
-                copyDate.getMonth() + 1,
+            const testCalendar = new CalendarDay(
+                this.calendarService.getCalendarValue(
+                    copyDate.getFullYear(),
+                    copyDate.getMonth() + 1,
+                    i,
+                ),
                 i,
+                false,
             );
-            testCalendar.day = i;
-            testCalendar.isOffMonth = false;
+
             this.calendarDayList.push(testCalendar);
         }
 

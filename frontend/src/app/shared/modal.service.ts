@@ -1,15 +1,14 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Type } from '@angular/core';
 import { DomService } from './dom.service';
-import { ModalInterface } from './modal.interface';
 
 @Injectable({ providedIn: 'root' })
 export class ModalService {
-    constructor(private domService: DomService) {}
-
     private modalElementId = 'modal-container';
     private overlayElementId = 'overlay';
 
-    init(component: ModalInterface, inputs: object, outputs: object) {
+    constructor(private domService: DomService) {}
+
+    init<T, S, Z>(component: Type<T>, inputs: Type<S>, outputs: Type<Z>) {
         const componentConfig = {
             inputs,
             outputs,

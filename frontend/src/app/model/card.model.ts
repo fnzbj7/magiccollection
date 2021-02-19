@@ -1,11 +1,11 @@
 export class Card {
-    cardExpansion: string;
-    cardNumber: string;
-    cardAmount: number;
-    cardAmountFoil: number;
-    layout: CardLayout;
-    name: string;
-    rarity: string;
+    cardExpansion!: string;
+    cardNumber!: string;
+    cardAmount!: number;
+    cardAmountFoil!: number;
+    layout!: CardLayout;
+    name!: string;
+    rarity!: string;
 }
 
 export enum CardLayout {

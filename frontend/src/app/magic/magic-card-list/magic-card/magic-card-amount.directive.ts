@@ -7,8 +7,6 @@ import {
     OnChanges,
     SimpleChanges,
 } from '@angular/core';
-import { AuthenticationService } from '../../../auth/authentication.service';
-import { User } from '../../../model/user.model';
 import { MagicCardAmount } from './model/magic-card-amount.model';
 
 @Directive({
@@ -20,7 +18,7 @@ export class MagicCardAmountDirective implements OnChanges {
         cardAmountFoil: 0,
         isLoggedIn: false,
     };
-    amountImg: HTMLImageElement;
+    amountImg!: HTMLImageElement;
 
     constructor(private elRef: ElementRef<HTMLPictureElement>, private renderer: Renderer2) {}
 
@@ -41,6 +39,7 @@ export class MagicCardAmountDirective implements OnChanges {
 
     /**
      * Give an amount it can be any not negative number, and five an card image reference.
+     *
      * @param cardAmount how much card do you want to show.
      * @param cardImg nativeElement ref for the card <img> tag.
      */

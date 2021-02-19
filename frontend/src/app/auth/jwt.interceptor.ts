@@ -8,7 +8,7 @@ import { LocalStorageService } from './local-storage.service';
 export class JwtInterceptor implements HttpInterceptor {
     constructor(private localStorageService: LocalStorageService) {}
 
-    intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+    intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
         // add authorization header with jwt token if available
         const currentUser = this.localStorageService.currentUser;
         if (currentUser && currentUser.token) {
