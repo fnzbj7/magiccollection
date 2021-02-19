@@ -27,9 +27,15 @@ export class MagicSetListComponent implements OnInit {
         this.cardSetsArray = this.magicCardsListService.cardSetsArray;
     }
 
-    onScroll(event: { srcElement: HTMLElement }) {
-        // TODO kideríteni mi a típus
-        const el: HTMLElement = event.srcElement;
+    onScroll(event: Event) {
+        if (event === null) {
+            return;
+        }
+        const target = event.srcElement;
+        if (target === null) {
+            return;
+        }
+        const el: HTMLElement = target as HTMLElement;
         const heightLimit = el.scrollHeight - el.clientHeight;
         const widthLimit = el.scrollWidth - el.clientWidth - 1;
 

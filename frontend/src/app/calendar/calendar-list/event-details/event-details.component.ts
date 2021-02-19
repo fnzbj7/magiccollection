@@ -21,12 +21,12 @@ import { AuthenticationService } from '../../../auth/authentication.service';
     styleUrls: ['./event-details.component.css'],
 })
 export class EventDetailsComponent implements OnInit, OnDestroy, AfterViewInit {
-    @ViewChild('target', { static: true }) input!: ElementRef<HTMLDivElement> | null;
+    @ViewChild('target', { static: true }) input!: ElementRef<HTMLDivElement>;
     @Input() eventPrivilege!: boolean;
     @Output() deleteCalendarEvent: EventEmitter<CalendarEvent> = new EventEmitter<CalendarEvent>();
     isJoined = false;
     selectedCalendarEvent: CalendarEvent | null = null;
-    selectCalendarEventSub: Subscription | null = null;
+    selectCalendarEventSub!: Subscription;
     isLoading = false;
     isLoggedIn = false;
     currentUserSub!: Subscription;
@@ -76,6 +76,9 @@ export class EventDetailsComponent implements OnInit, OnDestroy, AfterViewInit {
     }
 
     getParticipants() {
+        if (this.selectedCalendarEvent == null) {
+            return;
+        }
         if (this.isLoggedIn) {
             this.calendarService
                 .getAllParticipantUser(this.selectedCalendarEvent)
@@ -99,12 +102,19 @@ export class EventDetailsComponent implements OnInit, OnDestroy, AfterViewInit {
     }
 
     onDelete() {
-        this.calendarService.deleteCalendarEvent(this.selectedCalendarEvent).subscribe(() => {
-            this.deleteCalendarEvent.next(this.selectedCalendarEvent);
+        const tmpSelAlEvent = this.selectedCalendarEvent;
+        if (tmpSelAlEvent == null) {
+            return null;
+        }
+        this.calendarService.deleteCalendarEvent(tmpSelAlEvent).subscribe(() => {
+            this.deleteCalendarEvent.next(tmpSelAlEvent);
         });
     }
 
     onJoinCalendarEvent() {
+        if (this.selectedCalendarEvent == null) {
+            return;
+        }
         this.isLoading = true;
         this.calendarService
             .joinCalendarEvent(this.selectedCalendarEvent)
@@ -117,6 +127,9 @@ export class EventDetailsComponent implements OnInit, OnDestroy, AfterViewInit {
     }
 
     onLeaveCalendarEvent() {
+        if (this.selectedCalendarEvent == null) {
+            return;
+        }
         this.isLoading = true;
         this.calendarService
             .leaveCalendarEvent(this.selectedCalendarEvent)
@@ -145,7 +158,9 @@ export class EventDetailsComponent implements OnInit, OnDestroy, AfterViewInit {
 
     private getSelectedCalendarEvent() {
         this.selectedCalendarEvent = this.calendarService.getSelectedCalendarEvent();
-        this.minutePad = this.pad(this.selectedCalendarEvent.minute, 2);
-        this.hourPad = this.pad(this.selectedCalendarEvent.hour, 2);
+        if (this.selectedCalendarEvent) {
+            this.minutePad = this.pad(this.selectedCalendarEvent.minute, 2);
+            this.hourPad = this.pad(this.selectedCalendarEvent.hour, 2);
+        }
     }
 }

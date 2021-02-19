@@ -102,7 +102,10 @@ export class AuthComponent implements OnInit {
                     console.error(error.status);
                     if (error.status === StatusCodes.CONFLICT) {
                         // Email already in use
-                        this.registrationForm.get('email').setErrors({ emailUsed: true });
+                        const formEmail = this.registrationForm.get('email');
+                        if (formEmail) {
+                            formEmail.setErrors({ emailUsed: true });
+                        }
                     }
                     this.loading = false;
                 },
@@ -139,7 +142,10 @@ export class AuthComponent implements OnInit {
                         error.status === StatusCodes.UNAUTHORIZED ||
                         error.status === StatusCodes.BAD_REQUEST
                     ) {
-                        this.loginForm.get('password').setErrors({ wrongPass: true });
+                        const formPassword = this.loginForm.get('password');
+                        if (formPassword) {
+                            formPassword.setErrors({ wrongPass: true });
+                        }
                     }
                     this.loading = false;
                 },

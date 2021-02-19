@@ -10,9 +10,9 @@ import { MagicCardsListService } from '../../../magic-cards-list.service';
     styleUrls: ['./magic-card-transform.component.css'],
 })
 export class MagicCardTransformComponent implements OnInit {
-    @Input() magicCard: Card;
+    @Input() magicCard!: Card;
     flipClass = false;
-    cardUrls: CardUrls;
+    cardUrls!: CardUrls;
 
     faSyncAlt = faSyncAlt;
 

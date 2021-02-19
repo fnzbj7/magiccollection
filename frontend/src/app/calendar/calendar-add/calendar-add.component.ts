@@ -13,7 +13,7 @@ import { ActivatedRoute } from '@angular/router';
 export class CalendarAddComponent implements OnInit, OnDestroy {
     isInit = true;
     isMobile = false;
-    calendarEvent: CalendarEvent = new CalendarEvent(null, 0, 0);
+    calendarEvent: CalendarEvent = new CalendarEvent(-1, 0, 0); // TODO kell ide ez az init?
     originalCalendarEvent!: CalendarEvent | null;
     time!: { hour: number; minute: number };
     model?: NgbDateStruct;

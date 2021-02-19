@@ -8,12 +8,12 @@ export class ModalService {
 
     constructor(private domService: DomService) {}
 
-    init<T, S, Z>(component: Type<T>, inputs: Type<S>, outputs: Type<Z>) {
+    init<T, S, Z>(component: Type<T>, inputs: S, outputs: Z) {
         const componentConfig = {
             inputs,
             outputs,
         };
-        this.domService.appendComponentTo(this.modalElementId, component, componentConfig);
+        this.domService.appendComponentTo<T, S, Z>(this.modalElementId, component, componentConfig);
         document.getElementsByTagName('BODY')[0].classList.add('modal-open');
         const modalElement = document.getElementById(this.modalElementId);
         if (modalElement !== null) {

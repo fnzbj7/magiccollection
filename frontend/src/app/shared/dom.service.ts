@@ -19,7 +19,11 @@ export class DomService {
     ) {}
 
     // eslint-disable-next-line @typescript-eslint/ban-types
-    public appendComponentTo<T>(parentId: string, child: Type<T>, childConfig?: ChildConfig) {
+    public appendComponentTo<T, S, Z>(
+        parentId: string,
+        child: Type<T>,
+        childConfig?: ChildConfig<S, Z>,
+    ) {
         // Create a component reference from the component
         const childComponentRef = this.componentFactoryResolver
             .resolveComponentFactory(child)
@@ -51,27 +55,35 @@ export class DomService {
     }
 
     // eslint-disable-next-line @typescript-eslint/ban-types
-    private attachConfig<T>(config: ChildConfig | undefined, componentRef: ComponentRef<T>) {
+    private attachConfig<T, S, Z>(
+        config: ChildConfig<S, Z> | undefined,
+        componentRef: ComponentRef<T>,
+    ) {
         if (config) {
-            const inputs = config.inputs;
-            const outputs = config.outputs;
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            const inputs = config.inputs as any;
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            const outputs = config.outputs as any;
+            // eslint-disable-next-line guard-for-in
             for (const key in Object.keys(inputs)) {
-                if (inputs.hasOwnProperty(key)) {
-                    inputs[key];
-                    componentRef.instance[key] = inputs[key];
+                const keyStr = key as string;
+                if (inputs.hasOwnProperty(keyStr)) {
+                    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                    (componentRef.instance as any)[keyStr] = (inputs as any)[keyStr];
                 }
             }
             // eslint-disable-next-line @typescript-eslint/no-explicit-any
-            for (const key in outputs as any) {
-                if (inputs.hasOwnProperty(key)) {
-                    componentRef.instance[key] = outputs[key];
+            for (const key in outputs) {
+                if (outputs.hasOwnProperty(key)) {
+                    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                    (componentRef.instance as any)[key] = (outputs as any)[key];
                 }
             }
         }
     }
 }
 
-interface ChildConfig<T, S> {
-    inputs: Type<T>;
-    outputs: Type<S>;
+interface ChildConfig<S, Z> {
+    inputs: S;
+    outputs: Z;
 }

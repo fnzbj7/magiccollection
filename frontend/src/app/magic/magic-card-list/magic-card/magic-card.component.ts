@@ -45,7 +45,7 @@ export class MagicCardComponent implements OnInit {
     }
 
     openCardModal() {
-        this.modalService.init(
+        this.modalService.init<MagicCardModalComponent, { magicCard: Card }, unknown>(
             MagicCardModalComponent,
             {
                 magicCard: this.magicCard,

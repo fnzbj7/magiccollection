@@ -3,7 +3,6 @@ import { ModalService } from './shared/modal.service';
 import { SwUpdate } from '@angular/service-worker';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { SideMenuService } from './shared/side-menu.service';
-import { User } from './model/user.model';
 import { UpdatePwaService } from './auth/update-pwa.service';
 import { Router, NavigationEnd } from '@angular/router';
 
@@ -16,7 +15,6 @@ import { Router, NavigationEnd } from '@angular/router';
 export class AppComponent implements OnInit {
     title = 'magiccollection';
     opened = false;
-    loggedUser: User;
 
     constructor(
         private modalService: ModalService,
