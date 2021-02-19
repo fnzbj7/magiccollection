@@ -1,5 +1,4 @@
 import { Component, Input, AfterViewInit, OnInit } from '@angular/core';
-import { environment } from '../../../../environments/environment';
 import { Card } from '../../../model/card.model';
 
 @Component({
@@ -8,12 +7,18 @@ import { Card } from '../../../model/card.model';
     styleUrls: ['./magic-card-modal.component.css'],
 })
 export class MagicCardModalComponent implements AfterViewInit {
-    @Input() magicCard: Card;
+    @Input() magicCard!: Card;
 
     ngAfterViewInit() {
         setTimeout(() => {
-            document.getElementById('modal-container').classList.add('show-after');
-            document.getElementById('overlay').classList.add('show-after');
+            const modalContainer = document.getElementById('modal-container');
+            if (modalContainer) {
+                modalContainer.classList.add('show-after');
+            }
+            const overlay = document.getElementById('overlay');
+            if (overlay) {
+                overlay.classList.add('show-after');
+            }
         }, 10);
     }
 }

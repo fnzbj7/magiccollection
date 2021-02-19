@@ -59,10 +59,34 @@ export class AuthenticationService {
                 password,
             })
             .pipe(
-                map(resp => {
+                map(resp =>
                     // login successful if there's a jwt token in the response
-                    return this.createAndLoginUser(resp.accessToken);
-                }),
+                    this.createAndLoginUser(resp.accessToken),
+                ),
+            );
+    }
+
+    logout() {
+        // remove user from local storage to log user out
+        this.localStorageService.removeCurrentUser();
+        this.loggedIn = false;
+        this.currentUserSubject.next(null);
+    }
+
+    isLoggedIn() {
+        return this.loggedIn;
+    }
+
+    facebookSignIn(accessToken: string): Observable<User> {
+        return this.http
+            .get<{ accessToken: string }>('/api/auth/facebook', {
+                params: { access_token: accessToken },
+            })
+            .pipe(
+                map(resp =>
+                    // login successful if there's a jwt token in the response
+                    this.createAndLoginUser(resp.accessToken),
+                ),
             );
     }
 
@@ -96,29 +120,5 @@ export class AuthenticationService {
             this.currentUserSubject.next(user);
         }
         return user;
-    }
-
-    logout() {
-        // remove user from local storage to log user out
-        this.localStorageService.removeCurrentUser();
-        this.loggedIn = false;
-        this.currentUserSubject.next(null);
-    }
-
-    isLoggedIn() {
-        return this.loggedIn;
-    }
-
-    facebookSignIn(accessToken: string): Observable<any> {
-        return this.http
-            .get<{ accessToken: string }>('/api/auth/facebook', {
-                params: { access_token: accessToken },
-            })
-            .pipe(
-                map(resp => {
-                    // login successful if there's a jwt token in the response
-                    return this.createAndLoginUser(resp.accessToken);
-                }),
-            );
     }
 }

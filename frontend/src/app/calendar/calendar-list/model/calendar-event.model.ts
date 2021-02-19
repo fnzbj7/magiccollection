@@ -1,11 +1,11 @@
 export class CalendarEvent {
-    eventStart: Date;
-    location: string;
+    eventStart: Date = new Date();
+    location = '';
 
     constructor(
-        public id: number,
+        public id: number | null,
         public hour: number,
         public minute: number,
-        public title: string,
+        public title: string = '',
     ) {}
 }

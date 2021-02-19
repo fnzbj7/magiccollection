@@ -15,35 +15,33 @@ export class LogService {
     level: LogLevel = LogLevel.All;
     logWithDate = true;
 
-    log(msg: string, ...optionalParams: any[]) {
+    log(msg: string, ...optionalParams: unknown[]) {
         this.writeToLog(msg, LogLevel.All, optionalParams, 'color: Black');
     }
 
-    debug(msg: string, ...optionalParams: any[]) {
+    debug(msg: string, ...optionalParams: unknown[]) {
         this.writeToLog(msg, LogLevel.Debug, optionalParams, 'background: #222;color: #bada55');
     }
 
-    info(msg: string, ...optionalParams: any[]) {
+    info(msg: string, ...optionalParams: unknown[]) {
         this.writeToLog(msg, LogLevel.Info, optionalParams, 'color: Blue');
     }
 
-    warn(msg: string, ...optionalParams: any[]) {
+    warn(msg: string, ...optionalParams: unknown[]) {
         this.writeToLog(msg, LogLevel.Warn, optionalParams, 'color: Orange');
     }
 
-    error(msg: string, ...optionalParams: any[]) {
+    error(msg: string, ...optionalParams: unknown[]) {
         this.writeToLog(msg, LogLevel.Error, optionalParams, 'color: Red');
     }
 
-    private writeToLog(msg: string, level: LogLevel, params: any[], style: string) {
+    private writeToLog(msg: string, level: LogLevel, params: unknown[], style: string) {
         if (this.shouldLog(level)) {
             let value = '';
 
             // Build log string
             if (this.logWithDate) {
-                value = moment()
-                    .tz('Europe/Budapest')
-                    .format('HH:mm:ss');
+                value = moment().tz('Europe/Budapest').format('HH:mm:ss');
             }
             value += ' - Message: ' + msg;
             if (params.length) {
@@ -63,7 +61,7 @@ export class LogService {
         return ret;
     }
 
-    private formatParams(params: any[]): string {
+    private formatParams(params: unknown[]): string {
         let ret: string = params.join(',');
         if (params.some(p => typeof p === 'object')) {
             ret = '';

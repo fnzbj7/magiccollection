@@ -3,13 +3,11 @@ import { InvalidTokenError } from './model/invalid-token-error.model';
 
 @Injectable({ providedIn: 'root' })
 export class JwtDecodeService {
-    decode<TTokenDto>(token: string, options?: any): TTokenDto {
+    decode<TTokenDto>(token: string): TTokenDto {
         if (typeof token !== 'string') {
             throw new InvalidTokenError('Invalid token specified');
         }
 
-        options = options || {};
-        const pos: number = options.header === true ? 0 : 1;
         try {
             return JSON.parse(this.base64_url_decode(token.split('.')[pos]));
         } catch (e) {

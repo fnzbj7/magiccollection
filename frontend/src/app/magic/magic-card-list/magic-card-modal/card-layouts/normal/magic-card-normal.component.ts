@@ -9,8 +9,8 @@ import { MagicCardsListService } from '../../../magic-cards-list.service';
     styleUrls: ['./magic-card-normal.component.css'],
 })
 export class MagicCardNormalComponent implements OnInit {
-    @Input() magicCard: Card;
-    cardUrls: CardUrls;
+    @Input() magicCard!: Card;
+    cardUrls!: CardUrls;
 
     constructor(private magicCardsListService: MagicCardsListService) {}
 

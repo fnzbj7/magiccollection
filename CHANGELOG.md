@@ -17,6 +17,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 - The login and registering dialog now changed to screens. The logic stays the same
 - The mobile menu style and order
+- Update Angular 10 to 11
+- Change TsLint to EsLint
+- Make the whole frontend code to strict (ts)
 
 ### Fixed
 

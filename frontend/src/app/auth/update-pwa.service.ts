@@ -6,7 +6,7 @@ export class UpdatePwaService {
     needUpdateSubject: BehaviorSubject<boolean>;
 
     constructor() {
-        this.needUpdateSubject = new BehaviorSubject(false);
+        this.needUpdateSubject = new BehaviorSubject<boolean>(false);
     }
 
     getNeedUpdateSubject(): Observable<boolean> {

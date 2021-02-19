@@ -9,11 +9,11 @@ import { Subscription } from 'rxjs';
     styleUrls: ['./calendar-element.component.css'],
 })
 export class CalendarElementComponent implements OnInit, OnDestroy {
-    @Input() calendarEvent: CalendarEvent;
-    selectCalendarEventSub: Subscription;
+    @Input() calendarEvent!: CalendarEvent;
+    selectCalendarEventSub!: Subscription;
     isSelected = false;
-    minutePad: string;
-    hourPad: string;
+    minutePad!: string;
+    hourPad!: string;
 
     constructor(private calendarService: CalendarService) {}
 
@@ -32,15 +32,15 @@ export class CalendarElementComponent implements OnInit, OnDestroy {
         this.calendarService.selectCalendarEvent(this.calendarEvent);
     }
 
-    private pad(text: string | number, width: number, z?: string) {
-        z = z || '0';
-        text = text + '';
-        return text.length >= width ? text : new Array(width - text.length + 1).join(z) + text;
-    }
-
     ngOnDestroy() {
         if (this.selectCalendarEventSub) {
             this.selectCalendarEventSub.unsubscribe();
         }
+    }
+
+    private pad(text: string | number, width: number, z?: string) {
+        z = z || '0';
+        text = text + '';
+        return text.length >= width ? text : new Array(width - text.length + 1).join(z) + text;
     }
 }

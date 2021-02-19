@@ -4,20 +4,20 @@
         <source
             [attr.lazyLoad]="imageSrcWebp"
             [attr.defaultImage]="'assets/img/magic_card_back.webp'"
-            offset="100"
+            [offset]="100"
             type="image/webp"
         />
         <source
             [attr.lazyLoad]="imageSrcPng"
             [attr.defaultImage]="'assets/img/magic_card_back.png'"
-            offset="100"
+            [offset]="100"
             type="image/png"
         />
         <img
             class="magiccard"
             [lazyLoad]="imageSrcPng"
             [defaultImage]="'assets/img/magic_card_back.png'"
-            offset="100"
+            [offset]="100"
             alt=""
             [title]="magicCard.cardNumber"
             ondragstart="return false;"

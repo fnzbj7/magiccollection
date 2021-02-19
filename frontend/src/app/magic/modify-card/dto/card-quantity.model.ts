@@ -1,5 +1,5 @@
 export class CardQuantity {
-    cardNumber: number;
-    cardQuantity: number;
-    cardQuantityFoil: number;
+    cardNumber!: number;
+    cardQuantity!: number;
+    cardQuantityFoil!: number;
 }

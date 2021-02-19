@@ -1,5 +1,5 @@
-import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
-// tslint:disable-next-line: no-submodule-imports
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+// eslint-disable-next-line import/no-internal-modules
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { AuthenticationService } from '../../auth/authentication.service';
 import { CalendarService } from '../calendar.service';

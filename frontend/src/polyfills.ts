@@ -1,7 +1,7 @@
 /***************************************************************************************************
  * Load `$localize` onto the global scope - used if i18n tags appear in Angular templates.
  */
-/*tslint:disable:no-import-side-effect*/
+/* eslint-disable import/no-unassigned-import */
 import '@angular/localize/init';
 /**
  * This file includes polyfills needed by Angular and is loaded before the app.
@@ -60,7 +60,7 @@ import '@angular/localize/init';
 /***************************************************************************************************
  * Zone JS is required by default for Angular itself.
  */
-/*tslint:disable:no-import-side-effect*/
+/* eslint-disable import/no-unassigned-import */
 import 'zone.js/dist/zone';  // Included with Angular CLI.
 
 

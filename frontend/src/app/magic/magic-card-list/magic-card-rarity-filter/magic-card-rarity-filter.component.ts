@@ -16,7 +16,7 @@ export class MagicCardRarityFilterComponent implements OnInit {
     isUncommon = true;
     isRare = true;
     isMythic = true;
-    quantityFilter: QuantityFilterEnum;
+    quantityFilter!: QuantityFilterEnum;
     quantityEnum = QuantityFilterEnum;
     isAuth = false;
 

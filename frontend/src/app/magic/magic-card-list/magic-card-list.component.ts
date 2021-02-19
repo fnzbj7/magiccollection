@@ -13,19 +13,20 @@ import { AuthenticationService } from '../../auth/authentication.service';
     styleUrls: ['./magic-card-list.component.css'],
 })
 export class MagicCardListComponent implements OnInit, OnDestroy {
+    @ViewChild('page', { static: true })
+    amountInputRef!: unknown;
+
     p = 1;
-    cardsArray: Card[];
-    filteredCardsArray: Card[];
-    expansion: string;
+    cardsArray!: Card[];
+    filteredCardsArray!: Card[];
+    expansion!: string;
     currentPage = 1;
     itemsPerPage = 35;
-    @ViewChild('page', { static: true })
-    amountInputRef: any;
-    currentUserSub: Subscription;
-    routerChangeSub: Subscription;
-    quantityFilterSub: Subscription;
-    rarityFilterSub: Subscription;
-    lastPageNum: number;
+    currentUserSub!: Subscription;
+    routerChangeSub!: Subscription;
+    quantityFilterSub!: Subscription;
+    rarityFilterSub!: Subscription;
+    lastPageNum!: number;
 
     constructor(
         private magicCardsListService: MagicCardsListService,
@@ -93,14 +94,33 @@ export class MagicCardListComponent implements OnInit, OnDestroy {
         }
     }
 
+    trackCard(index: number, card: Card) {
+        return card.cardExpansion + card.cardNumber;
+    }
+
+    ngOnDestroy() {
+        if (this.currentUserSub) {
+            this.currentUserSub.unsubscribe();
+        }
+        if (this.routerChangeSub) {
+            this.routerChangeSub.unsubscribe();
+        }
+        if (this.rarityFilterSub) {
+            this.rarityFilterSub.unsubscribe();
+        }
+        if (this.quantityFilterSub) {
+            this.quantityFilterSub.unsubscribe();
+        }
+    }
+
     private filterCards() {
         if (!this.cardsArray) {
             return;
         }
 
-        this.filteredCardsArray = this.cardsArray.filter(card => {
-            return this.magicCardsListService.getfilterArray().includes(card.rarity);
-        });
+        this.filteredCardsArray = this.cardsArray.filter(card =>
+            this.magicCardsListService.getfilterArray().includes(card.rarity),
+        );
 
         switch (this.magicCardsListService.quantityFilterSub.value) {
             case QuantityFilterEnum.ALL:
@@ -120,24 +140,5 @@ export class MagicCardListComponent implements OnInit, OnDestroy {
         }
 
         this.lastPageNum = Math.ceil(this.filteredCardsArray.length / this.itemsPerPage);
-    }
-
-    trackCard(index: number, card: Card) {
-        return card.cardExpansion + card.cardNumber;
-    }
-
-    ngOnDestroy() {
-        if (this.currentUserSub) {
-            this.currentUserSub.unsubscribe();
-        }
-        if (this.routerChangeSub) {
-            this.routerChangeSub.unsubscribe();
-        }
-        if (this.rarityFilterSub) {
-            this.rarityFilterSub.unsubscribe();
-        }
-        if (this.quantityFilterSub) {
-            this.quantityFilterSub.unsubscribe();
-        }
     }
 }

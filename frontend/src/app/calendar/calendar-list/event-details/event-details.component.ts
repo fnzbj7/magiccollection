@@ -21,15 +21,15 @@ import { AuthenticationService } from '../../../auth/authentication.service';
     styleUrls: ['./event-details.component.css'],
 })
 export class EventDetailsComponent implements OnInit, OnDestroy, AfterViewInit {
-    @Input() eventPrivilege: boolean;
+    @ViewChild('target', { static: true }) input!: ElementRef<HTMLDivElement> | null;
+    @Input() eventPrivilege!: boolean;
     @Output() deleteCalendarEvent: EventEmitter<CalendarEvent> = new EventEmitter<CalendarEvent>();
-    selectedCalendarEvent: CalendarEvent = null;
-    selectCalendarEventSub: Subscription = null;
-    @ViewChild('target', { static: true }) input: ElementRef<HTMLDivElement>;
     isJoined = false;
+    selectedCalendarEvent: CalendarEvent | null = null;
+    selectCalendarEventSub: Subscription | null = null;
     isLoading = false;
     isLoggedIn = false;
-    currentUserSub: Subscription;
+    currentUserSub!: Subscription;
     participants: string[] = [];
     hourPad = '00';
     minutePad = '00';
@@ -52,7 +52,10 @@ export class EventDetailsComponent implements OnInit, OnDestroy, AfterViewInit {
                     return;
                 }
 
-                if (calendarEventId !== this.selectedCalendarEvent.id) {
+                if (
+                    this.selectedCalendarEvent &&
+                    calendarEventId !== this.selectedCalendarEvent.id
+                ) {
                     this.getSelectedCalendarEvent();
                     this.getParticipants();
                 }
@@ -70,12 +73,6 @@ export class EventDetailsComponent implements OnInit, OnDestroy, AfterViewInit {
             block: 'start',
             inline: 'nearest',
         });
-    }
-
-    private getSelectedCalendarEvent() {
-        this.selectedCalendarEvent = this.calendarService.getSelectedCalendarEvent();
-        this.minutePad = this.pad(this.selectedCalendarEvent.minute, 2);
-        this.hourPad = this.pad(this.selectedCalendarEvent.hour, 2);
     }
 
     getParticipants() {
@@ -131,12 +128,6 @@ export class EventDetailsComponent implements OnInit, OnDestroy, AfterViewInit {
             });
     }
 
-    private pad(text: string | number, width: number, z?: string) {
-        z = z || '0';
-        text = text + '';
-        return text.length >= width ? text : new Array(width - text.length + 1).join(z) + text;
-    }
-
     ngOnDestroy() {
         if (this.selectCalendarEventSub) {
             this.selectCalendarEventSub.unsubscribe();
@@ -144,5 +135,17 @@ export class EventDetailsComponent implements OnInit, OnDestroy, AfterViewInit {
         if (this.currentUserSub) {
             this.currentUserSub.unsubscribe();
         }
+    }
+
+    private pad(text: string | number, width: number, z?: string) {
+        z = z || '0';
+        text = text + '';
+        return text.length >= width ? text : new Array(width - text.length + 1).join(z) + text;
+    }
+
+    private getSelectedCalendarEvent() {
+        this.selectedCalendarEvent = this.calendarService.getSelectedCalendarEvent();
+        this.minutePad = this.pad(this.selectedCalendarEvent.minute, 2);
+        this.hourPad = this.pad(this.selectedCalendarEvent.hour, 2);
     }
 }

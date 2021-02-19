@@ -1,0 +1,78 @@
+{
+  "root": true,
+  "ignorePatterns": [
+    "projects/**/*"
+  ],
+  "overrides": [
+    {
+      "files": [
+        "*.ts"
+      ],
+      "parserOptions": {
+        "project": [
+          "tsconfig.json",
+          "e2e/tsconfig.json"
+        ],
+        "createDefaultProgram": true
+      },
+      "extends": [
+        "plugin:@angular-eslint/ng-cli-compat",
+        "plugin:@angular-eslint/ng-cli-compat--formatting-add-on",
+        "plugin:@angular-eslint/template/process-inline-templates"
+      ],
+      "rules": {
+        "@angular-eslint/component-selector": [
+          "error",
+          {
+            "type": "element",
+            "prefix": "app",
+            "style": "kebab-case"
+          }
+        ],
+        "no-shadow": "off",
+        "@typescript-eslint/no-shadow": ["error"],
+        "@angular-eslint/directive-selector": [
+          "error",
+          {
+            "type": "attribute",
+            "prefix": "app",
+            "style": "camelCase"
+          }
+        ],
+        "@typescript-eslint/no-explicit-any": "error",
+        "@typescript-eslint/naming-convention": [
+          "error",
+          {
+            "selector": "property",
+            "format": ["camelCase", "snake_case", "UPPER_CASE", "PascalCase"]
+          }
+        ],
+        "import/no-internal-modules": [
+          "error",
+          {
+            "allow": [
+              "rxjs/*",
+              "@angular/material",
+              "@angular/common/http",
+              "@angular/common/http/*",
+              "@angular/platform-browser/animations",
+              "zone.js/dist/zone",
+              "@angular/localize/init",
+              "@angular/material/*",
+              "@angular/core/testing"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "files": [
+        "*.html"
+      ],
+      "extends": [
+        "plugin:@angular-eslint/template/recommended"
+      ],
+      "rules": {}
+    }
+  ]
+}

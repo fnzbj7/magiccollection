@@ -6,7 +6,7 @@ import { Component, OnInit, Input } from '@angular/core';
     styleUrls: ['./magic-set-icon.component.css'],
 })
 export class MagicSetIconComponent implements OnInit {
-    @Input() expansionName: string;
+    @Input() expansionName!: string;
 
     constructor() {}
 

@@ -5,17 +5,17 @@
       <label for="exampleInputUsername">Teljes név</label>
       <input type="text" class="form-control" formControlName="username" id="exampleInputUsername" aria-describedby="usernameHelp" placeholder="Név">
       <small id="usernameHelp" class="form-text text-muted">Ez a név lesz megjelenítve a versenynaptárnál</small>
-      <span class="text-danger" *ngIf="submitted && regname.invalid && regname.errors['required']">
+      <span class="text-danger" *ngIf="submitted && regname && regname.invalid && regname.errors && regname.errors['required']">
         Szükséges megadni nevet
       </span>
     </div>
     <div class="form-group">
       <label for="exampleInputEmail1">Email cím</label>
       <input type="email" class="form-control" formControlName="email" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Email">
-      <span class="text-danger" *ngIf="regemail.invalid && regemail.errors['emailUsed']">
+      <span class="text-danger" *ngIf="regemail && regemail.invalid && regemail.errors && regemail.errors['emailUsed']">
         Email already in use!
       </span>
-      <span class="text-danger" *ngIf="submitted && regemail.invalid && regemail.errors['required']">
+      <span class="text-danger" *ngIf="submitted && regemail && regemail.invalid && regemail.errors && regemail.errors['required']">
         Szükséges megadni emailt
       </span>
     </div>
@@ -23,13 +23,13 @@
       <label for="exampleInputPassword1">Jelszó</label>
       <input type="password" class="form-control" formControlName="password" id="exampleInputPassword1" placeholder="Jelszó">
       <ng-container *ngIf="regpass.invalid">
-        <p class="text-danger" *ngIf="submitted && regpass.errors['pattern']">
+        <p class="text-danger" *ngIf="submitted && regpass && regpass.errors && regpass.errors['pattern']">
             Jelszóban szerepelni kell:<br>
             - Nagybetűnek<br>
             - Kis betűnek<br>
             - Számnak
         </p>
-          <span class="text-danger" *ngIf="submitted && regpass.errors['required']">
+          <span class="text-danger" *ngIf="submitted && regpass && regpass.errors && regpass.errors['required']">
             Szükséges megadni jelszót
           </span>
       </ng-container>

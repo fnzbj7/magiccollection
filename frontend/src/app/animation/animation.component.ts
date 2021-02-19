@@ -7,13 +7,13 @@ import * as PIXI from 'pixi.js';
     styleUrls: ['./animation.component.css'],
 })
 export class AnimationComponent implements OnInit, AfterViewInit {
-    canvas: HTMLCanvasElement;
-    renderer: PIXI.Renderer;
-    stage: PIXI.Container;
-    loader: PIXI.Loader;
-    ticker: PIXI.Ticker;
+    canvas!: HTMLCanvasElement;
+    renderer!: PIXI.Renderer;
+    stage!: PIXI.Container;
+    loader!: PIXI.Loader;
+    ticker!: PIXI.Ticker;
 
-    stone: PIXI.Sprite;
+    stone!: PIXI.Sprite;
 
     dragging = false;
 

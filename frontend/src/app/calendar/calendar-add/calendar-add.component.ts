@@ -12,15 +12,15 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class CalendarAddComponent implements OnInit, OnDestroy {
     isInit = true;
-    isMobile: boolean;
-    calendarEvent: CalendarEvent = new CalendarEvent(null, 0, 0, null);
-    originalCalendarEvent: CalendarEvent;
-    time: { hour: number; minute: number };
-    model: NgbDateStruct;
+    isMobile = false;
+    calendarEvent: CalendarEvent = new CalendarEvent(null, 0, 0);
+    originalCalendarEvent!: CalendarEvent | null;
+    time!: { hour: number; minute: number };
+    model?: NgbDateStruct;
     isSubmitted = false;
     finished = false;
 
-    mediaQuery: MediaQueryList;
+    mediaQuery!: MediaQueryList;
 
     // Fontawesome
     faCalendarAlt = faCalendarAlt;
@@ -36,7 +36,9 @@ export class CalendarAddComponent implements OnInit, OnDestroy {
             // Get the event from the service or from the backend or go to the add screen
             if (this.calendarService.inited) {
                 this.originalCalendarEvent = this.calendarService.getSelectedCalendarEvent();
-                this.calendarEvent = { ...this.originalCalendarEvent };
+                if (this.originalCalendarEvent !== null) {
+                    this.calendarEvent = { ...this.originalCalendarEvent };
+                }
                 this.model = {
                     year: this.calendarEvent.eventStart.getFullYear(),
                     month: this.calendarEvent.eventStart.getMonth() + 1,
@@ -49,18 +51,18 @@ export class CalendarAddComponent implements OnInit, OnDestroy {
                 this.calendarService
                     .getAllCalendarEvent()
                     .subscribe((calendarEventArray: CalendarEvent[]) => {
-                        this.originalCalendarEvent = calendarEventArray.find(
+                        const foundedCalendarEvent = calendarEventArray.find(
                             calendarEvent => expansionId === calendarEvent.id,
                         );
+                        if (foundedCalendarEvent === undefined) {
+                            throw new Error(`Nem található ${expansionId}`);
+                        }
+                        this.originalCalendarEvent = foundedCalendarEvent;
                         this.calendarEvent = { ...this.originalCalendarEvent };
                         this.model = {
                             year: this.calendarEvent.eventStart.getFullYear(),
                             month: this.calendarEvent.eventStart.getMonth() + 1,
                             day: this.calendarEvent.eventStart.getDate(),
-                        };
-                        this.time = {
-                            hour: this.calendarEvent.hour,
-                            minute: this.calendarEvent.minute,
                         };
                         this.isInit = false;
                     });
@@ -95,10 +97,12 @@ export class CalendarAddComponent implements OnInit, OnDestroy {
         if (this.isCalendarEventValid(this.calendarEvent)) {
             if (this.calendarEvent.id) {
                 this.calendarService.updateCalendarEvent(this.calendarEvent).subscribe(() => {
-                    this.calendarService.updateCalendarValue(
-                        this.originalCalendarEvent,
-                        this.calendarEvent,
-                    );
+                    if (this.originalCalendarEvent) {
+                        this.calendarService.updateCalendarValue(
+                            this.originalCalendarEvent,
+                            this.calendarEvent,
+                        );
+                    }
                     this.finished = true;
                 });
             } else {

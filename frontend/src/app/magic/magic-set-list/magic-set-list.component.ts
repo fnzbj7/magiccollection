@@ -1,6 +1,7 @@
 import { Component, OnInit, ElementRef, AfterViewInit } from '@angular/core';
 import { MagicCardsListService } from '../magic-card-list/magic-cards-list.service';
 import { faAngleRight, faAngleDown, faAngleLeft } from '@fortawesome/free-solid-svg-icons';
+import { Scroll } from '@angular/router';
 
 @Component({
     selector: 'app-magic-set-list',
@@ -8,7 +9,7 @@ import { faAngleRight, faAngleDown, faAngleLeft } from '@fortawesome/free-solid-
     styleUrls: ['./magic-set-list.component.css'],
 })
 export class MagicSetListComponent implements OnInit {
-    cardSetsArray: string[];
+    cardSetsArray!: string[];
 
     // FontAwesome
     faAngleRight = faAngleRight;
@@ -26,7 +27,8 @@ export class MagicSetListComponent implements OnInit {
         this.cardSetsArray = this.magicCardsListService.cardSetsArray;
     }
 
-    onScroll(event: any) {
+    onScroll(event: { srcElement: HTMLElement }) {
+        // TODO kideríteni mi a típus
         const el: HTMLElement = event.srcElement;
         const heightLimit = el.scrollHeight - el.clientHeight;
         const widthLimit = el.scrollWidth - el.clientWidth - 1;
