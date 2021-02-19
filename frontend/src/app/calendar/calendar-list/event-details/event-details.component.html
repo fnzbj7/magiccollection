@@ -10,7 +10,7 @@
             ></fa-icon>
         </div>
         <div class="card-body">
-            <h4 class="card-title">{{ selectedCalendarEvent.title }}</h4>
+            <h4 class="card-title">{{ selectedCalendarEvent?.title }}</h4>
             <div class="row">
                 <div class="col-6">
                     <div class="col-12"><h5>Eseményre jelentkezettek:</h5></div>
@@ -19,7 +19,7 @@
                     </div>
                 </div>
                 <div class="col-6">
-                    <p>Helyszín: {{ selectedCalendarEvent.location }}</p>
+                    <p>Helyszín: {{ selectedCalendarEvent?.location }}</p>
                     <p>Formátum: Draft</p>
                     <p>
                         Időpont: {{ hourPad }}:{{ minutePad }}
@@ -33,7 +33,7 @@
             </ng-container>
 
             <ng-container *ngIf="eventPrivilege">
-                <a class="btn btn-primary my-4" [routerLink]="['/', 'calendar', 'modify', selectedCalendarEvent.id]">Módosítás</a>
+                <a class="btn btn-primary my-4" [routerLink]="['/', 'calendar', 'modify', selectedCalendarEvent?.id]">Módosítás</a>
                 <button type="button" class="btn btn-danger" (click)="onDelete()">Törlés</button>
             </ng-container>
         </div>

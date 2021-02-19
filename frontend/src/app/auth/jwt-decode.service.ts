@@ -7,9 +7,8 @@ export class JwtDecodeService {
         if (typeof token !== 'string') {
             throw new InvalidTokenError('Invalid token specified');
         }
-
         try {
-            return JSON.parse(this.base64_url_decode(token.split('.')[pos]));
+            return JSON.parse(this.base64_url_decode(token.split('.')[1]));
         } catch (e) {
             throw new InvalidTokenError('Invalid token specified: ' + e.message);
         }

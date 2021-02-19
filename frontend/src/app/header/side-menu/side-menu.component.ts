@@ -13,9 +13,9 @@ import { ShowMenu } from '../model/show-menu.enum';
     styleUrls: ['./side-menu.component.css'],
 })
 export class SideMenuComponent implements OnInit, OnDestroy {
-    loggedUser: User;
-    currentUserSub: Subscription;
-    menus: MenuElement[];
+    loggedUser!: User | null;
+    currentUserSub!: Subscription;
+    menus!: MenuElement[];
 
     // Font Awesome
     faSignOutAlt = faSignOutAlt;

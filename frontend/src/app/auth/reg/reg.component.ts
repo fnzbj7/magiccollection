@@ -62,7 +62,10 @@ export class RegComponent implements OnInit {
                     console.error(error.status);
                     if (error.status === StatusCodes.CONFLICT) {
                         // Email already in use
-                        this.registrationForm.get('email').setErrors({ emailUsed: true });
+                        const formEmail = this.registrationForm.get('email');
+                        if (formEmail) {
+                            formEmail.setErrors({ emailUsed: true });
+                        }
                     }
                     this.loading = false;
                 },

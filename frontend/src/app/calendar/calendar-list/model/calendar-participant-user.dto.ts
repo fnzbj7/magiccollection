@@ -1,4 +1,4 @@
 export class CalendarParticipantUserDto {
-    participants: string[];
-    isUser: boolean;
+    participants!: string[];
+    isUser!: boolean;
 }
