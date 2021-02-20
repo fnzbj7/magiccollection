@@ -10,7 +10,6 @@ import {
 
 @Injectable({ providedIn: 'root' })
 export class DomService {
-    // eslint-disable-next-line @typescript-eslint/ban-types
     private childComponentRef?: ComponentRef<unknown>;
     constructor(
         private componentFactoryResolver: ComponentFactoryResolver,
@@ -18,7 +17,6 @@ export class DomService {
         private injector: Injector,
     ) {}
 
-    // eslint-disable-next-line @typescript-eslint/ban-types
     public appendComponentTo<T, S, Z>(
         parentId: string,
         child: Type<T>,
@@ -54,29 +52,25 @@ export class DomService {
         }
     }
 
-    // eslint-disable-next-line @typescript-eslint/ban-types
     private attachConfig<T, S, Z>(
         config: ChildConfig<S, Z> | undefined,
         componentRef: ComponentRef<T>,
     ) {
         if (config) {
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
-            const inputs = config.inputs as any;
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
-            const outputs = config.outputs as any;
-            // eslint-disable-next-line guard-for-in
-            for (const key in Object.keys(inputs)) {
-                const keyStr = key as string;
-                if (inputs.hasOwnProperty(keyStr)) {
-                    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                    (componentRef.instance as any)[keyStr] = (inputs as any)[keyStr];
+            const inputs = config.inputs;
+            const outputs = config.outputs;
+
+            for (const key in inputs) {
+                if (Object.prototype.hasOwnProperty.call(inputs, key)) {
+                    const unknInstance = componentRef.instance as unknown;
+                    (unknInstance as S)[key] = inputs[key];
                 }
             }
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+
             for (const key in outputs) {
-                if (outputs.hasOwnProperty(key)) {
-                    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                    (componentRef.instance as any)[key] = (outputs as any)[key];
+                if (Object.prototype.hasOwnProperty.call(outputs, key)) {
+                    const unknInstance = componentRef.instance as unknown;
+                    (unknInstance as Z)[key] = outputs[key];
                 }
             }
         }

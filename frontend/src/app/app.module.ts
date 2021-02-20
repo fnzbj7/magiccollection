@@ -29,10 +29,8 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { SideMenuComponent } from './header/side-menu/side-menu.component';
 import { MagicCardMeldComponent } from './magic/magic-card-list/magic-card-modal/card-layouts/meld/magic-card-meld.component';
-// eslint-disable-next-line max-len
 import { MagicCardTransformComponent } from './magic/magic-card-list/magic-card-modal/card-layouts/transform/magic-card-transform.component';
 import { MagicCardSplitComponent } from './magic/magic-card-list/magic-card-modal/card-layouts/split/magic-card-split.component';
-// eslint-disable-next-line max-len
 import { MagicCardAftermathComponent } from './magic/magic-card-list/magic-card-modal/card-layouts/aftermath/magic-card-aftermath.component';
 import { MagicCardNormalComponent } from './magic/magic-card-list/magic-card-modal/card-layouts/normal/magic-card-normal.component';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
