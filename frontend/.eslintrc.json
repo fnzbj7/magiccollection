@@ -56,7 +56,9 @@
               "@angular/common/http",
               "@angular/common/http/*",
               "@angular/platform-browser/animations",
+              "@angular/platform-browser-dynamic/testing",
               "zone.js/dist/zone",
+              "zone.js/dist/zone-testing",
               "@angular/localize/init",
               "@angular/material/*",
               "@angular/core/testing"
