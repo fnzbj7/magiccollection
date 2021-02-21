@@ -1,3 +1,6 @@
+$bgcolor: #aaa;
+$bg-light: #f8f9fa;
+
 :host {
     margin-right: 10px;
     margin-left: 8px;
@@ -15,7 +18,7 @@
 
 .mobile-menu,
 #expansionContainer {
-    background-color: #f8f9fa;
+    background-color: $bg-light;
 }
 
 .mobile-menu {
@@ -34,29 +37,44 @@
 /* -------------- YEAR BLOCK ---------------*/
 .full-line {
     text-align: right;
-}
-
-.full-line:not(.vertical) {
-    width: 100%;
-    border-bottom: 1px solid #aaa;
-    line-height: 0.1em;
-    margin: 15px 0 20px;
-}
-
-.full-line.vertical {
-    writing-mode: vertical-lr;
-    height: 65px;
-    border-left: 1px solid #aaa;
-    line-height: 0;
-    margin: 0 10px 0;
+    color: $bgcolor;
 }
 
 .full-line span {
-    background: #f8f9fa;
+    background: $bg-light;
     padding: 0 5px;
     user-select: none;
     font-size: 0.8rem;
 }
+
+.full-line:not(.vertical) {
+    width: 100%;
+    border-bottom: 1px solid $bgcolor;
+    line-height: 0.1em;
+    margin: 15px 0 20px;
+}
+
+@media (orientation: landscape) {
+
+    .full-line.vertical {
+        width: 100%;
+        border-bottom: 1px solid $bgcolor;
+        line-height: 0.1em;
+        margin: 15px 0 20px;
+    }
+}
+
+@media (orientation: portrait) {
+    .full-line.vertical {
+        writing-mode: vertical-lr;
+        height: 65px;
+        border-left: 1px solid $bgcolor;
+        line-height: 0;
+        margin: 0 10px 0;
+    }
+}
+
+
 /* -------------- YEAR BLOCK   END ------------*/
 
 @media (max-width: 740px) and (orientation: landscape) {
