@@ -10,7 +10,7 @@ import { MagicCardAmount } from './model/magic-card-amount.model';
 @Component({
     selector: 'app-magic-card',
     templateUrl: './magic-card.component.html',
-    styleUrls: ['./magic-card.component.css'],
+    styleUrls: ['./magic-card.component.scss'],
 })
 export class MagicCardComponent implements OnInit {
     // eslint-disable-next-line @angular-eslint/no-input-rename

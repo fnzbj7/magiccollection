@@ -1,0 +1,5 @@
+$mobile-media-landscape: "(max-width: 827px) and (orientation: landscape)"; // TODO átírni min-width-re
+
+$min-width-mobile: 576px;
+$min-width-mobile-media: "(min-width: " + $min-width-mobile + ")";
+

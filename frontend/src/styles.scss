@@ -1,3 +1,5 @@
+@import "./app/variable.scss";
+
 
 body {
     background-repeat: no-repeat;
@@ -92,7 +94,6 @@ body {
 .tooltip-w3 .bottom.tooltiptext-w3::after {
     bottom: 100%;
     top: initial;
-    /*right: 17px;*/
 }
 
 .tooltip-w3 .top.tooltiptext-w3 {
@@ -103,10 +104,9 @@ body {
 .tooltip-w3 .top.tooltiptext-w3::after {
     top: 100%;
     bottom: initial;
-    /*right: 96px;*/
     border-color: #555 transparent transparent transparent;
 }
-
+/* TODO (min-width: 992px)  */
 @media (max-width: 991.98px) {
     .tooltip-w3 .left-md.tooltiptext-w3 {
         margin-left: -60px;

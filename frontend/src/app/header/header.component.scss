@@ -1,0 +1,12 @@
+@import "./../variable.scss";
+
+.nav-link {
+    padding-right: 0.5rem;
+    padding-left: 0.5rem;
+}
+
+@media #{$mobile-media-landscape} {
+    .navbar {
+        margin-bottom: -15px;
+    }
+}
