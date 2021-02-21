@@ -6,7 +6,7 @@ import { MagicSetYearBlock } from '../magic-card-list/model/magic-set-year-block
 @Component({
     selector: 'app-magic-set-list',
     templateUrl: './magic-set-list.component.html',
-    styleUrls: ['./magic-set-list.component.css'],
+    styleUrls: ['./magic-set-list.component.scss'],
 })
 export class MagicSetListComponent implements OnInit {
     cardSetsArray!: string[];
@@ -27,7 +27,6 @@ export class MagicSetListComponent implements OnInit {
     ngOnInit() {
         this.cardSetsArray = this.magicCardsListService.cardSetsArray;
         this.yearBlocks = this.magicCardsListService.yearBlocks;
-        console.log(this.yearBlocks);
     }
 
     onScroll(event: Event) {

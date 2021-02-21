@@ -2,8 +2,8 @@
     id="expansionContainer"
     class="border border-sm-0 border-left-0 border-dark"
 >
-    <ng-container *ngFor="let yearBlock of yearBlocks">
-        <p class="full-line" style="color: #aaa;"><span>{{yearBlock.year}}</span></p>
+    <ng-container *ngFor="let yearBlock of yearBlocks; let i = index">
+        <p *ngIf="i > 0" class="full-line"><span>{{yearBlock.year}}</span></p>
         <app-magic-set-icon
         class="set-icon"
         [expansionName]="cardSet"
@@ -12,13 +12,11 @@
     </ng-container>
 </div>
 
-<div (scroll)="onScroll($event)" class="mobile-menu bg-light" #setmenu>
+<div (scroll)="onScroll($event)" class="mobile-menu" #setmenu>
 
   <div class="mobile-menu-inner">
-
-
-    <ng-container *ngFor="let yearBlock of yearBlocks">
-        <p class="full-line vertical" style="color: #aaa;"><span>{{yearBlock.year}}</span></p>
+    <ng-container *ngFor="let yearBlock of yearBlocks; let i = index">
+        <p *ngIf="i > 0" class="full-line vertical"><span>{{yearBlock.year}}</span></p>
         <app-magic-set-icon
         class="set-icon"
         [expansionName]="cardSet"
