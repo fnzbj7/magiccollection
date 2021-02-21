@@ -1,3 +1,5 @@
+@import "./../../../variable.scss";
+
 .activeSet .setIcon {
     opacity: 1;
 }
@@ -5,7 +7,7 @@
 .setIcon {
     height: 45px;
     margin: auto;
-    display: block;
+    display: inline-block;
     margin-bottom: 10px;
     margin-top: 10px;
     opacity: 0.4;
@@ -17,8 +19,8 @@ a:not(.activeSet) img:hover {
     left: 1px;
 }
 
-@media (max-width: 575px) {
+@media #{$min-width-mobile-media} {
     .setIcon {
-        display: inline-block;
+        display: block;
     }
 }

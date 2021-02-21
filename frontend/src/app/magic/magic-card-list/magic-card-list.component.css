@@ -106,8 +106,8 @@ ul {
     float: left;
     margin: 5px 3px;
 }
-
-@media screen and (max-width: 575px) {
+/* TODO min-width */
+@media (max-width: 575px) {
     pagination-controls.my-pagination /deep/ pagination-template ul.pagination li {
         margin-right: 2px;
     }

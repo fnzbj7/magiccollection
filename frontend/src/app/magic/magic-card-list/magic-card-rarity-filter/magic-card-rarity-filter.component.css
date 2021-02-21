@@ -56,19 +56,28 @@
     border-radius: 3px;
 }
 
-@media (max-width: 826px) {
+.rarity-filter {
+    padding-left: 20px;
+}
+
+.quantity-block {
+    float: right;
+    margin-right: 20px;
+}
+
+@media (min-width: 768px) {
+    .rarity-filter {
+        padding-left: unset;
+    }
+
     .quantity-block {
-        float: right;
         margin-right: 40px;
     }
 }
 
-@media (max-width: 740px) {
-    .rarity-filter {
-        padding-left: 20px;
-    }
-
+@media (min-width: 827px) {
     .quantity-block {
-        margin-right: 20px;
+        float: unset;
+        margin-right: unset;
     }
 }
