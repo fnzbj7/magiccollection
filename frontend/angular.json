@@ -133,6 +133,11 @@
     }
   },
   "defaultProject": "magiccollection",
+  "schematics": {
+    "@schematics/angular:component": {
+      "styleext": "scss"
+    }
+  },
   "cli": {
     "analytics": false
   }
