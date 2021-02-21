@@ -1,7 +1,7 @@
-import { Component, OnInit, ElementRef, AfterViewInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MagicCardsListService } from '../magic-card-list/magic-cards-list.service';
 import { faAngleRight, faAngleDown, faAngleLeft } from '@fortawesome/free-solid-svg-icons';
-import { Scroll } from '@angular/router';
+import { MagicSetYearBlock } from '../magic-card-list/model/magic-set-year-block.model';
 
 @Component({
     selector: 'app-magic-set-list',
@@ -10,6 +10,7 @@ import { Scroll } from '@angular/router';
 })
 export class MagicSetListComponent implements OnInit {
     cardSetsArray!: string[];
+    yearBlocks!: MagicSetYearBlock[];
 
     // FontAwesome
     faAngleRight = faAngleRight;
@@ -25,6 +26,8 @@ export class MagicSetListComponent implements OnInit {
 
     ngOnInit() {
         this.cardSetsArray = this.magicCardsListService.cardSetsArray;
+        this.yearBlocks = this.magicCardsListService.yearBlocks;
+        console.log(this.yearBlocks);
     }
 
     onScroll(event: Event) {

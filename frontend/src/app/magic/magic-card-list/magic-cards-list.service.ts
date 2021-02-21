@@ -9,6 +9,7 @@ import { AuthenticationService } from '../../auth/authentication.service';
 import { QuantityFilterEnum } from '../../model/quantity-filter.enum';
 import { CardUrls } from '../../model/card-urls.model';
 import { MagicSet } from './model/magic-set.model';
+import { MagicSetYearBlock } from './model/magic-set-year-block.model';
 
 @Injectable({ providedIn: 'root' })
 export class MagicCardsListService {
@@ -23,31 +24,33 @@ export class MagicCardsListService {
     cardImgUrlBase: string;
 
     magicSetArray: MagicSet[] = [
-        new MagicSet('KHM', 405),
-        new MagicSet('ZNR', 391),
-        new MagicSet('M21', 397),
-        new MagicSet('IKO', 387),
-        new MagicSet('AER', 194),
-        new MagicSet('AKH', 287),
-        new MagicSet('BFZ', 274),
-        new MagicSet('DOM', 280),
-        new MagicSet('ELD', 392),
-        new MagicSet('EMN', 205),
-        new MagicSet('GRN', 273),
-        new MagicSet('HOU', 209),
-        new MagicSet('KLD', 274),
-        new MagicSet('M19', 314),
-        new MagicSet('M20', 344),
-        new MagicSet('OGW', 184),
-        new MagicSet('RIX', 205),
-        new MagicSet('RNA', 273),
-        new MagicSet('SOI', 297),
-        new MagicSet('THB', 357),
-        new MagicSet('WAR', 275),
-        new MagicSet('XLN', 289),
+        new MagicSet('KHM', 405, 2021),
+        new MagicSet('ZNR', 391, 2020),
+        new MagicSet('M21', 397, 2020),
+        new MagicSet('IKO', 387, 2020),
+        new MagicSet('THB', 357, 2020),
+        new MagicSet('ELD', 392, 2019),
+        new MagicSet('M20', 344, 2019),
+        new MagicSet('WAR', 275, 2019),
+        new MagicSet('RNA', 273, 2019),
+        new MagicSet('GRN', 273, 2018),
+        new MagicSet('M19', 314, 2018),
+        new MagicSet('DOM', 280, 2018),
+        new MagicSet('RIX', 205, 2018),
+        new MagicSet('XLN', 289, 2017),
+        new MagicSet('HOU', 209, 2017),
+        new MagicSet('AKH', 287, 2017),
+        new MagicSet('AER', 194, 2017),
+        new MagicSet('KLD', 274, 2016),
+        new MagicSet('EMN', 205, 2016),
+        new MagicSet('SOI', 297, 2016),
+        new MagicSet('OGW', 184, 2016),
+        new MagicSet('BFZ', 274, 2015),
     ];
 
     cardSetsArray: string[] = this.magicSetArray.map(magicSet => magicSet.name);
+
+    yearBlocks: MagicSetYearBlock[] = this.getMagicSetYearBlocks(this.magicSetArray);
 
     constructor(private http: HttpClient, private authService: AuthenticationService) {
         this.cardImgUrlBase = environment.cardImgUrlBase;
@@ -56,7 +59,7 @@ export class MagicCardsListService {
     getMagicSetMaxNumber(magicSetName: string): number {
         const foundedMagicSet = this.magicSetArray.find(magicSet => magicSet.name === magicSetName);
         if (foundedMagicSet === undefined) {
-            throw Error();
+            throw new Error('Magic Set not found!');
         }
 
         return foundedMagicSet.maxNum;
@@ -108,5 +111,26 @@ export class MagicCardsListService {
         }
 
         return cardUrls;
+    }
+
+    private getMagicSetYearBlocks(magicSetArray: MagicSet[]): MagicSetYearBlock[] {
+        return magicSetArray.reduce(this.callbackMagicSetYearBlock, [] as MagicSetYearBlock[]);
+    }
+
+    private callbackMagicSetYearBlock(
+        previouseMagicSetYearBlock: MagicSetYearBlock[],
+        magicSet: MagicSet,
+    ): MagicSetYearBlock[] {
+        const foundMagicSetYearBlock = previouseMagicSetYearBlock.find(
+            magicSetYearBlock => magicSetYearBlock.year === magicSet.releaseYear,
+        );
+        if (foundMagicSetYearBlock) {
+            foundMagicSetYearBlock.magicSetArr.push(magicSet.name);
+        } else {
+            previouseMagicSetYearBlock.push(
+                new MagicSetYearBlock(magicSet.releaseYear, magicSet.name),
+            );
+        }
+        return previouseMagicSetYearBlock;
     }
 }
