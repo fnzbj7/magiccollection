@@ -10,7 +10,7 @@ import { AuthenticationService } from '../../auth/authentication.service';
 @Component({
     selector: 'app-magic-card-list',
     templateUrl: './magic-card-list.component.html',
-    styleUrls: ['./magic-card-list.component.css'],
+    styleUrls: ['./magic-card-list.component.scss'],
 })
 export class MagicCardListComponent implements OnInit, OnDestroy {
     @ViewChild('page', { static: true })
