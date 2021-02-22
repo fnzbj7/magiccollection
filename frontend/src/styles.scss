@@ -38,74 +38,82 @@ body {
 .tooltip-w3 {
     position: relative;
     display: inline-block;
-}
 
-.tooltip-w3 .tooltiptext-w3 {
-    visibility: hidden;
-    width: 120px;
-    background-color: #555;
-    color: #fff;
-    text-align: center;
-    border-radius: 6px;
-    padding: 5px 0;
-    position: absolute;
-    z-index: 10;
-    opacity: 0;
-    transition: opacity 0.3s;
-}
+    .tooltiptext-w3 {
+        visibility: hidden;
+        width: 120px;
+        background-color: #555;
+        color: #fff;
+        text-align: center;
+        border-radius: 6px;
+        padding: 5px 0;
+        position: absolute;
+        z-index: 10;
+        opacity: 0;
+        transition: opacity 0.3s;
+    }
 
-.tooltip-w3 .tooltiptext-w3::after {
-    content: '';
-    position: absolute;
-    margin-left: -5px;
-    border-width: 5px;
-    border-style: solid;
-    border-color: transparent transparent #555 transparent;
-}
+    .tooltiptext-w3::after {
+        content: '';
+        position: absolute;
+        margin-left: -5px;
+        border-width: 5px;
+        border-style: solid;
+        border-color: transparent transparent #555 transparent;
+    }
 
-.tooltip-w3 .tooltiptext-w3,
-.tooltip-w3 .left.tooltiptext-w3 {
+    .tooltiptext-w3,
+    .left.tooltiptext-w3 {
     margin-left: -60px;
-}
+    }
 
-.tooltip-w3 .tooltiptext-w3::after,
-.tooltip-w3 .left.tooltiptext-w3::after {
+    .tooltiptext-w3::after,
+    .left.tooltiptext-w3::after {
     right: 17px;
     left: unset;
+    }
+
+    .right.tooltiptext-w3 {
+        margin-left: 30px;
+    }
+
+    .right.tooltiptext-w3::after {
+        left: 17px;
+        right: unset;
+    }
+
+
+    .tooltiptext-w3,
+        .bottom.tooltiptext-w3 {
+        top: calc(100% + 10px);
+        bottom: initial;
+        left: -30px;
+    }
+
+    .tooltiptext-w3::after,
+    .bottom.tooltiptext-w3::after {
+        bottom: 100%;
+        top: initial;
+    }
+
+    .top.tooltiptext-w3 {
+        top: initial;
+        bottom: calc(100% + 10px);
+    }
+
+    .top.tooltiptext-w3::after {
+        top: 100%;
+        bottom: initial;
+        border-color: #555 transparent transparent transparent;
+    }
 }
 
-.tooltip-w3 .right.tooltiptext-w3 {
-    margin-left: 30px;
-}
 
-.tooltip-w3 .right.tooltiptext-w3::after {
-    left: 17px;
-    right: unset;
-}
 
-.tooltip-w3 .tooltiptext-w3,
-.tooltip-w3 .bottom.tooltiptext-w3 {
-    top: calc(100% + 10px);
-    bottom: initial;
-    left: -30px;
-}
 
-.tooltip-w3 .tooltiptext-w3::after,
-.tooltip-w3 .bottom.tooltiptext-w3::after {
-    bottom: 100%;
-    top: initial;
-}
 
-.tooltip-w3 .top.tooltiptext-w3 {
-    top: initial;
-    bottom: calc(100% + 10px);
-}
 
-.tooltip-w3 .top.tooltiptext-w3::after {
-    top: 100%;
-    bottom: initial;
-    border-color: #555 transparent transparent transparent;
-}
+
 /* TODO (min-width: 992px)  */
 @media (max-width: 991.98px) {
     .tooltip-w3 .left-md.tooltiptext-w3 {

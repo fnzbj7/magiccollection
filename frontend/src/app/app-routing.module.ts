@@ -50,6 +50,10 @@ const appRoute: Routes = [
         path: 'animation',
         loadChildren: () => import('./animation/animation.module').then(m => m.AnimationModule),
     },
+    {
+        path: 'user',
+        loadChildren: () => import('./user/user.module').then(m => m.UserModule),
+    },
     { path: '**', component: LandingComponent },
 ];
 

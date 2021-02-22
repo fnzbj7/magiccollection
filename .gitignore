@@ -56,10 +56,6 @@ testem.log
 Thumbs.db
 yarn.lock
 
-/frontend/src/assets/img/static-img
 
-/frontend/src/environments/version.service.ts
-
-/backend/ormconfig.json
 
 /config
