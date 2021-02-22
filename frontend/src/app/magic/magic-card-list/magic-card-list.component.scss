@@ -1,3 +1,5 @@
+@import "./../../variable.scss";
+
 :host {
     margin-right: 10px;
 }
@@ -13,7 +15,7 @@ ul {
     list-style: none;
 }
 
-@media (max-width: 740px) and (orientation: landscape) {
+@media #{$mobile-media-landscape} {
     .card-set-mobil-landscape {
         display: block;
         width: 81px;
@@ -23,11 +25,11 @@ ul {
     }
 }
 
-.my-pagination /deep/ .pagination {
+.my-pagination ::ng-deep .pagination {
     flex-wrap: wrap;
 }
 
-.my-pagination /deep/ .pagination .active a {
+.my-pagination ::ng-deep .pagination .active a {
     display: inline-block;
     padding: 0px 10px;
     margin-right: 4px;
@@ -43,7 +45,7 @@ ul {
     line-height: 24px;
 }
 
-.my-pagination /deep/ .pagination li {
+.my-pagination ::ng-deep .pagination li {
     float: left;
     display: block;
     margin: 0;
@@ -51,16 +53,16 @@ ul {
     background: none;
 }
 
-.my-pagination /deep/ .pagination li:not(.active) a:hover {
+.my-pagination ::ng-deep .pagination li:not(.active) a:hover {
     background: #fefefe;
     background: -moz-linear-gradient(0% 0% 270deg, #fefefe, #f0f0f0);
     cursor: pointer;
 }
 
-.my-pagination /deep/ .pagination li.small-screen {
+.my-pagination ::ng-deep .pagination li.small-screen {
     display: none;
 }
-.my-pagination /deep/ .pagination li a {
+.my-pagination ::ng-deep .pagination li a {
     display: inline-block;
     padding: 0px 9px;
     margin-right: 4px;
@@ -108,7 +110,7 @@ ul {
 }
 /* TODO min-width */
 @media (max-width: 575px) {
-    pagination-controls.my-pagination /deep/ pagination-template ul.pagination li {
+    pagination-controls.my-pagination ::ng-deep pagination-template ul.pagination li {
         margin-right: 2px;
     }
 
@@ -125,33 +127,33 @@ ul {
 }
 
 @media (max-width: 826px) {
-    .my-pagination /deep/ .pagination li {
+    .my-pagination ::ng-deep .pagination li {
         margin: 2px 2px;
     }
 
-    .my-pagination /deep/ .pagination li a {
+    .my-pagination ::ng-deep .pagination li a {
         width: 48px;
         text-align: center;
         padding: 10px 15px;
         font-size: 1em;
     }
 
-    .my-pagination /deep/ .pagination .active a {
+    .my-pagination ::ng-deep .pagination .active a {
         padding: 10px 16px;
         font-size: 1em;
         margin-top: 1px;
     }
 }
 
-pagination-controls.my-pagination /deep/ ul.pagination li {
+pagination-controls.my-pagination ::ng-deep ul.pagination li {
     margin-bottom: 1em;
 }
 
-pagination-controls.my-pagination /deep/ ul.pagination li.active {
+pagination-controls.my-pagination ::ng-deep ul.pagination li.active {
     padding-right: 2px;
 }
 
-pagination-controls.my-pagination /deep/ ul.pagination li:not(.active) {
+pagination-controls.my-pagination ::ng-deep ul.pagination li:not(.active) {
     margin-bottom: 1em;
     height: 25px;
 }
