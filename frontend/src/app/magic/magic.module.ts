@@ -19,6 +19,7 @@ import { MagicCardNormalComponent } from './magic-card-list/magic-card-modal/car
 import { MagicCardSplitComponent } from './magic-card-list/magic-card-modal/card-layouts/split/magic-card-split.component';
 import { MagicCardTransformComponent } from './magic-card-list/magic-card-modal/card-layouts/transform/magic-card-transform.component';
 import { MagicRoutingModule } from './magic-routing.module';
+import { PaginationModule } from '../shared/pagination/pagination.module';
 
 @NgModule({
     declarations: [
@@ -45,6 +46,7 @@ import { MagicRoutingModule } from './magic-routing.module';
         FormsModule,
         LazyLoadImageModule,
         NgbModule,
+        PaginationModule,
     ],
 })
 export class MagicModule {}

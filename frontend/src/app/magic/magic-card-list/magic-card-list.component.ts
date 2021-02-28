@@ -27,6 +27,7 @@ export class MagicCardListComponent implements OnInit, OnDestroy {
     quantityFilterSub!: Subscription;
     rarityFilterSub!: Subscription;
     lastPageNum!: number;
+    Arr = Array;
 
     constructor(
         private magicCardsListService: MagicCardsListService,

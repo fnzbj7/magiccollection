@@ -19,7 +19,7 @@ a:not(.activeSet) img:hover {
     left: 1px;
 }
 
-@media #{$min-width-mobile-media} {
+@media #{$min-breakpoint-1-media} {
     .setIcon {
         display: block;
     }
