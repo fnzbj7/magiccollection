@@ -18,7 +18,12 @@ export class PaginationComponent implements OnChanges {
             this.paginationsNum =
                 Math.floor(this.collectionSize / this.pageSize) +
                 (this.collectionSize % this.pageSize === 0 ? 0 : 1);
-            console.log(this.paginationsNum);
+
+            if (this.paginationsNum < this.page) {
+                setTimeout(() => this.pageChange.emit(this.paginationsNum), 0);
+            } else if (this.paginationsNum > 0 && this.page === 0) {
+                setTimeout(() => this.pageChange.emit(1), 0);
+            }
         }
     }
 
