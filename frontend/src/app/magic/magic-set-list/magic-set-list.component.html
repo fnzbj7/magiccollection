@@ -3,12 +3,12 @@
     class="border border-sm-0 border-left-0 border-dark"
 >
     <ng-container *ngFor="let yearBlock of yearBlocks; let i = index">
-        <p *ngIf="i > 0" class="full-line"><span>{{yearBlock.year}}</span></p>
         <app-magic-set-icon
         class="set-icon"
         [expansionName]="cardSet"
         *ngFor="let cardSet of yearBlock.magicSetArr"
-    ></app-magic-set-icon>
+        ></app-magic-set-icon>
+        <p *ngIf="i !== (yearBlocks.length - 1)" class="full-line vertical"><span>{{yearBlock.year}}</span></p>
     </ng-container>
 </div>
 
@@ -16,12 +16,12 @@
 
   <div class="mobile-menu-inner">
     <ng-container *ngFor="let yearBlock of yearBlocks; let i = index">
-        <p *ngIf="i > 0" class="full-line vertical"><span>{{yearBlock.year}}</span></p>
         <app-magic-set-icon
         class="set-icon"
         [expansionName]="cardSet"
         *ngFor="let cardSet of yearBlock.magicSetArr"
-    ></app-magic-set-icon>
+        ></app-magic-set-icon>
+        <p *ngIf="i !== (yearBlocks.length - 1)" class="full-line vertical"><span>{{yearBlock.year}}</span></p>
     </ng-container>
 
   </div>
