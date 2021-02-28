@@ -18,10 +18,10 @@ export class MenuService {
     constructor() {
         this.menus = [
             new MenuElement('', 'Home', ShowMenu.ALWAYS, true, faHome),
-            new MenuElement('cards', 'My Cards', ShowMenu.ALWAYS, false, faWizardsOfTheCoast),
+            new MenuElement('cards/list', 'My Cards', ShowMenu.ALWAYS, false, faWizardsOfTheCoast),
             new MenuElement('calendar', 'Calendar', ShowMenu.ALWAYS, false, faCalendarAlt),
-            new MenuElement('addcards', 'Add Cards', ShowMenu.LOGIN, false, faPlus),
-            new MenuElement('removecards', 'Remove Cards', ShowMenu.LOGIN, false, faMinus),
+            new MenuElement('cards/addcards', 'Add Cards', ShowMenu.LOGIN, false, faPlus),
+            new MenuElement('cards/removecards', 'Remove Cards', ShowMenu.LOGIN, false, faMinus),
             new MenuElement('animation', 'Animation', ShowMenu.ALWAYS, false, faGem),
             new MenuElement('login', 'Log in', ShowMenu.LOGOUT, false, faSignInAlt),
         ];

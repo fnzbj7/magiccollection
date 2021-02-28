@@ -27,23 +27,7 @@ const appRoute: Routes = [
     },
     {
         path: 'cards',
-        redirectTo: 'cards/',
-        pathMatch: 'full',
-    },
-    { path: 'cards/:expansion', component: MagicCardListComponent },
-    {
-        path: 'addcards',
-        component: ModifyCardComponent,
-        pathMatch: 'full',
-        data: { modifyQty: 1 },
-        canActivate: [AuthGuard],
-    },
-    {
-        path: 'removecards',
-        component: ModifyCardComponent,
-        pathMatch: 'full',
-        data: { modifyQty: -1 },
-        canActivate: [AuthGuard],
+        loadChildren: () => import('./magic/magic.module').then(m => m.MagicModule),
     },
     { path: '', component: LandingComponent, pathMatch: 'full' },
     {

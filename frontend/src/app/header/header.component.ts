@@ -1,10 +1,8 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { AuthComponent } from '../auth/auth.component';
 import { AuthenticationService } from '../auth/authentication.service';
 import { User } from '../model/user.model';
 import { VersionService } from '../../environments/version.service';
 import { faInfoCircle, faBars, faArrowCircleUp } from '@fortawesome/free-solid-svg-icons';
-import { MatDialog } from '@angular/material/dialog';
 import { SideMenuService } from '../shared/side-menu.service';
 import { UpdatePwaService } from '../auth/update-pwa.service';
 import { Subscription } from 'rxjs';
