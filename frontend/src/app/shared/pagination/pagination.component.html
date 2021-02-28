@@ -1,0 +1,7 @@
+<ul class="pagination">
+    <li [ngClass]="{'active': i+1 === page}" (click)="onClick(i+1)" *ngFor="let noUse of Arr(paginationsNum).fill(1); let i = index">
+        <a class="page-link">{{i + 1}}</a>
+    </li>
+
+    <li class="fake-pagination" *ngFor="let noUse of Arr(10).fill(1)"></li>
+</ul>
