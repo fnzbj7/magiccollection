@@ -1,9 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { MagicCardListComponent } from './magic/magic-card-list/magic-card-list.component';
 import { LandingComponent } from './landing/landing.component';
-import { ModifyCardComponent } from './magic/modify-card/modify-card.component';
-import { AuthGuard } from './auth/auth.guard';
 import { LoginComponent } from './auth/login/login.component';
 import { RegComponent } from './auth/reg/reg.component';
 import { AntiAuthGuard } from './auth/anti-auth.guard';
@@ -14,16 +11,8 @@ const appRoute: Routes = [
         loadChildren: () => import('./calendar/calendar.module').then(m => m.CalendarModule),
     },
     {
-        path: 'login',
-        component: LoginComponent,
-        pathMatch: 'full',
-        canActivate: [AntiAuthGuard],
-    },
-    {
-        path: 'reg',
-        component: RegComponent,
-        pathMatch: 'full',
-        canActivate: [AntiAuthGuard],
+        path: 'auth',
+        loadChildren: () => import('./auth/auth.module').then(m => m.AuthModule),
     },
     {
         path: 'cards',

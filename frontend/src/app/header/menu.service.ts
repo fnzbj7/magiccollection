@@ -23,7 +23,7 @@ export class MenuService {
             new MenuElement('cards/addcards', 'Add Cards', ShowMenu.LOGIN, false, faPlus),
             new MenuElement('cards/removecards', 'Remove Cards', ShowMenu.LOGIN, false, faMinus),
             new MenuElement('animation', 'Animation', ShowMenu.ALWAYS, false, faGem),
-            new MenuElement('login', 'Log in', ShowMenu.LOGOUT, false, faSignInAlt),
+            new MenuElement('auth/login', 'Log in', ShowMenu.LOGOUT, false, faSignInAlt),
         ];
     }
 
