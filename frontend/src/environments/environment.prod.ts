@@ -1,5 +1,5 @@
 export const environment = {
     production: true,
     facebookAppId: '2495571677216519',
-    cardImgUrlBase: 'https://magiccollection.s3.eu-central-1.amazonaws.com/',
+    cardImgUrlBase: 'https://d2hg85g2c927kp.cloudfront.net/',
 };
