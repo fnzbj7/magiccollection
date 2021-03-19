@@ -13,6 +13,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 - When in the card list screen don't have showable card, then you will see message like this: "There is no avaliable card, make less strict filtering"
 - In the card list page and the calendar page you can use left and right swipe to change page (powered with HammerJs)
 - Adding to magic set selector menu bar the year sections
+- Adding TailwindCss
 
 ### Changed
 
