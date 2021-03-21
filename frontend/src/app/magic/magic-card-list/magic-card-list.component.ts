@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, OnDestroy, AfterViewInit } from '@angular/core';
+import { Component, OnInit, ViewChild, OnDestroy, ChangeDetectorRef } from '@angular/core';
 import { MagicCardsListService } from './magic-cards-list.service';
 import { Card } from '../../model/card.model';
 import { ActivatedRoute, Params, Router } from '@angular/router';
@@ -35,12 +35,19 @@ export class MagicCardListComponent implements OnInit, OnDestroy {
     }
 
     set currentPage(curr: number) {
+        const needChange = this.currentPageNeedChangeDetection();
+
         this._currentPage = curr;
+
         this.router.navigate([], {
             relativeTo: this.route,
-            queryParams: { page: this.currentPage },
+            queryParams: { page: this.currentPage > 0 ? this.currentPage : null },
             queryParamsHandling: 'merge', // remove to replace all query params by provided
         });
+
+        if (needChange) {
+            this.ref.detectChanges();
+        }
     }
 
     constructor(
@@ -48,6 +55,7 @@ export class MagicCardListComponent implements OnInit, OnDestroy {
         private route: ActivatedRoute,
         private router: Router,
         private authenticationService: AuthenticationService,
+        private ref: ChangeDetectorRef,
     ) {}
 
     ngOnInit() {
@@ -72,6 +80,14 @@ export class MagicCardListComponent implements OnInit, OnDestroy {
         this.quantityFilterSub = this.magicCardsListService.quantityFilterSub.subscribe(x => {
             this.filterCards();
         });
+    }
+
+    currentPageNeedChangeDetection(): boolean {
+        let needChange = false;
+        if (this._currentPage > this.lastPageNum || this._currentPage === 0) {
+            needChange = true;
+        }
+        return needChange;
     }
 
     getCardsFromExpansion(expansionArg: string) {
