@@ -20,7 +20,6 @@ export class MagicCardListComponent implements OnInit, OnDestroy {
     cardsArray!: Card[];
     filteredCardsArray!: Card[];
     expansion!: string;
-    currentPage = 1;
     itemsPerPage = 35;
     currentUserSub!: Subscription;
     routerChangeSub!: Subscription;
@@ -28,6 +27,21 @@ export class MagicCardListComponent implements OnInit, OnDestroy {
     rarityFilterSub!: Subscription;
     lastPageNum!: number;
     Arr = Array;
+
+    _currentPage = 1;
+
+    get currentPage() {
+        return this._currentPage;
+    }
+
+    set currentPage(curr: number) {
+        this._currentPage = curr;
+        this.router.navigate([], {
+            relativeTo: this.route,
+            queryParams: { page: this.currentPage },
+            queryParamsHandling: 'merge', // remove to replace all query params by provided
+        });
+    }
 
     constructor(
         private magicCardsListService: MagicCardsListService,
@@ -72,26 +86,15 @@ export class MagicCardListComponent implements OnInit, OnDestroy {
         });
     }
 
-    onPageChange(event: number) {
-        this.currentPage = event;
-        this.router.navigate([], {
-            relativeTo: this.route,
-            queryParams: { page: this.currentPage },
-            queryParamsHandling: 'merge', // remove to replace all query params by provided
-        });
-    }
-
     onSwipeRight() {
-        const nextPage = this.currentPage - 1;
-        if (nextPage > 0) {
-            this.onPageChange(nextPage);
+        if (this.currentPage - 1 >= 1) {
+            this.currentPage--;
         }
     }
 
     onSwipeLeft() {
-        const nextPage = this.currentPage + 1;
-        if (nextPage <= this.lastPageNum) {
-            this.onPageChange(nextPage);
+        if (this.currentPage + 1 <= this.lastPageNum) {
+            this.currentPage++;
         }
     }
 

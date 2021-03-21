@@ -21,6 +21,7 @@
         "plugin:@angular-eslint/template/process-inline-templates"
       ],
       "rules": {
+        "no-underscore-dangle": ["error", { "allowAfterThis": true }],
         "@angular-eslint/component-selector": [
           "error",
           {
@@ -44,7 +45,8 @@
           "error",
           {
             "selector": "property",
-            "format": ["camelCase", "snake_case", "UPPER_CASE", "PascalCase"]
+            "format": ["camelCase", "snake_case", "UPPER_CASE", "PascalCase"],
+            "leadingUnderscore": "allow"
           }
         ],
         "import/no-internal-modules": [
