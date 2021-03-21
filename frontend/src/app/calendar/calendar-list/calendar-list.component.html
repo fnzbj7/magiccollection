@@ -1,9 +1,9 @@
 <div class="container bg-dark calendar-container" (swipeRight)="onSwipeRight()" (swipeLeft)="onSwipeLeft()">
     <div class="row">
-        <div class="col px-0">
+        <div class="px-0 col">
             <div class="card">
                 <div
-                    class="card-body p-1 text-center font-weight-bold bg-dark text-white d-flex"
+                    class="p-1 text-center text-white card-body font-weight-bold bg-dark d-flex"
                 >
                     <fa-icon
                         (click)="onPreviousMonth()"
@@ -24,15 +24,15 @@
         </div>
     </div>
     <div class="row">
-        <div class="col px-0" *ngFor="let day of daysArray">
+        <div class="px-0 col" *ngFor="let day of daysArray">
             <div class="card">
                 <div
-                    class="card-body p-1 text-center font-weight-bold bg-dark text-white d-none d-sm-block"
+                    class="p-1 text-center text-white card-body font-weight-bold bg-dark d-none d-sm-block"
                 >
                     {{ day.long }}
                 </div>
                 <div
-                    class="card-body p-1 text-center font-weight-bold bg-dark text-white d-block d-sm-none"
+                    class="p-1 text-center text-white card-body font-weight-bold bg-dark d-block d-sm-none"
                 >
                     {{ day.short }}
                 </div>
@@ -46,12 +46,12 @@
 
         <ng-container *ngIf="!calendarDayList">
             <ng-container *ngFor="let dummyDay of dummyDays; let i = index">
-                <div class="col px-0" style="margin: 2px;">
+                <div class="px-0 col" style="margin: 2px;">
                     <div
                         class="card h-100 bg-secondary"
                     >
                         <div
-                            class="card-body px-0 px-sm-1 py-1 calendar-day-body"
+                            class="px-0 py-1 card-body px-sm-1 calendar-day-body"
                             style="min-height: 77px"
                         >
                             <div>
@@ -66,13 +66,13 @@
 
         <ng-container *ngIf="calendarDayList">
             <ng-container *ngFor="let element of calendarDayList; let i = index">
-                <div class="col px-0" style="margin: 2px;">
+                <div class="px-0 col" style="margin: 2px;">
                     <div
                         class="card h-100"
                         [ngClass]="{ 'bg-secondary': element.isOffMonth }"
                     >
                         <div
-                            class="card-body px-0 px-sm-1 py-1 calendar-day-body"
+                            class="px-0 py-1 card-body px-sm-1 calendar-day-body"
                             style="min-height: 77px"
                         >
                             <fa-icon
@@ -81,7 +81,7 @@
                                 style="bottom: 0;right: 0;z-index: 1;"
                             ></fa-icon>
                             <div>
-                                <p class="text-right mb-0 no-select" style="font-size: 14px">
+                                <p class="mb-0 text-right no-select" style="font-size: 14px">
                                     {{ element.day }}
                                 </p>
                             </div>
@@ -104,4 +104,4 @@
 <app-event-details *ngIf="isDetailsOpen" [eventPrivilege]="eventPrivilege" (deleteCalendarEvent)="onDelete($event)"></app-event-details>
 
 
-<a *ngIf="eventPrivilege" class="btn btn-primary my-4" [routerLink]="['/', 'calendar', 'add']">Új esemény</a>
+<a *ngIf="eventPrivilege" class="my-4 btn btn-primary" [routerLink]="['/', 'calendar', 'add']">Új esemény</a>
