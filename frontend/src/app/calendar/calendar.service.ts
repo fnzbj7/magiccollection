@@ -8,6 +8,30 @@ import { CalendarParticipantUserDto } from './calendar-list/model/calendar-parti
 @Injectable({ providedIn: 'root' })
 export class CalendarService {
     inited = false;
+    daysArray = [
+        { long: 'Hétfő', short: 'H' },
+        { long: 'Kedd', short: 'K' },
+        { long: 'Szerda', short: 'SZ' },
+        { long: 'Csütörtök', short: 'CS' },
+        { long: 'Péntek', short: 'P' },
+        { long: 'Szombat', short: 'SZ' },
+        { long: 'Vasárnap', short: 'V' },
+    ];
+
+    monthNameArray = [
+        'Január',
+        'Február',
+        'Március',
+        'Április',
+        'Május',
+        'Június',
+        'Július',
+        'Augusztus',
+        'Szeptember',
+        'Október',
+        'November',
+        'December',
+    ];
     private calendarMap: Map<string, CalendarEvent[]>;
     private selectCalendarEventSub: BehaviorSubject<number> = new BehaviorSubject(0);
     private selectedCalendarEvent: CalendarEvent | null = null;

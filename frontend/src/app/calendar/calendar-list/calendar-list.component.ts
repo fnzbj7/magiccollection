@@ -14,42 +14,24 @@ import { CalendarEvent } from './model/calendar-event.model';
 })
 export class CalendarListComponent implements OnInit, OnDestroy {
     eventPrivilege = false;
-    currentUserSub!: Subscription;
 
     // Font-Awesome
     faAngleLeft = faAngleLeft;
     faAngleRight = faAngleRight;
     faCalendarPlus = faCalendarPlus;
 
-    calendarDayList!: CalendarDay[];
-    daysArray = [
-        { long: 'Hétfő', short: 'H' },
-        { long: 'Kedd', short: 'K' },
-        { long: 'Szerda', short: 'SZ' },
-        { long: 'Csütörtök', short: 'CS' },
-        { long: 'Péntek', short: 'P' },
-        { long: 'Szombat', short: 'SZ' },
-        { long: 'Vasárnap', short: 'V' },
-    ];
-    // daysArray = ['Monday', 'Thursday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
-    monthNameArray = [
-        'Január',
-        'Február',
-        'Március',
-        'Április',
-        'Május',
-        'Június',
-        'Július',
-        'Augusztus',
-        'Szeptember',
-        'Október',
-        'November',
-        'December',
-    ];
+    // CalendarView
+    daysArray = this.calendarService.daysArray;
+    monthNameArray = this.calendarService.monthNameArray;
+
     dummyDays: number[] = Array(28);
-    currentDate = new Date();
+    currentDate!: Date;
+    calendarDayList!: CalendarDay[];
+
     isDetailsOpen = false;
-    selectCalendarEventSub!: Subscription;
+
+    private selectCalendarEventSub!: Subscription;
+    private currentUserSub!: Subscription;
 
     constructor(
         private calendarService: CalendarService,
@@ -57,97 +39,11 @@ export class CalendarListComponent implements OnInit, OnDestroy {
     ) {}
 
     ngOnInit() {
-        this.currentUserSub = this.authenticationService.currentUserSubject.subscribe(user => {
-            if (!user) {
-                this.eventPrivilege = false;
-            } else {
-                this.eventPrivilege = user.privileges.includes(Privilege.EVENT_MODIFY);
-            }
-        });
+        this.userCalendarPrivilegeSub();
 
-        const tmpDate = new Date();
-        this.currentDate = new Date(tmpDate.getFullYear(), tmpDate.getMonth(), 15);
+        this.initCalendar();
 
-        if (this.calendarService.inited) {
-            this.initCalendar(this.currentDate);
-        } else {
-            console.log('Get All');
-            this.calendarService.getAllCalendarEvent().subscribe(a => {
-                this.initCalendar(this.currentDate);
-            });
-        }
-
-        this.selectCalendarEventSub = this.calendarService
-            .getSelectCalendarEventSub()
-            .subscribe(selectedEventId => {
-                this.isDetailsOpen = selectedEventId !== 0;
-            });
-    }
-
-    initCalendar(relativeDate: Date) {
-        this.calendarDayList = [];
-
-        const copyDate = new Date(relativeDate);
-        copyDate.setUTCDate(1);
-
-        let num = copyDate.getUTCDay();
-        if (num === 0) {
-            num = 7;
-        }
-
-        const previousMonth = new Date(copyDate.getTime());
-
-        previousMonth.setUTCDate(0);
-
-        // Before
-        for (let i = 1; i <= num - 1; i++) {
-            const testCalendar = new CalendarDay(
-                this.calendarService.getCalendarValue(
-                    previousMonth.getFullYear(),
-                    previousMonth.getMonth(),
-                    i + previousMonth.getUTCDate() - (num - 1),
-                ),
-                i + previousMonth.getUTCDate() - (num - 1),
-                true,
-            );
-
-            this.calendarDayList.push(testCalendar);
-        }
-
-        const actualMonth = new Date(copyDate.getFullYear(), copyDate.getMonth() + 1, 0);
-        for (let i = 1; i <= actualMonth.getDate(); i++) {
-            const testCalendar = new CalendarDay(
-                this.calendarService.getCalendarValue(
-                    copyDate.getFullYear(),
-                    copyDate.getMonth() + 1,
-                    i,
-                ),
-                i,
-                false,
-            );
-
-            this.calendarDayList.push(testCalendar);
-        }
-
-        // After
-        const actualMonthLastDayType = actualMonth.getUTCDay();
-        let year = actualMonth.getFullYear();
-        let month = actualMonth.getMonth();
-        if (month === 11) {
-            month = 1;
-            year++;
-        } else {
-            month += 2;
-        }
-        for (let i = 1; i <= 6 - actualMonthLastDayType; i++) {
-            const calendarEventList = this.calendarService.getCalendarValue(year, month, i);
-            const testCalendar = {
-                calendarEventList,
-                day: i,
-                isOffMonth: true,
-            };
-            this.calendarDayList.push(testCalendar);
-        }
+        this.getSelectCalendarEventSub();
     }
 
     onNextMonth() {
@@ -158,7 +54,7 @@ export class CalendarListComponent implements OnInit, OnDestroy {
             monthNumber = 0;
         }
         this.currentDate = new Date(this.currentDate.getFullYear() + yearModify, monthNumber, 15);
-        this.initCalendar(this.currentDate);
+        this.createCalendar(this.currentDate);
     }
 
     onPreviousMonth() {
@@ -167,7 +63,7 @@ export class CalendarListComponent implements OnInit, OnDestroy {
             this.currentDate.getMonth() - 1,
             15,
         );
-        this.initCalendar(this.currentDate);
+        this.createCalendar(this.currentDate);
     }
 
     onSwipeRight() {
@@ -181,7 +77,7 @@ export class CalendarListComponent implements OnInit, OnDestroy {
     onDelete(calendarEvent: CalendarEvent) {
         this.calendarService.removeCalendarValue(calendarEvent);
         this.calendarService.selectCalendarEvent();
-        this.initCalendar(this.currentDate);
+        this.createCalendar(this.currentDate);
     }
 
     ngOnDestroy() {
@@ -191,5 +87,144 @@ export class CalendarListComponent implements OnInit, OnDestroy {
         if (this.currentUserSub) {
             this.currentUserSub.unsubscribe();
         }
+    }
+
+    private createCalendar(relativeDate: Date) {
+        this.calendarDayList = [];
+
+        const copyDate = this.copyCurrentDate(relativeDate);
+
+        this.addPreviousMonthDays(copyDate, this.calendarDayList);
+
+        this.addActualMonthDays(copyDate, this.calendarDayList);
+
+        this.addNextMonthDays(copyDate, this.calendarDayList);
+    }
+
+    private getLastDateDayFromDate(date: Date): number {
+        const lastDayDate = this.getLastDayDate(date);
+        return lastDayDate.getDate();
+    }
+
+    private getLastDayDate(date: Date): Date {
+        return new Date(date.getFullYear(), date.getMonth() + 1, 0);
+    }
+
+    private copyCurrentDate(relativeDate: Date): Date {
+        const copyDate = new Date(relativeDate);
+        copyDate.setUTCDate(1);
+        return copyDate;
+    }
+
+    private userCalendarPrivilegeSub() {
+        this.currentUserSub = this.authenticationService.currentUserSubject.subscribe(user => {
+            if (!user) {
+                this.eventPrivilege = false;
+            } else {
+                this.eventPrivilege = user.privileges.includes(Privilege.EVENT_MODIFY);
+            }
+        });
+    }
+
+    private initCalendar() {
+        const tmpDate = new Date();
+        this.currentDate = new Date(tmpDate.getFullYear(), tmpDate.getMonth(), 15);
+
+        if (this.calendarService.inited) {
+            this.createCalendar(this.currentDate);
+        } else {
+            console.log('Get All');
+            this.calendarService.getAllCalendarEvent().subscribe(a => {
+                this.createCalendar(this.currentDate);
+            });
+        }
+    }
+
+    private getSelectCalendarEventSub() {
+        this.selectCalendarEventSub = this.calendarService
+            .getSelectCalendarEventSub()
+            .subscribe(selectedEventId => {
+                this.isDetailsOpen = selectedEventId !== 0;
+            });
+    }
+
+    private addPreviousMonthDays(copyDate: Date, calendarDayList: CalendarDay[]) {
+        const weekDay = this.convertDateToDay(copyDate);
+
+        const previousMonth = this.getPrevousMonthFromDate(copyDate);
+
+        // Before
+        for (let i = 1; i <= weekDay - 1; i++) {
+            const dateDay = this.convertWeekDayToDateDay(i, previousMonth, weekDay);
+
+            const calendarEvents: CalendarEvent[] = this.calendarService.getCalendarValue(
+                previousMonth.getFullYear(),
+                previousMonth.getMonth(),
+                dateDay,
+            );
+
+            const tmpCalendar: CalendarDay = new CalendarDay(calendarEvents, dateDay, true);
+
+            calendarDayList.push(tmpCalendar);
+        }
+    }
+
+    private convertWeekDayToDateDay(i: number, previousMonth: Date, weekDay: number) {
+        return i + previousMonth.getUTCDate() - (weekDay - 1);
+    }
+
+    private getPrevousMonthFromDate(date: Date) {
+        const previousMonth = new Date(date.getTime());
+        previousMonth.setUTCDate(0);
+        return previousMonth;
+    }
+
+    private convertDateToDay(copyDate: Date): number {
+        return copyDate.getUTCDay() === 0 ? 7 : copyDate.getUTCDay();
+    }
+
+    private addActualMonthDays(copyDate: Date, calendarDayList: CalendarDay[]) {
+        const lastDateDay = this.getLastDateDayFromDate(copyDate);
+        for (let i = 1; i <= lastDateDay; i++) {
+            const tmpCalendar: CalendarDay = new CalendarDay(
+                this.calendarService.getCalendarValue(
+                    copyDate.getFullYear(),
+                    copyDate.getMonth() + 1,
+                    i,
+                ),
+                i,
+                false,
+            );
+
+            calendarDayList.push(tmpCalendar);
+        }
+    }
+
+    private addNextMonthDays(copyDate: Date, calendarDayList: CalendarDay[]) {
+        const { actualMonthLastDayType, year, month } = this.getDateParts(copyDate);
+
+        for (let i = 1; i <= 6 - actualMonthLastDayType; i++) {
+            const calendarEventList = this.calendarService.getCalendarValue(year, month, i);
+            const tmpCalendar: CalendarDay = {
+                calendarEventList,
+                day: i,
+                isOffMonth: true,
+            };
+            calendarDayList.push(tmpCalendar);
+        }
+    }
+
+    private getDateParts(copyDate: Date) {
+        const lastDayDate = this.getLastDayDate(copyDate);
+        const actualMonthLastDayType = lastDayDate.getUTCDay();
+        let year = lastDayDate.getFullYear();
+        let month = lastDayDate.getMonth();
+        if (month === 11) {
+            month = 1;
+            year++;
+        } else {
+            month += 2;
+        }
+        return { actualMonthLastDayType, year, month };
     }
 }

@@ -43,7 +43,6 @@
 
 
     <div class="row">
-
         <ng-container *ngIf="!calendarDayList">
             <ng-container *ngFor="let dummyDay of dummyDays; let i = index">
                 <div class="px-0 col" style="margin: 2px;">
@@ -62,7 +61,6 @@
                 <div *ngIf="i % 7 == 6" class="w-100"></div>
             </ng-container>
         </ng-container>
-
 
         <ng-container *ngIf="calendarDayList">
             <ng-container *ngFor="let element of calendarDayList; let i = index">
@@ -97,7 +95,6 @@
         </ng-container>
 
     </div>
-
 
 </div>
 
