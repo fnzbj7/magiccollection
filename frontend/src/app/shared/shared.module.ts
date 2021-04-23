@@ -10,7 +10,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 export class MyHammerConfig extends HammerGestureConfig {
     overrides = {
         swipe: { direction: Hammer.DIRECTION_HORIZONTAL },
-        pinch: { enable: false },
+        pinch: { enable: true },
         rotate: { enable: false },
     };
 }
