@@ -14,6 +14,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 - In the card list page and the calendar page you can use left and right swipe to change page (powered with HammerJs)
 - Adding to magic set selector menu bar the year sections
 - Adding TailwindCss
+- Adding the new Strixhaven and the Mythical Archive (Archive don't have icons yet)
+- Disabled mobile scrolling until finding some substitute for swiping
 
 ### Changed
 
