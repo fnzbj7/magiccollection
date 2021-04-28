@@ -12,12 +12,12 @@ writeFileSync(
     `import { Injectable } from '@angular/core';
 
 // IMPORTANT: THIS FILE IS AUTO GENERATED! DO NOT MANUALLY EDIT OR CHECKIN!
-/* tslint:disable */
+/* eslint-disable */
 @Injectable({providedIn: 'root'})
 export class VersionService {
   public VERSION = ${JSON.stringify(gitInfo, null, 4)};
 }
-/* tslint:enable */
+/* eslint-enable */
 `,
     { encoding: 'utf-8' },
 );

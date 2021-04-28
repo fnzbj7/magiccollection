@@ -80,11 +80,11 @@ export class MagicCardAmountDirective implements OnChanges {
                 const cardImg: HTMLPictureElement = this.elRef.nativeElement;
                 this.renderer.removeChild(cardImg.parentNode, this.amountImg);
             }
+        }
 
-            if (previousCardAmountFoil > 0) {
-                const cardImg: HTMLPictureElement = this.elRef.nativeElement;
-                this.renderer.removeClass(cardImg, 'dothefoil');
-            }
+        if (previousCardAmountFoil > 0) {
+            const cardImg: HTMLPictureElement = this.elRef.nativeElement;
+            this.renderer.removeClass(cardImg, 'dothefoil');
         }
     }
 }
