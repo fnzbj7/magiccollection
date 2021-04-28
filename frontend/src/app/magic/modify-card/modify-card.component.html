@@ -2,46 +2,7 @@
     <h1 *ngIf="modifyQty > 0">Kártya hozzáadó rendszer</h1>
     <h1 *ngIf="modifyQty < 0">Kártya törlő rendszer</h1>
     <ng-container *ngIf="actualPageStep === pageStep.FORM">
-        <form (ngSubmit)="addCard()">
-            <textarea
-                name="card-numbers"
-                id="card-numbers"
-                [(ngModel)]="cardNumbersStr"
-                (input)="onCardTyping()"
-                rows="5"
-            ></textarea
-            ><br />
-            Card set:
-            <select class="mb-3" name="cardSet" [(ngModel)]="cardSet">
-                <option [value]="cardSetvalue" *ngFor="let cardSetvalue of cardSetsArray">
-                    {{ cardSetvalue }}
-                </option>
-            </select>
-            <br />
-            <button class="btn btn-primary">Elküld</button>
-            <button type="button" class="ml-3 btn btn-secondary">Törlés</button>
-            <p class="text-danger" *ngIf="isError">
-                Valami hiba történt, nézzed át a beírt számokat
-                <ng-container *ngIf="wrongNums?.length !== 0"
-                    ><br />A rossz számok:
-                    <ng-container *ngFor="let wrong of wrongNums"
-                        >{{ wrong }}
-                    </ng-container></ng-container
-                >
-                <ng-container *ngIf="notNumbers?.length !== 0"
-                    ><br />Nem szám:
-                    <ng-container *ngFor="let notNum of notNumbers"
-                        >{{ notNum }}
-                    </ng-container></ng-container
-                >
-            </p>
-        </form>
-        <ul *ngIf="lastCardPreview">
-            <app-magic-card 
-                [magicCard]="lastCardPreview"
-            ></app-magic-card>
-            <br style="clear: both;">
-        </ul>
+        <app-modify-form (afterFinish)="onFormFinish($event)"></app-modify-form>
     </ng-container>
 
     <ng-container *ngIf="actualPageStep === pageStep.PREVIEW">

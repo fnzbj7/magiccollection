@@ -30,7 +30,7 @@ export class ModifyCardService {
         }
     }
 
-    saveModifyCard(modify: ModifyQtyEnum, cardNumbersStr: string): void {
+    cacheModifyCard(modify: ModifyQtyEnum, cardNumbersStr: string): void {
         switch (modify) {
             case ModifyQtyEnum.ADD:
                 this.addingCard = cardNumbersStr;
