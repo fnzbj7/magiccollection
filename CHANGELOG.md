@@ -6,6 +6,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+## [1.2.0] - 2021-04-28
+
 ### Added
 
 - Adding the first version of foil cards, still could change later
@@ -14,6 +16,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 - In the card list page and the calendar page you can use left and right swipe to change page (powered with HammerJs)
 - Adding to magic set selector menu bar the year sections
 - Adding TailwindCss
+- Adding STX cards
 
 ### Changed
 
