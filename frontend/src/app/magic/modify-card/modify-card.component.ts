@@ -36,6 +36,7 @@ export class ModifyCardComponent implements OnInit, OnDestroy {
     newCards: Card[] | null = null;
     isNewCardsLoading = false;
     isNewCardsFinished = false;
+    lastCardPreview?: Card;
 
     param$!: Subscription;
 
@@ -53,6 +54,21 @@ export class ModifyCardComponent implements OnInit, OnDestroy {
             this.resetPage();
             this.cardNumbersStr = this.modifyCardService.getSavedModifyCard(this.modifyQty);
         });
+    }
+
+    onCardTyping() {
+        if (!this.isSpaceLastBtnPress(this.cardNumbersStr)) {
+            return;
+        }
+
+        const { lastNum, lastNumStr } = this.getLastNum(this.cardNumbersStr);
+
+        if (Number.isNaN(lastNum)) {
+            console.warn(`${lastNum} nem egy szám!`);
+            return;
+        }
+
+        this.lastCardPreview = this.createLastCard(lastNum, lastNumStr);
     }
 
     addCard() {
@@ -79,6 +95,7 @@ export class ModifyCardComponent implements OnInit, OnDestroy {
         this.isNewCardsLoading = false;
         this.isNewCardsFinished = false;
         this.newCards = null;
+        this.lastCardPreview = undefined;
     }
 
     startUploading() {
@@ -132,6 +149,26 @@ export class ModifyCardComponent implements OnInit, OnDestroy {
         if (this.param$) {
             this.param$.unsubscribe();
         }
+    }
+
+    private createLastCard(lastNum: number, lastNumStr: string): Card {
+        const isFoil = lastNumStr.includes('*');
+        const lastCard = new Card();
+        lastCard.cardExpansion = this.cardSet;
+        lastCard.cardNumber = this.pad(lastNum, 3);
+        lastCard.cardAmount = isFoil ? 0 : 1;
+        lastCard.cardAmountFoil = isFoil ? 1 : 0;
+        return lastCard;
+    }
+
+    private getLastNum(cardNumbersStr: string) {
+        const tmpArr = cardNumbersStr.split(' ');
+        const lastNumStr = tmpArr[tmpArr.length - 2];
+        return { lastNum: parseInt(lastNumStr, 10), lastNumStr };
+    }
+
+    private isSpaceLastBtnPress(cardNumbersStr: string) {
+        return cardNumbersStr.substr(cardNumbersStr.length - 1) === ' ';
     }
 
     private prepareAndValidate(cardNumbersStr: string, cardSet: string): CardWithFoil[] {

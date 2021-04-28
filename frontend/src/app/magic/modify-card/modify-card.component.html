@@ -7,6 +7,7 @@
                 name="card-numbers"
                 id="card-numbers"
                 [(ngModel)]="cardNumbersStr"
+                (input)="onCardTyping()"
                 rows="5"
             ></textarea
             ><br />
@@ -35,6 +36,12 @@
                 >
             </p>
         </form>
+        <ul *ngIf="lastCardPreview">
+            <app-magic-card 
+                [magicCard]="lastCardPreview"
+            ></app-magic-card>
+            <br style="clear: both;">
+        </ul>
     </ng-container>
 
     <ng-container *ngIf="actualPageStep === pageStep.PREVIEW">
