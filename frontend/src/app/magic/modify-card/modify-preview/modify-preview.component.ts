@@ -1,5 +1,6 @@
 import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { faSortAlphaDown, faSortAlphaDownAlt } from '@fortawesome/free-solid-svg-icons';
+import { SharedService } from 'src/app/shared/shared.service';
 import { Card, CardLayout } from '../../../model/card.model';
 import { CardWithFoil } from '../dto/foil.dto';
 import { ModifyCardDto } from '../dto/modify-card.dto';
@@ -20,14 +21,14 @@ export class ModifyPreviewComponent implements OnChanges {
     faSortAlphaDown = faSortAlphaDown;
     isNormalOrder = true;
 
-    constructor() {}
+    constructor(private sharedService: SharedService) {}
 
     ngOnChanges(changes: SimpleChanges): void {
         this.isNormalOrder = true;
         const modify: ModifyCardDto = changes.modifyCard.currentValue;
         this.cards = modify.cardQuantitys.map(x => ({
             cardExpansion: modify.setShortName,
-            cardNumber: this.pad(x.cardNumber, 3),
+            cardNumber: this.sharedService.pad(x.cardNumber, 3),
             cardAmount: x.cardQuantity > 0 ? x.cardQuantity : x.cardQuantity * -1,
             cardAmountFoil: x.cardQuantityFoil > 0 ? x.cardQuantityFoil : x.cardQuantityFoil * -1,
             layout: CardLayout.NORMAL,
@@ -38,7 +39,7 @@ export class ModifyPreviewComponent implements OnChanges {
         this.rawCards = changes.rawModifyCard.currentValue.map(
             (x: CardWithFoil): Card => ({
                 cardExpansion: modify.setShortName,
-                cardNumber: this.pad(x.cardNum, 3),
+                cardNumber: this.sharedService.pad(x.cardNum, 3),
                 cardAmount: x.isFoil ? 0 : 1,
                 cardAmountFoil: x.isFoil ? 1 : 0,
                 layout: CardLayout.NORMAL,
@@ -56,11 +57,5 @@ export class ModifyPreviewComponent implements OnChanges {
 
     onGrouping() {
         this.isRaw = !this.isRaw;
-    }
-
-    private pad(text: string | number, width: number, z?: string) {
-        z = z || '0';
-        text = text + '';
-        return text.length >= width ? text : new Array(width - text.length + 1).join(z) + text;
     }
 }

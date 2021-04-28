@@ -14,6 +14,7 @@ import { Subscription } from 'rxjs';
 import { CalendarEvent } from '../model/calendar-event.model';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import { AuthenticationService } from '../../../auth/authentication.service';
+import { SharedService } from 'src/app/shared/shared.service';
 
 @Component({
     selector: 'app-event-details',
@@ -40,6 +41,7 @@ export class EventDetailsComponent implements OnInit, OnDestroy, AfterViewInit {
     constructor(
         private calendarService: CalendarService,
         private authenticationService: AuthenticationService,
+        private sharedService: SharedService,
     ) {}
 
     ngOnInit() {
@@ -150,17 +152,11 @@ export class EventDetailsComponent implements OnInit, OnDestroy, AfterViewInit {
         }
     }
 
-    private pad(text: string | number, width: number, z?: string) {
-        z = z || '0';
-        text = text + '';
-        return text.length >= width ? text : new Array(width - text.length + 1).join(z) + text;
-    }
-
     private getSelectedCalendarEvent() {
         this.selectedCalendarEvent = this.calendarService.getSelectedCalendarEvent();
         if (this.selectedCalendarEvent) {
-            this.minutePad = this.pad(this.selectedCalendarEvent.minute, 2);
-            this.hourPad = this.pad(this.selectedCalendarEvent.hour, 2);
+            this.minutePad = this.sharedService.pad(this.selectedCalendarEvent.minute, 2);
+            this.hourPad = this.sharedService.pad(this.selectedCalendarEvent.hour, 2);
         }
     }
 }

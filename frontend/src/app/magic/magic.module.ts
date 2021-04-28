@@ -19,11 +19,13 @@ import { MagicCardSplitComponent } from './magic-card-list/magic-card-modal/card
 import { MagicCardTransformComponent } from './magic-card-list/magic-card-modal/card-layouts/transform/magic-card-transform.component';
 import { MagicRoutingModule } from './magic-routing.module';
 import { PaginationModule } from '../shared/pagination/pagination.module';
+import { ModifyFormComponent } from './modify-card/modify-form/modify-form.component';
 
 @NgModule({
     declarations: [
         ModifyCardComponent,
         ModifyPreviewComponent,
+        ModifyFormComponent,
         MagicSetListComponent,
         MagicSetIconComponent,
         MagicCardComponent,
