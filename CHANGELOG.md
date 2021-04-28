@@ -6,6 +6,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+## [1.2.0] - 2021-04-28
+
 ### Added
 
 - Adding the first version of foil cards, still could change later
