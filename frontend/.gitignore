@@ -45,4 +45,7 @@ testem.log
 .DS_Store
 Thumbs.db
 
+
+/src/assets/img/static-img
+
 /src/environments/version.service.ts
