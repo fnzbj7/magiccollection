@@ -3,20 +3,31 @@ import Mail = require('mailgun-js');
 import * as bcrypt from 'bcrypt';
 // import * as config from 'config';
 import { AuthCredentialsDto } from '../auth/dto/auth-credentials.dto';
+import { Logger } from '@nestjs/common';
 // import fs = require('fs');
 
 @Injectable()
 export class MailService {
+    private logger = new Logger('MailService');
     private mailgun: Mail.Mailgun;
 
     constructor() {
         const API_KEY = process.env.MAILGUN_API_KEY;
         const DOMAIN = 'mg.almateszekfoglaltvolt.hu';
-        this.mailgun = new Mail({
-            apiKey: API_KEY,
-            domain: DOMAIN,
-            host: 'api.eu.mailgun.net',
-        });
+
+        if (API_KEY) {
+            this.mailgun = new Mail({
+                apiKey: API_KEY,
+                domain: DOMAIN,
+                host: 'api.eu.mailgun.net',
+            });
+        } else {
+            this.logger.error(
+                `There was no Api key found for the Mailgun mail service. ` +
+                    `This service will not work properly until and Api key is set for the 'MAILGUN_API_KEY' enviroment variable`,
+            );
+        }
+
         // TODO const template = fs.readFileSync((<any>config.get('template')).dir);
     }
 
