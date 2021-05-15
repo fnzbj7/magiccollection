@@ -1,10 +1,12 @@
-<picture class="magiccard">
-  <source [srcset]="cardUrls.mainCardWebpUrl" type="image/webp" />
-  <source [srcset]="cardUrls.mainCardPngUrl" type="image/png" />
-  <img
-      class="magiccard magiccard-full"
-      [src]="cardUrls.mainCardPngUrl"
-      alt=""
-      [title]="magicCard.cardNumber"
-  />
-</picture>
+<div class="my-5 mx-auto flex justify-center">
+  <picture class="magiccard">
+    <source [srcset]="cardUrls.mainCardWebpUrl" type="image/webp" />
+    <source [srcset]="cardUrls.mainCardPngUrl" type="image/png" />
+    <img
+        class="magiccard magiccard-full"
+        [src]="cardUrls.mainCardPngUrl"
+        alt=""
+        [title]="magicCard.cardNumber"
+    />
+  </picture>
+</div>
