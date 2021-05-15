@@ -1,4 +1,5 @@
 import { Component, Input, AfterViewInit, OnInit } from '@angular/core';
+import { AuthenticationService } from 'src/app/auth/authentication.service';
 import { Card } from '../../../model/card.model';
 
 @Component({
@@ -6,8 +7,16 @@ import { Card } from '../../../model/card.model';
     templateUrl: './magic-card-modal.component.html',
     styleUrls: ['./magic-card-modal.component.css'],
 })
-export class MagicCardModalComponent implements AfterViewInit {
+export class MagicCardModalComponent implements OnInit, AfterViewInit {
     @Input() magicCard!: Card;
+
+    isLoggedIn!: boolean;
+
+    constructor(private authenticationService: AuthenticationService) {}
+
+    ngOnInit(): void {
+        this.isLoggedIn = this.authenticationService.isLoggedIn();
+    }
 
     ngAfterViewInit() {
         setTimeout(() => {

@@ -1,20 +1,26 @@
-<picture >
-    <source
-        [srcset]="cardUrls.mainCardWebpUrl"
-        type="image/webp"
-    />
-    <source
-        [srcset]="cardUrls.mainCardPngUrl"
-        type="image/png"
-    />
-    <img
-        class="magiccard magiccard-full"
-        [ngClass]="flipClass ? 'flipper' : ''"
-        [src]="cardUrls.mainCardPngUrl"
-        alt=""
-        [title]="magicCard.cardNumber"
-        (click)="flipClass = !flipClass"
-    />
-</picture>
-<div class="clearfix"></div>
-<fa-icon [icon]="faSyncAlt" (click)="flipClass = !flipClass" class="pointer"></fa-icon>
+<div class="my-5 mx-auto flex justify-center">
+    <div>
+        <picture class="cursor-pointer">
+            <source
+                [srcset]="cardUrls.mainCardWebpUrl"
+                type="image/webp"
+            />
+            <source
+                [srcset]="cardUrls.mainCardPngUrl"
+                type="image/png"
+            />
+            <img
+                class="magiccard magiccard-full"
+                [ngClass]="flipClass ? 'flipper' : ''"
+                [src]="cardUrls.mainCardPngUrl"
+                alt=""
+                [title]="magicCard.cardNumber"
+                (click)="flipClass = !flipClass"
+            />
+        </picture>
+        <div class="clearfix"></div>
+        <fa-icon [icon]="faSyncAlt" (click)="flipClass = !flipClass" class="pointer"></fa-icon>
+    </div>
+</div>
+    
+
