@@ -66,6 +66,8 @@
     transform: translate(-50%, 50%);
     transition: all 0.3s;
     opacity: 0;
+    overflow: auto;
+    max-height: 95vh;
 }
 
 #modal-container.show-after {

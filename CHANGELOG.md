@@ -13,6 +13,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 ### Fixed
 
 - Fixed normal card layout, now its centered again
+- Landscape view for cards
 
 ## [1.2.0] - 2021-04-28
 
