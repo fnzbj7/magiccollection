@@ -1,4 +1,4 @@
-<div>
+<div (swipeRight)="getPreviousCard()" (swipeLeft)="onNextCard()">
     <ng-container [ngSwitch]="magicCard.layout">
         <app-magic-card-normal *ngSwitchDefault [magicCard]="magicCard"></app-magic-card-normal>
         <app-magic-card-meld *ngSwitchCase="'meld'" [magicCard]="magicCard"></app-magic-card-meld>

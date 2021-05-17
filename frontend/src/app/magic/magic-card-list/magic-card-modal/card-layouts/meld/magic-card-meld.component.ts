@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { faSyncAlt } from '@fortawesome/free-solid-svg-icons';
 import { CardUrls } from 'src/app/model/card-urls.model';
 import { Card } from '../../../../../model/card.model';
@@ -9,7 +9,7 @@ import { MagicCardsListService } from '../../../magic-cards-list.service';
     templateUrl: './magic-card-meld.component.html',
     styleUrls: ['./magic-card-meld.component.css'],
 })
-export class MagicCardMeldComponent implements OnInit {
+export class MagicCardMeldComponent implements OnChanges {
     @Input() magicCard!: Card;
     flipClass = false;
     cardUrls!: CardUrls;
@@ -18,7 +18,7 @@ export class MagicCardMeldComponent implements OnInit {
 
     constructor(private magicCardsListService: MagicCardsListService) {}
 
-    ngOnInit() {
+    ngOnChanges(changes: SimpleChanges): void {
         this.cardUrls = this.magicCardsListService.creatingCardUrls(this.magicCard, true);
     }
 }

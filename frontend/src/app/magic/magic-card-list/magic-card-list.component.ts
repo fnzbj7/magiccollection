@@ -6,6 +6,7 @@ import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { QuantityFilterEnum } from '../../model/quantity-filter.enum';
 import { AuthenticationService } from '../../auth/authentication.service';
+import { MagicCardModalService } from 'src/app/shared/magic-card-modal.service';
 
 @Component({
     selector: 'app-magic-card-list',
@@ -56,6 +57,7 @@ export class MagicCardListComponent implements OnInit, OnDestroy {
         private router: Router,
         private authenticationService: AuthenticationService,
         private ref: ChangeDetectorRef,
+        private magicCardModalService: MagicCardModalService,
     ) {}
 
     ngOnInit() {
@@ -131,6 +133,7 @@ export class MagicCardListComponent implements OnInit, OnDestroy {
         if (this.quantityFilterSub) {
             this.quantityFilterSub.unsubscribe();
         }
+        this.magicCardModalService.magicCardList = undefined;
     }
 
     private filterCards() {
@@ -158,6 +161,9 @@ export class MagicCardListComponent implements OnInit, OnDestroy {
             default:
                 throw new Error('QuantityFilterEnum has a wrong value');
         }
+
+        console.log('ÉRTÉKÜL VAN ADVA');
+        this.magicCardModalService.magicCardList = this.filteredCardsArray;
 
         this.lastPageNum = Math.ceil(this.filteredCardsArray.length / this.itemsPerPage);
     }
