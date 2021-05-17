@@ -5,6 +5,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { SideMenuService } from './shared/side-menu.service';
 import { UpdatePwaService } from './auth/update-pwa.service';
 import { Router, NavigationEnd } from '@angular/router';
+import { MagicCardModalService } from './shared/magic-card-modal.service';
 
 @Component({
     selector: 'app-root',
@@ -18,6 +19,7 @@ export class AppComponent implements OnInit {
 
     constructor(
         private modalService: ModalService,
+        private magicCardModalService: MagicCardModalService,
         private updates: SwUpdate,
         private snackbar: MatSnackBar,
         private sideMenuService: SideMenuService,
@@ -60,7 +62,7 @@ export class AppComponent implements OnInit {
             }
         }, 150);
         setTimeout(() => {
-            this.modalService.destroy();
+            this.magicCardModalService.destroy();
         }, 300);
     }
 }

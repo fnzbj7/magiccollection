@@ -5,6 +5,7 @@ import { environment } from '../../../../environments/environment';
 import { ModalService } from '../../../shared/modal.service';
 import { AuthenticationService } from '../../../auth/authentication.service';
 import { MagicCardAmount } from './model/magic-card-amount.model';
+import { MagicCardModalService } from 'src/app/shared/magic-card-modal.service';
 
 @Component({
     selector: 'app-magic-card',
@@ -31,17 +32,12 @@ export class MagicCardComponent {
 
     constructor(
         private modalService: ModalService,
+        private magicCardModalService: MagicCardModalService,
         private authenticationService: AuthenticationService,
     ) {}
 
     openCardModal() {
-        this.modalService.init<MagicCardModalComponent, { magicCard: Card }, unknown>(
-            MagicCardModalComponent,
-            {
-                magicCard: this.magicCard,
-            },
-            {},
-        );
+        this.magicCardModalService.createMagicCardModal(MagicCardModalComponent, this.magicCard);
     }
 
     private setImgUrls(cardExpansion: string, cardNumber: string) {

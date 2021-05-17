@@ -1,5 +1,6 @@
 import { Component, Input, AfterViewInit, OnInit } from '@angular/core';
 import { AuthenticationService } from 'src/app/auth/authentication.service';
+import { MagicCardModalService } from 'src/app/shared/magic-card-modal.service';
 import { Card } from '../../../model/card.model';
 
 @Component({
@@ -12,7 +13,10 @@ export class MagicCardModalComponent implements OnInit, AfterViewInit {
 
     isLoggedIn!: boolean;
 
-    constructor(private authenticationService: AuthenticationService) {}
+    constructor(
+        private authenticationService: AuthenticationService,
+        private magicCardModalService: MagicCardModalService,
+    ) {}
 
     ngOnInit(): void {
         this.isLoggedIn = this.authenticationService.isLoggedIn();
@@ -29,5 +33,15 @@ export class MagicCardModalComponent implements OnInit, AfterViewInit {
                 overlay.classList.add('show-after');
             }
         }, 10);
+    }
+
+    onNextCard() {
+        let nextMagicCard = this.magicCardModalService.getNextCard();
+        if (nextMagicCard) this.magicCard = nextMagicCard;
+    }
+
+    getPreviousCard() {
+        let nextMagicCard = this.magicCardModalService.getPreviousCard();
+        if (nextMagicCard) this.magicCard = nextMagicCard;
     }
 }
