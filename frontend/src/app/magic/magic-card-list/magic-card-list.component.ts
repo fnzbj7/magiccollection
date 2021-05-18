@@ -1,4 +1,11 @@
-import { Component, OnInit, ViewChild, OnDestroy, ChangeDetectorRef } from '@angular/core';
+import {
+    Component,
+    OnInit,
+    ViewChild,
+    OnDestroy,
+    ChangeDetectorRef,
+    AfterViewInit,
+} from '@angular/core';
 import { MagicCardsListService } from './magic-cards-list.service';
 import { Card } from '../../model/card.model';
 import { ActivatedRoute, Params, Router } from '@angular/router';
@@ -7,13 +14,14 @@ import { Subscription } from 'rxjs';
 import { QuantityFilterEnum } from '../../model/quantity-filter.enum';
 import { AuthenticationService } from '../../auth/authentication.service';
 import { MagicCardModalService } from 'src/app/shared/magic-card-modal.service';
+import { SwipeModel } from 'src/app/shared/swipe.model';
 
 @Component({
     selector: 'app-magic-card-list',
     templateUrl: './magic-card-list.component.html',
     styleUrls: ['./magic-card-list.component.scss'],
 })
-export class MagicCardListComponent implements OnInit, OnDestroy {
+export class MagicCardListComponent implements OnInit, AfterViewInit, OnDestroy {
     @ViewChild('page', { static: true })
     amountInputRef!: unknown;
 
@@ -82,6 +90,15 @@ export class MagicCardListComponent implements OnInit, OnDestroy {
         this.quantityFilterSub = this.magicCardsListService.quantityFilterSub.subscribe(x => {
             this.filterCards();
         });
+    }
+
+    ngAfterViewInit(): void {
+        const c: HTMLDivElement | null = document.querySelector('#fullThings');
+        if (c) {
+            new SwipeModel(c, this.onSwipeRight.bind(this), this.onSwipeLeft.bind(this));
+        } else {
+            console.warn('nem volt található a #fullThings');
+        }
     }
 
     currentPageNeedChangeDetection(): boolean {
@@ -162,7 +179,6 @@ export class MagicCardListComponent implements OnInit, OnDestroy {
                 throw new Error('QuantityFilterEnum has a wrong value');
         }
 
-        console.log('ÉRTÉKÜL VAN ADVA');
         this.magicCardModalService.magicCardList = this.filteredCardsArray;
 
         this.lastPageNum = Math.ceil(this.filteredCardsArray.length / this.itemsPerPage);
