@@ -1,4 +1,4 @@
-<div (swipeRight)="getPreviousCard()" (swipeLeft)="onNextCard()">
+<div class="swipable">
     <ng-container [ngSwitch]="magicCard.layout">
         <app-magic-card-normal *ngSwitchDefault [magicCard]="magicCard"></app-magic-card-normal>
         <app-magic-card-meld *ngSwitchCase="'meld'" [magicCard]="magicCard"></app-magic-card-meld>
@@ -11,6 +11,5 @@
         Normál kártya: {{magicCard.cardAmount}}<br>
         Foil kártya: {{magicCard.cardAmountFoil}}
     </div>
-    
 </div>
 

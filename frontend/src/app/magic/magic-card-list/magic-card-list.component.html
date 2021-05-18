@@ -1,16 +1,18 @@
 <app-magic-set-list
     class="card-set-mobil-landscape"
 ></app-magic-set-list>
-<div id="fullThings" *ngIf="expansion && filteredCardsArray" (swipeRight)="onSwipeRight()" (swipeLeft)="onSwipeLeft()">
-    <app-magic-card-rarity-filter></app-magic-card-rarity-filter>
-    <app-pagination [(page)]="currentPage" [pageSize]="itemsPerPage" [collectionSize]="filteredCardsArray.length"></app-pagination>
+<div id="fullThings" >
+    <ng-container *ngIf="expansion && filteredCardsArray">
+        <app-magic-card-rarity-filter></app-magic-card-rarity-filter>
+        <app-pagination [(page)]="currentPage" [pageSize]="itemsPerPage" [collectionSize]="filteredCardsArray.length"></app-pagination>
 
-    <ul id="things" class="px-0">
-        <app-magic-card [magicCard]="card" *ngFor="let card of filteredCardsArray | slice: (currentPage-1) * itemsPerPage : (currentPage-1) * itemsPerPage + itemsPerPage; trackBy: trackCard"></app-magic-card>
+        <ul id="things" class="px-0">
+            <app-magic-card [magicCard]="card" *ngFor="let card of filteredCardsArray | slice: (currentPage-1) * itemsPerPage : (currentPage-1) * itemsPerPage + itemsPerPage; trackBy: trackCard"></app-magic-card>
 
-        <p *ngIf="filteredCardsArray.length === 0">Nincs megjeleníthető kártya, állíts a szűréseken!</p>
-        <!-- Fake Cards -->
-        <li *ngFor="let noUse of Arr(8).fill(1);" class="fake-card"></li>
-    </ul>
-    <app-pagination [(page)]="currentPage" [pageSize]="itemsPerPage" [collectionSize]="filteredCardsArray.length"></app-pagination>
+            <p *ngIf="filteredCardsArray.length === 0">Nincs megjeleníthető kártya, állíts a szűréseken!</p>
+            <!-- Fake Cards -->
+            <li *ngFor="let noUse of Arr(8).fill(1);" class="fake-card"></li>
+        </ul>
+        <app-pagination [(page)]="currentPage" [pageSize]="itemsPerPage" [collectionSize]="filteredCardsArray.length"></app-pagination>
+    </ng-container>
 </div>
