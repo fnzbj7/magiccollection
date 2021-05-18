@@ -30,7 +30,7 @@ export class MagicCardModalService {
         let index = this.checkErrorOrGetIndex();
         if (index === null || !this.magicCardList) return null;
 
-        if (this.magicCardList.length === index) {
+        if (this.magicCardList.length - 1 === index) {
             console.log('A modal elérte az utolsó kártya lapot');
             return null;
         }
