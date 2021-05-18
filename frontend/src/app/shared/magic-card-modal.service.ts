@@ -28,7 +28,7 @@ export class MagicCardModalService {
 
     getNextCard(): Card | null {
         let index = this.checkErrorOrGetIndex();
-        if (!index || !this.magicCardList) return null;
+        if (index === null || !this.magicCardList) return null;
 
         if (this.magicCardList.length === index) {
             console.log('A modal elérte az utolsó kártya lapot');
@@ -42,7 +42,7 @@ export class MagicCardModalService {
 
     getPreviousCard() {
         let index = this.checkErrorOrGetIndex();
-        if (!index || !this.magicCardList) return null;
+        if (index === null || !this.magicCardList) return null;
 
         if (index === 0) {
             console.log('A modal elérte az első kártya lapot');
