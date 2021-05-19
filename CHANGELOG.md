@@ -10,6 +10,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 - Added Last card previw to "card modify" feature
 - Swipe to the card modal screen
+- Swiped card will tilt a little bit
 
 ### Fixed
 

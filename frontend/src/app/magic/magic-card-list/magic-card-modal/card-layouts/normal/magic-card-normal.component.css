@@ -1,0 +1,4 @@
+.magiccard {
+    transform: rotate(var(--rot, 0deg));
+    transform-origin: bottom;
+}
