@@ -38,7 +38,7 @@ export class MagicCardModalComponent implements OnInit, AfterViewInit {
 
         const c: HTMLDivElement | null = document.querySelector('.swipable');
         if (c) {
-            new SwipeModel(c, this.onNextCard.bind(this), this.getPreviousCard.bind(this));
+            new SwipeModel(c, this.getPreviousCard.bind(this), this.onNextCard.bind(this));
         }
     }
 

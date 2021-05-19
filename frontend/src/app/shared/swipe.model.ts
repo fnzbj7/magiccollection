@@ -34,8 +34,9 @@ export class SwipeModel {
         e.preventDefault();
 
         if (this.x0 || this.x0 === 0) {
-            const num = Math.min(Math.max((this.unify(e).clientX - this.x0) / 20, -5), 5);
-            this.c.style.setProperty('--rot', `${num}deg`);
+            const num = Math.min(Math.max((this.unify(e).clientX - this.x0) / 20, -4), 4);
+            const root = document.documentElement;
+            root.style.setProperty('--rot', `${num}deg`);
         }
     }
 
@@ -45,12 +46,12 @@ export class SwipeModel {
 
             if (dx > 100) {
                 this.callbackLeft();
-                this.c.style.setProperty('--rot', '0deg');
             } else if (dx < -100) {
                 this.callbackRight();
-                this.c.style.setProperty('--rot', '0deg');
             }
 
+            const root = document.documentElement;
+            root.style.removeProperty('--rot');
             this.x0 = null;
         }
     }
