@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, AfterViewInit } from '@angular/core';
 import { CalendarService } from '../calendar.service';
 import { CalendarDay } from './model/calendar-day.model';
 import { Subscription } from 'rxjs';
@@ -6,13 +6,14 @@ import { faAngleLeft, faAngleRight, faCalendarPlus } from '@fortawesome/free-sol
 import { AuthenticationService } from '../../auth/authentication.service';
 import { Privilege } from '../../auth/model/privilege.enum';
 import { CalendarEvent } from './model/calendar-event.model';
+import { SwipeModel } from 'src/app/shared/swipe.model';
 
 @Component({
     selector: 'app-calendar-list',
     templateUrl: './calendar-list.component.html',
     styleUrls: ['./calendar-list.component.css'],
 })
-export class CalendarListComponent implements OnInit, OnDestroy {
+export class CalendarListComponent implements OnInit, AfterViewInit, OnDestroy {
     eventPrivilege = false;
 
     // Font-Awesome
@@ -37,6 +38,14 @@ export class CalendarListComponent implements OnInit, OnDestroy {
         private calendarService: CalendarService,
         private authenticationService: AuthenticationService,
     ) {}
+    ngAfterViewInit(): void {
+        const c: HTMLDivElement | null = document.querySelector('.calendar-container');
+        if (c) {
+            new SwipeModel(c, this.onSwipeRight.bind(this), this.onSwipeLeft.bind(this));
+        } else {
+            console.warn('nem volt található a .calendar-container');
+        }
+    }
 
     ngOnInit() {
         this.userCalendarPrivilegeSub();
