@@ -1,19 +1,25 @@
 export class SwipeModel {
     private x0: number | null = null;
+    private h!: HTMLBodyElement | null;
 
     constructor(
         private c: HTMLElement,
         private callbackLeft: () => void,
         private callbackRight: () => void,
     ) {
-        // const c: HTMLDivElement | null = document.querySelector('.swipable');
         c.addEventListener('mousedown', this.lock.bind(this), false);
         c.addEventListener('touchstart', this.lock.bind(this), false);
-        c.addEventListener('mouseup', this.move.bind(this), false);
-        c.addEventListener('touchend', this.move.bind(this), false);
+
+        this.h = document.querySelector('body');
+        if (this.h) {
+            this.h.addEventListener('mouseup', this.move.bind(this), false);
+            this.h.addEventListener('touchend', this.move.bind(this), false);
+            this.h.addEventListener('mousemove', this.drag.bind(this), false);
+            this.h.addEventListener('touchmove', this.drag.bind(this), false);
+        }
     }
 
-    unify(e: MouseEvent | TouchEventInit): { clientX: number } {
+    unify(e: MouseEvent | TouchEventInit | TouchEvent): { clientX: number } {
         if ('changedTouches' in e && e.changedTouches !== undefined) {
             return e.changedTouches[0];
         }
@@ -24,14 +30,25 @@ export class SwipeModel {
         this.x0 = this.unify(e).clientX;
     }
 
+    drag(e: MouseEvent | TouchEvent) {
+        e.preventDefault();
+
+        if (this.x0 || this.x0 === 0) {
+            const num = Math.min(Math.max((this.unify(e).clientX - this.x0) / 20, -5), 5);
+            this.c.style.setProperty('--rot', `${num}deg`);
+        }
+    }
+
     move(e: MouseEvent | TouchEventInit) {
         if (this.x0 || this.x0 === 0) {
             const dx = this.unify(e).clientX - this.x0;
 
             if (dx > 100) {
                 this.callbackLeft();
+                this.c.style.setProperty('--rot', '0deg');
             } else if (dx < -100) {
                 this.callbackRight();
+                this.c.style.setProperty('--rot', '0deg');
             }
 
             this.x0 = null;
