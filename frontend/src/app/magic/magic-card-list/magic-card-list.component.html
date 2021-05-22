@@ -1,7 +1,7 @@
 <app-magic-set-list
     class="card-set-mobil-landscape"
 ></app-magic-set-list>
-<div id="fullThings" >
+<div id="fullThings" [ngClass]="{ 'invisible' : !(expansion && filteredCardsArray)}" >
     <ng-container *ngIf="expansion && filteredCardsArray">
         <app-magic-card-rarity-filter></app-magic-card-rarity-filter>
         <app-pagination [(page)]="currentPage" [pageSize]="itemsPerPage" [collectionSize]="filteredCardsArray.length"></app-pagination>
