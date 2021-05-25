@@ -15,7 +15,7 @@
       },
       "architect": {
         "build": {
-          "builder": "@angular-builders/custom-webpack:browser",
+          "builder": "@angular-devkit/build-angular:browser",
           "options": {
             "aot": true,
             "outputPath": "../dist/magiccollection",
@@ -23,9 +23,6 @@
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
             "tsConfig": "tsconfig.app.json",
-            "customWebpackConfig": {
-              "path": "webpack.config.js"
-            },
             "assets": [
               "src/favicon.ico",
               "src/assets",
@@ -34,10 +31,12 @@
             ],
             "styles": [
               "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
+              "./node_modules/bootstrap/dist/css/bootstrap.min.css",
               "src/styles.scss"
             ],
             "scripts": [
-              "src/assets/js/modernizr-custom.js"
+              "src/assets/js/modernizr-custom.js",
+              "./node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"
             ],
             "allowedCommonJsDependencies": [
               "es6-promise-polyfill"
@@ -76,7 +75,7 @@
           }
         },
         "serve": {
-          "builder": "@angular-builders/custom-webpack:dev-server",
+          "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
             "browserTarget": "magiccollection:build"
           },
@@ -93,14 +92,11 @@
           }
         },
         "test": {
-          "builder": "@angular-builders/custom-webpack:browser",
+          "builder": "@angular-devkit/build-angular:karma",
           "options": {
             "main": "src/test.ts",
             "polyfills": "src/polyfills.ts",
             "tsConfig": "tsconfig.spec.json",
-            "customWebpackConfig": {
-              "path": "webpack.config.js"
-            },
             "karmaConfig": "karma.conf.js",
             "styles": [
               "src/styles.css"
@@ -135,12 +131,6 @@
           }
         }
       }
-    }
-  },
-  "defaultProject": "magiccollection",
-  "schematics": {
-    "@schematics/angular:component": {
-      "styleext": "scss"
     }
   },
   "cli": {
