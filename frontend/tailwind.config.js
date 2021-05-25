@@ -1,5 +1,3 @@
-// require('dotenv').config();
-
 const enablePurge = process.env.ENABLE_PURGE || false;
 
 module.exports = {
