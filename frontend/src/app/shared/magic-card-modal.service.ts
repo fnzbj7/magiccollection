@@ -27,8 +27,10 @@ export class MagicCardModalService {
     }
 
     getNextCard(): Card | null {
-        let index = this.checkErrorOrGetIndex();
-        if (index === null || !this.magicCardList) return null;
+        const index = this.checkErrorOrGetIndex();
+        if (index === null || !this.magicCardList) {
+            return null;
+        }
 
         if (this.magicCardList.length - 1 === index) {
             console.log('A modal elérte az utolsó kártya lapot');
@@ -41,8 +43,10 @@ export class MagicCardModalService {
     }
 
     getPreviousCard() {
-        let index = this.checkErrorOrGetIndex();
-        if (index === null || !this.magicCardList) return null;
+        const index = this.checkErrorOrGetIndex();
+        if (index === null || !this.magicCardList) {
+            return null;
+        }
 
         if (index === 0) {
             console.log('A modal elérte az első kártya lapot');
@@ -65,13 +69,14 @@ export class MagicCardModalService {
             return null;
         }
 
-        let index = this.magicCardList.findIndex(
+        const index = this.magicCardList.findIndex(
             card => card.cardNumber === this.actualMagicCard?.cardNumber,
         );
 
         if (index === -1) {
             console.warn(
-                `nem volt megtalálható a listában a következő kártya: ${this.actualMagicCard?.cardNumber},${this.actualMagicCard?.cardExpansion}`,
+                `nem volt megtalálható a listában a következő kártya: ` +
+                    `${this.actualMagicCard?.cardNumber},${this.actualMagicCard?.cardExpansion}`,
             );
             return null;
         }

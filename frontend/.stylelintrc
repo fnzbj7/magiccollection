@@ -1,0 +1,48 @@
+{
+  "extends": [
+    "stylelint-config-standard",
+    "stylelint-config-recommended-scss",
+    "stylelint-config-prettier"
+  ],
+  "rules": {
+    "font-family-name-quotes": "always-where-recommended",
+    "function-url-quotes": [
+      "always",
+      {
+        "except": ["empty"]
+      }
+    ],
+    "selector-attribute-quotes": "always",
+    "string-quotes": "double",
+    "max-nesting-depth": 5,
+    "selector-max-compound-selectors": 10,
+    "selector-max-specificity": "1,5,2",
+    "at-rule-no-vendor-prefix": true,
+    "media-feature-name-no-vendor-prefix": true,
+    "property-no-vendor-prefix": true,
+    "selector-no-vendor-prefix": true,
+    "value-no-vendor-prefix": true,
+    "no-empty-source": null,
+    "selector-class-pattern": "[a-z-]+",
+    "selector-id-pattern": "[a-z-]+",
+    "selector-max-id": 1,
+    "selector-max-universal": 0,
+    "color-hex-length": "long",
+    "no-descending-specificity": null,
+    "selector-type-no-unknown": [
+      true,
+      {
+        "ignore":["custom-elements"]
+      }
+    ],
+    "selector-pseudo-element-no-unknown": [
+      true,
+      {
+        "ignorePseudoElements": ["ng-deep"]
+      }
+    ],
+    "unit-allowed-list": ["px", "pt", "%", "em", "rem", "vw", "vh", "deg", "s", "fr"],
+    "max-empty-lines": 2,
+    "max-line-length": 140
+  }
+}
