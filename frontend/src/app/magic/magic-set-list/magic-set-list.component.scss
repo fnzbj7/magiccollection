@@ -1,6 +1,6 @@
 @import "./../../variable.scss";
 
-$bgcolor: #aaa;
+$bgcolor: #aaaaaa;
 $bg-light: #f8f9fa;
 
 :host {
@@ -13,7 +13,7 @@ $bg-light: #f8f9fa;
     position: relative;
     width: 80px;
     float: left;
-    margin: 0px;
+    margin: 0;
     display: inline-table;
     z-index: 50;
 }
@@ -36,7 +36,7 @@ $bg-light: #f8f9fa;
     display: none;
 }
 
-/* -------------- YEAR BLOCK ---------------*/
+/* -------------- YEAR BLOCK --------------- */
 .full-line {
     text-align: right;
     color: $bgcolor;
@@ -77,7 +77,7 @@ $bg-light: #f8f9fa;
 }
 
 
-/* -------------- YEAR BLOCK   END ------------*/
+/* -------------- YEAR BLOCK   END ------------ */
 
 @media #{$mobile-media-landscape} {
     #expansionContainer {
@@ -192,7 +192,6 @@ $bg-light: #f8f9fa;
     }
 
     .floating-arrow-left {
-        display: block;
         bottom: 0;
         left: 0;
         height: 75px;
@@ -213,7 +212,6 @@ $bg-light: #f8f9fa;
     .floating-arrow {
         bottom: 0;
         right: 0;
-        display: block;
         height: 75px;
         background: linear-gradient(90deg, rgba(248, 249, 250, 0) 0%, rgba(230, 230, 230, 1) 100%);
         display: flex;

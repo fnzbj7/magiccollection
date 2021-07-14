@@ -5,21 +5,15 @@
     height: 153px;
 }
 
-.magiccard {
-    width: 100%;
-    position: relative;
-    user-select: none;
-    -moz-user-select: none;
-    -webkit-user-drag: none;
-    -webkit-user-select: none;
-    -ms-user-select: none;
-}
-
 /* ------------ */
 .magiccard {
     height: 100%;
     display: inline-block;
     overflow: hidden;
+    width: 100%;
+    position: relative;
+    user-select: none;
+    -webkit-user-drag: none;
 }
 .magiccard img {
     position: absolute;
@@ -28,8 +22,8 @@
     height: 100%;
     width: 100%;
 }
-.magiccard.dothefoil:before {
-    content: '';
+.magiccard.dothefoil::before {
+    content: "";
     z-index: 10;
     position: absolute;
     height: 200%;
@@ -66,8 +60,8 @@
     }
 }
 
-.magiccard.dothefoil:after {
-    content: '';
+.magiccard.dothefoil::after {
+    content: "";
     display: block;
     position: absolute;
     top: 0;
@@ -83,7 +77,6 @@
         rgba(255, 0, 0, 0.3) 100%
     );
     pointer-events: none;
-    -webkit-transition: 0.2s;
     transition: 0.2s;
     z-index: 1;
 }
@@ -107,10 +100,6 @@
 
 .nothave {
     transition: opacity 0.2s ease-in-out;
-    -webkit-transition: opacity 0.2s ease-in-out;
-    -moz-transition: opacity 0.2s ease-in-out;
-    -ms-transition: opacity 0.2s ease-in-out;
-    -o-transition: opacity 0.2s ease-in-out;
     opacity: 0.4;
 }
 
@@ -118,18 +107,10 @@
 .flipper:hover > .front .nothave,
 .flipper:hover > .back .nothave {
     transition: opacity 0.07s ease-in-out;
-    -webkit-transition: opacity 0.07s ease-in-out;
-    -moz-transition: opacity 0.07s ease-in-out;
-    -ms-transition: opacity 0.07s ease-in-out;
-    -o-transition: opacity 0.07s ease-in-out;
     opacity: 1;
 }
 
-/* Small devices (landscape phones, 576px and up)*/
-@media #{$min-breakpoint-1-media} {
-}
-
-/* Medium devices (tablets, 768px and up)*/
+/* Medium devices (tablets, 768px and up) */
 @media (min-width: 827px) {
     .magiccard_li {
         width: 217px;
@@ -139,12 +120,4 @@
     .amountIcon {
         bottom: calc(0% - 5px);
     }
-}
-
-/* Large devices (desktops, 992px and up)*/
-@media (min-width: 992px) {
-}
-
-/* Extra large devices (large desktops, 1200px and up)*/
-@media (min-width: 1200px) {
 }
