@@ -1,7 +1,7 @@
 @import "./app/variable.scss";
-@import 'tailwindcss/base';
-@import 'tailwindcss/components';
-@import 'tailwindcss/utilities';
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
 
 
 body {
@@ -28,10 +28,8 @@ pagination-controls ul {
 html,
 body {
     height: 100%;
-}
-body {
     margin: 0;
-    font-family: Roboto, 'Helvetica Neue', sans-serif;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
 }
 
 .no-select {
@@ -45,8 +43,8 @@ body {
     .tooltiptext-w3 {
         visibility: hidden;
         width: 120px;
-        background-color: #555;
-        color: #fff;
+        background-color: #555555;
+        color: #ffffff;
         text-align: center;
         border-radius: 6px;
         padding: 5px 0;
@@ -57,12 +55,12 @@ body {
     }
 
     .tooltiptext-w3::after {
-        content: '';
+        content: "";
         position: absolute;
         margin-left: -5px;
         border-width: 5px;
         border-style: solid;
-        border-color: transparent transparent #555 transparent;
+        border-color: transparent transparent #555555 transparent;
     }
 
     .tooltiptext-w3,
@@ -107,15 +105,9 @@ body {
     .top.tooltiptext-w3::after {
         top: 100%;
         bottom: initial;
-        border-color: #555 transparent transparent transparent;
+        border-color: #555555 transparent transparent transparent;
     }
 }
-
-
-
-
-
-
 
 /* TODO (min-width: 992px)  */
 @media (max-width: 991.98px) {
@@ -158,7 +150,7 @@ body {
         top: 100%;
         bottom: initial;
         right: 96px;
-        border-color: #555 transparent transparent transparent;
+        border-color: #555555 transparent transparent transparent;
     }
 }
 
@@ -178,4 +170,17 @@ body {
       width: 217px;
     }
 }
+
 /* ----- FAKE CARDS END ------ */
+
+.btnt {
+    @apply font-bold py-2 px-4 rounded;
+}
+
+.btnt-blue {
+    @apply bg-blue-500 text-white;
+}
+
+.btnt-blue:hover {
+    @apply bg-blue-700;
+}

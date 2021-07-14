@@ -72,7 +72,7 @@
               "@angular/platform-browser/animations",
               "@angular/platform-browser-dynamic/testing",
               "zone.js/dist/zone",
-              "zone.js/dist/zone-testing",
+              "zone.js/testing",
               "@angular/localize/init",
               "@angular/material/*",
               "@angular/core/testing"

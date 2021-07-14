@@ -41,15 +41,13 @@
             </button>
             <h1 *ngIf="isNewCardsFinished">Az új kártyák listája</h1>
 
-            <h2 *ngIf="newCards && newCards.length == 0">Nincs új kártya</h2>
+            <h2 *ngIf="newCards && newCards.length === 0">Nincs új kártya</h2>
             <ul
                 *ngIf="newCards"
                 class="row pl-0"
                 style="
-                    display: -webkit-box;
                     display: flex;
                     flex-wrap: wrap;
-                    -webkit-box-pack: center;
                     justify-content: center;
                     list-style: none;
                 "
