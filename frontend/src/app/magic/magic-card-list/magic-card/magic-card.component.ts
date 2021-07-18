@@ -24,6 +24,7 @@ export class MagicCardComponent {
         };
         this.setImgUrls(this.magicCard.cardExpansion, this.magicCard.cardNumber);
     }
+    @Input() onlyShow = false;
     magicCard!: Card;
 
     imageSrcPng!: string;

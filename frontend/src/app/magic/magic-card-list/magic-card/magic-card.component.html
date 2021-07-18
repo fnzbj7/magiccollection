@@ -1,6 +1,6 @@
 <li class="nowrap magiccard_li">
     <!-- Normal cards -->
-    <picture class="magiccard" [appMagicCardAmount]="magicCardAmount" (click)="openCardModal()">
+    <picture class="magiccard" [appMagicCardAmount]="magicCardAmount" [onlyShow]="onlyShow" (click)="openCardModal()">
         <source
             [attr.lazyLoad]="imageSrcWebp"
             [attr.defaultImage]="'assets/img/magic_card_back.webp'"
