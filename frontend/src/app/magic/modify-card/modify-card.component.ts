@@ -89,13 +89,31 @@ export class ModifyCardComponent implements OnInit, OnDestroy {
                     const foundCard = cards.find(
                         card => card.cardNumber && +card.cardNumber === x.cardNumber,
                     );
-                    return foundCard && foundCard.cardAmount === x.cardQuantity;
+
+                    if (foundCard) {
+                        if (
+                            foundCard.cardAmountFoil > 0 &&
+                            foundCard.cardAmountFoil === x.cardQuantityFoil
+                        ) {
+                            return true;
+                        } else if (
+                            foundCard.cardAmount > 0 &&
+                            foundCard.cardAmount === x.cardQuantity
+                        ) {
+                            return true;
+                        } else {
+                            return false;
+                        }
+                    }
+
+                    return false; // Fallback
                 });
 
                 // Creating an array from the new cards
                 this.newCards = filteredNewCards.map(x => {
                     const card = new Card();
                     card.cardAmount = x.cardQuantity;
+                    card.cardAmountFoil = x.cardQuantityFoil;
                     card.cardExpansion = this.cardSet;
                     card.cardNumber = this.sharedService.pad(x.cardNumber, 3);
                     card.layout = CardLayout.NORMAL;

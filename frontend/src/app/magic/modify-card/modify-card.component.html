@@ -1,6 +1,5 @@
 <div class="container bg-light p-3">
-    <h1 *ngIf="modifyQty > 0">Kártya hozzáadó rendszer</h1>
-    <h1 *ngIf="modifyQty < 0">Kártya törlő rendszer</h1>
+    <h1 class="text-2xl mb-2" [ngClass]="{'text-red-400': modifyQty < 0}" >{{modifyQty > 0 ? 'Kártya hozzáadó rendszer': 'Kártya törlő rendszer' }}</h1>
     <ng-container *ngIf="actualPageStep === pageStep.FORM">
         <app-modify-form (afterFinish)="onFormFinish($event)"></app-modify-form>
     </ng-container>
@@ -26,7 +25,7 @@
         </div>
 
         <p *ngIf="isFinished && !isError">Feltöltés befejezősött</p>
-        <div class="btn btn-primary" *ngIf="isFinished && !isError" (click)="resetPage()">
+        <div class="btn btn-primary my-3" *ngIf="isFinished && !isError" (click)="resetPage()">
             Újabb feltöltés
         </div>
         <ng-container *ngIf="this.modifyQty > 0">
@@ -39,12 +38,12 @@
             >
                 Megmutatni az új kártyákat
             </button>
-            <h1 *ngIf="isNewCardsFinished">Az új kártyák listája</h1>
+            <h1 class="text-2xl my-3" *ngIf="isNewCardsFinished">Az új kártyák listája</h1>
 
             <h2 *ngIf="newCards && newCards.length === 0">Nincs új kártya</h2>
             <ul
                 *ngIf="newCards"
-                class="row pl-0"
+                class="pl-0"
                 style="
                     display: flex;
                     flex-wrap: wrap;
