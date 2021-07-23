@@ -9,6 +9,7 @@ import {
 } from 'typeorm';
 import { CardSet } from './card-set.entity';
 import { CardAmount } from './card-amount.entity';
+import { UniqueCard } from './unique-card.entity';
 
 @Entity()
 export class Card extends BaseEntity {
@@ -33,6 +34,13 @@ export class Card extends BaseEntity {
     )
     @JoinColumn({ name: 'card_set_1' })
     cardSet: CardSet;
+
+    @ManyToOne(
+        () => UniqueCard, // type
+        uniqueCard => uniqueCard.card,
+    )
+    @JoinColumn({ name: 'unique_card_1' })
+    uniqueCard: UniqueCard;
 
     @OneToMany(
         () => CardAmount, // type
