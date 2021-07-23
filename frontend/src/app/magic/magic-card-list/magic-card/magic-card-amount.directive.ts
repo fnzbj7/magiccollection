@@ -16,33 +16,39 @@ export class MagicCardAmountDirective implements OnChanges {
     constructor(private elRef: ElementRef<HTMLPictureElement>, private renderer: Renderer2) {}
 
     ngOnChanges(changes: SimpleChanges): void {
+        const { cardAmount, cardAmountFoil } = this.appMagicCardAmount;
+        const cardImg: HTMLPictureElement = this.elRef.nativeElement;
+
         if (changes.appMagicCardAmount.firstChange) {
             // If there is no logged in user, just show the cards, do nothing.
             if (this.appMagicCardAmount.isLoggedIn && !this.onlyShow) {
-                const { cardAmount, cardAmountFoil } = this.appMagicCardAmount;
-                this.createAmountForImage(cardAmount, cardAmountFoil);
+                this.createAmountForImage(cardImg, cardAmount, cardAmountFoil);
             }
         } else {
             this.removeLoggedInCards(
+                cardImg,
                 changes.appMagicCardAmount.previousValue.cardAmount,
                 changes.appMagicCardAmount.previousValue.cardAmountFoil,
             );
         }
+
+        // TODO refactor
+        if (cardAmountFoil > 0) {
+            this.renderer.addClass(cardImg, 'dothefoil');
+        } else if (cardAmountFoil === 0) {
+            this.renderer.removeClass(cardImg, 'dothefoil');
+        }
     }
 
     /**
-     * Give an amount it can be any not negative number, and five an card image reference.
+     * Give an amount it can be any not negative number, and give a card image reference.
      *
      * @param cardAmount how much card do you want to show.
      * @param cardImg nativeElement ref for the card <img> tag.
      */
-    createAmountForImage(cardAmount: number, cardAmountFoil: number) {
-        const cardImg: HTMLPictureElement = this.elRef.nativeElement;
+    createAmountForImage(cardImg: HTMLPictureElement, cardAmount: number, cardAmountFoil: number) {
         const fullAmount = cardAmount + cardAmountFoil;
         if (fullAmount > 0) {
-            if (cardAmountFoil > 0) {
-                this.renderer.addClass(cardImg, 'dothefoil');
-            }
             this.amountImg = this.renderer.createElement('img');
             const amount = fullAmount <= 4 ? fullAmount : 4;
             this.renderer.setAttribute(
@@ -59,32 +65,25 @@ export class MagicCardAmountDirective implements OnChanges {
         }
     }
 
-    removeLoggedInCards(previousAmountValue: number, previousCardAmountFoil: number) {
+    removeLoggedInCards(
+        cardImg: HTMLPictureElement,
+        previousAmountValue: number,
+        previousCardAmountFoil: number,
+    ) {
         const fullAmount = previousAmountValue + previousCardAmountFoil;
         if (this.appMagicCardAmount.isLoggedIn) {
             if (!this.onlyShow) {
                 this.createAmountForImage(
+                    cardImg,
                     this.appMagicCardAmount.cardAmount,
                     this.appMagicCardAmount.cardAmountFoil,
                 );
-            }
-
-            if (previousCardAmountFoil > 0 && this.appMagicCardAmount.cardAmountFoil === 0) {
-                console.log('Itt');
-                const cardImg: HTMLPictureElement = this.elRef.nativeElement;
-                this.renderer.removeClass(cardImg, 'dothefoil');
             }
         } else {
             if (fullAmount === 0) {
                 this.renderer.removeClass(this.elRef.nativeElement, 'nothave');
             } else {
-                const cardImg: HTMLPictureElement = this.elRef.nativeElement;
                 this.renderer.removeChild(cardImg.parentNode, this.amountImg);
-            }
-
-            if (previousCardAmountFoil > 0) {
-                const cardImg: HTMLPictureElement = this.elRef.nativeElement;
-                this.renderer.removeClass(cardImg, 'dothefoil');
             }
         }
     }
