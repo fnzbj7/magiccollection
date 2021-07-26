@@ -90,23 +90,24 @@ export class ModifyCardComponent implements OnInit, OnDestroy {
                         card => card.cardNumber && +card.cardNumber === x.cardNumber,
                     );
 
-                    if (foundCard) {
-                        if (
-                            foundCard.cardAmountFoil > 0 &&
-                            foundCard.cardAmountFoil === x.cardQuantityFoil
-                        ) {
-                            return true;
-                        } else if (
-                            foundCard.cardAmount > 0 &&
-                            foundCard.cardAmount === x.cardQuantity
-                        ) {
-                            return true;
-                        } else {
-                            return false;
-                        }
+                    if (!foundCard) {
+                        return !false;
                     }
 
-                    return false; // Fallback
+                    const priorityListt = [
+                        { upload: foundCard.cardAmountFoil, have: x.cardQuantityFoil },
+                        { upload: foundCard.cardAmount, have: x.cardQuantity },
+                    ];
+
+                    for (const priority of priorityListt) {
+                        if (priority.upload < priority.have) {
+                            return false;
+                        }
+                        if (priority.upload > 0 && priority.upload === priority.have) {
+                            return true;
+                        }
+                    }
+                    return false;
                 });
 
                 // Creating an array from the new cards
