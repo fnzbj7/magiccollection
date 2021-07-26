@@ -92,15 +92,7 @@ export class AuthenticationService {
 
     private refreshToken() {
         this.http.get<{ accessToken: string }>('/api/auth/refreshtoken').subscribe(resp => {
-            if (resp.accessToken) {
-                const jwtToken = this.jwtDecodeService.decode<JwtTokenModel>(resp.accessToken);
-                const user = this.currentUserSubject.getValue();
-                if (user !== null) {
-                    user.privileges = jwtToken.privileges || [];
-                }
-                this.localStorageService.setAccessTokenAndSaveLocalStorage(user);
-                this.currentUserSubject.next(user);
-            }
+            this.createAndLoginUser(resp.accessToken);
         });
     }
 
