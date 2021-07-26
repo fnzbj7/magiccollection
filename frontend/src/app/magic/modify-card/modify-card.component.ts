@@ -95,11 +95,12 @@ export class ModifyCardComponent implements OnInit, OnDestroy {
                     }
 
                     const priorityListt = [
-                        { upload: foundCard.cardAmountFoil, have: x.cardQuantityFoil },
-                        { upload: foundCard.cardAmount, have: x.cardQuantity },
+                        { upload: x.cardQuantityFoil, have: foundCard.cardAmountFoil },
+                        { upload: x.cardQuantity, have: foundCard.cardAmount },
                     ];
 
                     for (const priority of priorityListt) {
+                        // if upload and have both 0, then skip
                         if (priority.upload < priority.have) {
                             return false;
                         }
