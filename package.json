@@ -53,10 +53,5 @@
   "bugs": {
     "url": "https://github.com/fnzbj7/magiccollection/issues"
   },
-  "homepage": "https://github.com/fnzbj7/magiccollection#readme",
-  "husky": {
-    "hooks": {
-      "pre-commit": "cd frontend && npm run pretty-format && pretty-quick --staged --pattern \"backend/src/**/*.ts\""
-    }
-  }
+  "homepage": "https://github.com/fnzbj7/magiccollection#readme"
 }
