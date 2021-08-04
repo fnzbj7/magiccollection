@@ -1,0 +1,5 @@
+{
+    "hooks": {
+      "pre-commit": "cd frontend && npm run pretty-format && pretty-quick --staged --pattern \"backend/src/**/*.ts\""
+    }
+}
