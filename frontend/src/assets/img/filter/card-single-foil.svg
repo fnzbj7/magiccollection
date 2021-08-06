@@ -1,0 +1,10 @@
+<svg height="456" width="335" xmlns="http://www.w3.org/2000/svg">
+<defs><linearGradient id="myGradient" gradientTransform="rotate(90)">
+<stop offset="0%" stop-opacity="10%"  stop-color="#0F0" />
+<stop offset="25%" stop-opacity="35%"  stop-color="#0F0" />
+<stop offset="50%" stop-opacity="40%" stop-color="#FF0" />
+<stop offset="75%" stop-opacity="25%" stop-color="#F00" />
+<stop offset="100%" stop-opacity="40%" stop-color="#F00" />
+</linearGradient></defs>
+<path stroke="white" stroke-width="15" fill="white" d="m10 10 v426 h301 v-426 h-183 zm0 0"/><path stroke="black" stroke-width="15" fill="url('#myGradient')" d="m10 10 v426 h301 v-426 h-183 zm0 0"/><rect x="60" y="70" width="200" height="200" fill="white"/>
+</svg>

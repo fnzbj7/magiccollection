@@ -7,9 +7,15 @@
         <app-magic-card-split *ngSwitchCase="'split'" [magicCard]="magicCard"></app-magic-card-split>
         <app-magic-card-aftermath *ngSwitchCase="'aftermath'" [magicCard]="magicCard"></app-magic-card-aftermath>
     </ng-container>
-    <div *ngIf="isLoggedIn">
-        Normál kártya: {{magicCard.cardAmount}}<br>
-        Foil kártya: {{magicCard.cardAmountFoil}}
+    <div class="flex justify-center" *ngIf="isLoggedIn">
+        <div class="inline mx-3 tooltip-w3 text-center">
+            <img class="w-10" src="/assets/img/filter/card-single.svg"> {{magicCard.cardAmount}}
+            <span class="top right tooltiptext-w3">Normál kártya</span>
+        </div>
+        <div class="inline mx-3 tooltip-w3 text-center">
+            <img class="w-10" src="/assets/img/filter/card-single-foil.svg"> {{magicCard.cardAmountFoil}}
+            <span class="top left tooltiptext-w3">Foil kártya</span>
+        </div>
     </div>
 </div>
 
