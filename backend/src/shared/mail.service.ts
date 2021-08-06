@@ -3,8 +3,7 @@ import * as bcrypt from 'bcrypt';
 // import * as config from 'config';
 import { AuthCredentialsDto } from '../auth/dto/auth-credentials.dto';
 import { Logger } from '@nestjs/common';
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-const formData = require('form-data');
+import formData from 'form-data';
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const Mailgun = require('mailgun.js');
 
@@ -22,11 +21,6 @@ export class MailService {
                 key: process.env.MAILGUN_API_KEY,
                 url: 'https://api.eu.mailgun.net',
             });
-        } else {
-            this.logger.error(
-                `There was no Api key found for the Mailgun mail service. ` +
-                    `This service will not work properly until and Api key is set for the 'MAILGUN_API_KEY' enviroment variable`,
-            );
         }
 
         // TODO const template = fs.readFileSync((<any>config.get('template')).dir);
