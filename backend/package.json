@@ -40,13 +40,14 @@
     "compression": "^1.7.4",
     "config": "^3.3.3",
     "mailgun-js": "^0.22.0",
+    "mailgun.js": "^3.5.4",
     "mysql": "^2.18.1",
     "passport": "^0.4.1",
     "passport-facebook-token": "^4.0.0",
     "passport-jwt": "^4.0.0",
     "reflect-metadata": "^0.1.13",
     "rimraf": "^3.0.2",
-    "rxjs": "^6.5.4",
+    "rxjs": "^7.3.0",
     "typeorm": "^0.2.29"
   },
   "devDependencies": {
