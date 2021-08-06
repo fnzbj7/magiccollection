@@ -8,8 +8,14 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ### Added
 
-- Uploading cards page style updated 
+
 - Added AFR cards
+
+
+### Changed
+
+- *Uploading cards* page style updated 
+- Changed Card filtering icons in the *Card List* page
 
 ### Fixed
 
