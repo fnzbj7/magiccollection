@@ -1,25 +1,26 @@
 import { Injectable, ServiceUnavailableException } from '@nestjs/common';
-import Mail = require('mailgun-js');
 import * as bcrypt from 'bcrypt';
 // import * as config from 'config';
 import { AuthCredentialsDto } from '../auth/dto/auth-credentials.dto';
 import { Logger } from '@nestjs/common';
-// import fs = require('fs');
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const formData = require('form-data');
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const Mailgun = require('mailgun.js');
 
 @Injectable()
 export class MailService {
     private logger = new Logger('MailService');
-    private mailgun: Mail.Mailgun;
+    private mg;
+    private static DOMAIN = 'mg.almateszekfoglaltvolt.hu';
 
     constructor() {
-        const API_KEY = process.env.MAILGUN_API_KEY;
-        const DOMAIN = 'mg.almateszekfoglaltvolt.hu';
-
-        if (API_KEY) {
-            this.mailgun = new Mail({
-                apiKey: API_KEY,
-                domain: DOMAIN,
-                host: 'api.eu.mailgun.net',
+        if (process.env.MAILGUN_API_KEY) {
+            const mailgun = new Mailgun(formData);
+            this.mg = mailgun.client({
+                username: 'api',
+                key: process.env.MAILGUN_API_KEY,
+                url: 'https://api.eu.mailgun.net',
             });
         } else {
             this.logger.error(
@@ -44,8 +45,9 @@ export class MailService {
             html: `Itt egy link <a href="www.almateszekfoglaltvolt.hu?${emailHash}">Klikkelj ide a hitelesítéshez</a>`,
         };
         try {
-            await this.mailgun.messages().send(data);
+            await this.mg.messages.create(MailService.DOMAIN, data);
         } catch (error) {
+            this.logger.error(error);
             throw new ServiceUnavailableException(
                 'Mail service is not available, please try it again later',
             );
