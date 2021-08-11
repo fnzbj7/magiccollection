@@ -7,9 +7,9 @@
     "node": "14.x"
   },
   "scripts": {
-    "postinstall": "cd backend && npm install && npm install --only=dev && cd ../frontend && npm install && npm install --only=dev && node version.js",
+    "postinstall": "cd backend && npm install --production=false && cd ../frontend && npm install --production=false && node version.js",
     "build": "node copy-conf.js && cd backend && npm run build && cd ../frontend && npm run build",
-    "start": "node dist/main.js",
+    "start": "cd backend && node dist/main",
     "test": "echo \"Error: no test specified\" && exit 1",
     "format": "cd frontend && pretty-quick --pattern \"frontend/src/app/**/*.{ts,css}\" --verbose"
   },
