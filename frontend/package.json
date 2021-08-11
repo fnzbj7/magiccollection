@@ -5,13 +5,14 @@
     "ng": "ng",
     "start": "ng serve --proxy-config proxy.conf.json",
     "start:host": "ng serve --proxy-config proxy.conf.json --open --host 192.168.0.164 --disable-host-check",
-    "build": "ngcc && ng build --configuration production",
+    "build": "ng build --configuration production",
     "test": "ng test",
     "lint": "ng lint",
     "stylelint": "stylelint \"src/**/*.scss\" --syntax scss",
     "e2e": "ng e2e",
     "format": "prettier --write \"src/app/**/*.ts\"",
-    "pretty-format": "pretty-quick --staged --pattern \"frontend/src/app/**/*.{ts,css}\" --verbose"
+    "pretty-format": "pretty-quick --staged --pattern \"frontend/src/app/**/*.{ts,css}\" --verbose",
+    "postinstall": "ngcc"
   },
   "private": true,
   "sideEffects": false,
