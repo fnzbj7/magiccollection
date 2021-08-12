@@ -10,11 +10,20 @@ import { MagicCardsListService } from './magic-cards-list.service';
 import { Card } from '../../model/card.model';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 
-import { Subscription } from 'rxjs';
+import {
+    combineLatest,
+    combineLatestWith,
+    concat,
+    forkJoin,
+    Observable,
+    Subscription,
+    zip,
+} from 'rxjs';
 import { QuantityFilterEnum } from '../../model/quantity-filter.enum';
 import { AuthenticationService } from '../../auth/authentication.service';
 import { MagicCardModalService } from 'src/app/shared/magic-card-modal.service';
 import { SwipeModel } from 'src/app/shared/swipe.model';
+import { User } from 'src/app/model/user.model';
 
 @Component({
     selector: 'app-magic-card-list',
@@ -30,11 +39,12 @@ export class MagicCardListComponent implements OnInit, AfterViewInit, OnDestroy 
     filteredCardsArray!: Card[];
     expansion!: string;
     itemsPerPage = 35;
-    currentUserSub!: Subscription;
     routerChangeSub!: Subscription;
     quantityFilterSub!: Subscription;
     rarityFilterSub!: Subscription;
     lastPageNum!: number;
+    userId: string | undefined;
+    user: User | null | undefined = undefined;
     Arr = Array;
 
     _currentPage = 1;
@@ -69,21 +79,35 @@ export class MagicCardListComponent implements OnInit, AfterViewInit, OnDestroy 
     ) {}
 
     ngOnInit() {
-        this.expansion = this.route.snapshot.params.expansion;
-        this.currentUserSub = this.authenticationService.currentUserSubject.subscribe(user => {
-            if (this.expansion) {
-                this.getCardsFromExpansion(this.expansion);
+        this.userId = this.route.snapshot.params.userId;
+        if (!this.userId) {
+            const tmpUserId = this.authenticationService.currentUserValue?.id;
+            if (tmpUserId) {
+                this.userId = '' + tmpUserId;
             }
-        });
+        }
 
-        this.routerChangeSub = this.route.params.subscribe((params: Params) => {
-            this.expansion = params.expansion;
-            if (this.expansion) {
-                this.getCardsFromExpansion(this.expansion);
-            }
-        });
+        this.routerChangeSub = this.route.params
+            .pipe(combineLatestWith(this.authenticationService.currentUserSubject))
+            .subscribe(res => {
+                if (
+                    this.user !== undefined &&
+                    this.expansion === res[0].expansion &&
+                    ((this.user == null && res[1] == null) || this.user?.id === res[1]?.id)
+                ) {
+                    this.user = res[1];
+                    console.log('Cards skipped refreshing');
+                    return;
+                }
 
-        this.rarityFilterSub = this.magicCardsListService.filterChange.subscribe(rarityFilter => {
+                this.user = res[1];
+                this.expansion = res[0].expansion;
+                if (this.expansion) {
+                    this.getCardsFromExpansion(this.userId, this.expansion);
+                }
+            });
+
+        this.rarityFilterSub = this.magicCardsListService.filterChange.subscribe(_rarityFilter => {
             this.filterCards();
         });
 
@@ -109,16 +133,18 @@ export class MagicCardListComponent implements OnInit, AfterViewInit, OnDestroy 
         return needChange;
     }
 
-    getCardsFromExpansion(expansionArg: string) {
-        this.magicCardsListService.getCardsForExpansion(expansionArg).subscribe((cards: Card[]) => {
-            this.cardsArray = cards;
-            this.filterCards();
-            if (this.route.snapshot.queryParams.page) {
-                this.currentPage = +this.route.snapshot.queryParams.page;
-            } else {
-                this.currentPage = 1;
-            }
-        });
+    getCardsFromExpansion(userId: string | undefined, expansionArg: string) {
+        this.magicCardsListService
+            .getCardsForExpansion(userId, expansionArg)
+            .subscribe((cards: Card[]) => {
+                this.cardsArray = cards;
+                this.filterCards();
+                if (this.route.snapshot.queryParams.page) {
+                    this.currentPage = +this.route.snapshot.queryParams.page;
+                } else {
+                    this.currentPage = 1;
+                }
+            });
     }
 
     onSwipeRight() {
@@ -138,9 +164,6 @@ export class MagicCardListComponent implements OnInit, AfterViewInit, OnDestroy 
     }
 
     ngOnDestroy() {
-        if (this.currentUserSub) {
-            this.currentUserSub.unsubscribe();
-        }
         if (this.routerChangeSub) {
             this.routerChangeSub.unsubscribe();
         }

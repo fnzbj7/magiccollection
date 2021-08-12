@@ -101,6 +101,7 @@ export class AuthenticationService {
         if (accessToken) {
             const jwtToken = this.jwtDecodeService.decode<JwtTokenModel>(accessToken);
             user.token = accessToken;
+            user.id = jwtToken.id;
             const expirationDate = new Date(jwtToken.exp * 1000);
             user.expiresIn = expirationDate;
             user.username = jwtToken.name;

@@ -1,5 +1,6 @@
 <app-magic-set-list
     class="card-set-mobil-landscape"
+    [userId]="userId"
 ></app-magic-set-list>
 <div id="fullThings" [ngClass]="{ 'invisible' : !(expansion && filteredCardsArray)}" >
     <ng-container *ngIf="expansion && filteredCardsArray">
@@ -7,7 +8,7 @@
         <app-pagination [(page)]="currentPage" [pageSize]="itemsPerPage" [collectionSize]="filteredCardsArray.length"></app-pagination>
 
         <ul id="things" class="px-0">
-            <app-magic-card [magicCard]="card" *ngFor="let card of filteredCardsArray | slice: (currentPage-1) * itemsPerPage : (currentPage-1) * itemsPerPage + itemsPerPage; trackBy: trackCard"></app-magic-card>
+            <app-magic-card [userId]="userId" [magicCard]="card" *ngFor="let card of filteredCardsArray | slice: (currentPage-1) * itemsPerPage : (currentPage-1) * itemsPerPage + itemsPerPage; trackBy: trackCard"></app-magic-card>
 
             <p *ngIf="filteredCardsArray.length === 0">Nincs megjeleníthető kártya, állíts a szűréseken!</p>
             <!-- Fake Cards -->

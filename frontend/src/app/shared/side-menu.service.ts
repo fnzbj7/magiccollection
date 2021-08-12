@@ -6,6 +6,6 @@ export class SideMenuService {
     openSideMenuSub = new Subject<boolean>();
 
     toggleSideMenu() {
-        this.openSideMenuSub.next();
+        this.openSideMenuSub.next(true);
     }
 }

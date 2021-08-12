@@ -19,7 +19,12 @@ export class CardService {
     }
 
     async getCardSetUser(cardSet: string, user: User): Promise<CardAmountDto[]> {
-        const cardList = await this.cardRepository.getCardSetUser(cardSet, user);
+        const cardList = await this.cardRepository.getCardSetUser(cardSet, user.id);
+        return this.convertToCardAmountDto(cardList);
+    }
+
+    async getCardsForUser(userId: number, cardSet: string): Promise<CardAmountDto[]> {
+        const cardList = await this.cardRepository.getCardSetUser(cardSet, userId);
         return this.convertToCardAmountDto(cardList);
     }
 

@@ -19,7 +19,7 @@ export class CardRepository extends Repository<Card> {
             .getMany();
     }
 
-    async getCardSetUser(cardSet: string, user: User): Promise<Card[]> {
+    async getCardSetUser(cardSet: string, userId: number): Promise<Card[]> {
         return this.createQueryBuilder('t_card')
             .innerJoinAndSelect('t_card.cardSet', 't_cardSet', 't_cardSet.short_name = :name', {
                 name: cardSet,
@@ -28,7 +28,7 @@ export class CardRepository extends Repository<Card> {
                 't_card.cardAmount',
                 't_cardAmount',
                 't_cardAmount.user_1 = :userId',
-                { userId: user.id },
+                { userId },
             )
             .getMany();
     }

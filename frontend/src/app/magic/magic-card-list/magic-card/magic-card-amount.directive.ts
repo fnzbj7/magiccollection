@@ -12,24 +12,29 @@ export class MagicCardAmountDirective implements OnChanges {
     };
     @Input() onlyShow = false;
     amountImg!: HTMLImageElement;
+    amountIconVisible = false;
 
     constructor(private elRef: ElementRef<HTMLPictureElement>, private renderer: Renderer2) {}
 
     ngOnChanges(changes: SimpleChanges): void {
         const { cardAmount, cardAmountFoil } = this.appMagicCardAmount;
         const cardImg: HTMLPictureElement = this.elRef.nativeElement;
-
         if (changes.appMagicCardAmount.firstChange) {
             // If there is no logged in user, just show the cards, do nothing.
             if (this.appMagicCardAmount.isLoggedIn && !this.onlyShow) {
                 this.createAmountForImage(cardImg, cardAmount, cardAmountFoil);
+                this.amountIconVisible = true;
+            } else {
+                this.amountIconVisible = false;
             }
         } else {
-            this.removeLoggedInCards(
-                cardImg,
-                changes.appMagicCardAmount.previousValue.cardAmount,
-                changes.appMagicCardAmount.previousValue.cardAmountFoil,
-            );
+            if (this.amountIconVisible) {
+                this.removeLoggedInCards(
+                    cardImg,
+                    changes.appMagicCardAmount.previousValue.cardAmount,
+                    changes.appMagicCardAmount.previousValue.cardAmountFoil,
+                );
+            }
         }
 
         // TODO refactor

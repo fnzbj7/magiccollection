@@ -80,49 +80,51 @@ export class ModifyCardComponent implements OnInit, OnDestroy {
     onShowNewCards() {
         // Get all cards
         this.isNewCardsLoading = true;
-        this.magicCardsListService.getCardsForExpansion(this.cardSet).subscribe(cards => {
-            this.isNewCardsFinished = true;
-            this.isNewCardsLoading = false;
-            // Compare to the uploaded cards
-            if (this.reducedArr && this.reducedArr.cardQuantitys) {
-                const filteredNewCards = this.reducedArr.cardQuantitys.filter(x => {
-                    const foundCard = cards.find(
-                        card => card.cardNumber && +card.cardNumber === x.cardNumber,
-                    );
+        this.magicCardsListService
+            .getCardsForExpansion(undefined, this.cardSet)
+            .subscribe(cards => {
+                this.isNewCardsFinished = true;
+                this.isNewCardsLoading = false;
+                // Compare to the uploaded cards
+                if (this.reducedArr && this.reducedArr.cardQuantitys) {
+                    const filteredNewCards = this.reducedArr.cardQuantitys.filter(x => {
+                        const foundCard = cards.find(
+                            card => card.cardNumber && +card.cardNumber === x.cardNumber,
+                        );
 
-                    if (!foundCard) {
-                        return !false;
-                    }
-
-                    const priorityListt = [
-                        { upload: x.cardQuantityFoil, have: foundCard.cardAmountFoil },
-                        { upload: x.cardQuantity, have: foundCard.cardAmount },
-                    ];
-
-                    for (const priority of priorityListt) {
-                        // if upload and have both 0, then skip
-                        if (priority.upload < priority.have) {
-                            return false;
+                        if (!foundCard) {
+                            return !false;
                         }
-                        if (priority.upload > 0 && priority.upload === priority.have) {
-                            return true;
-                        }
-                    }
-                    return false;
-                });
 
-                // Creating an array from the new cards
-                this.newCards = filteredNewCards.map(x => {
-                    const card = new Card();
-                    card.cardAmount = x.cardQuantity;
-                    card.cardAmountFoil = x.cardQuantityFoil;
-                    card.cardExpansion = this.cardSet;
-                    card.cardNumber = this.sharedService.pad(x.cardNumber, 3);
-                    card.layout = CardLayout.NORMAL;
-                    return card;
-                });
-            }
-        });
+                        const priorityListt = [
+                            { upload: x.cardQuantityFoil, have: foundCard.cardAmountFoil },
+                            { upload: x.cardQuantity, have: foundCard.cardAmount },
+                        ];
+
+                        for (const priority of priorityListt) {
+                            // if upload and have both 0, then skip
+                            if (priority.upload < priority.have) {
+                                return false;
+                            }
+                            if (priority.upload > 0 && priority.upload === priority.have) {
+                                return true;
+                            }
+                        }
+                        return false;
+                    });
+
+                    // Creating an array from the new cards
+                    this.newCards = filteredNewCards.map(x => {
+                        const card = new Card();
+                        card.cardAmount = x.cardQuantity;
+                        card.cardAmountFoil = x.cardQuantityFoil;
+                        card.cardExpansion = this.cardSet;
+                        card.cardNumber = this.sharedService.pad(x.cardNumber, 3);
+                        card.layout = CardLayout.NORMAL;
+                        return card;
+                    });
+                }
+            });
     }
 
     resetPage() {
