@@ -14,7 +14,7 @@ facebook:
 log:
     logLevel: ['log', 'error', 'warn', 'debug', 'verbose']
 
-https: true
+https: false
 
 template:
     dir: '../templates/registration.hbs'

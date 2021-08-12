@@ -7,6 +7,7 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class MagicSetIconComponent implements OnInit {
     @Input() expansionName!: string;
+    @Input() userId: string | undefined;
 
     constructor() {}
 

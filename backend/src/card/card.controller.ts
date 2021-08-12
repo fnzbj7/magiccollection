@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Param, UseGuards, Body } from '@nestjs/common';
+import { Controller, Get, Post, Param, UseGuards, Body, Logger } from '@nestjs/common';
 import { CardService } from './card.service';
 import { AuthGuard } from '@nestjs/passport';
 import { GetUser } from '../auth/get-user.decorator';
@@ -8,6 +8,8 @@ import { CardAmountDto } from './dto/card-amount.dto';
 
 @Controller('card')
 export class CardController {
+    private logger = new Logger('CardController');
+
     constructor(private cardService: CardService) {}
 
     @Get('/cardset/:set')
@@ -15,6 +17,9 @@ export class CardController {
         return this.cardService.getCardSet(cardSet);
     }
 
+    /**
+     * @deprecated We will use the one with the users
+     */
     @Get('/cardsetuser/:set')
     @UseGuards(AuthGuard())
     async getCardSetUser(
@@ -22,6 +27,15 @@ export class CardController {
         @GetUser() user: User,
     ): Promise<CardAmountDto[]> {
         return this.cardService.getCardSetUser(cardSet, user);
+    }
+
+    @Get('/user/:userId/:set')
+    getCardsForUser(
+        @Param('userId') userId: string,
+        @Param('set') cardSet: string,
+    ): Promise<CardAmountDto[]> {
+        this.logger.log({ userId, cardSet });
+        return this.cardService.getCardsForUser(+userId, cardSet);
     }
 
     @Post('/addcard')

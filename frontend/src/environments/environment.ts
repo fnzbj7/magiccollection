@@ -6,6 +6,8 @@ export const environment = {
     production: false,
     facebookAppId: '732644653890540',
     cardImgUrlBase: 'assets/img/static-img/cards/',
+    // If you dint have the pictures in local
+    // cardImgUrlBase: 'https://d2hg85g2c927kp.cloudfront.net/',
 };
 
 /*

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { MagicCardsListService } from '../magic-card-list/magic-cards-list.service';
 import { faAngleRight, faAngleDown, faAngleLeft } from '@fortawesome/free-solid-svg-icons';
 import { MagicSetYearBlock } from '../magic-card-list/model/magic-set-year-block.model';
@@ -9,6 +9,7 @@ import { MagicSetYearBlock } from '../magic-card-list/model/magic-set-year-block
     styleUrls: ['./magic-set-list.component.scss'],
 })
 export class MagicSetListComponent implements OnInit {
+    @Input() userId: string | undefined;
     cardSetsArray!: string[];
     yearBlocks!: MagicSetYearBlock[];
 

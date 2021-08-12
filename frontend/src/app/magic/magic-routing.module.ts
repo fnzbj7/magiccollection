@@ -10,6 +10,7 @@ const routes: Routes = [
         redirectTo: 'list/',
         pathMatch: 'full',
     },
+    { path: 'list/user/:userId/:expansion', component: MagicCardListComponent },
     { path: 'list/:expansion', component: MagicCardListComponent },
     {
         path: 'addcards',

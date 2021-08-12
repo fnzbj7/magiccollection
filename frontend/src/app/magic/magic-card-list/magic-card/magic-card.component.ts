@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { Card } from '../../../model/card.model';
 import { MagicCardModalComponent } from '../magic-card-modal/magic-card-modal.component';
 import { environment } from '../../../../environments/environment';
@@ -12,30 +12,29 @@ import { MagicCardModalService } from 'src/app/shared/magic-card-modal.service';
     templateUrl: './magic-card.component.html',
     styleUrls: ['./magic-card.component.scss'],
 })
-export class MagicCardComponent {
-    // eslint-disable-next-line @angular-eslint/no-input-rename
-    @Input('magicCard') set _magicCard(value: Card) {
-        this.magicCard = value;
-        const isLoggedIn = this.authenticationService.currentUserValue !== null;
-        this.magicCardAmount = {
-            isLoggedIn,
-            cardAmount: this.magicCard.cardAmount,
-            cardAmountFoil: this.magicCard.cardAmountFoil,
-        };
-        this.setImgUrls(this.magicCard.cardExpansion, this.magicCard.cardNumber);
-    }
+export class MagicCardComponent implements OnChanges {
+    @Input() userId: string | undefined = undefined;
+    @Input() magicCard!: Card;
     @Input() onlyShow = false;
-    magicCard!: Card;
+    card!: Card;
 
     imageSrcPng!: string;
     imageSrcWebp!: string;
     magicCardAmount!: MagicCardAmount;
 
-    constructor(
-        private modalService: ModalService,
-        private magicCardModalService: MagicCardModalService,
-        private authenticationService: AuthenticationService,
-    ) {}
+    constructor(private magicCardModalService: MagicCardModalService) {}
+
+    ngOnChanges(changes: SimpleChanges): void {
+        if (changes.magicCard) {
+            this.card = changes.magicCard.currentValue;
+            this.magicCardAmount = {
+                isLoggedIn: this.userId ? true : false,
+                cardAmount: this.card.cardAmount,
+                cardAmountFoil: this.card.cardAmountFoil,
+            };
+            this.setImgUrls(this.card.cardExpansion, this.card.cardNumber);
+        }
+    }
 
     openCardModal() {
         this.magicCardModalService.createMagicCardModal(MagicCardModalComponent, this.magicCard);

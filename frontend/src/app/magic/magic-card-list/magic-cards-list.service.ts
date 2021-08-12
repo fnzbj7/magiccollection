@@ -68,10 +68,10 @@ export class MagicCardsListService {
         return foundedMagicSet.maxNum;
     }
 
-    getCardsForExpansion(cardSet: string): Observable<Card[]> {
+    getCardsForExpansion(userId: string | undefined, cardSet: string): Observable<Card[]> {
         let url: string;
-        if (this.authService.isLoggedIn()) {
-            url = `/api/card/cardsetuser/${cardSet}`;
+        if (userId) {
+            url = `/api/card/user/${userId}/${cardSet}`;
         } else {
             url = `/api/card/cardset/${cardSet}`;
         }

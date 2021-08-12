@@ -6,6 +6,7 @@
         <app-magic-set-icon
         class="set-icon"
         [expansionName]="cardSet"
+        [userId]="userId"
         *ngFor="let cardSet of yearBlock.magicSetArr"
         ></app-magic-set-icon>
         <p *ngIf="i !== (yearBlocks.length - 1)" class="full-line"><span>{{yearBlock.year}}</span></p>
@@ -19,6 +20,7 @@
         <app-magic-set-icon
         class="set-icon"
         [expansionName]="cardSet"
+        [userId]="userId"
         *ngFor="let cardSet of yearBlock.magicSetArr"
         ></app-magic-set-icon>
         <p *ngIf="i !== (yearBlocks.length - 1)" class="full-line vertical"><span>{{yearBlock.year}}</span></p>

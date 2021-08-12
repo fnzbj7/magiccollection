@@ -10,6 +10,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 
 - Added AFR cards
+- Now you can share card list page url
 
 
 ### Changed
