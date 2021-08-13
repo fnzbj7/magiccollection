@@ -3,7 +3,6 @@ import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { Card } from 'src/app/model/card.model';
 import { ModifyQtyEnum } from 'src/app/model/modify-qty.enum';
-import { SharedService } from 'src/app/shared/shared.service';
 import { MagicCardsListService } from '../../magic-card-list/magic-cards-list.service';
 import { ModifyCardService } from '../../modify-card.service';
 import { CardWithFoil } from '../dto/foil.dto';
@@ -33,7 +32,6 @@ export class ModifyFormComponent implements OnInit, OnDestroy {
         private modifyCardService: ModifyCardService,
         private magicCardsListService: MagicCardsListService,
         private route: ActivatedRoute,
-        private sharedService: SharedService,
     ) {}
 
     ngOnInit(): void {
@@ -145,7 +143,7 @@ export class ModifyFormComponent implements OnInit, OnDestroy {
         const isFoil = lastNumStr.includes('*');
         const lastCard = new Card();
         lastCard.cardExpansion = this.cardSet;
-        lastCard.cardNumber = this.sharedService.pad(lastNum, 3);
+        lastCard.cardNumber = ('' + lastNum).padStart(3, '0');
         lastCard.cardAmount = isFoil ? 0 : 1;
         lastCard.cardAmountFoil = isFoil ? 1 : 0;
         return lastCard;

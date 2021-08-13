@@ -1,6 +1,5 @@
 import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { faSortAlphaDown, faSortAlphaDownAlt } from '@fortawesome/free-solid-svg-icons';
-import { SharedService } from 'src/app/shared/shared.service';
 import { Card, CardLayout } from '../../../model/card.model';
 import { CardWithFoil } from '../dto/foil.dto';
 import { ModifyCardDto } from '../dto/modify-card.dto';
@@ -21,14 +20,12 @@ export class ModifyPreviewComponent implements OnChanges {
     faSortAlphaDown = faSortAlphaDown;
     isNormalOrder = true;
 
-    constructor(private sharedService: SharedService) {}
-
     ngOnChanges(changes: SimpleChanges): void {
         this.isNormalOrder = true;
         const modify: ModifyCardDto = changes.modifyCard.currentValue;
         this.cards = modify.cardQuantitys.map(x => ({
             cardExpansion: modify.setShortName,
-            cardNumber: this.sharedService.pad(x.cardNumber, 3),
+            cardNumber: ('' + x.cardNumber).padStart(3, '0'),
             cardAmount: x.cardQuantity > 0 ? x.cardQuantity : x.cardQuantity * -1,
             cardAmountFoil: x.cardQuantityFoil > 0 ? x.cardQuantityFoil : x.cardQuantityFoil * -1,
             layout: CardLayout.NORMAL,
@@ -39,7 +36,7 @@ export class ModifyPreviewComponent implements OnChanges {
         this.rawCards = changes.rawModifyCard.currentValue.map(
             (x: CardWithFoil): Card => ({
                 cardExpansion: modify.setShortName,
-                cardNumber: this.sharedService.pad(x.cardNum, 3),
+                cardNumber: ('' + x.cardNum).padStart(3, '0'),
                 cardAmount: x.isFoil ? 0 : 1,
                 cardAmountFoil: x.isFoil ? 1 : 0,
                 layout: CardLayout.NORMAL,

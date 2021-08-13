@@ -3,9 +3,9 @@ export class CalendarEvent {
     location = '';
 
     constructor(
-        public id: number,
-        public hour: number,
-        public minute: number,
-        public title: string = '',
+        public id?: number,
+        public hour?: number,
+        public minute?: number,
+        public title?: string,
     ) {}
 }

@@ -83,6 +83,9 @@ export class CalendarService {
         if (calendarEventArray) {
             calendarEventArray.push(calendarEvent);
             calendarEventArray.sort((a, b) => {
+                if (!(a.hour && a.minute && b.hour && b.minute)) {
+                    return 0;
+                }
                 if (a.hour !== b.hour) {
                     return a.hour - b.hour;
                 } else {
@@ -127,9 +130,9 @@ export class CalendarService {
     }
 
     selectCalendarEvent(calendarEvent?: CalendarEvent) {
-        if (calendarEvent) {
+        if (calendarEvent && calendarEvent.id) {
             this.selectedCalendarEvent = calendarEvent;
-            this.selectCalendarEventSub.next(this.selectedCalendarEvent.id);
+            this.selectCalendarEventSub.next(calendarEvent.id);
         } else {
             this.selectedCalendarEvent = null;
             this.selectCalendarEventSub.next(0);
