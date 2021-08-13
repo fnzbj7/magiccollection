@@ -12,8 +12,4 @@ export class MagicSetIconComponent implements OnInit {
     constructor() {}
 
     ngOnInit() {}
-
-    lowerStr(str: string) {
-        return str.toLowerCase();
-    }
 }
