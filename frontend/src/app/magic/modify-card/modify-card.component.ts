@@ -9,6 +9,7 @@ import { Card, CardLayout } from '../../model/card.model';
 import { CardWithFoil } from './dto/foil.dto';
 import { AfterFinishForm } from './modify-form/model/after-finish-form.model';
 import { SharedService } from 'src/app/shared/shared.service';
+import { AuthenticationService } from 'src/app/auth/authentication.service';
 
 enum PageStep {
     FORM = 'from',
@@ -43,6 +44,7 @@ export class ModifyCardComponent implements OnInit, OnDestroy {
         private magicCardsListService: MagicCardsListService,
         private route: ActivatedRoute,
         private sharedService: SharedService,
+        private auth: AuthenticationService,
     ) {}
 
     ngOnInit() {
@@ -81,7 +83,7 @@ export class ModifyCardComponent implements OnInit, OnDestroy {
         // Get all cards
         this.isNewCardsLoading = true;
         this.magicCardsListService
-            .getCardsForExpansion(undefined, this.cardSet)
+            .getCardsForExpansion(this.auth.currentUserValue?.id, this.cardSet)
             .subscribe(cards => {
                 this.isNewCardsFinished = true;
                 this.isNewCardsLoading = false;
@@ -96,12 +98,12 @@ export class ModifyCardComponent implements OnInit, OnDestroy {
                             return !false;
                         }
 
-                        const priorityListt = [
+                        const priorityList = [
                             { upload: x.cardQuantityFoil, have: foundCard.cardAmountFoil },
                             { upload: x.cardQuantity, have: foundCard.cardAmount },
                         ];
 
-                        for (const priority of priorityListt) {
+                        for (const priority of priorityList) {
                             // if upload and have both 0, then skip
                             if (priority.upload < priority.have) {
                                 return false;
