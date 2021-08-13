@@ -5,20 +5,14 @@ import {
     OnDestroy,
     ChangeDetectorRef,
     AfterViewInit,
+    TemplateRef,
+    ElementRef,
 } from '@angular/core';
 import { MagicCardsListService } from './magic-cards-list.service';
 import { Card } from '../../model/card.model';
-import { ActivatedRoute, Params, Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
-import {
-    combineLatest,
-    combineLatestWith,
-    concat,
-    forkJoin,
-    Observable,
-    Subscription,
-    zip,
-} from 'rxjs';
+import { combineLatestWith, Subscription } from 'rxjs';
 import { QuantityFilterEnum } from '../../model/quantity-filter.enum';
 import { AuthenticationService } from '../../auth/authentication.service';
 import { MagicCardModalService } from 'src/app/shared/magic-card-modal.service';
@@ -34,6 +28,8 @@ export class MagicCardListComponent implements OnInit, AfterViewInit, OnDestroy 
     @ViewChild('page', { static: true })
     amountInputRef!: unknown;
 
+    @ViewChild('fullThings') a!: ElementRef<HTMLDivElement>;
+
     p = 1;
     cardsArray!: Card[];
     filteredCardsArray!: Card[];
@@ -46,6 +42,7 @@ export class MagicCardListComponent implements OnInit, AfterViewInit, OnDestroy 
     userId: string | undefined;
     user: User | null | undefined = undefined;
     Arr = Array;
+    swipeModel!: SwipeModel;
 
     _currentPage = 1;
 
@@ -117,9 +114,12 @@ export class MagicCardListComponent implements OnInit, AfterViewInit, OnDestroy 
     }
 
     ngAfterViewInit(): void {
-        const c: HTMLDivElement | null = document.querySelector('#fullThings');
-        if (c) {
-            new SwipeModel(c, this.onSwipeRight.bind(this), this.onSwipeLeft.bind(this));
+        if (this.a.nativeElement) {
+            this.swipeModel = new SwipeModel(
+                this.a.nativeElement,
+                this.onSwipeRight.bind(this),
+                this.onSwipeLeft.bind(this),
+            );
         } else {
             console.warn('nem volt található a #fullThings');
         }
@@ -159,7 +159,7 @@ export class MagicCardListComponent implements OnInit, AfterViewInit, OnDestroy 
         }
     }
 
-    trackCard(index: number, card: Card) {
+    trackCard(_index: number, card: Card) {
         return card.cardExpansion + card.cardNumber;
     }
 
@@ -174,6 +174,7 @@ export class MagicCardListComponent implements OnInit, AfterViewInit, OnDestroy 
             this.quantityFilterSub.unsubscribe();
         }
         this.magicCardModalService.magicCardList = undefined;
+        this.swipeModel.removeEvent();
     }
 
     private filterCards() {

@@ -1,14 +1,14 @@
 export class SwipeModel {
     private x0: number | null = null;
     private h!: HTMLBodyElement | null;
-
+    // TODO this is a mess, need to refactor
     constructor(
         private c: HTMLElement,
         private callbackLeft: () => void,
         private callbackRight: () => void,
     ) {
-        c.addEventListener('mousedown', this.lock.bind(this), false);
-        c.addEventListener('touchstart', this.lock.bind(this), false);
+        this.c.addEventListener('mousedown', this.lock.bind(this), false);
+        this.c.addEventListener('touchstart', this.lock.bind(this), false);
 
         this.h = document.querySelector('body');
         if (this.h) {
@@ -53,6 +53,16 @@ export class SwipeModel {
             const root = document.documentElement;
             root.style.removeProperty('--rot');
             this.x0 = null;
+        }
+    }
+
+    removeEvent() {
+        if (this.h && this.h.removeAllListeners) {
+            this.h.removeAllListeners();
+        }
+
+        if (this.c && this.c.removeAllListeners) {
+            this.c.removeAllListeners();
         }
     }
 }

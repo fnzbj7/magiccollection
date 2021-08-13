@@ -34,7 +34,6 @@ export class CardController {
         @Param('userId') userId: string,
         @Param('set') cardSet: string,
     ): Promise<CardAmountDto[]> {
-        this.logger.log({ userId, cardSet });
         return this.cardService.getCardsForUser(+userId, cardSet);
     }
 
