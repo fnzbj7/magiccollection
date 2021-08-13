@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { AuthGuard } from '../auth/auth.guard';
-import { MagicCardListComponent } from './magic-card-list/magic-card-list.component';
+import { MagicCardListContainerComponent } from './magic-card-list/magic-card-list-container/magic-card-list-container.component';
 import { ModifyCardComponent } from './modify-card/modify-card.component';
 
 const routes: Routes = [
@@ -10,8 +10,8 @@ const routes: Routes = [
         redirectTo: 'list/',
         pathMatch: 'full',
     },
-    { path: 'list/user/:userId/:expansion', component: MagicCardListComponent },
-    { path: 'list/:expansion', component: MagicCardListComponent },
+    { path: 'list/user/:userId/:expansion', component: MagicCardListContainerComponent },
+    { path: 'list/:expansion', component: MagicCardListContainerComponent },
     {
         path: 'addcards',
         component: ModifyCardComponent,

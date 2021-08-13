@@ -1,0 +1,57 @@
+@import "./../../../variable.scss";
+
+:host {
+    margin-right: 10px;
+}
+
+#things {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+ol,
+ul {
+    list-style: none;
+}
+
+@media #{$mobile-media-landscape} {
+    .card-set-mobil-landscape {
+        display: block;
+        width: 81px;
+        height: 10px;
+        position: sticky;
+        top: 0;
+    }
+}
+
+#fullThings {
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 10px;
+    background-color: #ffffff;
+    display: flex;
+    flex-direction: column;
+    margin-left: 8px;
+}
+
+.nowrap {
+    position: relative;
+    z-index: 20;
+    float: left;
+    margin: 5px 3px;
+}
+
+/* TODO min-width */
+@media (max-width: 575px) {
+    #fullThings {
+        padding-left: 0;
+        padding-right: 0;
+        margin-bottom: 85px;
+        margin-left: 3px;
+    }
+
+    :host {
+        margin-right: 3px;
+    }
+}
