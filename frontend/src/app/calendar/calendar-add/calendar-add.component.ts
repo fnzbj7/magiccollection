@@ -13,7 +13,7 @@ import { ActivatedRoute } from '@angular/router';
 export class CalendarAddComponent implements OnInit, OnDestroy {
     isInit = true;
     isMobile = false;
-    calendarEvent: CalendarEvent = new CalendarEvent(-1, 0, 0); // TODO kell ide ez az init?
+    calendarEvent: CalendarEvent = new CalendarEvent(); // TODO kell ide ez az init?
     originalCalendarEvent!: CalendarEvent | null;
     time!: { hour: number; minute: number };
     model?: NgbDateStruct;
@@ -70,7 +70,11 @@ export class CalendarAddComponent implements OnInit, OnDestroy {
         } else {
             this.isInit = false;
         }
-        this.time = { hour: this.calendarEvent.hour, minute: this.calendarEvent.minute };
+        if (this.calendarEvent.hour && this.calendarEvent.minute) {
+            this.time = { hour: this.calendarEvent.hour, minute: this.calendarEvent.minute };
+        } else {
+            this.time = { hour: 0, minute: 0 };
+        }
 
         this.mediaQuery = window.matchMedia('(max-width: 768px)');
         this.isMobile = this.mediaQuery.matches;

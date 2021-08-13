@@ -2,7 +2,6 @@ import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import { CalendarEvent } from '../model/calendar-event.model';
 import { CalendarService } from '../../calendar.service';
 import { Subscription } from 'rxjs';
-import { SharedService } from 'src/app/shared/shared.service';
 
 @Component({
     selector: 'app-calendar-element',
@@ -16,11 +15,11 @@ export class CalendarElementComponent implements OnInit, OnDestroy {
     minutePad!: string;
     hourPad!: string;
 
-    constructor(private calendarService: CalendarService, private sharedService: SharedService) {}
+    constructor(private calendarService: CalendarService) {}
 
     ngOnInit() {
-        this.minutePad = this.sharedService.pad(this.calendarEvent.minute, 2);
-        this.hourPad = this.sharedService.pad(this.calendarEvent.hour, 2);
+        this.minutePad = ('' + this.calendarEvent.minute).padStart(2, '0');
+        this.hourPad = ('' + this.calendarEvent.hour).padStart(2, '0');
         this.isSelected = this.calendarEvent.id === this.calendarService.getSelectedEventId();
         this.selectCalendarEventSub = this.calendarService
             .getSelectCalendarEventSub()

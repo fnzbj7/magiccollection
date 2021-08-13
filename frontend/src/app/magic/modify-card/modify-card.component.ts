@@ -8,7 +8,6 @@ import { ModifyQtyEnum } from '../../model/modify-qty.enum';
 import { Card, CardLayout } from '../../model/card.model';
 import { CardWithFoil } from './dto/foil.dto';
 import { AfterFinishForm } from './modify-form/model/after-finish-form.model';
-import { SharedService } from 'src/app/shared/shared.service';
 import { AuthenticationService } from 'src/app/auth/authentication.service';
 
 enum PageStep {
@@ -43,7 +42,6 @@ export class ModifyCardComponent implements OnInit, OnDestroy {
         private modifyCardService: ModifyCardService,
         private magicCardsListService: MagicCardsListService,
         private route: ActivatedRoute,
-        private sharedService: SharedService,
         private auth: AuthenticationService,
     ) {}
 
@@ -121,7 +119,7 @@ export class ModifyCardComponent implements OnInit, OnDestroy {
                         card.cardAmount = x.cardQuantity;
                         card.cardAmountFoil = x.cardQuantityFoil;
                         card.cardExpansion = this.cardSet;
-                        card.cardNumber = this.sharedService.pad(x.cardNumber, 3);
+                        card.cardNumber = ('' + x.cardNumber).padStart(3, '0');
                         card.layout = CardLayout.NORMAL;
                         return card;
                     });
