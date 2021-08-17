@@ -17,32 +17,40 @@ export class MagicCardAmountDirective implements OnChanges {
     constructor(private elRef: ElementRef<HTMLPictureElement>, private renderer: Renderer2) {}
 
     ngOnChanges(changes: SimpleChanges): void {
-        const { cardAmount, cardAmountFoil } = this.appMagicCardAmount;
+        const { cardAmount, cardAmountFoil, isLoggedIn } = this.appMagicCardAmount;
+        const { previousValue, firstChange } = changes.appMagicCardAmount;
         const cardImg: HTMLPictureElement = this.elRef.nativeElement;
-        if (changes.appMagicCardAmount.firstChange) {
-            // If there is no logged in user, just show the cards, do nothing.
-            if (this.appMagicCardAmount.isLoggedIn && !this.onlyShow) {
-                this.createAmountForImage(cardImg, cardAmount, cardAmountFoil);
-                this.amountIconVisible = true;
-            } else {
-                this.amountIconVisible = false;
-            }
-        } else {
-            if (this.amountIconVisible) {
-                this.removeLoggedInCards(
-                    cardImg,
-                    changes.appMagicCardAmount.previousValue.cardAmount,
-                    changes.appMagicCardAmount.previousValue.cardAmountFoil,
-                );
-            }
-        }
 
-        // TODO refactor
+        this.changeIconsIfNeeded(this.appMagicCardAmount, changes);
+
         if (cardAmountFoil > 0) {
             this.renderer.addClass(cardImg, 'dothefoil');
         } else if (cardAmountFoil === 0) {
             this.renderer.removeClass(cardImg, 'dothefoil');
         }
+    }
+
+    changeIconsIfNeeded(magicCardAmount: MagicCardAmount, changes: SimpleChanges) {
+        const { cardAmount, cardAmountFoil, isLoggedIn } = magicCardAmount;
+        const { previousValue, firstChange } = changes.appMagicCardAmount;
+        const needToChange = this.amountIconVisible !== isLoggedIn;
+        const cardImg: HTMLPictureElement = this.elRef.nativeElement;
+
+        if (!needToChange) {
+            return;
+        }
+
+        if (this.amountIconVisible) {
+            this.removeLoggedInCards(
+                cardImg,
+                previousValue.cardAmount,
+                previousValue.cardAmountFoil,
+            );
+        } else {
+            this.createAmountForImage(cardImg, cardAmount, cardAmountFoil);
+        }
+
+        this.amountIconVisible = !this.amountIconVisible;
     }
 
     /**
