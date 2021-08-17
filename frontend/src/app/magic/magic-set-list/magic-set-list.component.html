@@ -14,6 +14,12 @@
 </div>
 
 <div (scroll)="onScroll($event)" class="mobile-menu" #setmenu>
+    <div class="position-absolute test-floating pointer" (click)="onScrollUp(setmenu)" [ngClass]="{'dont-show-top': isScrollUpHide}">
+        <fa-icon
+            [icon]="faAngleUp"
+            class="floating-arrow-item-up"
+            ></fa-icon>
+    </div>
 
   <div class="mobile-menu-inner">
     <ng-container *ngFor="let yearBlock of yearBlocks; let i = index">

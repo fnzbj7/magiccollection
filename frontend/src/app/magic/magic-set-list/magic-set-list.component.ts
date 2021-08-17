@@ -1,6 +1,11 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { MagicCardsListService } from '../magic-card-list/magic-cards-list.service';
-import { faAngleRight, faAngleDown, faAngleLeft } from '@fortawesome/free-solid-svg-icons';
+import {
+    faAngleRight,
+    faAngleDown,
+    faAngleLeft,
+    faAngleUp,
+} from '@fortawesome/free-solid-svg-icons';
 import { MagicSetYearBlock } from '../magic-card-list/model/magic-set-year-block.model';
 
 @Component({
@@ -17,11 +22,13 @@ export class MagicSetListComponent implements OnInit {
     faAngleRight = faAngleRight;
     faAngleLeft = faAngleLeft;
     faAngleDown = faAngleDown;
+    faAngleUp = faAngleUp;
 
     isScrollRightHide = false;
     isScrollLeftHide = true;
 
     isScrollDownHide = false;
+    isScrollUpHide = true;
 
     constructor(private magicCardsListService: MagicCardsListService) {}
 
@@ -34,13 +41,14 @@ export class MagicSetListComponent implements OnInit {
         if (event === null) {
             return;
         }
-        const target = event.srcElement;
+
+        const target = event.target;
         if (target === null) {
             return;
         }
         const el: HTMLElement = target as HTMLElement;
-        const heightLimit = el.scrollHeight - el.clientHeight;
-        const widthLimit = el.scrollWidth - el.clientWidth - 1;
+        const heightLimit = el.scrollHeight - el.clientHeight - 70;
+        const widthLimit = el.scrollWidth - el.clientWidth - 10;
 
         if (widthLimit > 0 && el.scrollLeft >= widthLimit) {
             this.isScrollRightHide = true;
@@ -48,7 +56,7 @@ export class MagicSetListComponent implements OnInit {
             this.isScrollRightHide = false;
         }
 
-        if (el.scrollLeft > 0) {
+        if (el.scrollLeft > 10) {
             this.isScrollLeftHide = false;
         } else {
             this.isScrollLeftHide = true;
@@ -60,10 +68,18 @@ export class MagicSetListComponent implements OnInit {
             this.isScrollDownHide = false;
         }
 
-        // console.log(event.srcElement.scrollLeft)
-        // if (this.isScrollVisible) {
-        //     this.isScrollVisible = false;
-        // }
+        if (el.scrollTop > 50) {
+            this.isScrollUpHide = false;
+        } else {
+            this.isScrollUpHide = true;
+        }
+    }
+
+    onScrollUp(setListRef: HTMLElement) {
+        setListRef.scrollBy({
+            top: -setListRef.offsetHeight * 0.65,
+            behavior: 'smooth',
+        });
     }
 
     onScrollDown(setListRef: HTMLElement) {

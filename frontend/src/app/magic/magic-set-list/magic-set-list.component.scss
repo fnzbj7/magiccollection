@@ -87,7 +87,7 @@ $bg-light: #f8f9fa;
     :host {
         margin-right: 10px;
         margin-left: 0;
-        margin-top: -1.4rem;
+        // margin-top: -1.4rem;
         height: 100px !important;
     }
 
@@ -95,9 +95,9 @@ $bg-light: #f8f9fa;
         display: block;
         left: 0;
         z-index: 50;
-        height: calc(100vh - 40px);
+        height: 100vh;
         overflow-y: scroll;
-        margin-top: 15px;
+        // margin-top: 15px;
     }
 
     .mobile-menu-inner {
@@ -139,6 +139,25 @@ $bg-light: #f8f9fa;
     .floating-arrow-item-down-container {
         display: block;
     }
+
+    .test-floating {
+        height: 25px;
+        width: 81px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 60;
+        background: linear-gradient(180deg, rgba(230, 230, 230, 1) 0%, rgba(248, 249, 250, 0) 100%);
+    }
+    .floating-arrow-item-up {
+        position: relative;
+        font-size: 30px;
+        animation: top-smooth 2s 2s infinite alternate;
+    }
+    .dont-show-top {
+        display: none;
+    }
+
 
     .floating-arrow-item-right {
         display: none;
@@ -234,7 +253,8 @@ $bg-light: #f8f9fa;
     }
 
     .floating-arrow-item-down,
-    .floating-arrow-item-down-container {
+    .floating-arrow-item-down-container, 
+    .test-floating{
         display: none;
     }
 
