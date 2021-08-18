@@ -41,8 +41,8 @@ export class MagicCardModalComponent implements OnInit, AfterViewInit {
         const c: HTMLDivElement | null = this.swipable.nativeElement;
         if (c) {
             new SwipeModel(c, {
-                callbackLeft: this.getPreviousCard.bind(this),
-                callbackRight: this.onNextCard.bind(this),
+                callbackLeft: this.onNextCard.bind(this),
+                callbackRight: this.getPreviousCard.bind(this),
                 dragEvent: this.dragEvent.bind(this),
                 dragStop: this.dragStop.bind(this),
             });
@@ -65,7 +65,7 @@ export class MagicCardModalComponent implements OnInit, AfterViewInit {
 
     dragEvent(x0: number | null, clientX: number) {
         if (x0 || x0 === 0) {
-            const num = Math.min(Math.max((clientX - x0) / 1, -100), 100);
+            const num = Math.min(Math.max((clientX - x0) / 1, -150), 150);
             this.cardContainer.nativeElement.style.position = 'relative';
             this.cardContainer.nativeElement.style.left = `${num}px`;
         }

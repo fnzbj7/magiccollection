@@ -41,12 +41,12 @@ export class SwipeModel {
             const dx = this.unify(e).clientX - this.x0;
 
             if (dx > 100) {
-                if (this.swipeOption.callbackLeft) {
-                    this.swipeOption.callbackLeft();
-                }
-            } else if (dx < -100) {
                 if (this.swipeOption.callbackRight) {
                     this.swipeOption.callbackRight();
+                }
+            } else if (dx < -100) {
+                if (this.swipeOption.callbackLeft) {
+                    this.swipeOption.callbackLeft();
                 }
             }
 
