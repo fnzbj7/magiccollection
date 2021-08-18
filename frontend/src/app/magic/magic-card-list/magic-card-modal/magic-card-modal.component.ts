@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { Component, Input, AfterViewInit, OnInit } from '@angular/core';
+import { Component, Input, AfterViewInit, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { AuthenticationService } from 'src/app/auth/authentication.service';
 import { MagicCardModalService } from 'src/app/shared/magic-card-modal.service';
-import { SwipeModel } from 'src/app/shared/swipe.model';
+import { SwipeModel } from 'src/app/shared/swipe/swipe.model';
 import { Card } from '../../../model/card.model';
 
 @Component({
@@ -12,6 +12,8 @@ import { Card } from '../../../model/card.model';
 })
 export class MagicCardModalComponent implements OnInit, AfterViewInit {
     @Input() magicCard!: Card;
+    @ViewChild('swipable') swipable!: ElementRef<HTMLDivElement>;
+    @ViewChild('cardContainer') cardContainer!: ElementRef<HTMLDivElement>;
 
     isLoggedIn!: boolean;
 
@@ -36,9 +38,14 @@ export class MagicCardModalComponent implements OnInit, AfterViewInit {
             }
         }, 10);
 
-        const c: HTMLDivElement | null = document.querySelector('.swipable');
+        const c: HTMLDivElement | null = this.swipable.nativeElement;
         if (c) {
-            new SwipeModel(c, this.getPreviousCard.bind(this), this.onNextCard.bind(this));
+            new SwipeModel(c, {
+                callbackLeft: this.getPreviousCard.bind(this),
+                callbackRight: this.onNextCard.bind(this),
+                dragEvent: this.dragEvent.bind(this),
+                dragStop: this.dragStop.bind(this),
+            });
         }
     }
 
@@ -54,5 +61,18 @@ export class MagicCardModalComponent implements OnInit, AfterViewInit {
         if (nextMagicCard) {
             this.magicCard = nextMagicCard;
         }
+    }
+
+    dragEvent(x0: number | null, clientX: number) {
+        if (x0 || x0 === 0) {
+            const num = Math.min(Math.max((clientX - x0) / 1, -100), 100);
+            this.cardContainer.nativeElement.style.position = 'relative';
+            this.cardContainer.nativeElement.style.left = `${num}px`;
+        }
+    }
+
+    dragStop() {
+        this.cardContainer.nativeElement.style.position = '';
+        this.cardContainer.nativeElement.style.left = '';
     }
 }

@@ -14,7 +14,7 @@ export class MagicCardNormalComponent implements OnChanges {
 
     constructor(private magicCardsListService: MagicCardsListService) {}
 
-    ngOnChanges(changes: SimpleChanges): void {
+    ngOnChanges(_changes: SimpleChanges): void {
         this.cardUrls = this.magicCardsListService.creatingCardUrls(this.magicCard);
     }
 }

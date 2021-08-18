@@ -16,7 +16,7 @@ import { combineLatestWith, Subscription } from 'rxjs';
 import { QuantityFilterEnum } from '../../model/quantity-filter.enum';
 import { AuthenticationService } from '../../auth/authentication.service';
 import { MagicCardModalService } from 'src/app/shared/magic-card-modal.service';
-import { SwipeModel } from 'src/app/shared/swipe.model';
+import { SwipeModel } from 'src/app/shared/swipe/swipe.model';
 import { User } from 'src/app/model/user.model';
 
 @Component({
@@ -28,7 +28,7 @@ export class MagicCardListComponent implements OnInit, AfterViewInit, OnDestroy 
     @ViewChild('page', { static: true })
     amountInputRef!: unknown;
 
-    @ViewChild('fullThings') a!: ElementRef<HTMLDivElement>;
+    @ViewChild('fullThings') fullThing!: ElementRef<HTMLDivElement>;
 
     p = 1;
     cardsArray!: Card[];
@@ -114,12 +114,11 @@ export class MagicCardListComponent implements OnInit, AfterViewInit, OnDestroy 
     }
 
     ngAfterViewInit(): void {
-        if (this.a.nativeElement) {
-            this.swipeModel = new SwipeModel(
-                this.a.nativeElement,
-                this.onSwipeRight.bind(this),
-                this.onSwipeLeft.bind(this),
-            );
+        if (this.fullThing.nativeElement) {
+            this.swipeModel = new SwipeModel(this.fullThing.nativeElement, {
+                callbackLeft: this.onSwipeLeft.bind(this),
+                callbackRight: this.onSwipeRight.bind(this),
+            });
         } else {
             console.warn('nem volt található a #fullThings');
         }
