@@ -6,7 +6,7 @@ import { faAngleLeft, faAngleRight, faCalendarPlus } from '@fortawesome/free-sol
 import { AuthenticationService } from '../../auth/authentication.service';
 import { Privilege } from '../../auth/model/privilege.enum';
 import { CalendarEvent } from './model/calendar-event.model';
-import { SwipeModel } from 'src/app/shared/swipe.model';
+import { SwipeModel } from 'src/app/shared/swipe/swipe.model';
 
 @Component({
     selector: 'app-calendar-list',
@@ -41,7 +41,10 @@ export class CalendarListComponent implements OnInit, AfterViewInit, OnDestroy {
     ngAfterViewInit(): void {
         const c: HTMLDivElement | null = document.querySelector('.calendar-container');
         if (c) {
-            new SwipeModel(c, this.onSwipeRight.bind(this), this.onSwipeLeft.bind(this));
+            new SwipeModel(c, {
+                callbackLeft: this.onSwipeLeft.bind(this),
+                callbackRight: this.onSwipeRight.bind(this),
+            });
         } else {
             console.warn('nem volt található a .calendar-container');
         }

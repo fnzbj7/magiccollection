@@ -1,12 +1,10 @@
+import { SwipeOption } from './swipe-option.model';
+
 export class SwipeModel {
     private x0: number | null = null;
     private h!: HTMLBodyElement | null;
     // TODO this is a mess, need to refactor
-    constructor(
-        private c: HTMLElement,
-        private callbackLeft: () => void,
-        private callbackRight: () => void,
-    ) {
+    constructor(private c: HTMLElement, private swipeOption: SwipeOption) {
         this.c.addEventListener('mousedown', this.lock.bind(this), false);
         this.c.addEventListener('touchstart', this.lock.bind(this), false);
 
@@ -14,7 +12,7 @@ export class SwipeModel {
         if (this.h) {
             this.h.addEventListener('mouseup', this.move.bind(this), false);
             this.h.addEventListener('touchend', this.move.bind(this), false);
-            this.h.addEventListener('mousemove', this.drag.bind(this), false);
+            // this.h.addEventListener('mousemove', this.drag.bind(this), false);
             this.h.addEventListener('touchmove', this.drag.bind(this), false);
         }
     }
@@ -33,10 +31,8 @@ export class SwipeModel {
     drag(e: MouseEvent | TouchEvent) {
         e.preventDefault();
 
-        if (this.x0 || this.x0 === 0) {
-            const num = Math.min(Math.max((this.unify(e).clientX - this.x0) / 20, -4), 4);
-            const root = document.documentElement;
-            root.style.setProperty('--rot', `${num}deg`);
+        if (this.swipeOption.dragEvent) {
+            this.swipeOption.dragEvent(this.x0, this.unify(e).clientX);
         }
     }
 
@@ -45,13 +41,18 @@ export class SwipeModel {
             const dx = this.unify(e).clientX - this.x0;
 
             if (dx > 100) {
-                this.callbackLeft();
+                if (this.swipeOption.callbackLeft) {
+                    this.swipeOption.callbackLeft();
+                }
             } else if (dx < -100) {
-                this.callbackRight();
+                if (this.swipeOption.callbackRight) {
+                    this.swipeOption.callbackRight();
+                }
             }
 
-            const root = document.documentElement;
-            root.style.removeProperty('--rot');
+            if (this.swipeOption.dragStop) {
+                this.swipeOption.dragStop();
+            }
             this.x0 = null;
         }
     }

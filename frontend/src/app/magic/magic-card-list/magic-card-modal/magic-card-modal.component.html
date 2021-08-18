@@ -1,12 +1,15 @@
-<div class="swipable">
-    <ng-container [ngSwitch]="magicCard.layout">
-        <app-magic-card-normal *ngSwitchDefault [magicCard]="magicCard"></app-magic-card-normal>
-        <app-magic-card-meld *ngSwitchCase="'meld'" [magicCard]="magicCard"></app-magic-card-meld>
-        <app-magic-card-transform *ngSwitchCase="'transform'" [magicCard]="magicCard"></app-magic-card-transform>
-        <app-magic-card-transform *ngSwitchCase="'modal_dfc'" [magicCard]="magicCard"></app-magic-card-transform>
-        <app-magic-card-split *ngSwitchCase="'split'" [magicCard]="magicCard"></app-magic-card-split>
-        <app-magic-card-aftermath *ngSwitchCase="'aftermath'" [magicCard]="magicCard"></app-magic-card-aftermath>
-    </ng-container>
+<div class="swipable" #swipable style="min-height: 490px;">
+    <div #cardContainer>
+        <ng-container [ngSwitch]="magicCard.layout">
+            <app-magic-card-normal *ngSwitchDefault [magicCard]="magicCard"></app-magic-card-normal>
+            <app-magic-card-meld *ngSwitchCase="'meld'" [magicCard]="magicCard"></app-magic-card-meld>
+            <app-magic-card-transform *ngSwitchCase="'transform'" [magicCard]="magicCard"></app-magic-card-transform>
+            <app-magic-card-transform *ngSwitchCase="'modal_dfc'" [magicCard]="magicCard"></app-magic-card-transform>
+            <app-magic-card-split *ngSwitchCase="'split'" [magicCard]="magicCard"></app-magic-card-split>
+            <app-magic-card-aftermath *ngSwitchCase="'aftermath'" [magicCard]="magicCard"></app-magic-card-aftermath>
+        </ng-container>
+    </div>
+    
     <div class="flex justify-center" *ngIf="isLoggedIn">
         <div class="inline mx-3 tooltip-w3 text-center">
             <img class="w-10" src="/assets/img/filter/card-single.svg"> {{magicCard.cardAmount}}
