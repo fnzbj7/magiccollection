@@ -17,6 +17,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 - *Uploading cards* page style updated 
 - Changed Card filtering icons in the *Card List* page
+- Changing swipe useage, and in *Card modal* changed animations
 
 ### Fixed
 
