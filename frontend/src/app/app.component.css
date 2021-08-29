@@ -44,7 +44,7 @@
     }
 }
 
-/* -------------- Modal Settings START--------------*/
+/* -------------- Modal Settings START -------------- */
 .hidden {
     display: none;
 }
@@ -59,7 +59,7 @@
     width: 375px;
     background: white;
     text-align: center;
-    box-shadow: 0px 0px 2px 1px black;
+    box-shadow: 0 0 2px 1px black;
     z-index: 100;
     border: 1px solid rgba(0, 0, 0, 0.2);
     border-radius: 0.3rem;
@@ -82,8 +82,8 @@
 
 #overlay {
     position: fixed;
-    top: 0px;
-    left: 0px;
+    top: 0;
+    left: 0;
     z-index: 99;
     background: rgba(0, 0, 0, 0.8);
     width: 100%;
@@ -91,7 +91,8 @@
     opacity: 0;
     transition: opacity 0.15s;
 }
-/* -------------- Modal Settings END--------------*/
+
+/* -------------- Modal Settings END -------------- */
 
 .mat-drawer.mat-sidenav {
     min-width: 80%;

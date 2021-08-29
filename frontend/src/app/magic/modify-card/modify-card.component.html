@@ -28,7 +28,7 @@
         <div class="btn btn-primary my-3" *ngIf="isFinished && !isError" (click)="resetPage()">
             Újabb feltöltés
         </div>
-        <ng-container *ngIf="this.modifyQty > 0">
+        <ng-container *ngIf="isFinished && this.modifyQty > 0">
             <br />
             <button
                 *ngIf="!isNewCardsFinished"
