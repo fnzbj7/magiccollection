@@ -128,12 +128,8 @@ export class ModifyCardComponent implements OnInit, OnDestroy {
     }
 
     resetPage() {
-        // this.inProgress = false;
-        // this.isError = false;
         this.isFinished = false;
         this.actualPageStep = PageStep.FORM;
-        // this.wrongNums = [];
-        // this.notNumbers = [];
         this.isNewCardsLoading = false;
         this.isNewCardsFinished = false;
         this.newCards = null;
