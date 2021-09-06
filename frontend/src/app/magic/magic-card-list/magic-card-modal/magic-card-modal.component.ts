@@ -64,8 +64,14 @@ export class MagicCardModalComponent implements OnInit, AfterViewInit {
     }
 
     dragEvent(x0: number | null, clientX: number) {
-        if (x0 || x0 === 0) {
-            const num = Math.min(Math.max((clientX - x0) / 1, -150), 150);
+        if (x0 === null) {
+            return;
+        }
+        const minLimit = 30;
+        const maxLimit = 150;
+        const actual = clientX - x0;
+        if (actual > minLimit || actual < -minLimit) {
+            const num = Math.min(Math.max(actual, -maxLimit), maxLimit); // Math.min(Math.max(actual / 1, -maxLimit), maxLimit);
             this.cardContainer.nativeElement.style.position = 'relative';
             this.cardContainer.nativeElement.style.left = `${num}px`;
         }

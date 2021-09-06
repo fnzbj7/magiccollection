@@ -1,5 +1,5 @@
 <div class="swipable" #swipable style="min-height: 490px;">
-    <div #cardContainer>
+    <div class="card-container" #cardContainer>
         <ng-container [ngSwitch]="magicCard.layout">
             <app-magic-card-normal *ngSwitchDefault [magicCard]="magicCard"></app-magic-card-normal>
             <app-magic-card-meld *ngSwitchCase="'meld'" [magicCard]="magicCard"></app-magic-card-meld>
