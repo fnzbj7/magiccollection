@@ -10,8 +10,8 @@ export class SwipeModel {
 
         this.h = document.querySelector('body');
         if (this.h) {
-            this.h.addEventListener('mouseup', this.move.bind(this), false);
-            this.h.addEventListener('touchend', this.move.bind(this), false);
+            this.h.addEventListener('mouseup', this.action.bind(this), false);
+            this.h.addEventListener('touchend', this.action.bind(this), false);
             // this.h.addEventListener('mousemove', this.drag.bind(this), false);
             this.h.addEventListener('touchmove', this.drag.bind(this), false);
         }
@@ -36,7 +36,7 @@ export class SwipeModel {
         }
     }
 
-    move(e: MouseEvent | TouchEventInit) {
+    action(e: MouseEvent | TouchEventInit) {
         if (this.x0 || this.x0 === 0) {
             const dx = this.unify(e).clientX - this.x0;
 
