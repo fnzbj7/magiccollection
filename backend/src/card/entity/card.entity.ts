@@ -6,6 +6,7 @@ import {
     ManyToOne,
     OneToMany,
     JoinColumn,
+    RelationId,
 } from 'typeorm';
 import { CardSet } from './card-set.entity';
 import { CardAmount } from './card-amount.entity';
@@ -41,6 +42,9 @@ export class Card extends BaseEntity {
     )
     @JoinColumn({ name: 'unique_card_1' })
     uniqueCard: UniqueCard;
+
+    @RelationId((card: Card) => card.uniqueCard)
+    uniqueCardId: number;
 
     @OneToMany(
         () => CardAmount, // type

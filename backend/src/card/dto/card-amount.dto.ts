@@ -6,4 +6,5 @@ export class CardAmountDto {
     layout: string;
     rarity: string;
     name: string;
+    uniqueCardId: number;
 }

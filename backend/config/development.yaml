@@ -12,7 +12,7 @@ facebook:
     appId: '732644653890540'
 
 log:
-    logLevel: ['log', 'error', 'warn', 'debug', 'verbose']
+    logLevel: ['log', 'error', 'warn', ]  # 'debug', 'verbose'
 
 https: false
 

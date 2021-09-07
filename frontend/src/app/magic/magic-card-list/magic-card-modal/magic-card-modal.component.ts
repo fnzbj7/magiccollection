@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import { HttpClient } from '@angular/common/http';
 import { Component, Input, AfterViewInit, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { AuthenticationService } from 'src/app/auth/authentication.service';
 import { MagicCardModalService } from 'src/app/shared/magic-card-modal.service';
@@ -16,6 +17,7 @@ export class MagicCardModalComponent implements OnInit, AfterViewInit {
     @ViewChild('cardContainer') cardContainer!: ElementRef<HTMLDivElement>;
 
     isLoggedIn!: boolean;
+    otherVersionCards?: Card[];
 
     constructor(
         private authenticationService: AuthenticationService,
@@ -53,6 +55,7 @@ export class MagicCardModalComponent implements OnInit, AfterViewInit {
         const nextMagicCard = this.magicCardModalService.getNextCard();
         if (nextMagicCard) {
             this.magicCard = nextMagicCard;
+            this.otherVersionCards = undefined;
         }
     }
 
@@ -60,6 +63,7 @@ export class MagicCardModalComponent implements OnInit, AfterViewInit {
         const nextMagicCard = this.magicCardModalService.getPreviousCard();
         if (nextMagicCard) {
             this.magicCard = nextMagicCard;
+            this.otherVersionCards = undefined;
         }
     }
 
@@ -80,5 +84,25 @@ export class MagicCardModalComponent implements OnInit, AfterViewInit {
     dragStop() {
         this.cardContainer.nativeElement.style.position = '';
         this.cardContainer.nativeElement.style.left = '';
+    }
+
+    onShowAllVersion() {
+        if (this.magicCard.uniqueCardId) {
+            this.magicCardModalService
+                .getAllVersionForCard(
+                    this.magicCard.uniqueCardId,
+                    this.authenticationService.currentUserValue?.id,
+                )
+                .subscribe(cards => {
+                    console.log({ cards });
+                    this.otherVersionCards = cards.filter(
+                        card =>
+                            !(
+                                card.cardExpansion === this.magicCard.cardExpansion &&
+                                card.cardNumber === this.magicCard.cardNumber
+                            ),
+                    );
+                });
+        }
     }
 }

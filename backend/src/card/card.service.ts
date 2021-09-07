@@ -1,13 +1,16 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Card } from './entity/card.entity';
 import { User } from '../auth/entity/user.entity';
 import { CardRepository } from './card.repository';
 import { CardAmountDto } from './dto/card-amount.dto';
 import { ModifyCardDto } from './dto/add-card.dto';
+import { AllVersionCardDto } from './dto/all-version-card.dto';
 
 @Injectable()
 export class CardService {
+    private logger: Logger = new Logger(CardService.name);
+
     constructor(
         @InjectRepository(CardRepository)
         private cardRepository: CardRepository,
@@ -36,19 +39,47 @@ export class CardService {
         await this.cardRepository.modifySetCard(removeCard, user);
     }
 
+    async getAllVersionForCard(allVersionCardDto: AllVersionCardDto): Promise<CardAmountDto[]> {
+        const { uniqueCardId, userId } = allVersionCardDto;
+        let cardList: Card[];
+        if (userId) {
+            cardList = await this.cardRepository.getAllVersionForCardWithUser(uniqueCardId, userId);
+        } else {
+            cardList = await this.cardRepository.getAllVersionForCard(uniqueCardId);
+        }
+
+        return this.convertToCardAmountDto(cardList);
+    }
+
+    async getAllVersionForCardWithUser(uniqueCardId: number): Promise<CardAmountDto[]> {
+        const cardList = await this.cardRepository.getAllVersionForCard(uniqueCardId);
+        return this.convertToCardAmountDto(cardList);
+    }
+
     private convertToCardAmountDto(cardList: Card[]): CardAmountDto[] {
+        this.logger.debug({ cardList });
         const cardAmountDtoList: CardAmountDto[] = [];
         for (const card of cardList) {
-            const cardAmountDto = new CardAmountDto();
-            cardAmountDto.cardExpansion = card.cardSet.shortName;
-            cardAmountDto.cardNumber = this.pad(card.cardNumber, 3);
+            const {
+                layout,
+                rarity,
+                name,
+                cardNumber,
+                uniqueCardId,
+                cardSet: { shortName: cardExpansion },
+            } = card;
             const { cardAmount, cardAmountFoil } = this.getCardAmount(card);
-            cardAmountDto.cardAmount = cardAmount;
-            cardAmountDto.cardAmountFoil = cardAmountFoil;
-            cardAmountDto.layout = card.layout;
-            cardAmountDto.rarity = card.rarity;
-            cardAmountDto.name = card.name;
-            cardAmountDtoList.push(cardAmountDto);
+
+            cardAmountDtoList.push({
+                cardExpansion,
+                cardAmount,
+                cardAmountFoil,
+                layout,
+                rarity,
+                name,
+                uniqueCardId,
+                cardNumber: ('' + cardNumber).padStart(3, '0'),
+            });
         }
 
         return cardAmountDtoList;

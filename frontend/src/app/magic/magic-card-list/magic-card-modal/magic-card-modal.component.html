@@ -20,5 +20,27 @@
             <span class="top left tooltiptext-w3">Foil kártya</span>
         </div>
     </div>
+    <div *ngIf="magicCard.uniqueCardId && !otherVersionCards">
+        <button class="btn btn-primary" (click)="onShowAllVersion()">További nyomtatások</button>
+    </div>
+    <ng-container *ngIf="otherVersionCards">
+        <div *ngIf="otherVersionCards.length === 0">Nincs másik nyomtatás ebből a kártyából</div>
+        <div class="clear-both" *ngFor="let otherVersion of otherVersionCards">
+            <div class="float-left ml-4">
+                <img class="setIcon max-w-none" src="assets/img/set-icons/{{otherVersion.cardExpansion.toLowerCase()}}.svg" alt="">
+                {{otherVersion.cardNumber}}
+            </div>
+            <div class="float-right flex justify-center" *ngIf="isLoggedIn">
+                <div class="inline mx-3 tooltip-w3 text-center">
+                    <img class="w-10" src="/assets/img/filter/card-single.svg"> {{otherVersion.cardAmount}}
+                    <span class="top right tooltiptext-w3">Normál kártya</span>
+                </div>
+                <div class="inline mx-3 tooltip-w3 text-center">
+                    <img class="w-10" src="/assets/img/filter/card-single-foil.svg"> {{otherVersion.cardAmountFoil}}
+                    <span class="top left tooltiptext-w3">Foil kártya</span>
+                </div>
+            </div>
+        </div>
+    </ng-container>
 </div>
 

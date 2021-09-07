@@ -1,10 +1,21 @@
-import { Controller, Get, Post, Param, UseGuards, Body, Logger } from '@nestjs/common';
+import {
+    Controller,
+    Get,
+    Post,
+    Param,
+    UseGuards,
+    Body,
+    Logger,
+    Query,
+    ValidationPipe,
+} from '@nestjs/common';
 import { CardService } from './card.service';
 import { AuthGuard } from '@nestjs/passport';
 import { GetUser } from '../auth/get-user.decorator';
 import { User } from '../auth/entity/user.entity';
 import { ModifyCardDto } from './dto/add-card.dto';
 import { CardAmountDto } from './dto/card-amount.dto';
+import { AllVersionCardDto } from './dto/all-version-card.dto';
 
 @Controller('card')
 export class CardController {
@@ -47,5 +58,13 @@ export class CardController {
     @UseGuards(AuthGuard())
     async removeCard(@Body() removeCard: ModifyCardDto, @GetUser() user: User): Promise<void> {
         await this.cardService.removeCard(removeCard, user);
+    }
+
+    @Get('/all-version')
+    async getAllVersionForCard(
+        @Query(new ValidationPipe()) allVersionCardDto: AllVersionCardDto,
+    ): Promise<CardAmountDto[]> {
+        this.logger.log({ allVersionCardDto, a: '' + allVersionCardDto.uniqueCardId == '' });
+        return await this.cardService.getAllVersionForCard(allVersionCardDto);
     }
 }
