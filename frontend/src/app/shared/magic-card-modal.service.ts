@@ -1,4 +1,6 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable, Type } from '@angular/core';
+import { Observable } from 'rxjs';
 import { Card } from '../model/card.model';
 import { ModalService } from './modal.service';
 
@@ -7,7 +9,7 @@ export class MagicCardModalService {
     actualMagicCard?: Card;
     magicCardList?: Card[];
 
-    constructor(private modalService: ModalService) {}
+    constructor(private modalService: ModalService, private http: HttpClient) {}
 
     createMagicCardModal<T>(component: Type<T>, magicCard: Card) {
         this.actualMagicCard = magicCard;
@@ -56,6 +58,14 @@ export class MagicCardModalService {
         this.actualMagicCard = this.magicCardList[index - 1];
 
         return this.actualMagicCard;
+    }
+
+    getAllVersionForCard(uniqueCardId: number, userId: number | undefined): Observable<Card[]> {
+        let params: { uniqueCardId: number; userId?: number } = { uniqueCardId };
+        if (userId) {
+            params = { ...params, userId };
+        }
+        return this.http.get<Card[]>('/api/card/all-version', { params });
     }
 
     private checkErrorOrGetIndex(): number | null {

@@ -6,6 +6,7 @@ export class Card {
     layout!: CardLayout;
     name!: string;
     rarity!: string;
+    uniqueCardId?: number;
 }
 
 export enum CardLayout {

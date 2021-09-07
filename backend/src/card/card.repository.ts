@@ -46,6 +46,26 @@ export class CardRepository extends Repository<Card> {
         this.addCardsToDb(userCards, modifyCard.cardQuantitys, userId);
     }
 
+    async getAllVersionForCardWithUser(uniqueCardId: number, userId: number): Promise<Card[]> {
+        return this.createQueryBuilder('t_card')
+            .innerJoinAndSelect('t_card.cardSet', 't_cardSet')
+            .leftJoinAndSelect(
+                't_card.cardAmount',
+                't_cardAmount',
+                't_cardAmount.user_1 = :userId',
+                { userId },
+            )
+            .where('t_card.unique_card_1 = :uniqueCardId', { uniqueCardId })
+            .getMany();
+    }
+
+    async getAllVersionForCard(uniqueCardId: number): Promise<Card[]> {
+        return this.createQueryBuilder('t_card')
+            .innerJoinAndSelect('t_card.cardSet', 't_cardSet')
+            .where('t_card.unique_card_1 = :uniqueCardId', { uniqueCardId })
+            .getMany();
+    }
+
     /**
      * Check if there is more than one from the same card number
      * @param modifyCard

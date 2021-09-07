@@ -10,7 +10,7 @@ async function bootstrap() {
     const log: any = config.get('log');
     const logger = new Logger('Bootstrap');
 
-    let options: any = { logger: log.LogLevel };
+    let options: any = { logger: log.logLevel };
 
     if (config.get('https')) {
         // eslint-disable-next-line @typescript-eslint/no-var-requires
