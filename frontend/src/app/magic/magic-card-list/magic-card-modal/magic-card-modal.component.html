@@ -26,7 +26,7 @@
     <ng-container *ngIf="otherVersionCards">
         <div *ngIf="otherVersionCards.length === 0">Nincs másik nyomtatás ebből a kártyából</div>
         <div class="clear-both" *ngFor="let otherVersion of otherVersionCards">
-            <div class="float-left ml-4">
+            <div class="float-left ml-4" (click)="onChangeVersion(otherVersion)">
                 <img class="setIcon max-w-none" src="assets/img/set-icons/{{otherVersion.cardExpansion.toLowerCase()}}.svg" alt="">
                 {{otherVersion.cardNumber}}
             </div>

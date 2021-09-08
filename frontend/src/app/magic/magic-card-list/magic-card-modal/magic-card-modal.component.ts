@@ -18,6 +18,7 @@ export class MagicCardModalComponent implements OnInit, AfterViewInit {
 
     isLoggedIn!: boolean;
     otherVersionCards?: Card[];
+    allVerions!: Card[];
 
     constructor(
         private authenticationService: AuthenticationService,
@@ -94,7 +95,8 @@ export class MagicCardModalComponent implements OnInit, AfterViewInit {
                     this.authenticationService.currentUserValue?.id,
                 )
                 .subscribe(cards => {
-                    console.log({ cards });
+                    this.allVerions = cards;
+
                     this.otherVersionCards = cards.filter(
                         card =>
                             !(
@@ -104,5 +106,16 @@ export class MagicCardModalComponent implements OnInit, AfterViewInit {
                     );
                 });
         }
+    }
+
+    onChangeVersion(changeVersion: Card) {
+        this.magicCard = changeVersion;
+        this.otherVersionCards = this.allVerions.filter(
+            card =>
+                !(
+                    card.cardExpansion === this.magicCard.cardExpansion &&
+                    card.cardNumber === this.magicCard.cardNumber
+                ),
+        );
     }
 }
