@@ -8,6 +8,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ### Added
 
+- Added Mid cards
+
+## [1.4.0] - 2021-09-12
+
+### Added
+
 - Card Modals can show all versions of a card
 - Added AFR cards
 - Now you can share card list page url
