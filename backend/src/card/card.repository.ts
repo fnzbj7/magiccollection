@@ -43,7 +43,7 @@ export class CardRepository extends Repository<Card> {
         this.checkCardNumberValidity(modifyCard.cardQuantitys, lastCard.cardNumber);
 
         const userCards = await this.getCardsForSaving(modifyCard, userId);
-        this.addCardsToDb(userCards, modifyCard.cardQuantitys, userId);
+        await this.addCardsToDb(userCards, modifyCard.cardQuantitys, userId);
     }
 
     async getAllVersionForCardWithUser(uniqueCardId: number, userId: number): Promise<Card[]> {
@@ -167,8 +167,12 @@ export class CardRepository extends Repository<Card> {
      * @param cardQuantitys The new cards
      * @param userId
      */
-    private addCardsToDb(userCards: DbAddCard[], cardQuantitys: CardQuantity[], userId: number) {
-        userCards.forEach(async userCard => {
+    private async addCardsToDb(
+        userCards: DbAddCard[],
+        cardQuantitys: CardQuantity[],
+        userId: number,
+    ) {
+        for (const userCard of userCards) {
             const newAddCard = cardQuantitys.find(card => card.cardNumber === userCard.cardNumber);
             if (userCard.cardAmountId) {
                 await this.updateCardAmount(
@@ -185,7 +189,7 @@ export class CardRepository extends Repository<Card> {
                     userId,
                 );
             }
-        });
+        }
     }
 
     /**
