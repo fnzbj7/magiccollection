@@ -8,6 +8,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ### Added
 
+- Added Vow cards
+
+## [1.5.0] - 2021-11-08
+
+### Added
+
 - Added Mid cards
 
 ## [1.4.0] - 2021-09-12
