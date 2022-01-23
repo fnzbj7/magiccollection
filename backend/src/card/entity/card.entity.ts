@@ -11,6 +11,7 @@ import {
 import { CardSet } from './card-set.entity';
 import { CardAmount } from './card-amount.entity';
 import { UniqueCard } from './unique-card.entity';
+import { PossibleCardVariation } from './possible-card-variation.entity';
 
 @Entity()
 export class Card extends BaseEntity {
@@ -51,4 +52,10 @@ export class Card extends BaseEntity {
         cardAmount => cardAmount.card,
     )
     cardAmount: CardAmount[];
+
+    @OneToMany(
+        () => PossibleCardVariation, // type
+        possibleCardVariation => possibleCardVariation.card,
+    )
+    possibleCardVariation: PossibleCardVariation[];
 }
