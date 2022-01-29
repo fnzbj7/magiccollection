@@ -22,6 +22,7 @@
     "typeorm:generate": "node --require ts-node/register node_modules/typeorm/cli.js migration:generate -n migrationNameSe",
     "typeorm:create": "node --require ts-node/register node_modules/typeorm/cli.js migration:create -n ",
     "typeorm:migration-run": "node --require ts-node/register node_modules/typeorm/cli.js migration:run",
+    "typeorm:migration:revert": "node --require ts-node/register node_modules/typeorm/cli.js migration:revert",
     "nest:update": "nest update -f -t latest"
   },
   "dependencies": {
