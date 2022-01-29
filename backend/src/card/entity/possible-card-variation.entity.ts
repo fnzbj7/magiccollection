@@ -35,6 +35,6 @@ export class PossibleCardVariation extends BaseEntity {
         () => Card, // type
         card => card.possibleCardVariation,
     )
-    @JoinColumn({ name: 'possible_card_variation_1' })
+    @JoinColumn({ name: 'card_1' })
     card: Card;
 }
