@@ -1,4 +1,5 @@
 import { InsertResult, MigrationInterface, QueryRunner } from 'typeorm';
+import { CardAmount } from '../card/entity/card-amount.entity';
 import { CardSet } from '../card/entity/card-set.entity';
 import { Card } from '../card/entity/card.entity';
 import { UniqueCard } from '../card/entity/unique-card.entity';
@@ -3631,18 +3632,19 @@ export class addingNeo1644416596464 implements MigrationInterface {
     public async down(queryRunner: QueryRunner): Promise<void> {
         // Get the card set id
         const shortname = 'NEO';
-        const cardSet = await queryRunner.manager
-            .getRepository(CardSet)
-            .createQueryBuilder('cardset')
-            .where('cardset.short_name = :shortname', { shortname })
-            .getOne();
+        const cardSet = await queryRunner.manager.getRepository<CardSet>(CardSet).findOne({
+            where: { shortName: shortname },
+        });
 
-        await queryRunner.manager
-            .createQueryBuilder()
-            .delete()
-            .from('card_amount')
-            .where('card_set_1 = :cardsetid', { cardsetid: cardSet.id })
-            .execute();
+        const deletableCardAmounts: CardAmount[] = await queryRunner.manager
+            .createQueryBuilder<CardAmount>(CardAmount, 'ca')
+            .innerJoin('card', 'card')
+            .where('card.card_set_1 = :cardsetid', { cardsetid: cardSet.id })
+            .getMany();
+
+        if (deletableCardAmounts.length > 0) {
+            await queryRunner.manager.delete<CardAmount>(CardAmount, deletableCardAmounts);
+        }
 
         await queryRunner.manager
             .createQueryBuilder()
