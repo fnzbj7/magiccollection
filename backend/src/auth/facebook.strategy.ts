@@ -5,7 +5,7 @@ import { UserRepository } from './user.repository';
 import { InjectRepository } from '@nestjs/typeorm';
 import * as config from 'config';
 
-@Injectable()
+// @Injectable()
 export class FacebookStrategy {
     constructor(
         @InjectRepository(UserRepository)
