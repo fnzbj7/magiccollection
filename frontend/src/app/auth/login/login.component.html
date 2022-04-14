@@ -16,7 +16,7 @@
           Rossz jelszó
         </span>
       </div>
-      <button [disabled]="loading" class="btn btn-primary">Belépés</button><br>
+      <button [disabled]="loading" class="btn btn-primary mt-3">Belépés</button><br>
       <p class="full-line my-4"><span>Social</span></p>
       <button (click)="onFacebookLogin()" class="btn btn-primary mt-2">
         <fa-icon
@@ -27,5 +27,5 @@
 </div>
 
 <div class="modal-body mt-4">
-  Nincs accountod? <a [routerLink]="'/auth/reg'">Regisztrálj!</a>
+  Nincs accountod? <a [routerLink]="'/auth/reg'" class="text-blue-500 hover:text-blue-700">Regisztrálj!</a>
 </div>

@@ -9,6 +9,7 @@ export class MagicCardAmountDirective implements OnChanges {
         cardAmount: 0,
         cardAmountFoil: 0,
         isLoggedIn: false,
+        forceShowAmount: false,
     };
     @Input() onlyShow = false;
     amountImg!: HTMLImageElement;
@@ -31,9 +32,10 @@ export class MagicCardAmountDirective implements OnChanges {
     }
 
     changeIconsIfNeeded(magicCardAmount: MagicCardAmount, changes: SimpleChanges) {
-        const { cardAmount, cardAmountFoil, isLoggedIn } = magicCardAmount;
+        const { cardAmount, cardAmountFoil, isLoggedIn, forceShowAmount } = magicCardAmount;
         const { previousValue, firstChange } = changes.appMagicCardAmount;
-        const needToChange = this.amountIconVisible !== isLoggedIn;
+        const needToChange =
+            this.amountIconVisible !== isLoggedIn || (forceShowAmount && !this.amountIconVisible);
         const cardImg: HTMLPictureElement = this.elRef.nativeElement;
 
         if (!needToChange) {

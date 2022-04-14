@@ -15,6 +15,7 @@
     <ng-container *ngIf="!isRaw">
         <app-magic-card
             [magicCard]="card"
+            [forceShowAmount]="true"
             *ngFor="let card of cards"
         ></app-magic-card>
     </ng-container>

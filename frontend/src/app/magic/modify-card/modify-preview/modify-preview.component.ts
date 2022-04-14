@@ -26,8 +26,8 @@ export class ModifyPreviewComponent implements OnChanges {
         this.cards = modify.cardQuantitys.map(x => ({
             cardExpansion: modify.setShortName,
             cardNumber: ('' + x.cardNumber).padStart(3, '0'),
-            cardAmount: x.cardQuantity > 0 ? x.cardQuantity : x.cardQuantity * -1,
-            cardAmountFoil: x.cardQuantityFoil > 0 ? x.cardQuantityFoil : x.cardQuantityFoil * -1,
+            cardAmount: x.cardQuantity >= 0 ? x.cardQuantity : x.cardQuantity * -1,
+            cardAmountFoil: x.cardQuantityFoil >= 0 ? x.cardQuantityFoil : x.cardQuantityFoil * -1,
             layout: CardLayout.NORMAL,
             rarity: 'C',
             name: 'Not relevant',
