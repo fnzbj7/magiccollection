@@ -9,6 +9,7 @@ import { Card, CardLayout } from '../../model/card.model';
 import { CardWithFoil } from './dto/foil.dto';
 import { AfterFinishForm } from './modify-form/model/after-finish-form.model';
 import { AuthenticationService } from 'src/app/auth/authentication.service';
+import { CardQuantity } from './dto/card-quantity.model';
 
 enum PageStep {
     FORM = 'from',
@@ -53,7 +54,6 @@ export class ModifyCardComponent implements OnInit, OnDestroy {
     }
 
     onFormFinish(event: AfterFinishForm) {
-        console.log(event);
         this.reducedArr = event.reducedArr;
         this.rawCardNumbers = event.rawCardNumbers;
         this.actualPageStep = PageStep.PREVIEW;
@@ -86,44 +86,66 @@ export class ModifyCardComponent implements OnInit, OnDestroy {
                 this.isNewCardsFinished = true;
                 this.isNewCardsLoading = false;
                 // Compare to the uploaded cards
-                if (this.reducedArr && this.reducedArr.cardQuantitys) {
-                    const filteredNewCards = this.reducedArr.cardQuantitys.filter(x => {
-                        const foundCard = cards.find(
-                            card => card.cardNumber && +card.cardNumber === x.cardNumber,
+                const cardQuantitys = this.reducedArr.cardQuantitys;
+                const filteredNewCards = cardQuantitys.filter(x => {
+                    const foundCard = cards.find(
+                        card => card.cardNumber && +card.cardNumber === x.cardNumber,
+                    );
+
+                    if (!foundCard) {
+                        return !false;
+                    }
+
+                    const priorityList = [
+                        { upload: x.cardQuantityFoil, have: foundCard.cardAmountFoil },
+                        { upload: x.cardQuantity, have: foundCard.cardAmount },
+                    ];
+
+                    for (const priority of priorityList) {
+                        // if upload and have both 0, then skip
+                        if (priority.upload < priority.have) {
+                            return false;
+                        }
+                        if (priority.upload > 0 && priority.upload === priority.have) {
+                            return true;
+                        }
+                    }
+                    return false;
+                });
+
+                const reducedCards = this.rawCardNumbers.reduce(
+                    (reduceValue: CardQuantity[], currValue: CardWithFoil) => {
+                        const isProcessed = reduceValue.find(
+                            f => f.cardNumber === currValue.cardNum,
                         );
-
-                        if (!foundCard) {
-                            return !false;
-                        }
-
-                        const priorityList = [
-                            { upload: x.cardQuantityFoil, have: foundCard.cardAmountFoil },
-                            { upload: x.cardQuantity, have: foundCard.cardAmount },
-                        ];
-
-                        for (const priority of priorityList) {
-                            // if upload and have both 0, then skip
-                            if (priority.upload < priority.have) {
-                                return false;
-                            }
-                            if (priority.upload > 0 && priority.upload === priority.have) {
-                                return true;
+                        const found = filteredNewCards.find(
+                            f => f.cardNumber === currValue.cardNum,
+                        );
+                        if (isProcessed || !found) {
+                            return reduceValue;
+                        } else {
+                            if (currValue.isFoil) {
+                                reduceValue.push(found);
+                            } else if (!currValue.isFoil && found.cardQuantityFoil === 0) {
+                                reduceValue.push(found);
                             }
                         }
-                        return false;
-                    });
 
-                    // Creating an array from the new cards
-                    this.newCards = filteredNewCards.map(x => {
-                        const card = new Card();
-                        card.cardAmount = x.cardQuantity;
-                        card.cardAmountFoil = x.cardQuantityFoil;
-                        card.cardExpansion = this.cardSet;
-                        card.cardNumber = ('' + x.cardNumber).padStart(3, '0');
-                        card.layout = CardLayout.NORMAL;
-                        return card;
-                    });
-                }
+                        return reduceValue;
+                    },
+                    [],
+                );
+
+                // Creating an array from the new cards
+                this.newCards = reducedCards.map(x => {
+                    const card = new Card();
+                    card.cardAmount = x.cardQuantity;
+                    card.cardAmountFoil = x.cardQuantityFoil;
+                    card.cardExpansion = this.cardSet;
+                    card.cardNumber = ('' + x.cardNumber).padStart(3, '0');
+                    card.layout = CardLayout.NORMAL;
+                    return card;
+                });
             });
     }
 

@@ -14,6 +14,7 @@ import { MagicCardModalService } from 'src/app/shared/magic-card-modal.service';
 })
 export class MagicCardComponent implements OnChanges {
     @Input() userId: string | undefined = undefined;
+    @Input() forceShowAmount = false;
     @Input() magicCard!: Card;
     @Input() onlyShow = false;
     card!: Card;
@@ -31,6 +32,7 @@ export class MagicCardComponent implements OnChanges {
                 isLoggedIn: this.userId ? true : false,
                 cardAmount: this.card.cardAmount,
                 cardAmountFoil: this.card.cardAmountFoil,
+                forceShowAmount: this.forceShowAmount,
             };
             this.setImgUrls(this.card.cardExpansion, this.card.cardNumber);
         }
