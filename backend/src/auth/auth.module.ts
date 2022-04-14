@@ -21,7 +21,7 @@ import { PrivilegeRepository } from './repository/privilege.repository';
             },
         }),
     ],
-    providers: [AuthService, JwtStrategy, FacebookStrategy],
+    providers: [AuthService, JwtStrategy],
     exports: [JwtStrategy, PassportModule],
 })
 export class AuthModule {}

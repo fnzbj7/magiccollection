@@ -25,7 +25,7 @@ export class AuthController {
         return this.authService.singIn(authCredentialsDto);
     }
 
-    @UseGuards(AuthGuard('facebook-token'))
+    // @UseGuards(AuthGuard('facebook-token'))
     @Get('facebook')
     async getTokenAfterFacebookSignIn(@GetUser() user: User) {
         return this.authService.singInWithUser(user);
