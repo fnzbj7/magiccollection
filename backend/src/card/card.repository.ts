@@ -6,6 +6,8 @@ import { BadRequestException, Logger } from '@nestjs/common';
 import { CardAmount } from './entity/card-amount.entity';
 import { DbAddCard } from './dto/db-add-card.model';
 import { CardQuantity } from './dto/card-quantity.model';
+import { PossibleCardVariation } from './entity/possible-card-variation.entity';
+import { CardVariation } from './entity/card-variation.entity';
 
 @EntityRepository(Card)
 export class CardRepository extends Repository<Card> {
@@ -37,13 +39,58 @@ export class CardRepository extends Repository<Card> {
         this.logger.verbose(
             `Method modifySetCard starting. ModifyCardDto: ${JSON.stringify(modifyCard)}`,
         );
-        const userId = user.id;
+        const { id: userId } = user;
+        const { setShortName, cardQuantitys } = modifyCard;
+
         this.checkCardUniqueness(modifyCard);
-        const lastCard = await this.getLastCardFromSet(modifyCard.setShortName);
-        this.checkCardNumberValidity(modifyCard.cardQuantitys, lastCard.cardNumber);
+        const lastCard = await this.getLastCardFromSet(setShortName);
+        this.checkCardNumberValidity(cardQuantitys, lastCard.cardNumber);
+
+        // Megnézni, hogy az adott kártyából van-e olyan típus
+        const pCardVariations = await this.getAllPossibleVariationForCardSet(setShortName, userId);
+        await this.checkPossibleCardVariations(pCardVariations, cardQuantitys, setShortName);
 
         const userCards = await this.getCardsForSaving(modifyCard, userId);
-        await this.addCardsToDb(userCards, modifyCard.cardQuantitys, userId);
+        await this.addCardsToDb(userCards, pCardVariations, modifyCard.cardQuantitys, userId);
+    }
+
+    async checkPossibleCardVariations(
+        pCardVariations: PossibleCardVariation[],
+        cardQuantitys: CardQuantity[],
+        setShortName: string,
+    ) {
+        for (const cardQuantity of cardQuantitys) {
+            const pCardVariation = pCardVariations.find(pcv => {
+                return (
+                    cardQuantity.cardNumber === pcv.card.cardNumber &&
+                    cardQuantity.type === pcv.cardVariantType
+                );
+            });
+
+            if (!pCardVariation) {
+                throw new Error(
+                    `Not existing card variation. CardSet: ${setShortName}, ` +
+                        `CardNumber: ${cardQuantity.cardNumber}, CardVariantType: ${cardQuantity.type}`,
+                );
+            }
+        }
+    }
+
+    async getAllPossibleVariationForCardSet(
+        setShortName: string,
+        userId: number,
+    ): Promise<PossibleCardVariation[]> {
+        return await this.manager
+            .createQueryBuilder<PossibleCardVariation>(PossibleCardVariation, 'pcv')
+            .innerJoinAndSelect('pcv.card', 'c')
+            .innerJoin('c.cardSet', 'cs')
+            .leftJoinAndSelect('pcv.cardVariation', 'cv')
+            .leftJoin('cv.cardAmount', 'ca')
+            .where('cs.short_name = :setShortName and (ca.user_1 is NULL or ca.user_1 = :userId)', {
+                setShortName,
+                userId,
+            })
+            .getMany();
     }
 
     async getAllVersionForCardWithUser(uniqueCardId: number, userId: number): Promise<Card[]> {
@@ -169,11 +216,20 @@ export class CardRepository extends Repository<Card> {
      */
     private async addCardsToDb(
         userCards: DbAddCard[],
+        pCardVariations: PossibleCardVariation[],
         cardQuantitys: CardQuantity[],
         userId: number,
     ) {
         for (const userCard of userCards) {
             const newAddCard = cardQuantitys.find(card => card.cardNumber === userCard.cardNumber);
+            const pCardVariation = pCardVariations.find(pcv => {
+                return (
+                    newAddCard.cardNumber === pcv.card.cardNumber &&
+                    newAddCard.type === pcv.cardVariantType
+                );
+            }); // There can only 1 element
+            const cardVariation = pCardVariation.cardVariation[0];
+
             if (userCard.cardAmountId) {
                 await this.updateCardAmount(
                     userCard,
@@ -181,15 +237,56 @@ export class CardRepository extends Repository<Card> {
                     newAddCard.cardQuantityFoil,
                     userId,
                 );
+
+                if (!cardVariation) {
+                    await this.insertCardVariation(
+                        userCard.cardAmountId,
+                        pCardVariation,
+                        newAddCard,
+                    );
+                } else {
+                    await this.updateCardVariation(cardVariation, newAddCard);
+                }
             } else {
-                await this.insertCardAmount(
+                const cardAmount = await this.insertCardAmount(
                     userCard.cardId,
                     newAddCard.cardQuantity,
                     newAddCard.cardQuantityFoil,
                     userId,
                 );
+                this.insertCardVariation(cardAmount.id, pCardVariation, newAddCard);
             }
         }
+    }
+
+    private async updateCardVariation(cardVariation: CardVariation, cardQuantitys: CardQuantity) {
+        const updateCardVariantAmount: any = {};
+        updateCardVariantAmount['n' + cardQuantitys.language] =
+            cardVariation['n' + cardQuantitys.language] + cardQuantitys.cardQuantity;
+        updateCardVariantAmount['f' + cardQuantitys.language] =
+            cardVariation['f' + cardQuantitys.language] + cardQuantitys.cardQuantityFoil;
+
+        await this.manager.update<CardVariation>(
+            CardVariation,
+            { id: cardVariation.id },
+            updateCardVariantAmount,
+        );
+    }
+
+    private async insertCardVariation(
+        cardAmountId: number,
+        pCardVariation: PossibleCardVariation,
+        cardQuantitys: CardQuantity,
+    ) {
+        const insertCardVariation = this.manager.create<CardVariation>(CardVariation);
+        const cardAmount = this.manager.create<CardAmount>(CardAmount);
+        cardAmount.id = cardAmountId;
+        insertCardVariation.cardAmount = cardAmount;
+        insertCardVariation.possibleCardVariation = pCardVariation;
+        insertCardVariation['n' + cardQuantitys.language] = cardQuantitys.cardQuantity;
+        insertCardVariation['f' + cardQuantitys.language] = cardQuantitys.cardQuantityFoil;
+
+        await this.manager.save<CardVariation>(insertCardVariation);
     }
 
     /**
@@ -203,18 +300,20 @@ export class CardRepository extends Repository<Card> {
         cardQuantity: number,
         cardQuantityFoil: number,
         userId: number,
-    ) {
+    ): Promise<CardAmount> {
         cardQuantity = cardQuantity > 0 ? cardQuantity : -1 * cardQuantity;
         const insertCardAmount = new CardAmount();
         insertCardAmount.amount = cardQuantity;
         insertCardAmount.foilAmount = cardQuantityFoil;
         insertCardAmount.userId = userId;
         insertCardAmount.cardId = cardId;
-        await insertCardAmount.save();
+        const cardAmount = await insertCardAmount.save();
         this.logger.verbose(
             `Save card amount with is ${insertCardAmount.id} with ${cardQuantity} quantity and ` +
                 ` ${cardQuantityFoil} foil quantity for userId ${userId} and CardId ${cardId}`,
         );
+
+        return cardAmount;
     }
 
     /**
