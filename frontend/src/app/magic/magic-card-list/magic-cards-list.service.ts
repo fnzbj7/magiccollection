@@ -57,6 +57,14 @@ export class MagicCardsListService {
 
     cardSetsArray: string[] = this.magicSetArray.map(magicSet => magicSet.name);
 
+    cardVariantTypes = ['normal', 'etched', 'prerelease', 'stamped', 'list'];
+
+    cardLanguages: string[] = [
+        'En',
+        'Jp',
+        // TODO kiegészíteni a listát
+    ];
+
     yearBlocks: MagicSetYearBlock[] = this.getMagicSetYearBlocks(this.magicSetArray);
 
     constructor(private http: HttpClient, private authService: AuthenticationService) {

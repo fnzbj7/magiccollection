@@ -27,6 +27,10 @@ export class ModifyFormComponent implements OnInit, OnDestroy {
     lastCardPreview?: Card;
     param$!: Subscription;
     cardSetsArray!: string[];
+    cardVariantTypes!: string[];
+    cardVariantType!: string;
+    cardLanguages!: string[];
+    cardLanguage!: string;
 
     constructor(
         private modifyCardService: ModifyCardService,
@@ -36,7 +40,12 @@ export class ModifyFormComponent implements OnInit, OnDestroy {
 
     ngOnInit(): void {
         this.cardSetsArray = this.magicCardsListService.cardSetsArray;
+        this.cardVariantTypes = this.magicCardsListService.cardVariantTypes;
+        this.cardLanguages = this.magicCardsListService.cardLanguages;
+
         this.cardSet = this.cardSetsArray[0];
+        this.cardVariantType = this.cardVariantTypes[0];
+        this.cardLanguage = this.cardLanguages[0];
 
         this.param$ = this.route.params.subscribe(() => {
             this.modifyQty = +this.route.snapshot.data.modifyQty;
@@ -133,6 +142,8 @@ export class ModifyFormComponent implements OnInit, OnDestroy {
                     cardNumber: cardWithFoil.cardNum,
                     cardQuantity: cardWithFoil.isFoil ? 0 : this.modifyQty,
                     cardQuantityFoil: cardWithFoil.isFoil ? this.modifyQty : 0,
+                    language: this.cardLanguage,
+                    type: this.cardVariantType,
                 });
             }
             return addCard;
