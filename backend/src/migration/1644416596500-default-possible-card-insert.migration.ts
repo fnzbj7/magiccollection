@@ -9,20 +9,12 @@ export class defaultPossibleCardInsert1643458833698 implements MigrationInterfac
     name = 'DefaultPossibleCardInsert1644416596500';
 
     public async up(queryRunner: QueryRunner): Promise<void> {
-        // TODO megkapni az összes card-ot és hozzárendelni egy possible card-ot
         const cards: Card[] = await queryRunner.manager
             .getRepository<Card>(Card)
             .createQueryBuilder('card')
             .select()
             .leftJoinAndSelect('card.cardAmount', 'cardAmount')
             .getMany();
-
-        // const cards: Card[] = await queryRunner.manager
-        //     .createQueryBuilder<Card>('Card', 'a')
-        //     .select()
-        //     .leftJoin('CardAmount', 'ca', 'a.in = ca.card_1')
-        //     .relation('cardAmount')
-        //     .loadMany()
 
         const insertDefaultPossibleCards: PossibleCardVariation[] = [];
         cards.forEach(card => {
@@ -36,9 +28,6 @@ export class defaultPossibleCardInsert1643458833698 implements MigrationInterfac
             insertDefaultPossibleCards.push(defaultPossibleCard);
         });
 
-        // console.log(cards);
-
-        // TODO for loop
         await queryRunner.manager
             .getRepository<PossibleCardVariation>(PossibleCardVariation)
             .insert(insertDefaultPossibleCards);
