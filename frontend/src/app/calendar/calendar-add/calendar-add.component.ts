@@ -1,7 +1,7 @@
 import { Component, OnInit, OnChanges, OnDestroy } from '@angular/core';
 import { CalendarEvent } from '../calendar-list/model/calendar-event.model';
 import { CalendarService } from '../calendar.service';
-import { NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
+// import { NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
 import { faCalendarAlt, faTimesCircle, faCheckCircle } from '@fortawesome/free-solid-svg-icons';
 import { ActivatedRoute } from '@angular/router';
 
@@ -16,7 +16,7 @@ export class CalendarAddComponent implements OnInit, OnDestroy {
     calendarEvent: CalendarEvent = new CalendarEvent(); // TODO kell ide ez az init?
     originalCalendarEvent!: CalendarEvent | null;
     time!: { hour: number; minute: number };
-    model?: NgbDateStruct;
+    // model?: NgbDateStruct;
     isSubmitted = false;
     finished = false;
 
@@ -39,12 +39,12 @@ export class CalendarAddComponent implements OnInit, OnDestroy {
                 if (this.originalCalendarEvent !== null) {
                     this.calendarEvent = { ...this.originalCalendarEvent };
                 }
-                this.model = {
-                    year: this.calendarEvent.eventStart.getFullYear(),
-                    month: this.calendarEvent.eventStart.getMonth() + 1,
-                    day: this.calendarEvent.eventStart.getDate(),
-                };
-                console.log(this.model);
+                // this.model = {
+                //     year: this.calendarEvent.eventStart.getFullYear(),
+                //     month: this.calendarEvent.eventStart.getMonth() + 1,
+                //     day: this.calendarEvent.eventStart.getDate(),
+                // };
+                // console.log(this.model);
                 this.isInit = false;
             } else {
                 expansionId = +expansionId;
@@ -59,11 +59,11 @@ export class CalendarAddComponent implements OnInit, OnDestroy {
                         }
                         this.originalCalendarEvent = foundedCalendarEvent;
                         this.calendarEvent = { ...this.originalCalendarEvent };
-                        this.model = {
-                            year: this.calendarEvent.eventStart.getFullYear(),
-                            month: this.calendarEvent.eventStart.getMonth() + 1,
-                            day: this.calendarEvent.eventStart.getDate(),
-                        };
+                        // this.model = {
+                        //     year: this.calendarEvent.eventStart.getFullYear(),
+                        //     month: this.calendarEvent.eventStart.getMonth() + 1,
+                        //     day: this.calendarEvent.eventStart.getDate(),
+                        // };
                         this.isInit = false;
                     });
             }
@@ -92,11 +92,11 @@ export class CalendarAddComponent implements OnInit, OnDestroy {
             ...this.calendarEvent,
             ...this.time,
         };
-        if (this.model != null) {
-            this.calendarEvent.eventStart = new Date(
-                `${this.model.year}-${this.model.month}-${this.model.day}`,
-            );
-        }
+        // if (this.model != null) {
+        //     this.calendarEvent.eventStart = new Date(
+        //         `${this.model.year}-${this.model.month}-${this.model.day}`,
+        //     );
+        // }
         console.log(this.calendarEvent);
         if (this.isCalendarEventValid(this.calendarEvent)) {
             if (this.calendarEvent.id) {

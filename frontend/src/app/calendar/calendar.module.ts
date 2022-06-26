@@ -8,7 +8,7 @@ import { EventDetailsComponent } from './calendar-list/event-details/event-detai
 import { SharedModule } from '../shared/shared.module';
 import { CalendarAddComponent } from './calendar-add/calendar-add.component';
 import { FormsModule } from '@angular/forms';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+// import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TimepickerComponent } from '../shared/timepicker/timepicker.component';
 
 @NgModule({
@@ -19,6 +19,6 @@ import { TimepickerComponent } from '../shared/timepicker/timepicker.component';
         CalendarAddComponent,
         TimepickerComponent,
     ],
-    imports: [CommonModule, CalendarRoutingModule, SharedModule, FormsModule, NgbModule],
+    imports: [CommonModule, CalendarRoutingModule, SharedModule, FormsModule /*, NgbModule*/],
 })
 export class CalendarModule {}
