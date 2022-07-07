@@ -42,7 +42,6 @@ import { NgbDatepickerConfig } from './datepicker-config';
 import { isString } from '../util/util';
 import { Subject } from 'rxjs';
 import { addPopperOffset } from '../util/positioning-util';
-import { HasEventTargetAddRemove } from 'rxjs/internal/observable/fromEvent';
 
 /**
  * A directive that allows to stick a datepicker popup to an input field.
@@ -86,14 +85,14 @@ export class NgbInputDatepicker implements OnChanges, OnDestroy, ControlValueAcc
      *
      * @since 3.0.0
      */
-    @Input() autoClose: boolean | 'inside' | 'outside';
+    @Input() autoClose!: boolean | 'inside' | 'outside';
 
     /**
      * An optional class applied to the datepicker popup element.
      *
      * @since 9.1.0
      */
-    @Input() datepickerClass: string;
+    @Input() datepickerClass!: string;
 
     /**
      * The reference to a custom template for the day.
@@ -390,7 +389,7 @@ export class NgbInputDatepicker implements OnChanges, OnDestroy, ControlValueAcc
             if (this.container === 'body') {
                 this._document
                     .querySelector(this.container)
-                    .appendChild(this._cRef.location.nativeElement);
+                    ?.appendChild(this._cRef.location.nativeElement);
             }
 
             // focus handling
@@ -400,7 +399,7 @@ export class NgbInputDatepicker implements OnChanges, OnDestroy, ControlValueAcc
 
             let hostElement: HTMLElement;
             if (isString(this.positionTarget)) {
-                hostElement = this._document.querySelector(this.positionTarget);
+                hostElement = this._document.querySelector(this.positionTarget) as HTMLElement;
             } else if (this.positionTarget instanceof HTMLElement) {
                 hostElement = this.positionTarget;
             } else {
@@ -502,8 +501,8 @@ export class NgbInputDatepicker implements OnChanges, OnDestroy, ControlValueAcc
             this._validatorChange();
 
             if (this.isOpen()) {
-                if (changes.minDate) {
-                    this._cRef?.instance.minDate = this.minDate;
+                if (changes.minDate && this._cRef) {
+                    this._cRef.instance.minDate = this.minDate;
                 }
                 if (changes.maxDate) {
                     this._cRef!.instance.maxDate = this.maxDate;

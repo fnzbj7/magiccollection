@@ -328,7 +328,7 @@ export class NgbDatepicker
     private _defaultDayTemplate!: TemplateRef<DayTemplateContext>;
     @ViewChild('content', { static: true }) private _contentEl!: ElementRef<HTMLElement>;
 
-    model: DatepickerViewModel;
+    model!: DatepickerViewModel;
 
     private _controlValue: NgbDate | null = null;
     private _destroyed$ = new Subject<void>();
@@ -496,8 +496,8 @@ export class NgbDatepicker
                     filter(
                         ({ target, relatedTarget }) =>
                             !(
-                                hasClassName(target, 'ngb-dp-day') &&
-                                hasClassName(relatedTarget, 'ngb-dp-day') &&
+                                hasClassName(target as HTMLElement, 'ngb-dp-day') &&
+                                hasClassName(relatedTarget as HTMLElement, 'ngb-dp-day') &&
                                 nativeElement.contains(target as Node) &&
                                 nativeElement.contains(relatedTarget as Node)
                             ),
@@ -527,7 +527,11 @@ export class NgbDatepicker
                 'maxDate',
                 'outsideDays',
                 'weekdays',
-            ].forEach(name => (inputs[name] = this[name]));
+            ].forEach(
+                name =>
+                    (inputs[name as keyof DatepickerServiceInputs] =
+                        this[name as keyof NgbDatepicker]),
+            );
             this._service.set(inputs);
 
             this.navigateTo(this.startDate);
@@ -549,9 +553,13 @@ export class NgbDatepicker
             'maxDate',
             'outsideDays',
             'weekdays',
-        ] as (keyof typeof NgbDatepicker)[];
-        // .filter(name => name in changes)
-        // .forEach(name => inputs[name] = this[name]);
+        ]
+            .filter(name => name in changes)
+            .forEach(
+                name =>
+                    (inputs[name as keyof DatepickerServiceInputs] =
+                        this[name as keyof NgbDatepicker]),
+            );
         this._service.set(inputs);
 
         if ('startDate' in changes) {
