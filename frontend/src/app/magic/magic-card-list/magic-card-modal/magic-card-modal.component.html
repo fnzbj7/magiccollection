@@ -10,7 +10,7 @@
         </ng-container>
     </div>
     
-    <div class="flex justify-center" *ngIf="isLoggedIn">
+    <div class="flex justify-center" *ngIf="isLoggedIn && !otherVersionCards">
         <div class="inline mx-3 tooltip-w3 text-center">
             <img class="w-10" src="/assets/img/filter/card-single.svg"> {{magicCard.cardAmount}}
             <span class="top right tooltiptext-w3">Normál kártya</span>
@@ -24,22 +24,25 @@
         <button class="btn btn-primary" (click)="onShowAllVersion()">További nyomtatások</button>
     </div>
     <ng-container *ngIf="otherVersionCards">
-        <div *ngIf="otherVersionCards.length === 0">Nincs másik nyomtatás ebből a kártyából</div>
-        <div class="clear-both" *ngFor="let otherVersion of otherVersionCards">
-            <div class="float-left ml-4" (click)="onChangeVersion(otherVersion)">
-                <img class="setIcon max-w-none" src="assets/img/set-icons/{{otherVersion.cardExpansion.toLowerCase()}}.svg" alt="">
-                {{otherVersion.cardNumber}}
+        <!-- <div *ngIf="otherVersionCards.length === 0">Nincs másik nyomtatás ebből a kártyából</div> -->
+        <div class="flex justify-center card-version" *ngFor="let otherVersion of allVerions" [ngClass]="{'selected-version': otherVersion.cardExpansion === magicCard.cardExpansion && otherVersion.cardNumber === magicCard.cardNumber}">
+            <div class="mr-5 w-16 flex flex-col" (click)="onChangeVersion(otherVersion)">
+                <img class="setIcon h-54px max-w-none" src="assets/img/set-icons/{{otherVersion.cardExpansion.toLowerCase()}}.svg" alt="">
+                <span>{{otherVersion.cardNumber}}</span>
             </div>
-            <div class="float-right flex justify-center" *ngIf="isLoggedIn">
+            <div class="flex justify-center" *ngIf="isLoggedIn">
                 <div class="inline mx-3 tooltip-w3 text-center">
-                    <img class="w-10" src="/assets/img/filter/card-single.svg"> {{otherVersion.cardAmount}}
+                    <img class="w-10" src="/assets/img/filter/card-single.svg">
+                    <span>{{otherVersion.cardAmount}}</span>
                     <span class="top right tooltiptext-w3">Normál kártya</span>
                 </div>
                 <div class="inline mx-3 tooltip-w3 text-center">
-                    <img class="w-10" src="/assets/img/filter/card-single-foil.svg"> {{otherVersion.cardAmountFoil}}
+                    <img class="w-10" src="/assets/img/filter/card-single-foil.svg">
+                    <span>{{otherVersion.cardAmountFoil}}</span>
                     <span class="top left tooltiptext-w3">Foil kártya</span>
                 </div>
             </div>
+            <div class="clear-both"></div>
         </div>
     </ng-container>
 </div>

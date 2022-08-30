@@ -47,3 +47,17 @@
 .card-container {
     left: 0;
 }
+
+.card-version {
+    padding: 2px;
+}
+
+.selected-version {
+    border: 2px solid black;
+    padding: 0;
+    background-color: rgba(1, 1, 1, 0.1);
+}
+
+.h-54px {
+    height: 54px;
+}
