@@ -1,7 +1,7 @@
 import { Component, OnInit, OnChanges, OnDestroy } from '@angular/core';
 import { CalendarEvent } from '../calendar-list/model/calendar-event.model';
 import { CalendarService } from '../calendar.service';
-import { NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
+// import { NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
 import { faCalendarAlt, faTimesCircle, faCheckCircle } from '@fortawesome/free-solid-svg-icons';
 import { ActivatedRoute } from '@angular/router';
 
@@ -16,7 +16,7 @@ export class CalendarAddComponent implements OnInit, OnDestroy {
     calendarEvent: CalendarEvent = new CalendarEvent(); // TODO kell ide ez az init?
     originalCalendarEvent!: CalendarEvent | null;
     time!: { hour: number; minute: number };
-    model?: NgbDateStruct;
+    model?: { year: number; month: number; day: number };
     isSubmitted = false;
     finished = false;
 
