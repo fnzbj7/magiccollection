@@ -16,6 +16,7 @@ import { User } from '../auth/entity/user.entity';
 import { ModifyCardDto } from './dto/add-card.dto';
 import { CardAmountDto } from './dto/card-amount.dto';
 import { AllVersionCardDto } from './dto/all-version-card.dto';
+import { CardVariantType } from './entity/card-variant-type.enum';
 
 @Controller('card')
 export class CardController {
@@ -67,4 +68,19 @@ export class CardController {
         this.logger.log({ allVersionCardDto, a: '' + allVersionCardDto.uniqueCardId == '' });
         return await this.cardService.getAllVersionForCard(allVersionCardDto);
     }
+
+    @Post('/add-posible-card-variation')
+    @UseGuards(AuthGuard())
+    async addPosibleCardVariation(
+        @Body() addPosibleCardVariationDto: AddPosibleCardVariationDto,
+    ): Promise<void> {
+        await this.cardService.addPosibleCardVariation(addPosibleCardVariationDto);
+    }
+}
+
+export interface AddPosibleCardVariationDto {
+    cardVariantType: CardVariantType;
+    cardId: number;
+    hasNormal: boolean;
+    hasFoil: boolean;
 }
