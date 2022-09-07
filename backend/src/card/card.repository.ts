@@ -73,6 +73,26 @@ export class CardRepository extends Repository<Card> {
                         `CardNumber: ${cardQuantity.cardNumber}, CardVariantType: ${cardQuantity.type}`,
                 );
             }
+
+            if (
+                !pCardVariation.hasFoil &&
+                (cardQuantity.cardQuantityFoil || cardQuantity.cardQuantityFoil > 0)
+            ) {
+                throw new Error(
+                    `Can't add Foil card for this card with this variation ` +
+                        `[CardSet: ${setShortName}, cardNum: ${cardQuantity.cardNumber}, cardVariation: ${pCardVariation.cardVariantType}]`,
+                );
+            }
+
+            if (
+                !pCardVariation.hasNormal &&
+                (cardQuantity.cardQuantity || cardQuantity.cardQuantity > 0)
+            ) {
+                throw new Error(
+                    `Can't add Normal card for this card with this variation ` +
+                        `[CardSet: ${setShortName}, cardNum: ${cardQuantity.cardNumber}, cardVariation: ${pCardVariation.cardVariantType}]`,
+                );
+            }
         }
     }
 
