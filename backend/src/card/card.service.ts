@@ -133,10 +133,4 @@ export class CardService {
                 card.cardAmount && card.cardAmount[0] ? card.cardAmount[0].foilAmount : 0,
         };
     }
-
-    private pad(text: string | number, width: number, z?: string) {
-        z = z || '0';
-        text = text + '';
-        return text.length >= width ? text : new Array(width - text.length + 1).join(z) + text;
-    }
 }
