@@ -1,0 +1,38 @@
+<div class="container bg-white pb-5">
+    Szia
+    <div>
+        <label for="cars">Choose a Set:</label>
+        <select name="cars" id="cars">
+            <option *ngFor="let b of magicSets" [value]="b.name">{{b.name}}</option>
+        </select>
+    </div>
+    <div>
+        <label for="cars">Choose a CardNumber:</label>
+        <select name="cars" id="cars">
+            <option value="volvo">Volvo</option>
+            <option value="saab">Saab</option>
+            <option value="mercedes">Mercedes</option>
+            <option value="audi">Audi</option>
+        </select>
+    </div>
+    Ide a kártya képét
+
+    Ez majd egy másik box-ba
+    <div>
+        <label for="cars">Válassz típust:</label>
+        <select name="cars" id="cars">
+            <option value="volvo">Volvo</option>
+            <option value="saab">Saab</option>
+            <option value="mercedes">Mercedes</option>
+            <option value="audi">Audi</option>
+        </select>
+    </div>
+    <div>
+        <label for="normal">Van normál verziója?</label>
+        <input type="checkbox" name="normal" />
+    </div>
+    <div>
+        <label for="foil">Van foil verziója?</label>
+        <input type="checkbox" name="foil" />
+    </div>
+</div>

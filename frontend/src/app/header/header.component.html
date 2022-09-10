@@ -8,7 +8,7 @@
             routerLinkActive="active"
             [routerLinkActiveOptions]="{ exact: menu.exact }"
             *ngIf="needToShow(menu.showMenu)">
-            <a class="nav-link" [routerLink]="[menu.link]">{{menu.name}}</a>
+            <a class="nav-link" [routerLink]="menu.link.split('/')">{{menu.name}}</a>
             </li>
         </ng-container>
         <li class="nav-item">
