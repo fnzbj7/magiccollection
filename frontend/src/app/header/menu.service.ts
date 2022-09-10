@@ -18,8 +18,8 @@ export class MenuService {
     constructor() {
         this.menus = [
             new MenuElement('', 'Home', ShowMenu.ALWAYS, true, faHome),
-            new MenuElement('cards/list', 'Cards', ShowMenu.LOGOUT, false, faWizardsOfTheCoast),
-            new MenuElement('cards/list', 'My Cards', ShowMenu.LOGIN, false, faWizardsOfTheCoast),
+            new MenuElement('cards/list/', 'Cards', ShowMenu.LOGOUT, false, faWizardsOfTheCoast),
+            new MenuElement('cards/list/', 'My Cards', ShowMenu.LOGIN, false, faWizardsOfTheCoast),
             new MenuElement('calendar', 'Calendar', ShowMenu.ALWAYS, false, faCalendarAlt),
             new MenuElement('cards/addcards', 'Add Cards', ShowMenu.LOGIN, false, faPlus),
             new MenuElement('cards/removecards', 'Remove Cards', ShowMenu.LOGIN, false, faMinus),

@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { AuthGuard } from '../auth/auth.guard';
+import { CardCariationComponent } from './card-variation/card-variation.component';
 import { MagicCardListContainerComponent } from './magic-card-list/magic-card-list-container/magic-card-list-container.component';
 import { ModifyCardComponent } from './modify-card/modify-card.component';
 
@@ -25,6 +26,12 @@ const routes: Routes = [
         pathMatch: 'full',
         data: { modifyQty: -1 },
         canActivate: [AuthGuard],
+    },
+    {
+        path: 'cardvariation',
+        component: CardCariationComponent,
+        pathMatch: 'full',
+        // canActivate: [AuthGuard],
     },
 ];
 

@@ -19,7 +19,7 @@
         class="mr-4 d-inline-block"
         style="width: 20px;"
         ></fa-icon>
-        <a class="nav-link d-inline" [routerLink]="[menu.link]">{{menu.name}}</a>
+        <a class="nav-link d-inline" [routerLink]="menu.link.split('/')">{{menu.name}}</a>
         </li>
     </ng-container>
     <ng-container *ngIf="loggedUser">
