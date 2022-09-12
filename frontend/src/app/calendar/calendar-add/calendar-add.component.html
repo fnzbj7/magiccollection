@@ -44,7 +44,7 @@
         <div class="clearfix"></div>
         <small *ngIf="isSubmitted && !time.hour" class="form-text text-muted">Töltsed ki az időpontot</small>
         <div class="mt-4">
-            <input type="submit" [value]="calendarEvent?.id ? 'Verseny módosítása' : 'Verseny létrehozása'" class="btn btn-primary" (click)="submitCalendar()">
+            <input type="submit" [value]="calendarEvent.id ? 'Verseny módosítása' : 'Verseny létrehozása'" class="btn btn-primary" (click)="submitCalendar()">
             <div routerLink="/calendar" class="btn btn-outline-secondary ml-2">Vissza</div>
         </div>
     </ng-container>

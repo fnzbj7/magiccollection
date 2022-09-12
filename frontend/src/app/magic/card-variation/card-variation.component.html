@@ -2,20 +2,26 @@
     Szia
     <div>
         <label for="cars">Choose a Set:</label>
-        <select name="cars" id="cars">
+        <select name="cars" id="cars" [ngModel]="cardSet" (ngModelChange)="onCardSetChange($event)">
+            <option value=""></option>
             <option *ngFor="let b of magicSets" [value]="b.name">{{b.name}}</option>
         </select>
     </div>
     <div>
         <label for="cars">Choose a CardNumber:</label>
-        <select name="cars" id="cars">
-            <option value="volvo">Volvo</option>
-            <option value="saab">Saab</option>
-            <option value="mercedes">Mercedes</option>
-            <option value="audi">Audi</option>
+        <select [disabled]="!maxCardNum" name="cars" id="cars" [ngModel]="selectedCardNum" (ngModelChange)="onCardNumChange($event)">
+            <option value=""></option>
+            <ng-container *ngIf="maxCardNum">
+                <option *ngFor="let a of Arr(maxCardNum).fill(1); let i = index" [value]="i+1">{{i+1}}</option>
+            </ng-container>
         </select>
     </div>
-    Ide a kártya képét
+    <div>
+        <ul class="mx-2" *ngIf="cardPreview">
+            <app-magic-card [magicCard]="cardPreview" [onlyShow]="true"></app-magic-card>
+            <br style="clear: both" />
+        </ul>
+    </div>
 
     Ez majd egy másik box-ba
     <div>
