@@ -113,6 +113,21 @@ export class CardRepository extends Repository<Card> {
             .getMany();
     }
 
+    async getAllPossibleVariation(
+        setShortName: string,
+        cardNumber: number,
+    ): Promise<PossibleCardVariation[]> {
+        return await this.manager
+            .createQueryBuilder<PossibleCardVariation>(PossibleCardVariation, 'pcv')
+            .innerJoin('pcv.card', 'c')
+            .innerJoin('c.cardSet', 'cs')
+            .where('cs.short_name = :setShortName and c.card_number = :cardNumber', {
+                setShortName,
+                cardNumber,
+            })
+            .getMany();
+    }
+
     async getAllVersionForCardWithUser(uniqueCardId: number, userId: number): Promise<Card[]> {
         return this.createQueryBuilder('t_card')
             .innerJoinAndSelect('t_card.cardSet', 't_cardSet')

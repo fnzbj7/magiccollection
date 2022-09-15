@@ -8,6 +8,8 @@ import { ModifyCardDto } from './dto/add-card.dto';
 import { AllVersionCardDto } from './dto/all-version-card.dto';
 import { AddPosibleCardVariationDto } from './card.controller';
 import { PossibleCardVariation } from './entity/possible-card-variation.entity';
+import { AllVersionCardForUserDto } from './dto/all-version-card-for-user.dto';
+import { PossibleCardVariationDto } from './dto/possible-card-variation.dto';
 
 @Injectable()
 export class CardService {
@@ -41,7 +43,9 @@ export class CardService {
         await this.cardRepository.modifySetCard(removeCard, user);
     }
 
-    async getAllVersionForCard(allVersionCardDto: AllVersionCardDto): Promise<CardAmountDto[]> {
+    async getAllVersionForUser(
+        allVersionCardDto: AllVersionCardForUserDto,
+    ): Promise<CardAmountDto[]> {
         const { uniqueCardId, userId } = allVersionCardDto;
         let cardList: Card[];
         if (userId) {
@@ -51,6 +55,12 @@ export class CardService {
         }
 
         return this.convertToCardAmountDto(cardList);
+    }
+
+    async getAllVersion(allVersionCardDto: AllVersionCardDto): Promise<PossibleCardVariationDto[]> {
+        const { cardSet, cardNum } = allVersionCardDto;
+
+        return await this.cardRepository.getAllPossibleVariation(cardSet, cardNum);
     }
 
     async getAllVersionForCardWithUser(uniqueCardId: number): Promise<CardAmountDto[]> {

@@ -65,7 +65,7 @@ export class MagicCardModalService {
         if (userId) {
             params = { ...params, userId };
         }
-        return this.http.get<Card[]>('/api/card/all-version', { params });
+        return this.http.get<Card[]>('/api/card/all-version-for-user', { params });
     }
 
     private checkErrorOrGetIndex(): number | null {
