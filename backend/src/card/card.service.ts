@@ -57,7 +57,7 @@ export class CardService {
         return this.convertToCardAmountDto(cardList);
     }
 
-    async getAllVersion(allVersionCardDto: AllVersionCardDto): Promise<PossibleCardVariationDto[]> {
+    async getAllVersion(allVersionCardDto: AllVersionCardDto): Promise<Card> {
         const { cardSet, cardNum } = allVersionCardDto;
 
         return await this.cardRepository.getAllPossibleVariation(cardSet, cardNum);

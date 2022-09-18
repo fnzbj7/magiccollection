@@ -18,7 +18,7 @@ import { CardAmountDto } from './dto/card-amount.dto';
 import { AllVersionCardDto } from './dto/all-version-card.dto';
 import { CardVariantType } from './entity/card-variant-type.enum';
 import { AllVersionCardForUserDto } from './dto/all-version-card-for-user.dto';
-import { PossibleCardVariationDto } from './dto/possible-card-variation.dto';
+import { Card } from './entity/card.entity';
 
 @Controller('card')
 export class CardController {
@@ -72,9 +72,7 @@ export class CardController {
     }
 
     @Get('/all-version')
-    async getAllVersionForCard2(
-        @Query() allVersionCardDto: AllVersionCardDto,
-    ): Promise<PossibleCardVariationDto[]> {
+    async getAllVersionForCard2(@Query() allVersionCardDto: AllVersionCardDto): Promise<Card> {
         return await this.cardService.getAllVersion(allVersionCardDto);
     }
 

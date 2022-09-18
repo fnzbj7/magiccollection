@@ -129,6 +129,20 @@ export class MagicCardsListService {
         return cardUrls;
     }
 
+    getAllVersionForCard(cardSet: string, cardNum: number) {
+        return this.http.get<{ id: number; possibleCardVariation: PossibleCardVariationDto[] }>(
+            '/api/card/all-version',
+            { params: { cardNum, cardSet } },
+        );
+    }
+
+    addPosibleCardVariationDto(addPosibleCardVariationDto: AddPosibleCardVariationDto) {
+        return this.http.post<void>(
+            '/api/card/add-posible-card-variation',
+            addPosibleCardVariationDto,
+        );
+    }
+
     private getMagicSetYearBlocks(magicSetArray: MagicSet[]): MagicSetYearBlock[] {
         return magicSetArray.reduce(this.callbackMagicSetYearBlock, [] as MagicSetYearBlock[]);
     }
@@ -149,4 +163,26 @@ export class MagicCardsListService {
         }
         return previouseMagicSetYearBlock;
     }
+}
+
+export interface PossibleCardVariationDto {
+    id: number;
+    cardVariantType: CardVariantType;
+    hasNormal: boolean;
+    hasFoil: boolean;
+}
+
+export enum CardVariantType {
+    NORMAL = 'normal',
+    ETCHED = 'etched',
+    PRERELEASE = 'prerelease',
+    STAMPED = 'stamped',
+    LIST = 'list',
+}
+
+export interface AddPosibleCardVariationDto {
+    cardVariantType: CardVariantType;
+    cardId: number;
+    hasNormal: boolean;
+    hasFoil: boolean;
 }
