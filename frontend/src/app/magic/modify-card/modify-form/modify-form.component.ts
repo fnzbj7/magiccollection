@@ -75,10 +75,16 @@ export class ModifyFormComponent implements OnInit, OnDestroy {
 
         if (Number.isNaN(lastNum)) {
             console.warn(`${lastNum} nem egy szám!`);
+            this.lastCardPreview = undefined;
             return;
         }
 
         this.lastCardPreview = this.createLastCard(lastNum, lastNumStr);
+    }
+
+    onSetChange(value: string) {
+        this.cardSet = value;
+        this.onCardTyping();
     }
 
     ngOnDestroy() {
@@ -167,6 +173,8 @@ export class ModifyFormComponent implements OnInit, OnDestroy {
     }
 
     private isSpaceLastBtnPress(cardNumbersStr: string) {
-        return cardNumbersStr.substr(cardNumbersStr.length - 1) === ' ';
+        return cardNumbersStr.slice(cardNumbersStr.length - 1, cardNumbersStr.length) === ' ';
+
+        // str.slice(beginIndex, endIndex)
     }
 }
