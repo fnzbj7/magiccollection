@@ -1,50 +1,75 @@
-<div class="container bg-white pb-5">
-    <div>
-        <label for="cars">Choose a Set:</label>
-        <select name="cars" id="cars" [ngModel]="cardSet" (ngModelChange)="onCardSetChange($event)">
-            <option value=""></option>
-            <option *ngFor="let b of magicSets" [value]="b.name">{{b.name}}</option>
-        </select>
-    </div>
-    <div>
-        <label for="cars">Choose a CardNumber:</label>
-        <select [disabled]="!maxCardNum" name="cars" id="cars" [ngModel]="selectedCardNum" (ngModelChange)="onCardNumChange($event)">
-            <option value=""></option>
-            <ng-container *ngIf="maxCardNum">
-                <option *ngFor="let a of Arr(maxCardNum).fill(1); let i = index" [value]="i+1">{{i+1}}</option>
-            </ng-container>
-        </select>
-    </div>
-    <div>
-        <ul class="mx-2" *ngIf="cardPreview">
-            <app-magic-card [magicCard]="cardPreview" [onlyShow]="true"></app-magic-card>
-            <br style="clear: both" />
-        </ul>
-    </div>
-    <ng-container *ngIf="possibleArr">
-        <div *ngFor="let poss of possibleArr">
-            {{possStrFormat(poss)}}
+<div class="container w-full max-w-xs">
+    <div class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 w-96">
+        <div class=" mb-6">
+            <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="card-set">Choose a Set:</label>
+            <div class="relative">
+                <select name="card-set" id="card-set" [ngModel]="cardSet" (ngModelChange)="onCardSetChange($event)" class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
+                    <option value=""></option>
+                    <option *ngFor="let b of magicSets" [value]="b.name">{{b.name}}</option>
+                </select>
+                <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+                    <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>
+                </div>
+            </div>
         </div>
-    </ng-container>
-    
+        <div class="mb-6">
+            <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="card-num">CardNumber</label>
+            <div class="relative">
+                <select [disabled]="!maxCardNum" name="card-num" id="card-num" [ngModel]="selectedCardNum" (ngModelChange)="onCardNumChange($event)" class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
+                    <option value=""></option>
+                    <ng-container *ngIf="maxCardNum">
+                        <option *ngFor="let a of Arr(maxCardNum).fill(1); let i = index" [value]="i+1">{{i+1}}</option>
+                    </ng-container>
+                </select>
+                <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+                    <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>
+                </div>
+            </div>
+        </div>
+        <div class="my-3">
+            <ul class="mx-auto" style="width:fit-content;" *ngIf="cardPreview">
+                <app-magic-card [magicCard]="cardPreview" [onlyShow]="true"></app-magic-card>
+                <br style="clear: both" />
+            </ul>
+        </div>
+        <ng-container *ngIf="possibleArr">
+            <div *ngFor="let poss of possibleArr">
+                {{possStrFormat(poss)}}
+            </div>
+        </ng-container>
+        
 
-    <ng-container *ngIf="selectedCardNum && cardSet">
-        Ez majd egy másik box-ba
-        <div>
-            <label for="cardVariantTypes">Válassz típust:</label>
-            <select name="cardVariantTypes" id="cardVariantTypes" [(ngModel)]="cardVariantType">
-                <option *ngFor="let type of cardVariantTypes" [value]="type">{{type}}</option>
-            </select>
-        </div>
-        <div>
-            <label for="normal">Van normál verziója?</label>
-            <input type="checkbox" name="normal" [(ngModel)]="hasNormal"/>
-        </div>
-        <div>
-            <label for="foil">Van foil verziója?</label>
-            <input type="checkbox" name="foil" [(ngModel)]="hasFoil"/>
-        </div>
-        <button [disabled]="creationLoading" class="btn btn-primary" (click)="onAddPosibleCardVariation()">Küldés</button>
-    </ng-container>
+        <ng-container *ngIf="selectedCardNum && cardSet">
+            <hr  class="my-3">
+            <div>
+                <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="cardVariantTypes">Válassz típust:</label>
+                <div class="relative">
+                    <select name="cardVariantTypes" id="cardVariantTypes" [(ngModel)]="cardVariantType" class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
+                        <option *ngFor="let type of cardVariantTypes" [value]="type">{{type}}</option>
+                    </select>
+                    <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+                        <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>
+                    </div>
+                </div>
+            </div>
+            <div class="md:flex md:items-center my-2">
+                <label class="md:w-2/3 block text-gray-500 font-bold">
+                  <input class="mr-2 leading-tight" type="checkbox" [(ngModel)]="hasNormal">
+                  <span class="text-sm">
+                    Van normál verziója?
+                  </span>
+                </label>
+            </div>
+            <div class="md:flex md:items-center mb-6">
+                <label class="md:w-2/3 block text-gray-500 font-bold">
+                  <input class="mr-2 leading-tight" type="checkbox" [(ngModel)]="hasFoil">
+                  <span class="text-sm">
+                    Van foil verziója?
+                  </span>
+                </label>
+            </div>
+            <button [disabled]="creationLoading" class="btn btn-primary" (click)="onAddPosibleCardVariation()">Küldés</button>
+        </ng-container>
+    </div>
     
 </div>
