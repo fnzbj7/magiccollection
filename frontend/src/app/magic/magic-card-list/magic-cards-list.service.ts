@@ -1,4 +1,4 @@
-import { Card } from '../../model/card.model';
+import { Card, CardColor } from '../../model/card.model';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, Subject, BehaviorSubject } from 'rxjs';
@@ -13,13 +13,16 @@ import { MagicSetYearBlock } from './model/magic-set-year-block.model';
 
 @Injectable({ providedIn: 'root' })
 export class MagicCardsListService {
-    filterArray: string[] = [
+    rarityFilterArr: string[] = [
         CardRarity.Common,
         CardRarity.Uncommon,
         CardRarity.Rare,
         CardRarity.Mythic,
     ];
-    filterChange = new Subject<FilterChange>();
+    rarityFilterChange = new Subject<FilterChange>();
+
+    colorFilterArr: string[] = [CardColor.WHITE, CardColor.BLUE];
+    colorFilterChange = new Subject<FilterChange>();
     quantityFilterSub = new BehaviorSubject<QuantityFilterEnum>(QuantityFilterEnum.ALL);
     cardImgUrlBase: string;
 
@@ -91,20 +94,39 @@ export class MagicCardsListService {
         return this.http.get<Card[]>(url);
     }
 
-    getfilterArray(): string[] {
-        return [...this.filterArray];
+    getRarityFilterArray(): string[] {
+        return [...this.rarityFilterArr];
+    }
+
+    getColorFilterArray(): string[] {
+        return [...this.colorFilterArr];
     }
 
     changeRarityFilter(filterChangeName: string, filterChangeTo: boolean) {
-        const isInFilterArray = this.filterArray.includes(filterChangeName);
+        const isInFilterArray = this.rarityFilterArr.includes(filterChangeName);
         if (isInFilterArray !== filterChangeTo) {
             if (isInFilterArray) {
-                this.filterArray.splice(this.filterArray.indexOf(filterChangeName), 1);
+                this.rarityFilterArr.splice(this.rarityFilterArr.indexOf(filterChangeName), 1);
             } else {
-                this.filterArray.push(filterChangeName);
+                this.rarityFilterArr.push(filterChangeName);
             }
         }
-        this.filterChange.next({
+        this.rarityFilterChange.next({
+            changedTo: filterChangeTo,
+            changeName: filterChangeName,
+        });
+    }
+
+    changeColorFilter(filterChangeName: string, filterChangeTo: boolean) {
+        const isInFilterArray = this.colorFilterArr.includes(filterChangeName);
+        if (isInFilterArray !== filterChangeTo) {
+            if (isInFilterArray) {
+                this.colorFilterArr.splice(this.colorFilterArr.indexOf(filterChangeName), 1);
+            } else {
+                this.colorFilterArr.push(filterChangeName);
+            }
+        }
+        this.colorFilterChange.next({
             changedTo: filterChangeTo,
             changeName: filterChangeName,
         });

@@ -38,6 +38,7 @@ export class MagicCardListComponent implements OnInit, AfterViewInit, OnDestroy 
     routerChangeSub!: Subscription;
     quantityFilterSub!: Subscription;
     rarityFilterSub!: Subscription;
+    colorFilterSub!: Subscription;
     lastPageNum!: number;
     userId: string | undefined;
     user: User | null | undefined = undefined;
@@ -104,13 +105,21 @@ export class MagicCardListComponent implements OnInit, AfterViewInit, OnDestroy 
                 }
             });
 
-        this.rarityFilterSub = this.magicCardsListService.filterChange.subscribe(_rarityFilter => {
+        this.rarityFilterSub = this.magicCardsListService.rarityFilterChange.subscribe(
+            _rarityFilter => {
+                this.filterCards();
+            },
+        );
+
+        this.quantityFilterSub = this.magicCardsListService.quantityFilterSub.subscribe(_x => {
             this.filterCards();
         });
 
-        this.quantityFilterSub = this.magicCardsListService.quantityFilterSub.subscribe(x => {
-            this.filterCards();
-        });
+        this.colorFilterSub = this.magicCardsListService.colorFilterChange.subscribe(
+            _colorFilter => {
+                this.filterCards();
+            },
+        );
     }
 
     ngAfterViewInit(): void {
@@ -182,7 +191,12 @@ export class MagicCardListComponent implements OnInit, AfterViewInit, OnDestroy 
         }
 
         this.filteredCardsArray = this.cardsArray.filter(card =>
-            this.magicCardsListService.getfilterArray().includes(card.rarity),
+            this.magicCardsListService.getRarityFilterArray().includes(card.rarity),
+        );
+
+        this.filteredCardsArray = this.cardsArray.filter(card =>
+            // TODO
+            this.magicCardsListService.getColorFilterArray().includes(card.colors),
         );
 
         switch (this.magicCardsListService.quantityFilterSub.value) {

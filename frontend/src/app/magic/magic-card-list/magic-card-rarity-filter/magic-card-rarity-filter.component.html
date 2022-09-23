@@ -23,6 +23,11 @@
     </ng-container>
   </span>
 </div>
+
+<ul class="rarity-filter d-inline-block">
+  <li class="filter-element" (click)="onChangeColorFilter('W', !isWhite)" [ngClass]="{'active': isWhite}">W</li>
+  <li class="filter-element" (click)="onChangeColorFilter('U', !isBlue)" [ngClass]="{'active': isBlue}">U</li>
+</ul>
 <div class="quantity-block ml-4 d-inline-block" *ngIf="isAuth">
     <div class="d-inline-block tooltip-w3 pointer">
       <img src="/assets/img/filter/card-all.svg" (click)="onChangeRadio(quantityEnum.ALL)" [ngClass]="{ 'selected' : quantityFilter === quantityEnum.ALL}" class="quantity-img">

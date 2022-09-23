@@ -5,6 +5,8 @@ export class CardAmountDto {
     cardAmountFoil: number;
     layout: string;
     rarity: string;
+    types: string;
+    colors: string;
     name: string;
     uniqueCardId: number;
 }

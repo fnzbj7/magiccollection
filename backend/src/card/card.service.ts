@@ -9,7 +9,6 @@ import { AllVersionCardDto } from './dto/all-version-card.dto';
 import { AddPosibleCardVariationDto } from './card.controller';
 import { PossibleCardVariation } from './entity/possible-card-variation.entity';
 import { AllVersionCardForUserDto } from './dto/all-version-card-for-user.dto';
-import { PossibleCardVariationDto } from './dto/possible-card-variation.dto';
 
 @Injectable()
 export class CardService {
@@ -118,6 +117,8 @@ export class CardService {
                 cardNumber,
                 uniqueCardId,
                 cardSet: { shortName: cardExpansion },
+                types,
+                colors,
             } = card;
             const { cardAmount, cardAmountFoil } = this.getCardAmount(card);
 
@@ -130,6 +131,8 @@ export class CardService {
                 name,
                 uniqueCardId,
                 cardNumber: ('' + cardNumber).padStart(3, '0'),
+                types,
+                colors,
             });
         }
 
