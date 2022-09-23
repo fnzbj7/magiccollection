@@ -39,4 +39,5 @@ export enum CardColor {
     BLACK = 'B',
     RED = 'R',
     GREEN = 'G',
+    COLORLESS = 'C',
 }

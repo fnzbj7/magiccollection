@@ -8,7 +8,7 @@ export class addingNormalSnc1651003866790 implements MigrationInterface {
     public async up(queryRunner: QueryRunner): Promise<void> {
         const cards = await queryRunner.manager
             .createQueryBuilder<Card>('Card', 'c')
-            .select()
+            .select('c.id')
             .leftJoin(CardSet, 'cs', 'c.card_set_1 = cs.id')
             .where('cs.short_name = :shortName', { shortName: 'SNC' })
             .getMany();

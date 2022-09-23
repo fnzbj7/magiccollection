@@ -468,10 +468,12 @@ export class addDmu1661856164149 implements MigrationInterface {
 
         const cards = await queryRunner.manager
             .createQueryBuilder<Card>('Card', 'c')
-            .select()
+            .select('c.id')
             .leftJoin(CardSet, 'cs', 'c.card_set_1 = cs.id')
             .where('cs.short_name = :shortName', { shortName: this.shortName })
             .getMany();
+
+        console.log({ cards });
 
         const insertDefaultPossibleCards: PossibleCardVariation[] = [];
         cards.forEach(card => {

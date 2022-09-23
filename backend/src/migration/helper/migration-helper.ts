@@ -22,10 +22,10 @@ export class MigrationHelper {
         await queryRunner.manager
             .createQueryBuilder()
             .insert()
-            .into('card')
+            .into<Card>('card', [`id`, `cardNumber`, `name`, `rarity`, `layout`, `cardSet`])
             .values(
                 values.map(card => {
-                    card.cardSet = cardSetId;
+                    card.cardSet = { id: cardSetId };
                     return card;
                 }),
             )
@@ -33,7 +33,7 @@ export class MigrationHelper {
 
         const cardName = await queryRunner.manager
             .createQueryBuilder<Card>('Card', 'a')
-            .select()
+            .select(['name'])
             .leftJoin(UniqueCard, 'b', 'a.name = b.card_name')
             .where('b.id is null')
             .groupBy('a.name')

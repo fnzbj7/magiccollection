@@ -27,6 +27,10 @@
 <ul class="rarity-filter d-inline-block">
   <li class="filter-element" (click)="onChangeColorFilter('W', !isWhite)" [ngClass]="{'active': isWhite}">W</li>
   <li class="filter-element" (click)="onChangeColorFilter('U', !isBlue)" [ngClass]="{'active': isBlue}">U</li>
+  <li class="filter-element" (click)="onChangeColorFilter('B', !isBlack)" [ngClass]="{'active': isBlack}">B</li>
+  <li class="filter-element" (click)="onChangeColorFilter('R', !isRed)" [ngClass]="{'active': isRed}">R</li>
+  <li class="filter-element" (click)="onChangeColorFilter('G', !isGreen)" [ngClass]="{'active': isGreen}">G</li>
+  <li class="filter-element" (click)="onChangeColorFilter('C', !isColorless)" [ngClass]="{'active': isColorless}">C</li>
 </ul>
 <div class="quantity-block ml-4 d-inline-block" *ngIf="isAuth">
     <div class="d-inline-block tooltip-w3 pointer">

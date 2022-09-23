@@ -9,7 +9,7 @@ import {
     ElementRef,
 } from '@angular/core';
 import { MagicCardsListService } from './magic-cards-list.service';
-import { Card } from '../../model/card.model';
+import { Card, CardColor } from '../../model/card.model';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { combineLatestWith, Subscription } from 'rxjs';
@@ -194,10 +194,24 @@ export class MagicCardListComponent implements OnInit, AfterViewInit, OnDestroy 
             this.magicCardsListService.getRarityFilterArray().includes(card.rarity),
         );
 
-        this.filteredCardsArray = this.cardsArray.filter(card =>
+        this.filteredCardsArray = this.cardsArray.filter(card => {
+            let a = [];
+            if (card.colors === '') {
+                a.push(CardColor.COLORLESS);
+            } else {
+                a = card.colors.split(',');
+            }
             // TODO
-            this.magicCardsListService.getColorFilterArray().includes(card.colors),
-        );
+
+            for (let b of a) {
+                const include = this.magicCardsListService.getColorFilterArray().includes(b);
+                if (include) {
+                    return true;
+                }
+            }
+
+            return false;
+        });
 
         switch (this.magicCardsListService.quantityFilterSub.value) {
             case QuantityFilterEnum.ALL:
