@@ -41,6 +41,7 @@ export class Card extends BaseEntity {
         cardSet => cardSet.card,
     )
     @JoinColumn({ name: 'card_set_1' })
+    @Column('int', { name: 'card_set_1' })
     cardSet: CardSet;
 
     @ManyToOne(

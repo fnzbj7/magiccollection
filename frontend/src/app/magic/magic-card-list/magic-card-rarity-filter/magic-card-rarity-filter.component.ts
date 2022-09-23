@@ -24,6 +24,10 @@ export class MagicCardRarityFilterComponent implements OnInit {
     // Color
     isWhite = true;
     isBlue = true;
+    isBlack = true;
+    isRed = true;
+    isGreen = true;
+    isColorless = true;
 
     // Font-Aesome
     faInfoCircle = faInfoCircle;
@@ -107,12 +111,18 @@ export class MagicCardRarityFilterComponent implements OnInit {
             case CardColor.BLUE:
                 this.isBlue = filterChange.changedTo;
                 break;
-            // case CardRarity.Rare:
-            //     this.isRare = filterChange.changedTo;
-            //     break;
-            // case CardRarity.Mythic:
-            //     this.isMythic = filterChange.changedTo;
-            //     break;
+            case CardColor.BLACK:
+                this.isBlack = filterChange.changedTo;
+                break;
+            case CardColor.RED:
+                this.isRed = filterChange.changedTo;
+                break;
+            case CardColor.GREEN:
+                this.isGreen = filterChange.changedTo;
+                break;
+            case CardColor.COLORLESS:
+                this.isColorless = filterChange.changedTo;
+                break;
             default:
                 break;
         }

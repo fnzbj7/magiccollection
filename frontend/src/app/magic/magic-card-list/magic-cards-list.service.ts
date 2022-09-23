@@ -21,7 +21,14 @@ export class MagicCardsListService {
     ];
     rarityFilterChange = new Subject<FilterChange>();
 
-    colorFilterArr: string[] = [CardColor.WHITE, CardColor.BLUE];
+    colorFilterArr: string[] = [
+        CardColor.WHITE,
+        CardColor.BLUE,
+        CardColor.BLACK,
+        CardColor.RED,
+        CardColor.GREEN,
+        CardColor.COLORLESS,
+    ];
     colorFilterChange = new Subject<FilterChange>();
     quantityFilterSub = new BehaviorSubject<QuantityFilterEnum>(QuantityFilterEnum.ALL);
     cardImgUrlBase: string;
