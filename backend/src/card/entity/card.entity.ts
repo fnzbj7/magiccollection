@@ -30,6 +30,12 @@ export class Card extends BaseEntity {
     @Column()
     layout: string;
 
+    @Column()
+    types: string;
+
+    @Column()
+    colors: string;
+
     @ManyToOne(
         () => CardSet, // type
         cardSet => cardSet.card,

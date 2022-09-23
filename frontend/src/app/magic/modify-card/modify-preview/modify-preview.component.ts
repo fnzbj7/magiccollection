@@ -31,6 +31,8 @@ export class ModifyPreviewComponent implements OnChanges {
             layout: CardLayout.NORMAL,
             rarity: 'C',
             name: 'Not relevant',
+            types: '',
+            colors: '',
         }));
 
         this.rawCards = changes.rawModifyCard.currentValue.map(
@@ -42,6 +44,8 @@ export class ModifyPreviewComponent implements OnChanges {
                 layout: CardLayout.NORMAL,
                 rarity: 'C',
                 name: 'Not relevant',
+                types: '',
+                colors: '',
             }),
         );
     }

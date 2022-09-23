@@ -5,6 +5,7 @@ import { CardRarity } from '../../../model/card-rarity.enum';
 import { FilterChange } from '../../../model/filter-change.model';
 import { AuthenticationService } from '../../../auth/authentication.service';
 import { faInfoCircle } from '@fortawesome/free-solid-svg-icons';
+import { CardColor } from 'src/app/model/card.model';
 
 @Component({
     selector: 'app-magic-card-rarity-filter',
@@ -12,6 +13,7 @@ import { faInfoCircle } from '@fortawesome/free-solid-svg-icons';
     styleUrls: ['./magic-card-rarity-filter.component.css'],
 })
 export class MagicCardRarityFilterComponent implements OnInit {
+    // Rarity
     isCommon = true;
     isUncommon = true;
     isRare = true;
@@ -19,6 +21,9 @@ export class MagicCardRarityFilterComponent implements OnInit {
     quantityFilter!: QuantityFilterEnum;
     quantityEnum = QuantityFilterEnum;
     isAuth = false;
+    // Color
+    isWhite = true;
+    isBlue = true;
 
     // Font-Aesome
     faInfoCircle = faInfoCircle;
@@ -30,10 +35,14 @@ export class MagicCardRarityFilterComponent implements OnInit {
 
     ngOnInit() {
         this.quantityFilter = this.magicCardsListService.quantityFilterSub.value;
-        this.initFilterValues(this.magicCardsListService.getfilterArray());
+        this.initFilterValues(this.magicCardsListService.getRarityFilterArray());
 
-        this.magicCardsListService.filterChange.subscribe(change => {
+        this.magicCardsListService.rarityFilterChange.subscribe(change => {
             this.setRarityFilter(change);
+        });
+
+        this.magicCardsListService.colorFilterChange.subscribe(change => {
+            this.setColorFilter(change);
         });
 
         this.authenticationService.currentUserSubject.subscribe(newStatus => {
@@ -47,6 +56,10 @@ export class MagicCardRarityFilterComponent implements OnInit {
 
     onChangeRarityFilter(filterChangeName: string, filterChangeTo: boolean) {
         this.magicCardsListService.changeRarityFilter(filterChangeName, filterChangeTo);
+    }
+
+    onChangeColorFilter(filterChangeName: string, filterChangeTo: boolean) {
+        this.magicCardsListService.changeColorFilter(filterChangeName, filterChangeTo);
     }
 
     initFilterValues(filterArray: string[]) {
@@ -81,6 +94,25 @@ export class MagicCardRarityFilterComponent implements OnInit {
             case CardRarity.Mythic:
                 this.isMythic = filterChange.changedTo;
                 break;
+            default:
+                break;
+        }
+    }
+
+    setColorFilter(filterChange: FilterChange) {
+        switch (filterChange.changeName) {
+            case CardColor.WHITE:
+                this.isWhite = filterChange.changedTo;
+                break;
+            case CardColor.BLUE:
+                this.isBlue = filterChange.changedTo;
+                break;
+            // case CardRarity.Rare:
+            //     this.isRare = filterChange.changedTo;
+            //     break;
+            // case CardRarity.Mythic:
+            //     this.isMythic = filterChange.changedTo;
+            //     break;
             default:
                 break;
         }
