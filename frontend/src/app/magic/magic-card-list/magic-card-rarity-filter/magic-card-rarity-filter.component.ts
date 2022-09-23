@@ -40,6 +40,7 @@ export class MagicCardRarityFilterComponent implements OnInit {
     ngOnInit() {
         this.quantityFilter = this.magicCardsListService.quantityFilterSub.value;
         this.initFilterValues(this.magicCardsListService.getRarityFilterArray());
+        this.initColorFilterValues(this.magicCardsListService.getColorFilterArray());
 
         this.magicCardsListService.rarityFilterChange.subscribe(change => {
             this.setRarityFilter(change);
@@ -81,6 +82,26 @@ export class MagicCardRarityFilterComponent implements OnInit {
         differenceArray = differenceArray.filter(rarity => filterArray.indexOf(rarity) < 0);
         differenceArray.forEach(rarity => {
             this.setRarityFilter(new FilterChange(rarity, false));
+        });
+    }
+
+    initColorFilterValues(filterArray: string[]) {
+        let differenceArray: string[] = [
+            CardColor.WHITE,
+            CardColor.BLUE,
+            CardColor.BLACK,
+            CardColor.RED,
+            CardColor.GREEN,
+            CardColor.COLORLESS,
+        ];
+
+        filterArray.forEach(rarity => {
+            this.setColorFilter(new FilterChange(rarity, true));
+        });
+
+        differenceArray = differenceArray.filter(rarity => filterArray.indexOf(rarity) < 0);
+        differenceArray.forEach(rarity => {
+            this.setColorFilter(new FilterChange(rarity, false));
         });
     }
 
