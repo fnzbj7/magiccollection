@@ -85,6 +85,22 @@ export class MigrationHelper {
             .execute();
     }
 
+    static async colorAndTypeUp(queryRunner: QueryRunner, shortName: string, cardValues: any[]) {
+        // Select all the card,
+        const cards = await queryRunner.manager
+            .createQueryBuilder<Card>(Card, 'c')
+            .innerJoin(CardSet, 'cs', 'cs.id = c.card_set_1')
+            .where('cs.short_name = :shortName', { shortName })
+            .getMany();
+
+        const newList = cardValues.map(s => {
+            const card = cards.find(c => c.cardNumber === s.cardNumber);
+            return { ...card, ...s };
+        });
+
+        await queryRunner.manager.upsert<Card>(Card, newList, ['id']);
+    }
+
     static async colorAndTypeDown(queryRunner: QueryRunner, shortName: string) {
         const cardSet = await queryRunner.manager
             .createQueryBuilder<CardSet>(CardSet, 'cs')

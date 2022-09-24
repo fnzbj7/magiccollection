@@ -194,17 +194,16 @@ export class MagicCardListComponent implements OnInit, AfterViewInit, OnDestroy 
             this.magicCardsListService.getRarityFilterArray().includes(card.rarity),
         );
 
-        this.filteredCardsArray = this.cardsArray.filter(card => {
-            let a = [];
+        this.filteredCardsArray = this.filteredCardsArray.filter(card => {
+            let colorArr = [];
             if (card.colors === '') {
-                a.push(CardColor.COLORLESS);
+                colorArr.push(CardColor.COLORLESS);
             } else {
-                a = card.colors.split(',');
+                colorArr = card.colors.split(',');
             }
-            // TODO
 
-            for (let b of a) {
-                const include = this.magicCardsListService.getColorFilterArray().includes(b);
+            for (let color of colorArr) {
+                const include = this.magicCardsListService.getColorFilterArray().includes(color);
                 if (include) {
                     return true;
                 }
