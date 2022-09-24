@@ -84,4 +84,21 @@ export class MigrationHelper {
             .where('short_name = :shortName', { shortName })
             .execute();
     }
+
+    static async colorAndTypeDown(queryRunner: QueryRunner, shortName: string) {
+        const cardSet = await queryRunner.manager
+            .createQueryBuilder<CardSet>(CardSet, 'cs')
+            .where('cs.short_name = :shortName', { shortName })
+            .getOneOrFail();
+
+        await queryRunner.manager
+            .createQueryBuilder<Card>(Card, 'c')
+            .update()
+            .set({
+                colors: '',
+                types: '',
+            })
+            .where('card_set_1 = :id', { id: cardSet.id })
+            .execute();
+    }
 }
