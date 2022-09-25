@@ -1,5 +1,5 @@
 <div class="container w-full max-w-xs">
-    <div class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 w-96">
+    <div class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 w-80 sm:w-96">
         <div class=" mb-6">
             <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="card-set">Choose a Set:</label>
             <div class="relative">
@@ -33,11 +33,19 @@
             </ul>
         </div>
         <ng-container *ngIf="possibleArr">
-            <div *ngFor="let poss of possibleArr">
-                {{possStrFormat(poss)}}
-            </div>
+            <table class="w-full">
+                <tr>
+                    <th class="border border-indigo-600">Type</th>
+                    <th class="border border-indigo-600">HasNormal</th>
+                    <th class="border border-indigo-600">hasFoil</th>
+                </tr>
+                <tr *ngFor="let poss of possibleArr">
+                    <td class="border border-indigo-600">{{poss.cardVariantType}}</td>
+                    <td class="border border-indigo-600"><input class="mr-2 leading-tight" type="checkbox" [checked]="poss.hasNormal"></td>
+                    <td class="border border-indigo-600"><input class="mr-2 leading-tight" type="checkbox" [checked]="poss.hasFoil"></td>
+                </tr>
+            </table>
         </ng-container>
-        
 
         <ng-container *ngIf="selectedCardNum && cardSet">
             <hr  class="my-3">
