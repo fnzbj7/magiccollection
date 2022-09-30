@@ -10,7 +10,7 @@ import { CardColor } from 'src/app/model/card.model';
 @Component({
     selector: 'app-magic-card-rarity-filter',
     templateUrl: './magic-card-rarity-filter.component.html',
-    styleUrls: ['./magic-card-rarity-filter.component.css'],
+    styleUrls: ['./magic-card-rarity-filter.component.scss'],
 })
 export class MagicCardRarityFilterComponent implements OnInit {
     // Rarity
@@ -95,13 +95,13 @@ export class MagicCardRarityFilterComponent implements OnInit {
             CardColor.COLORLESS,
         ];
 
-        filterArray.forEach(rarity => {
-            this.setColorFilter(new FilterChange(rarity, true));
+        filterArray.forEach(color => {
+            this.setColorFilter(new FilterChange(color, true));
         });
 
-        differenceArray = differenceArray.filter(rarity => filterArray.indexOf(rarity) < 0);
-        differenceArray.forEach(rarity => {
-            this.setColorFilter(new FilterChange(rarity, false));
+        differenceArray = differenceArray.filter(color => filterArray.indexOf(color) < 0);
+        differenceArray.forEach(color => {
+            this.setColorFilter(new FilterChange(color, false));
         });
     }
 

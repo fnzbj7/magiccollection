@@ -1,4 +1,4 @@
-import { Card, CardColor } from '../../model/card.model';
+import { Card, CardColor, CardType } from '../../model/card.model';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, Subject, BehaviorSubject } from 'rxjs';
@@ -13,6 +13,7 @@ import { MagicSetYearBlock } from './model/magic-set-year-block.model';
 
 @Injectable({ providedIn: 'root' })
 export class MagicCardsListService {
+    // RARITY
     rarityFilterArr: string[] = [
         CardRarity.Common,
         CardRarity.Uncommon,
@@ -21,6 +22,7 @@ export class MagicCardsListService {
     ];
     rarityFilterChange = new Subject<FilterChange>();
 
+    // COLOR
     colorFilterArr: string[] = [
         CardColor.WHITE,
         CardColor.BLUE,
@@ -30,6 +32,19 @@ export class MagicCardsListService {
         CardColor.COLORLESS,
     ];
     colorFilterChange = new Subject<FilterChange>();
+
+    // TYPE
+    typeFilterArr: string[] = [
+        CardType.ARTIFACT,
+        CardType.CREATURE,
+        CardType.ENCHANTMENT,
+        CardType.INSTANT,
+        CardType.LAND,
+        CardType.PLANESWALKER,
+        CardType.SORCERY,
+    ];
+    typeFilterChange = new Subject<FilterChange>();
+
     quantityFilterSub = new BehaviorSubject<QuantityFilterEnum>(QuantityFilterEnum.ALL);
     cardImgUrlBase: string;
 
@@ -101,12 +116,19 @@ export class MagicCardsListService {
         return this.http.get<Card[]>(url);
     }
 
+    // RARITY
     getRarityFilterArray(): string[] {
         return [...this.rarityFilterArr];
     }
 
+    // COLOR
     getColorFilterArray(): string[] {
         return [...this.colorFilterArr];
+    }
+
+    // TYPE
+    getTypeFilterArray(): string[] {
+        return [...this.typeFilterArr];
     }
 
     changeRarityFilter(filterChangeName: string, filterChangeTo: boolean) {
@@ -134,6 +156,21 @@ export class MagicCardsListService {
             }
         }
         this.colorFilterChange.next({
+            changedTo: filterChangeTo,
+            changeName: filterChangeName,
+        });
+    }
+
+    changeTypeFilter(filterChangeName: string, filterChangeTo: boolean) {
+        const isInFilterArray = this.typeFilterArr.includes(filterChangeName);
+        if (isInFilterArray !== filterChangeTo) {
+            if (isInFilterArray) {
+                this.typeFilterArr.splice(this.typeFilterArr.indexOf(filterChangeName), 1);
+            } else {
+                this.typeFilterArr.push(filterChangeName);
+            }
+        }
+        this.typeFilterChange.next({
             changedTo: filterChangeTo,
             changeName: filterChangeName,
         });
