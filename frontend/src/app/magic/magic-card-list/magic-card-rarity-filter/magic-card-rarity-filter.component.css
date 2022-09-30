@@ -1,3 +1,9 @@
+:host {
+    display: flex;
+    align-items: flex-end;
+    flex-wrap: wrap;
+}
+
 .rarity-filter .filter-element.active {
     background: #e9e9e9;
     box-shadow: inset 0px 1px 0px rgba(255, 255, 255, 0.8), 0px 1px 3px rgba(0, 0, 0, 0.1);

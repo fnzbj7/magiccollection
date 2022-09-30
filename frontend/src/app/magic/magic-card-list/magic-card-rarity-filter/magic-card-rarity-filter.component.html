@@ -4,7 +4,7 @@
   <li class="filter-element" (click)="onChangeRarityFilter('R', !isRare)" [ngClass]="{'active': isRare}">R</li>
   <li class="filter-element" (click)="onChangeRarityFilter('M', !isMythic)" [ngClass]="{'active': isMythic}">M</li>
 </ul>
-<div class="tooltip-w3">
+<div class="tooltip-w3 mr-4">
   <fa-icon [icon]="faInfoCircle"></fa-icon>
   <span class="right left-md tooltiptext-w3" style="width: 130px; text-align: left;z-index: 25;">
     <ng-container *ngIf="isCommon || isUncommon || isRare || isMythic">
@@ -24,7 +24,7 @@
   </span>
 </div>
 
-<ul class="rarity-filter d-inline-block">
+<ul class="rarity-filter d-inline-block mr-4">
   <li class="filter-element" (click)="onChangeColorFilter('W', !isWhite)" [ngClass]="{'active': isWhite}">W</li>
   <li class="filter-element" (click)="onChangeColorFilter('U', !isBlue)" [ngClass]="{'active': isBlue}">U</li>
   <li class="filter-element" (click)="onChangeColorFilter('B', !isBlack)" [ngClass]="{'active': isBlack}">B</li>
@@ -32,7 +32,7 @@
   <li class="filter-element" (click)="onChangeColorFilter('G', !isGreen)" [ngClass]="{'active': isGreen}">G</li>
   <li class="filter-element" (click)="onChangeColorFilter('C', !isColorless)" [ngClass]="{'active': isColorless}">C</li>
 </ul>
-<div class="quantity-block ml-4 d-inline-block" *ngIf="isAuth">
+<div class="quantity-block d-flex" *ngIf="isAuth">
     <div class="d-inline-block tooltip-w3 pointer">
       <img src="/assets/img/filter/card-all.svg" (click)="onChangeRadio(quantityEnum.ALL)" [ngClass]="{ 'selected' : quantityFilter === quantityEnum.ALL}" class="quantity-img">
       <span class="right left-md tooltiptext-w3">Összes</span>
