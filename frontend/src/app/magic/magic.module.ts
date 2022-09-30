@@ -22,6 +22,7 @@ import { PaginationModule } from '../shared/pagination/pagination.module';
 import { ModifyFormComponent } from './modify-card/modify-form/modify-form.component';
 import { MagicCardListContainerComponent } from './magic-card-list/magic-card-list-container/magic-card-list-container.component';
 import { CardCariationComponent } from './card-variation/card-variation.component';
+import { MagicCardTypeFilterComponent } from './magic-card-list/filters/magic-card-type-filter/magic-card-type-filter.component';
 
 @NgModule({
     declarations: [
@@ -42,6 +43,7 @@ import { CardCariationComponent } from './card-variation/card-variation.componen
         MagicCardAftermathComponent,
         MagicCardNormalComponent,
         CardCariationComponent,
+        MagicCardTypeFilterComponent,
     ],
     entryComponents: [MagicCardModalComponent],
     imports: [

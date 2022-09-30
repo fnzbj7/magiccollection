@@ -32,7 +32,7 @@
   <li class="filter-element" (click)="onChangeColorFilter('G', !isGreen)" [ngClass]="{'active': isGreen}">G</li>
   <li class="filter-element" (click)="onChangeColorFilter('C', !isColorless)" [ngClass]="{'active': isColorless}">C</li>
 </ul>
-<div class="quantity-block d-flex" *ngIf="isAuth">
+<div class="quantity-block mr-4 d-flex" *ngIf="isAuth">
     <div class="d-inline-block tooltip-w3 pointer">
       <img src="/assets/img/filter/card-all.svg" (click)="onChangeRadio(quantityEnum.ALL)" [ngClass]="{ 'selected' : quantityFilter === quantityEnum.ALL}" class="quantity-img">
       <span class="right left-md tooltiptext-w3">Összes</span>
@@ -46,5 +46,6 @@
       <span class="right left-md tooltiptext-w3">Hiányzó</span>
   </div>
 </div>
+<app-magic-card-type-filter></app-magic-card-type-filter>
 
 

@@ -1,0 +1,9 @@
+<ul class="rarity-filter d-inline-block mr-4">
+    <li class="filter-element" (click)="onChangeTypeFilter('Creature', !isCreature)" [ngClass]="{'active': isCreature}">C</li>
+    <li class="filter-element" (click)="onChangeTypeFilter('Sorcery', !isSorcery)" [ngClass]="{'active': isSorcery}">S</li>
+    <li class="filter-element" (click)="onChangeTypeFilter('Instant', !isInstant)" [ngClass]="{'active': isInstant}">I</li>
+    <li class="filter-element" (click)="onChangeTypeFilter('Enchantment', !isEnchantment)" [ngClass]="{'active': isEnchantment}">E</li>
+    <li class="filter-element" (click)="onChangeTypeFilter('Artifact', !isArtifact)" [ngClass]="{'active': isArtifact}">A</li>
+    <li class="filter-element" (click)="onChangeTypeFilter('Planeswalker', !isPlaneswalker)" [ngClass]="{'active': isPlaneswalker}">P</li>
+    <li class="filter-element" (click)="onChangeTypeFilter('Land', !isLand)" [ngClass]="{'active': isLand}">L</li>
+  </ul>
