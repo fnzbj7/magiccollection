@@ -10,6 +10,7 @@ export class MigrationHelper {
         name: string,
         shortName: string,
         values: any[],
+        cardColumns: string[] = [`id`, `cardNumber`, `name`, `rarity`, `layout`, `cardSet`],
     ) {
         const insertResult: InsertResult = await queryRunner.manager
             .createQueryBuilder()
@@ -22,7 +23,7 @@ export class MigrationHelper {
         await queryRunner.manager
             .createQueryBuilder()
             .insert()
-            .into<Card>('card', [`id`, `cardNumber`, `name`, `rarity`, `layout`, `cardSet`])
+            .into<Card>('card', cardColumns)
             .values(
                 values.map(card => {
                     card.cardSet = { id: cardSetId };
